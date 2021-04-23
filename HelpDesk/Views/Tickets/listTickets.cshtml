@@ -1,0 +1,68 @@
+﻿
+
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
+
+@model Entities.Entities.Ticket
+@{
+    ViewData["Title"] = "DashBoardAdmin";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-xl-3 col-md-6">
+        <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+            <div class="input-group">
+                <input class="form-control" type="text" placeholder=@localizer["Search_for..."] aria-label=@localizer["Search"] aria-describedby="basic-addon2" />
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-xl-3 col-md-6">
+        <a class="dx-btn dx-btn-lg mt-10">@localizer["Add_ticket"]</a>
+    </div>
+</div>
+
+
+<div class="card mb-4">
+    <div class="card-header">
+        <i class="fas fa-table mr-1"></i>
+        tickets Table
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th><label asp-for="ticketId"></label></th>
+                        <th><label asp-for="ticketTitle"></label></th>
+                        <th><label asp-for="ticketDescription"></label></th>
+                        <th><label asp-for="ticketStatut"></label></th>
+                        <th><label asp-for="ticketPriority"></label></th>
+                        <th><label asp-for="ticketDate"></label></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var ticket in ViewBag.ListTickets)
+                    {
+                        <tr>
+                            <td> @ticket.ticketId</td>
+                            <td> @ticket.ticketTitle </td>
+                            <td> @ticket.ticketDescription</td>
+                            <td> @ticket.ticketStatut</td>
+                            <td> @ticket.ticketPriority</td>
+                            <td> @ticket.ticketDate</td>
+
+
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

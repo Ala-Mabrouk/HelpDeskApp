@@ -1,0 +1,92 @@
+﻿
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
+
+
+
+@model Entities.Entities.Person
+
+<div id="layoutSidenav_nav">
+    <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+        <div class="sb-sidenav-menu">
+            <div class="nav">
+
+                <a class="nav-link" asp-action="DashBoardAdmin">
+
+                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                    @localizer["Dashboard"]
+                </a>
+
+
+                @if (Model.role.roleName.Equals("Admin") || Model.role.roleName.Equals("SupperAdmin"))
+                {
+
+
+                    <a class="nav-link collapsed" href="#collapseLayouts" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                        <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                        @localizer["users"]
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                    </a>
+                    <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" asp-action="ShowUsers">@localizer["Agents"]</a>
+                            @if (Model.role.roleName.Equals("SupperAdmin"))
+                            {
+                                <a class="nav-link">
+                                    @localizer["Admins"]
+                                </a>
+                            }
+                        </nav>
+                    </div>
+                }
+
+                <a class="nav-link" asp-action="listTickets" asp-controller="Tickets">
+                    <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                    @localizer["Manage_Tickets"]
+                </a>
+                <a class="nav-link">
+                    <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                    @localizer["Knowledge_Base"]
+                </a>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                    <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                    Configs
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                @*                <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                                AppConfig
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="login.html">----</a>
+                                    <a class="nav-link" href="register.html">*****</a>
+                                    <a class="nav-link" href="password.html">######</a>
+                                </nav>
+                            </div>
+                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
+                                Error-Pages
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="401.html">401 Page</a>
+                                    <a class="nav-link" href="404.html">404 Page</a>
+                                    <a class="nav-link" href="500.html">500 Page</a>
+                                </nav>
+                            </div>
+                        </nav>
+                    </div>*@
+
+
+            </div>
+        </div>
+
+    </nav>
+
+</div>
+
+
+

@@ -1,0 +1,411 @@
+﻿
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@inject IViewLocalizer localizer
+
+@model Entities.Entities.Client
+
+
+
+<!DOCTYPE html>
+<html lang="en" dir="@(System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft ? "rtl" : "ltr")">
+<head>
+    <title>@ViewData["Title"] home page</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+
+
+    
+
+
+
+    <link rel="icon" type="image/png" href="/Content/lib/images/favicon.png">
+
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    @*START: Styles
+        Google Fonts*@
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,600,700%7cMaven+Pro:400,500,700" rel="stylesheet">
+    @*Bootstrap*@
+
+    <link rel="stylesheet" href="/Content/lib/bootstrap/dist/css/bootstrap.min.css">
+
+    @*Fancybox*@
+    <link rel="stylesheet" href="/Content/lib/fancybox/dist/jquery.fancybox.min.css">
+
+    @*Pe icon 7 stroke*@
+    <link rel="stylesheet" href="/Content/lib/pixeden-stroke-7-icon/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
+
+    @*Swiper*@
+    <link rel="stylesheet" type="text/css" href="/Content/lib/swiper/dist/css/swiper.min.css">
+
+    @*Bootstrap Select*@
+    <link rel="stylesheet" type="text/css" href="/Content/lib/bootstrap-select/dist/css/bootstrap-select.min.css">
+
+    @*Dropzone*@
+    <link rel="stylesheet" type="text/css" href="/Content/lib/dropzone/dist/min/dropzone.min.css">
+
+    @*Quill*@
+
+    <link rel="stylesheet" type="text/css" href="/Content/lib/quill/dist/quill.snow.css">
+
+    @*Font Awesome*@
+    <script defer src="/Content/lib/fontawesome-free/js/all.js"></script>
+    <script defer src="/Content/lib/fontawesome-free/js/v4-shims.js"></script>
+
+    @*    Amdesk*@
+    <link rel="stylesheet" href="/Content/css/site.css">
+
+
+    @*END: Styles *@
+
+        @*jQuery*@
+    <script src="/Content/lib/jquery/dist/jquery.min.js"></script>
+
+
+</head>
+<body>
+
+
+    <nav class="dx-navbar dx-navbar-top dx-navbar-collapse dx-navbar-sticky dx-navbar-expand-lg dx-navbar-dropdown-triangle dx-navbar-autohide">
+        <div class="container">
+
+            <a asp-action="index" asp-controller="Home" class="dx-nav-logo">
+                <img src="/Content/images/logo.svg" alt="" width="88px">
+            </a>
+
+
+            <button class="dx-navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <div class="dx-navbar-content">
+
+
+
+                <ul class="dx-nav dx-nav-align-left">
+
+
+                    <li class="dx-drop-item">
+                        <a href="blog.html">
+                            @localizer["Support"]
+                        </a>
+                    </li>
+                    <li class="dx-drop-item">
+                        <a  asp-action="Index" asp-controller="Tickets">
+                            @localizer["My_tickets"]
+                        </a>
+                    </li>
+                    <li class="dx-drop-item">
+                        <a asp-action="addTicket" asp-controller="Tickets">
+                            @localizer["Submit_ticket"]
+                        </a>
+                    </li>
+                    <li class="dx-drop-item">
+                        <a href="articles.html">
+                            @localizer["Knowledge_Base"]
+                        </a>
+                    </li>
+                </ul>
+
+                <ul class="dx-nav dx-nav-align-right">
+                    @if (@HttpContextAccessor.HttpContext.Session.GetInt32("userID") != null)
+                    {
+
+                        @await Component.InvokeAsync("NavBarWithLog")
+
+                    }
+                    else
+                    {
+                        <li>
+                            <a data-fancybox data-touch="false" data-close-existing="true" data-src="#login" href="javascript:;">@localizer["Log_In"]</a>
+                        </li>
+                        <li>
+                            <span><a data-fancybox data-touch="false" data-close-existing="true" data-src="#signup" href="javascript:;" class="dx-btn dx-btn-md dx-btn-transparent">@localizer["Sign_Up"]</a></span>
+                        </li>
+                        <li>
+                            @await Html.PartialAsync("_CulturePartial")
+                        </li>
+                    }
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dx-navbar dx-navbar-fullscreen">
+        <div class="container">
+            <button class="dx-navbar-burger">
+                <span></span><span></span><span></span>
+            </button>
+            <div class="dx-navbar-content">
+
+                <ul class="dx-nav dx-nav-align-left">
+
+
+                    <li class="dx-drop-item">
+                        <a href="blog.html">
+                            @localizer["Support"]
+                        </a>
+                    </li>
+                    <li class="dx-drop-item">
+                        <a  asp-action="Index" asp-controller="Tickets">
+                            @localizer["My tickets"]
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-action="addTicket" asp-controller="Tickets">
+                            @localizer["Submit ticket"]
+                        </a>
+                    </li>
+                    <li class="dx-drop-item">
+                        <a href="articles.html">
+                            @localizer["Knowledge Base"]
+                        </a>
+                    </li>
+                </ul>
+
+                <ul class="dx-nav dx-nav-align-right">
+                    @if (@HttpContextAccessor.HttpContext.Session.GetInt32("userID") != null)
+                    {
+                        @await Component.InvokeAsync("NavBarWithLog")
+
+                    }
+                    else
+                    {
+                        <li>
+                            <a data-fancybox data-touch="false" data-close-existing="true" data-src="#login" href="javascript:;">@localizer["Log_In"]</a>
+                        </li>
+                        <li>
+                            <span><a data-fancybox data-touch="false" data-close-existing="true" data-src="#signup" href="javascript:;" class="dx-btn dx-btn-md dx-btn-transparent">@localizer["Sign_Up"]</a></span>
+                        </li>
+                        <li>
+                            @await Html.PartialAsync("_CulturePartial")
+                        </li>
+                    }
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <header class="dx-header dx-box-1">
+        <div class="container">
+            <div class="bg-image bg-image-parallax">
+                <img src="assets/images/bg-header-4.png" class="jarallax-img" alt="">
+                <div style="background-color: rgba(27, 27, 27, .8);"></div>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-xl-7">
+                    <h1 class="h2 mb-30 text-white text-center">@localizer["Q1"]</h1>
+                    <form action="#" class="dx-form dx-form-group-inputs">
+                        <input type="text" name="" value="" class="form-control" placeholder="@localizer["search_place_hoder"]">
+                        <button class="dx-btn dx-btn-lg">@localizer["search_button"]</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+
+
+    <div class="dx-box bg-white">
+        <div class="container">
+            <ul class="dx-links text-center">
+                <li><a href="help-center.html"> @localizer["Support"]</a></li>
+                <li><a  asp-action="Index" asp-controller="Tickets">@localizer["My tickets"]</a></li>
+                <li><a  asp-action="addTicket" asp-controller="Tickets">@localizer["Submit ticket"]</a></li>
+                <li><a href="forums.html">@localizer["Knowledge Base"]</a></li>
+
+            </ul>
+        </div>
+    </div>
+    <div class="dx-separator"></div>
+
+
+
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2021 - HelpDesk - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+
+
+    @*THE LOGIN BLOC*@
+    <div class="dx-popup dx-popup-signin" id="login">
+
+        <button type="button" data-fancybox-close class="fancybox-button fancybox-close-small" title="Close"><svg xmlns="http://www.w3.org/2000/svg" version="1" viewBox="0 0 24 24"><path d="M13 12l5-5-1-1-5 5-5-5-1 1 5 5-5 5 1 1 5-5 5 5 1-1z"></path></svg></button>
+        <div class="dx-signin-content dx-signin text-center">
+            <h1 class="h3 text-white mb-30">@localizer["Log In"]</h1>
+
+
+
+            <form class="dx-form" asp-action="Log_in" asp-controller="Home" method="Post">
+
+                <div class="dx-form-group-md">
+                    <input type="text" asp-for="Email" class="form-control form-control-style-4" placeholder="@Html.DisplayNameFor(m => m.Email)">
+
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="dx-form-group-md">
+                    <input type="password" asp-for="Password" class="form-control form-control-style-4" placeholder="@Html.DisplayNameFor(m => m.Password)">
+               
+                </div>
+                <div class="dx-form-group-md">
+                    <input type="submit" class="dx-btn dx-btn-block dx-btn-popup" value=@localizer["Log_In"] />
+                </div>
+                <div class="dx-form-group-md">
+                    <div class="d-flex justify-content-between">
+                        <a data-fancybox data-touch="false" data-close-existing="true" data-src="#reset-password" href="javascript:;">@localizer["Reset_your_password"]</a>
+                        <a data-fancybox data-touch="false" data-close-existing="true" data-src="#signup" href="javascript:;"> @localizer["Sign_Up"]</a>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+
+    @*THE SIGNUP BLOC*@
+
+    <div class="dx-popup dx-popup-signin" id="signup">
+        <button type="button" data-fancybox-close class="fancybox-button fancybox-close-small" title="Close"><svg xmlns="http://www.w3.org/2000/svg" version="10" viewBox="0 0 24 24"><path d="M13 12l5-5-1-1-5 5-5-5-1 1 5 5-5 5 1 1 5-5 5 5 1-1z"></path></svg></button>
+        <div class="dx-popup-content dx-signin text-center">
+
+            <h1 class="h3 text-white mb-30">@localizer["Sign_Up"]</h1>
+
+            <form class="dx-form" asp-action="Sign_Up" asp-controller="Home">
+
+                <div class="dx-form-group-md">
+                    <input type="text" asp-for="FirstName" class="form-control form-control-style-4" placeholder="@Html.DisplayNameFor(m=>m.FirstName)">
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+                <div class="dx-form-group-md">
+                    <input type="text" asp-for="LastName" class="form-control form-control-style-4" placeholder="@Html.DisplayNameFor(m=>m.LastName)">
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+                <div class="dx-form-group-md">
+                    <input type="text" asp-for="Email" class="form-control form-control-style-4" placeholder="@Html.DisplayNameFor(m=>m.Email)">
+
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="dx-form-group-md">
+                    <input type="password" asp-for="Password" class="form-control form-control-style-4"
+                           placeholder="@Html.DisplayNameFor(m=>m.Password)">
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+
+                <div class="dx-form-group-md">
+                    <input type="text" asp-for="Phone" class="form-control form-control-style-4" placeholder="@Html.DisplayNameFor(m=>m.Phone)">
+                    <span asp-validation-for="Phone" class="text-danger"></span>
+                </div>
+
+                <input type="hidden" asp-for="roleId" value=3 />
+
+                <div class="dx-form-group-md">
+                    <input type="submit" class="dx-btn dx-btn-block dx-btn-popup" value="@localizer["Sign_Up"]" />
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+
+    @*THE RESET PASS BLOC*@
+    <div class="dx-popup dx-popup-signin" id="reset-password">
+        <button type="button" data-fancybox-close class="fancybox-button fancybox-close-small" title="Close"><svg xmlns="http://www.w3.org/2000/svg" version="1" viewBox="0 0 24 24"><path d="M13 12l5-5-1-1-5 5-5-5-1 1 5 5-5 5 1 1 5-5 5 5 1-1z"></path></svg></button>
+        <div class="dx-popup-content dx-signin text-center">
+            <h1 class="h3 text-white mb-30">@localizer["Reset_your_password"]</h1>
+
+            <form action="#" class="dx-form">
+                <div class="dx-form-group-md">
+                    <input type="text" asp-for="Email" class="form-control form-control-style-4" placeholder="@Html.DisplayNameFor(m=>m.Email)">
+
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="dx-form-group-md">
+                    <button class="dx-btn dx-btn-block dx-btn-popup">@localizer["Reset_your_password"]</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+    @* START: Scripts 
+     Object Fit Images *@
+    <script src="/Content/lib/object-fit-images/dist/ofi.min.js"></script>
+
+   @* Popper *@
+
+    <script src="/Content/lib/popper.js/dist/umd/popper.min.js"></script>
+
+   @* Bootstrap *@
+    <script src="/Content/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+
+   @* Fancybox *@
+    <script src="/Content/lib/fancybox/dist/jquery.fancybox.min.js"></script>
+
+   @* Cleave *@
+    <script src="/Content/lib/cleave.js/dist/cleave.min.js"></script>
+
+   @* Validator *@
+   <script src="/Content/lib/validator/validator.min.js"></script>
+
+   @* Sticky Kit *@
+    <script src="/Content/lib/sticky-kit/dist/sticky-kit.min.js"></script>
+
+   @* Jarallax *@
+    <script src="/Content/lib/jarallax/dist/jarallax.min.js"></script>
+    <script src="/Content/lib/jarallax/dist/jarallax-video.min.js"></script>
+
+   @* Isotope *@
+    <script src="/Content/lib/isotope-layout/dist/isotope.pkgd.min.js"></script>
+
+   @* ImagesLoaded *@
+    <script src="/Content/lib/imagesloaded/imagesloaded.pkgd.min.js"></script>
+
+   @* Swiper *@
+    <script src="/Content/lib/swiper/dist/js/swiper.min.js"></script>
+
+   @* Gist Embed *@
+    <script src="/Content/lib/gist-embed/gist-embed.min.js"></script>
+
+   @* Bootstrap Select *@
+    <script src="/Content/lib/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+
+   @* Dropzone *@
+    <script src="/Content/lib/dropzone/dist/min/dropzone.min.js"></script>
+
+   @* Quill *@
+    <script src="/Content/lib/quill/dist/quill.min.js"></script>
+
+   @* The Amdesk *@
+    <script src="/Content/js/amdesk-init.js"></script>
+    <script src="/Content/js/amdesk.min.js"></script>
+
+    <script src="/Content/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+
+    <script src="/Content/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+   @* END: Scripts *@
+
+</body>
+</html>

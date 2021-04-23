@@ -1,0 +1,30 @@
+﻿
+@model Entities.Entities.Client
+
+
+@{
+    ViewData["Title"] = "update permission";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    
+}
+
+<h1>Agent Permissions for @Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.FirstName)</h1>
+
+
+<form method="post" asp-action="validatePermissions" asp-controller="Admin">
+
+
+    @foreach (var item in ViewBag.Permissions)
+    {
+        Boolean test = false;
+        if (ViewBag.ClientPermission.Contains(item))
+        {
+            test = true;
+        }
+      
+        <input name="AreChecked" type="checkbox" value="@item.permissionId" checked=@test   /> 
+        @item.permissionName<br />
+    }
+    <input type="hidden" name="agentId" value="@Model.Id" />
+    <button type="submit">Click</button>
+</form>

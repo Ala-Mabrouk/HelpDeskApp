@@ -1,0 +1,62 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
+
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+
+<div class="dx-box-5 bg-grey-6">
+    <div class="container">
+
+        <div class="row align-items-center justify-content-between vertical-gap mnt-30 sm-gap mb-50">
+            <div class="col-auto">
+                <h2 class="h4 mb-0 mt-0">@localizer["My_Tickets"]</h2>
+            </div>
+            <div class="col pl-30 pr-30 d-none d-sm-block">
+                <div class="dx-separator ml-10 mr-10"></div>
+            </div>
+            <div class="col-auto">
+                <a asp-action="addTicket" asp-controller="Tickets" class="dx-btn dx-btn-md">@localizer["Submit_a_ticket"]</a>
+            </div>
+        </div>
+
+
+        @foreach (var item in ViewBag.MyTickets)
+        {
+
+
+            <a asp-action="singleTicketInfo" asp-route-ticketid="@item.ticketId" asp-controller="Tickets" class="dx-ticket-item dx-ticket-new dx-ticket-open dx-block-decorated">
+                <span class="dx-ticket-img">
+
+                    <img src=@item.c_person.ThumbUrl alt="user thumbUrl">
+                </span>
+
+                <span class="dx-ticket-cont">
+
+                    <span class="dx-ticket-title h5">
+                        @item.ticketTitle
+                    </span>
+
+                    <ul class="dx-ticket-info">
+
+                        <li>Created: @item.ticketDate</li>
+
+                        <li>Priority: @item.ticketPriority</li>
+
+                    </ul>
+                </span>
+                <span class="dx-ticket-status">
+                    @item.ticketStatut
+                </span>
+
+            </a>
+        }
+
+
+    </div>
+</div>
+<div class="dx-separator"></div>
+

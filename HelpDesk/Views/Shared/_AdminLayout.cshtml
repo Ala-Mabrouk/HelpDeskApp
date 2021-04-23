@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>@ViewData["Title"] Amdesk-ADMIN_HOME</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel="icon" type="image/png" href="/Content/lib/images/favicon.png">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- START: Styles -->
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,600,700%7cMaven+Pro:400,500,700" rel="stylesheet"><!-- %7c -->
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="/Content/lib/bootstrap/dist/css/bootstrap.min.css">
+
+    <!-- Bootstrap Select -->
+    <link rel="stylesheet" type="text/css" href="/Content/lib/bootstrap-select/dist/css/bootstrap-select.min.css">
+
+    <!-- Font Awesome -->
+    <script defer src="/Content/lib/fontawesome-free/js/all.js"></script>
+    <script defer src="/Content/lib/fontawesome-free/js/v4-shims.js"></script>
+
+    <!-- Amdesk -->
+    <link rel="stylesheet" href="/Content/css/site.css">
+    <link href="/Content/css/costum.css" rel="stylesheet" />
+
+
+    <!-- for tables -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+
+    <!-- END: Styles -->
+    <!-- jQuery -->
+    <script src="/Content/lib/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#dataTable').DataTable();
+        });
+    </script>
+</head>
+
+
+<body>
+    <nav class="dx-navbar dx-navbar-top dx-navbar-collapse dx-navbar-sticky dx-navbar-expand-lg dx-navbar-dropdown-triangle dx-navbar-autohide">
+        <div class="container">
+
+            <a href="index.html" class="dx-nav-logo">
+                <img src="/Content/images/logo.svg" alt="" width="88px">
+            </a>
+
+
+            <div class="dx-navbar-content">
+
+                @await Component.InvokeAsync("NavBarWithLog");
+
+            </div>
+        </div>
+    </nav>
+    <div class="dx-navbar dx-navbar-fullscreen">
+        <div class="container">
+            <button class="dx-navbar-burger">
+                <span></span><span></span><span></span>
+            </button>
+            <div class="dx-navbar-content">
+
+
+                @await Component.InvokeAsync("NavBarWithLog");
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <div id="layoutSidenav">
+        @await Component.InvokeAsync("SideNavbarAdmin")
+
+        <div id="layoutSidenav_content">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+
+    </div>
+
+
+
+    <!-- START: Scripts -->
+    <!-- Popper -->
+
+    <script src="/Content/lib/popper.js/dist/umd/popper.min.js"></script>
+
+    <!-- Bootstrap -->
+    <script src="/Content/lib/bootstrap/dist/js/bootstrap.js"></script>
+
+    <!-- Bootstrap Select -->
+    <script src="/Content/lib/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+
+
+    <!-- The Amdesk -->
+    <script src="/Content/js/amdesk-init.js" asp-append-version="true"></script>
+    <script src="/Content/js/amdesk.min.js" asp-append-version="true"></script>
+
+    <!-- for table -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
+
+    <!-- END: Scripts -->
+
+
+</body>
+</html>

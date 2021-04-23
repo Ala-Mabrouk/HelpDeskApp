@@ -1,0 +1,9 @@
+﻿
+
+<form method="post" asp-action="showme" asp-controller="Home">
+    @for (var i = 1; i <= 10; i++)
+    {
+        <input name="AreChecked" type="checkbox" value="@i" /> @i<br />
+    }
+    <button>Click</button>
+</form>

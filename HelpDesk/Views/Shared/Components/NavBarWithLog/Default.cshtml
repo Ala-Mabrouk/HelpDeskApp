@@ -1,0 +1,8 @@
+﻿
+
+<ul class="dx-nav dx-nav-align-right">
+    <li><span><a class="dx-btn dx-btn-md dx-btn-transparent">@ViewBag.userLoged</a></span></li>
+    <li><span><a class="dx-btn dx-btn-md dx-btn-transparent" asp-action="log_out" asp-controller="Home"> log-out</a></span></li>
+    <li>@await Html.PartialAsync("_CulturePartial")</li>
+
+</ul>
