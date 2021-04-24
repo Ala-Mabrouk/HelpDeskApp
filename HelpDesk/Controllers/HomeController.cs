@@ -46,6 +46,8 @@ namespace HelpDesk.Controllers
             return View();
         }
 
+
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
@@ -60,6 +62,7 @@ namespace HelpDesk.Controllers
 
             if (ModelState.IsValid)
             {
+                
                 Client cl1 = (Client)_ClientCRUD.SignUp(_cl);
 
                 if (cl1 != null)
@@ -72,7 +75,6 @@ namespace HelpDesk.Controllers
 
 
             return RedirectToAction("Erreur", "Home");
-
 
 
         }
@@ -101,11 +103,10 @@ namespace HelpDesk.Controllers
                 }
 
             }
+            //need to be changed to logerreur page
 
             return RedirectToAction("Index", "Home");
         }
-
-
 
 
         public IActionResult log_out()
@@ -115,7 +116,6 @@ namespace HelpDesk.Controllers
             HttpContext.Session.Remove("userRole");
 
             return RedirectToAction("Index", "Home");
-
 
         }
 

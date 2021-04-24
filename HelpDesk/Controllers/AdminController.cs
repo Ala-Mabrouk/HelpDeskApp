@@ -15,7 +15,7 @@ namespace HelpDesk.Controllers
     {
 
 
-        //creation of instance from AppFeatures.ClientCRUD
+        //creation of instance from AppFeatures
 
         private readonly ClientService _ClientCRUD = new ClientService();
         private readonly AppFunctions _AppFunctions = new AppFunctions();
@@ -38,6 +38,8 @@ namespace HelpDesk.Controllers
                 return View();
 
             }
+
+            ///need verif log_page
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
 
 
@@ -46,6 +48,10 @@ namespace HelpDesk.Controllers
         public ActionResult ShowUsers()
         {
             List<Person> agentsList = _AdminFunctions.ShowAgents();
+            if (agentsList == null)
+            {
+                //rederect to erreur page for vase erreur
+            }
             ViewBag.agentsList = agentsList;
 
             return View();
@@ -80,10 +86,14 @@ namespace HelpDesk.Controllers
             var numbers = a.Split(',').Select(Int32.Parse).ToList();
 
             int b = Int16.Parse(Request.Form["agentID"]);
-
             _AdminFunctions.changePermissions(numbers, b);
 
+            //if (_AdminFunctions.changePermissions(numbers, b))
+
             return RedirectToAction("DashBoardAdmin", "Admin");
+
+            //need errer page for baseErreur
+
         }
 
 

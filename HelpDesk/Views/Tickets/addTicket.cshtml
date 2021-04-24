@@ -61,7 +61,7 @@
                             </div>
                             <div class="dx-form-group">
                                 <label asp-for="ticketDescription" class="mnt-7"></label>
-                                <input type="text" height="150" asp-for="ticketDescription" class="form-control form-control-style-2" placeholder=@localizer["Description"]>
+                                <textarea  asp-for="ticketDescription" class="form-control form-control-style-2" placeholder=@localizer["Description"]></textarea>
                                 <span asp-validation-for="ticketDescription" class="text-danger"></span>
                                 @*  <div class="dx-editor-quill">
                                         <div class="dx-editor" data-editor-height="150" data-editor-maxHeight="250"></div>

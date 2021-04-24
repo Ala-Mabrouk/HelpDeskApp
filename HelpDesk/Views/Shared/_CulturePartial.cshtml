@@ -18,9 +18,10 @@
           asp-action="SetCulture"
           asp-route-returnUrl="@returnUrl"
           method="post"
-          class="form-horizontal nav-link text-dark"
+          
           role="form">
         <select name="culture"
+                class="custom-select custom-select-sm"
                 onchange="this.form.submit();"
                 asp-for="@requestCulture.RequestCulture.UICulture.Name"
                 asp-items="cultureItems">

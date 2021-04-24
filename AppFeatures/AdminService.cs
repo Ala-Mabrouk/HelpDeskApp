@@ -27,29 +27,32 @@ namespace AppFeatures
             return res;
         }
 
-        public void changePermissions(List<int> lp, int id)
-        {      //we will make like an overrride
-            //remove old userpermissions 
-            var a = _context.UserPermissions.Where(c => c.personId == id).ToList();
-            foreach (var item in a)
+        public Boolean changePermissions(List<int> lp, int id)
+        {
+            try
             {
-                System.Diagnostics.Debug.WriteLine(item.permision.permissionName);
-            }
-            _context.UserPermissions.RemoveRange(a);
-            _context.SaveChanges();
-            a = _context.UserPermissions.Where(c => c.personId == id).ToList();
-            if (a.Count() == 0)
-            {
-                System.Diagnostics.Debug.WriteLine("list of old is deleted");
-            }
-            //saving new permissions
-            foreach (var item in lp)
-            {
-                _context.Add(new UserPermission { personId = id, permisionId = item });
+                //we will make like an overrride
+                //remove old userpermissions 
+                var a = _context.UserPermissions.Where(c => c.personId == id).ToList();
+                _context.UserPermissions.RemoveRange(a);
                 _context.SaveChanges();
+
+
+                //saving new permissions
+                foreach (var item in lp)
+                {
+                    _context.Add(new UserPermission { personId = id, permisionId = item });
+                    _context.SaveChanges();
+                }
+
+                return true;
+
             }
-
-
+            catch(Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e);
+                return false;
+            }
         }
 
     }

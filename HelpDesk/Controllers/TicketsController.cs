@@ -34,7 +34,7 @@ namespace HelpDesk.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult addTicket(Ticket ticket)
         {
-            if (true)
+            if (verifLog()>0)
             {
                 if (ModelState.IsValid)
                 {
@@ -42,7 +42,7 @@ namespace HelpDesk.Controllers
                     ticket.ticketPriority = TicketPriority.Medium;
                     ticket.ticketStatut = TicketStatus.Distributed;
                     ticket.ticketDate = DateTime.Now;
-                    ticket.personId = (int)HttpContext.Session.GetInt32("userId");
+                    ticket.personId = verifLog();
 
                     
                     _PersonService.createTicket(ticket);
@@ -64,8 +64,6 @@ namespace HelpDesk.Controllers
         {
             int userid = (int)HttpContext.Session.GetInt32("userID");
             ViewBag.MyTickets = _AppFunctions.getTicketsByUser(userid);
-
-
 
         }
         public IActionResult listTickets()
