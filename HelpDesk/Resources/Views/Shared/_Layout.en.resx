@@ -141,6 +141,9 @@
   <data name="Reset_your_password" xml:space="preserve">
     <value>Reset your password</value>
   </data>
+  <data name="rights" xml:space="preserve">
+    <value>All rights reserved</value>
+  </data>
   <data name="search_button" xml:space="preserve">
     <value>Search</value>
   </data>
@@ -158,5 +161,8 @@
   </data>
   <data name="Support" xml:space="preserve">
     <value>Support</value>
+  </data>
+  <data name="Useful_Links" xml:space="preserve">
+    <value>Useful Links</value>
   </data>
 </root>

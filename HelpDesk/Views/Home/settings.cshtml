@@ -1,0 +1,127 @@
+﻿
+@model Entities.Entities.Person
+
+
+
+
+<span class="dx-alert-danger">@ViewBag.erreurChanging</span>
+
+<div class="dx-box-decorated">
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="nav-permissions-tab" data-toggle="tab" href="#nav-permissions" role="tab" aria-controls="nav-permissions" aria-selected="true">Info Personel</a>
+            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Change Password</a>
+        </div>
+    </nav>
+
+    <div class="tab-content dx-box-decorated" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-permissions" role="tabpanel" aria-labelledby="nav-permissions-tab">
+
+            <div class="dx-box-decorated">
+
+                <form asp-action="settings" asp-controller="Home" method="post" class="dx-form">
+                    <div class="dx-box-content">
+                        <table cellpadding="3px">
+
+                            <tr>
+                                <td><label asp-for="FirstName" class="mnt-7"></label></td>
+                                <td>
+                                    <input type="text" asp-for="FirstName" class="form-control form-control-style-2" id="first-name" value=@Model.FirstName>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td><label asp-for="LastName" class="mnt-7"></label></td>
+                                <td>
+                                    <input type="text" asp-for="LastName" class="form-control form-control-style-2" id="last-name" value=@Model.LastName>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td><label asp-for="Email" class="mnt-7"></label></td>
+                                <td>
+                                    <input type="email" aria-describedby="emailHelp" asp-for="Email" class="form-control form-control-style-2" id="email-address" value=@Model.Email>
+                                </td>
+                            </tr>
+                            <tr>
+                                @*                <tr>
+                                        <td><label asp-for="Password" class="mnt-7"></label></td>
+                                        <td>
+                                            <input type="password" aria-describedby="emailHelp" asp-for="Password" class="form-control form-control-style-2" id="email-address" placeholder="new password">
+                                        </td>
+                                    </tr>*@
+                            <tr>
+                                <td><label asp-for="Phone" class="mnt-7"></label></td>
+                                <td>
+                                    <input type="text" asp-for="Phone" class="form-control form-control-style-2" id="zip" value=@Model.Phone>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> <label asp-for="HomeAdresse" class="mnt-7"></label></td>
+                                <td>
+                                    <input type="text" asp-for="HomeAdresse" class="form-control form-control-style-2" id="city" value=@Model.HomeAdresse>
+                                    <input type="hidden" asp-for="Id" class="form-control form-control-style-2" id="city" value=@Model.Id>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                <td></td>
+                                <td>
+                                    <button type="submit" class="dx-btn-dark dx-btn-xl dx-btn-block">Save Changes</button>
+                                </td>
+                                </td>
+                            </tr>
+
+
+
+                        </table>
+
+                    </div>
+                </form>
+
+            </div>
+        </div>
+        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+            <div class="dx-box-decorated">
+                <form asp-action="changePassword" asp-controller="Home" method="post" class="dx-form">
+                    <div class="dx-box-content">
+                        <table cellpadding="3px">
+
+                            <tr>
+                                <td><label class="mnt-7">old password</label></td>
+                                <td>
+                                    <input type="password" name="oldPass" class="form-control form-control-style-2" id="first-name">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><label asp-for="Password" class="mnt-7">new password</label></td>
+                                <td>
+                                    <input type="password" name="newPass" class="form-control form-control-style-2" id="first-name">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                <td></td>
+                                <td>
+                                    <button type="submit" class="dx-btn-dark dx-btn-xl dx-btn-block">Save Changes</button>
+                                </td>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                <td>
+                                    <button type="reset" class="dx-btn-dark dx-btn-xl dx-btn-block">Cancel</button>
+                                </td>
+                                <td></td>
+                                </td>
+                            </tr>
+
+                        </table>
+
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    </div>

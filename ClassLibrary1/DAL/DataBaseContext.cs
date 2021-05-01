@@ -1,13 +1,14 @@
 ﻿
 using Entities.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
- 
+
 
 namespace Entity_DAL.DAL
 
 {
     //This class will allow us to interact with our database
-    public class DataBaseContext : DbContext
+    public class DataBaseContext 
 
     {
         //this class to intiate database connection and it's entity
@@ -60,11 +61,12 @@ namespace Entity_DAL.DAL
         public DbSet<Agent> Agents { get; set; }
 
         public DbSet<Role> Roles { get; set; }
-        public DbSet<Permission> Permissions {get;set;}
+        public DbSet<Permission> Permissions { get; set; }
         public DbSet<DefaultPermissions> DefaultPermissions { get; set; }
         public DbSet<UserPermission> UserPermissions { get; set; }
 
         public DbSet<Ticket> Tickets { get; set; }
+        public DbSet<Reply> Replys { get; set; }
 
 
     }

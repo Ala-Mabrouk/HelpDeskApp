@@ -77,25 +77,24 @@
  -------------------------------------------------------------------*/
 
 
-body {
-    position: relative;
-    height: 100%;
-    padding: 0;
-    margin: 0;
-    background-color: #fff;
-}
 
-a {
-    color: #1b1b1b;
-    -webkit-transition: .15s color;
-    -o-transition: .15s color;
-    transition: .15s color;
-}
 
-    a:focus,
-    a:hover {
-        color: #2b72e6;
-    }
+
+
+/*
+**************************** init*****************/
+
+
+
+
+
+
+
+
+
+
+
+
 
 .dx-main {
     overflow: hidden;

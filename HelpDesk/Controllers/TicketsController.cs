@@ -19,9 +19,11 @@ namespace HelpDesk.Controllers
         private readonly AppFunctions _AppFunctions = new AppFunctions();
         public IActionResult Index()
         {
-            getUsertickets();
+            if(getUsertickets())
 
             return View();
+
+           return RedirectToAction("Erreur404", "Home");
         }
 
         [HttpGet]
@@ -60,10 +62,17 @@ namespace HelpDesk.Controllers
         }
 
 
-        public void getUsertickets()
+        public Boolean getUsertickets()
         {
+            if (HttpContext.Session.GetInt32("userID")==null)
+            {
+
+                return false;
+                
+            }
             int userid = (int)HttpContext.Session.GetInt32("userID");
             ViewBag.MyTickets = _AppFunctions.getTicketsByUser(userid);
+            return true;
 
         }
         public IActionResult listTickets()

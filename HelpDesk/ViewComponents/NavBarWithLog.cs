@@ -17,6 +17,7 @@ namespace ticketing.ViewComponents
 
            var res= new ClientService().GetUser((int)HttpContext.Session.GetInt32("userID"));
             ViewBag.userLoged = res.FirstName + " " + res.LastName;
+            ViewBag.avatar = res.ThumbUrl;
 
             return View();
         }

@@ -1,5 +1,4 @@
-﻿
-@using Microsoft.AspNetCore.Mvc.Localization
+﻿@using Microsoft.AspNetCore.Mvc.Localization
 @using Microsoft.AspNetCore.Http
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 @inject IViewLocalizer localizer
@@ -11,67 +10,64 @@
 <!DOCTYPE html>
 <html lang="en" dir="@(System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft ? "rtl" : "ltr")">
 <head>
-    <title>@ViewData["Title"] home page</title>
+
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
+    <title>@ViewData["Title"]</title>
 
-
-    
-
-
-
-    <link rel="icon" type="image/png" href="/Content/lib/images/favicon.png">
-
-
+    <link rel="icon" type="image/png" href="/Content/images/favicon.png">
 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    @*START: Styles
-        Google Fonts*@
-    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,600,700%7cMaven+Pro:400,500,700" rel="stylesheet">
-    @*Bootstrap*@
+    <!-- START: Styles -->
 
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,600,700%7cMaven+Pro:400,500,700" rel="stylesheet"><!-- %7c -->
+    <!-- Bootstrap -->
     <link rel="stylesheet" href="/Content/lib/bootstrap/dist/css/bootstrap.min.css">
 
-    @*Fancybox*@
+    <!-- Fancybox -->
     <link rel="stylesheet" href="/Content/lib/fancybox/dist/jquery.fancybox.min.css">
 
-    @*Pe icon 7 stroke*@
+    <!-- Pe icon 7 stroke -->
     <link rel="stylesheet" href="/Content/lib/pixeden-stroke-7-icon/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">
 
-    @*Swiper*@
+    <!-- Swiper -->
     <link rel="stylesheet" type="text/css" href="/Content/lib/swiper/dist/css/swiper.min.css">
 
-    @*Bootstrap Select*@
+    <!-- Bootstrap Select -->
     <link rel="stylesheet" type="text/css" href="/Content/lib/bootstrap-select/dist/css/bootstrap-select.min.css">
 
-    @*Dropzone*@
+    <!-- Dropzone -->
     <link rel="stylesheet" type="text/css" href="/Content/lib/dropzone/dist/min/dropzone.min.css">
 
-    @*Quill*@
-
+    <!-- Quill -->
     <link rel="stylesheet" type="text/css" href="/Content/lib/quill/dist/quill.snow.css">
 
-    @*Font Awesome*@
+    <!-- Font Awesome -->
     <script defer src="/Content/lib/fontawesome-free/js/all.js"></script>
     <script defer src="/Content/lib/fontawesome-free/js/v4-shims.js"></script>
 
-    @*    Amdesk*@
+    <!-- Amdesk -->
     <link rel="stylesheet" href="/Content/css/site.css">
 
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="/Content/css/custom.css">
 
-    @*END: Styles *@
+    <!-- END: Styles -->
 
-        @*jQuery*@
+    <!-- jQuery -->
     <script src="/Content/lib/jquery/dist/jquery.min.js"></script>
+
+
 
 
 </head>
 <body>
 
-
+    @*BEGIN: Navbar*@
     <nav class="dx-navbar dx-navbar-top dx-navbar-collapse dx-navbar-sticky dx-navbar-expand-lg dx-navbar-dropdown-triangle dx-navbar-autohide">
         <div class="container">
 
@@ -94,12 +90,12 @@
 
 
                     <li class="dx-drop-item">
-                        <a href="blog.html">
+                        <a asp_action="HelpCenter" asp-controller="Home">
                             @localizer["Support"]
                         </a>
                     </li>
                     <li class="dx-drop-item">
-                        <a  asp-action="Index" asp-controller="Tickets">
+                        <a asp-action="Index" asp-controller="Tickets">
                             @localizer["My_tickets"]
                         </a>
                     </li>
@@ -118,8 +114,31 @@
                 <ul class="dx-nav dx-nav-align-right">
                     @if (@HttpContextAccessor.HttpContext.Session.GetInt32("userID") != null)
                     {
+                        <li>
 
-                        @await Component.InvokeAsync("NavBarWithLog")
+                            <div class="dropdown dx-dropdown dx-dropdown-signin">
+
+                                <a id="dropdownSignin" class="dx-nav-signin" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+
+                                    @await Component.InvokeAsync("NavBarWithLog")
+
+
+                                </a>
+
+                                <ul class="dropdown-menu" aria-labelledby="dropdownSignin">
+
+
+                                    <li><a asp-action="Index" asp-controller="Tickets"><span class="icon pe-7s-user"></span>Account</a></li>
+                                    <li><a asp-action="settings" asp-controller="Home"><span class="icon pe-7s-config"></span>Settings</a></li>
+                                    <li><a asp-action="log_out" asp-controller="Home"><span class="icon pe-7s-back"></span>Log out</a></li>
+
+
+
+                                </ul>
+
+                            </div>
+                        </li>
 
                     }
                     else
@@ -130,16 +149,18 @@
                         <li>
                             <span><a data-fancybox data-touch="false" data-close-existing="true" data-src="#signup" href="javascript:;" class="dx-btn dx-btn-md dx-btn-transparent">@localizer["Sign_Up"]</a></span>
                         </li>
-                        <li>
-                            @await Html.PartialAsync("_CulturePartial")
-                        </li>
-                    }
 
+                    }
+                    <li>
+                        @await Html.PartialAsync("_CulturePartial")
+                    </li>
                 </ul>
+
+
             </div>
         </div>
     </nav>
-
+        
     <div class="dx-navbar dx-navbar-fullscreen">
         <div class="container">
             <button class="dx-navbar-burger">
@@ -151,12 +172,12 @@
 
 
                     <li class="dx-drop-item">
-                        <a href="blog.html">
+                        <a asp_action="HelpCenter" asp-controller="Home">
                             @localizer["Support"]
                         </a>
                     </li>
                     <li class="dx-drop-item">
-                        <a  asp-action="Index" asp-controller="Tickets">
+                        <a asp-action="Index" asp-controller="Tickets">
                             @localizer["My tickets"]
                         </a>
                     </li>
@@ -175,30 +196,61 @@
                 <ul class="dx-nav dx-nav-align-right">
                     @if (@HttpContextAccessor.HttpContext.Session.GetInt32("userID") != null)
                     {
-                        @await Component.InvokeAsync("NavBarWithLog")
+                        <li>
+
+                            <div class="dropdown dx-dropdown dx-dropdown-signin">
+
+                                <a id="dropdownSignin" class="dx-nav-signin" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+
+                                    @await Component.InvokeAsync("NavBarWithLog")
+
+
+                                </a>
+
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownSignin">
+
+
+
+                                    <li><a asp-action="Index" asp-controller="Tickets"><span class="icon pe-7s-user"></span>Account</a></li>
+                                    <li><a asp-action="settings" asp-controller="Home"><span class="icon pe-7s-config"></span>Settings</a></li>
+                                    <li><a asp-action="log_out" asp-controller="Home"><span class="icon pe-7s-back"></span>Log out</a></li>
+
+                                </ul>
+
+                            </div>
+
+                        </li>
 
                     }
                     else
                     {
+
                         <li>
                             <a data-fancybox data-touch="false" data-close-existing="true" data-src="#login" href="javascript:;">@localizer["Log_In"]</a>
                         </li>
                         <li>
                             <span><a data-fancybox data-touch="false" data-close-existing="true" data-src="#signup" href="javascript:;" class="dx-btn dx-btn-md dx-btn-transparent">@localizer["Sign_Up"]</a></span>
                         </li>
-                        <li>
-                            @await Html.PartialAsync("_CulturePartial")
-                        </li>
-                    }
 
+                    }
+                    <li>
+                        @await Html.PartialAsync("_CulturePartial")
+                    </li>
                 </ul>
             </div>
         </div>
     </div>
+
+    @*END: Navbar*@
+
+
+    @*BEGIN:MAIN*@
+<div class="dx-main">
     <header class="dx-header dx-box-1">
         <div class="container">
             <div class="bg-image bg-image-parallax">
-                <img src="assets/images/bg-header-4.png" class="jarallax-img" alt="">
+                <img src="/Content/images/bg-header-4.png" class="jarallax-img" alt="">
                 <div style="background-color: rgba(27, 27, 27, .8);"></div>
             </div>
 
@@ -217,33 +269,121 @@
 
 
 
-    <div class="dx-box bg-white">
-        <div class="container">
-            <ul class="dx-links text-center">
-                <li><a href="help-center.html"> @localizer["Support"]</a></li>
-                <li><a  asp-action="Index" asp-controller="Tickets">@localizer["My tickets"]</a></li>
-                <li><a  asp-action="addTicket" asp-controller="Tickets">@localizer["Submit ticket"]</a></li>
-                <li><a href="forums.html">@localizer["Knowledge Base"]</a></li>
+    @*    <div class="dx-box bg-white">
+            <div class="container">
+                <ul class="dx-links text-center">
+                    <li><a href="help-center.html"> @localizer["Support"]</a></li>
+                    <li><a asp-action="Index" asp-controller="Tickets">@localizer["My tickets"]</a></li>
+                    <li><a asp-action="addTicket" asp-controller="Tickets">@localizer["Submit ticket"]</a></li>
+                    <li><a href="forums.html">@localizer["Knowledge Base"]</a></li>
 
-            </ul>
+                </ul>
+            </div>
         </div>
-    </div>
-    <div class="dx-separator"></div>
+        <div class="dx-separator"></div>*@
 
 
 
 
-    <div class="container">
-        <main role="main" class="pb-3">
+     
             @RenderBody()
-        </main>
-    </div>
+       
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2021 - HelpDesk - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+
+    @*< !-- START: Footer -->*@
+    <footer class="dx-footer">
+        <div class="dx-box-1">
+            <div class="container">
+                <div class="row vertical-gap lg-gap">
+
+                    <div class="col-sm-6 col-lg-3">
+
+                        <div class="dx-widget-footer">
+                            <div class="dx-widget-title">
+                                <a asp-action="Index" asp-controller="Home" class="dx-widget-logo">
+                                    <img src="/Content/images/logo.svg" alt="" width="88px">
+                                </a>
+                            </div>
+                            <div class="dx-widget-text">
+                                <p class="mb-0">&copy; 2019 <span class="dib">@localizer["rights"]</span> </p>
+                            </div>
+                            <div class="dx-widget-text">
+                                <ul class="dx-social-links mnt-3">
+                                    <li><a href="#"><span class="fab fa-behance-square"></span></a></li>
+                                    <li><a href="#"><span class="fab fa-instagram"></span></a></li>
+                                    <li><a href="#"><span class="fab fa-dribbble"></span></a></li>
+                                    <li><a href="#"><span class="fab fa-github"></span></a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-6 col-lg-3">
+
+                        <div class="dx-widget-footer">
+                            <div class="dx-widget-title">
+                                @localizer["Useful_Links"]
+                            </div>
+
+                            <ul class="dx-widget-list">
+                                <li><a asp-action="HelpCenter" asp-controller="Home">@localizer["Support"]</a></li>
+                                <li>
+                                    <a data-fancybox data-touch="false" data-close-existing="true" data-src="#signup" href="javascript:;">@localizer["Sign_Up"]</a>
+                                </li>
+                                <li>
+                                    <a data-fancybox data-touch="false" data-close-existing="true" data-src="#login" href="javascript:;">@localizer["Log_In"]</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-6 col-lg-3">
+
+                        <div class="dx-widget-footer">
+                            <div class="dx-widget-title">
+                                Latest Products
+                            </div>
+                            @* <div class="dx-widget-portfolio">
+                                <a href="product.html">Quantial – Moving Upon Signs Moveth Lesser</a>
+                                <a href="product.html">Sensific – Saying Beast Lesser for in Fruitful</a>
+                                <a href="product.html">Minist – Subdue Above for Signs Dry is Have Great</a>
+                                </div>*@
+                        </div>
+
+                    </div>
+                    <div class="col-sm-6 col-lg-3">
+
+                        <div class="dx-widget-footer">
+                            <div class="dx-widget-title">
+                                Latest Posts
+                            </div>
+                            @* <a href="single-post.html" class="dx-widget-post">
+
+                                <span class="dx-widget-post-text">
+                                <span class="dx-widget-post-title">The Big Thing in Design</span>
+                                <span class="dx-widget-post-date">25 Sep 2018</span>
+                                </span>
+
+                                </a>
+                                <a href="single-post.html" class="dx-widget-post">
+
+                                <span class="dx-widget-post-text">
+                                <span class="dx-widget-post-title">Will Coding Ever Rule the World?</span>
+                                <span class="dx-widget-post-date">24 Sep 2018</span>
+                                </span>
+                            *@
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
         </div>
     </footer>
+    <!-- END: Footer -->
+
+</div>
+    @*END:MAIN*@
 
 
     @*THE LOGIN BLOC*@
@@ -264,7 +404,7 @@
                 </div>
                 <div class="dx-form-group-md">
                     <input type="password" asp-for="Password" class="form-control form-control-style-4" placeholder="@Html.DisplayNameFor(m => m.Password)">
-               
+
                 </div>
                 <div class="dx-form-group-md">
                     <input type="submit" class="dx-btn dx-btn-block dx-btn-popup" value=@localizer["Log_In"] />
@@ -348,64 +488,62 @@
 
 
 
-    @* START: Scripts 
-     Object Fit Images *@
+
+
+    <!-- START: Scripts -->
+
+    <!-- Object Fit Images -->
     <script src="/Content/lib/object-fit-images/dist/ofi.min.js"></script>
 
-   @* Popper *@
-
+    <!-- Popper -->
     <script src="/Content/lib/popper.js/dist/umd/popper.min.js"></script>
 
-   @* Bootstrap *@
+    <!-- Bootstrap -->
     <script src="/Content/lib/bootstrap/dist/js/bootstrap.min.js"></script>
 
-   @* Fancybox *@
+    <!-- Fancybox -->
     <script src="/Content/lib/fancybox/dist/jquery.fancybox.min.js"></script>
 
-   @* Cleave *@
+    <!-- Cleave -->
     <script src="/Content/lib/cleave.js/dist/cleave.min.js"></script>
 
-   @* Validator *@
-   <script src="/Content/lib/validator/validator.min.js"></script>
+    <!-- Validator -->
+    <script src="/Content/lib/validator/validator.min.js"></script>
 
-   @* Sticky Kit *@
+    <!-- Sticky Kit -->
     <script src="/Content/lib/sticky-kit/dist/sticky-kit.min.js"></script>
 
-   @* Jarallax *@
+    <!-- Jarallax -->
     <script src="/Content/lib/jarallax/dist/jarallax.min.js"></script>
     <script src="/Content/lib/jarallax/dist/jarallax-video.min.js"></script>
 
-   @* Isotope *@
+    <!-- Isotope -->
     <script src="/Content/lib/isotope-layout/dist/isotope.pkgd.min.js"></script>
 
-   @* ImagesLoaded *@
+    <!-- ImagesLoaded -->
     <script src="/Content/lib/imagesloaded/imagesloaded.pkgd.min.js"></script>
 
-   @* Swiper *@
+    <!-- Swiper -->
     <script src="/Content/lib/swiper/dist/js/swiper.min.js"></script>
 
-   @* Gist Embed *@
+    <!-- Gist Embed -->
     <script src="/Content/lib/gist-embed/gist-embed.min.js"></script>
 
-   @* Bootstrap Select *@
+    <!-- Bootstrap Select -->
     <script src="/Content/lib/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
 
-   @* Dropzone *@
+    <!-- Dropzone -->
     <script src="/Content/lib/dropzone/dist/min/dropzone.min.js"></script>
 
-   @* Quill *@
+    <!-- Quill -->
     <script src="/Content/lib/quill/dist/quill.min.js"></script>
 
-   @* The Amdesk *@
-    <script src="/Content/js/amdesk-init.js"></script>
+    <!-- The Amdesk -->
     <script src="/Content/js/amdesk.min.js"></script>
+    <script src="/Content/js/amdesk-init.js"></script>
 
-    <script src="/Content/lib/jquery-validation/dist/jquery.validate.min.js"></script>
 
-    <script src="/Content/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-
-    @await RenderSectionAsync("Scripts", required: false)
-   @* END: Scripts *@
+    <!-- END: Scripts -->
 
 </body>
 </html>

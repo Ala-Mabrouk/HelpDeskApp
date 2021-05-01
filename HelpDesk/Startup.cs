@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -49,6 +50,11 @@ namespace HelpDesk
                 options.SupportedUICultures = cultures;
             });
 
+
+            //for identity
+           /* services.AddIdentity<Person,IdentityRole>();*/
+
+
             //this part of code is needed for the sessions
             services.AddSession(options =>
             {
@@ -94,7 +100,8 @@ namespace HelpDesk
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}",
+                    defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });
             });
         }
     }

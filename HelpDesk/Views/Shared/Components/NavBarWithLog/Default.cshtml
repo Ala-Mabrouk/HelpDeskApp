@@ -1,8 +1,31 @@
 ﻿
 
-<ul class="dx-nav dx-nav-align-right">
-    <li><span><a class="dx-btn dx-btn-md dx-btn-transparent">@ViewBag.userLoged</a></span></li>
-    <li><span><a class="dx-btn dx-btn-md dx-btn-transparent" asp-action="log_out" asp-controller="Home"> log-out</a></span></li>
+
+<span class="dx-nav-signin-img"><img src=@ViewBag.avatar alt="img" /></span>
+
+<span class="dx-nav-signin-name">@ViewBag.userLoged</span>
+
+
+@*
+
     <li>@await Html.PartialAsync("_CulturePartial")</li>
 
-</ul>
+
+
+    <ul class="dropdown-menu" aria-labelledby="dropdownSignin"
+        style="display: none; margin-left: -23.6003px; position: absolute;  will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, -10px, 0px);"
+        x-placement="top-start">
+
+
+        <li><a><span class="icon pe-7s-config"></span>smt1</a></li>
+        <li><a><span class="icon pe-7s-config"></span>smt2</a></li>
+        <li><a><span class="icon pe-7s-config"></span>smt3</a></li>
+
+
+
+    </ul>
+*@
+
+
+
+@*<span><a class="dx-btn dx-btn-md dx-btn-transparent" asp-action="log_out" asp-controller="Home"> log-out</a></span></li>*@

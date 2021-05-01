@@ -1,11 +1,107 @@
-﻿<div class="container-fluid">
+﻿
 
-    <!-- 404 Error Text -->
-    <div class="text-center">
-        <div class="error mx-auto" data-text="404">404</div>
-        <p class="lead text-gray-800 mb-5">Page Not Found</p>
-        <p class="text-gray-500 mb-0">It looks like you found a glitch in the matrix...</p>
-        <a >&larr; Back to Home</a>
+@{Layout = null;}
+;
+
+<!DOCTYPE html>
+<html lang="en" dir="@(System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft ? "rtl" : "ltr")">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>@ViewData["Title"]</title>
+
+    <link rel="icon" type="image/png" href="/Content/images/favicon.png">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <style>
+        body {
+            position: relative;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            background-color: #fff;
+        }
+
+        a {
+            color: #1b1b1b;
+            -webkit-transition: .15s color;
+            -o-transition: .15s color;
+            transition: .15s color;
+        }
+
+            a:focus,
+            a:hover {
+                color: #2b72e6;
+            }
+
+
+        #body_class {
+            background-color: rgba(27, 27, 27, .8);
+            width: 100%;
+            height: 100%;
+        }
+
+        .mainbox {
+            background-color: rgba(27, 27, 27, .8);
+            margin: auto;
+            height: 100%;
+            width: 80%;
+            position: relative;
+        }
+
+        .err {
+            color: #ffffff;
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 11rem;
+            position: absolute;
+            left: 20%;
+            top: 8%;
+        }
+
+        .far {
+            position: absolute;
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 11rem;
+            left: 42%;
+            top: 15%;
+            color: #ffffff;
+        }
+
+        .err2 {
+            color: #ffffff;
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 11rem;
+            position: absolute;
+            left: 68%;
+            top: 8%;
+        }
+
+        .msg {
+            text-align: center;
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 1.6rem;
+            position: absolute;
+            left: 16%;
+            top: 45%;
+            width: 75%;
+        }
+    </style>
+
+</head>
+<body>
+
+    <div id="body_class">
+        <div class="mainbox">
+            <div class="err">4</div>
+            <i class="far">0</i>
+            <div class="err2">4</div>
+            <div class="msg">Maybe this page moved? Got deleted? Is hiding out in quarantine? Never existed in the first place?<p>Let's go <a href="#">home</a> and try from there.</p></div>
+        </div>
     </div>
 
-</div>
+</body>
+</html>

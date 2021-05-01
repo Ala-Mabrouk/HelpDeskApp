@@ -1,9 +1,9 @@
 ﻿
-@model Entities.Entities.Client
+@model Entities.Entities.Person
 
 
 @{
-    ViewData["Title"] = "update permission";
+    ViewData["Title"] = "update Agents info ";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 
 }
@@ -49,62 +49,7 @@
     </div>
     <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
 
-        <div class="dx-box-decorated">
-
-            <form action="#" class="dx-form">
-                <div class="dx-box-content">
-                    <table cellpadding="3px">
-
-                        <tr>
-                            <td><label for="first-name" class="mnt-7">First Name</label></td>
-                            <td>
-                                <input type="text" class="form-control form-control-style-2" id="first-name" placeholder="Enter First Name">
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td><label for="last-name" class="mnt-7">Last Name</label></td>
-                            <td>
-                                <input type="text" class="form-control form-control-style-2" id="last-name" placeholder="Enter Last Name">
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td><label for="email-address" class="mnt-7">Primary Email Address</label></td>
-                            <td>
-                                <input type="email" aria-describedby="emailHelp" class="form-control form-control-style-2" id="email-address" placeholder="Enter Email Address">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><label for="zip" class="mnt-7">ZIP / Postal Code</label></td>
-                            <td>
-                                <input type="text" class="form-control form-control-style-2" id="zip" placeholder="Enter ZIP / Postal Code">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td> <label for="city" class="mnt-7">City</label></td>
-                            <td>
-                                <input type="text" class="form-control form-control-style-2" id="city" placeholder="Enter City Name">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                            <td></td>
-                            <td>
-                                <button class="dx-btn-dark dx-btn-xl dx-btn-block">Save Changes</button>
-                            </td>
-                            </td>
-                        </tr>
-
-
-
-                    </table>
-
-                </div>
-            </form>
-
-
-        </div>
+        @await Component.InvokeAsync("UpdateUserInfo", @Model); 
 
     </div>
 </div>

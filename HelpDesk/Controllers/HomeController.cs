@@ -36,8 +36,9 @@ namespace HelpDesk.Controllers
 
         public IActionResult Index()
         {
-
+            @ViewData["Title"] = "HELPDESK APP";
             return View();
+
 
         }
 
@@ -59,22 +60,28 @@ namespace HelpDesk.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Sign_Up(Client _cl)
         {
-
-            if (ModelState.IsValid)
+            try
             {
-                
-                Client cl1 = (Client)_ClientCRUD.SignUp(_cl);
-
-                if (cl1 != null)
+                if (ModelState.IsValid)
                 {
-                    HttpContext.Session.SetInt32("userID", cl1.Id);
-                    return RedirectToAction("Index", "Home");
+
+                    Client cl1 = (Client)_ClientCRUD.SignUp(_cl);
+
+                    if (cl1 != null)
+                    {
+                        HttpContext.Session.SetInt32("userID", cl1.Id);
+                        return RedirectToAction("Index", "Home");
+                    }
+
                 }
+        
 
+            }catch(Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e);
             }
+            return RedirectToAction("Error404");
 
-
-            return RedirectToAction("Erreur", "Home");
 
 
         }
@@ -115,12 +122,75 @@ namespace HelpDesk.Controllers
             HttpContext.Session.Remove("userID");
             HttpContext.Session.Remove("userRole");
 
-            return RedirectToAction("Index", "Home");
+          return RedirectToAction("Index", "Home");
 
         }
 
+        public IActionResult Erreur404()
+        {
+            return View();
+        }
+
+        public IActionResult settings()
+        {
+            int a = (int)HttpContext.Session.GetInt32("userID");
+           Person pers= _AppFunctions.GetUserById(a);
+            return View(pers);
+        }
+
+        [HttpPost]
+        public IActionResult settings(Person _p)
+        {
+                try
+                {
+                        Person p1 = new PersonService().updateInfo(_p);
+
+                        if (p1 != null)
+                        {
+
+                        return View(p1);
+                }
+                else
+                {
+                    ViewBag.erreurChanging = "no changes have vbeen made ";
+
+                    return RedirectToAction("settings", "Home");
+                }
 
 
+
+                }
+                catch (Exception e)
+                {
+                    System.Diagnostics.Debug.WriteLine(e);
+                return RedirectToAction("Error404");
+            }
+               
+
+        }
+
+        public IActionResult HelpCenter()
+        {
+            return View();
+        }
+
+
+        public IActionResult changePassword()
+        {
+
+            int id = (int)HttpContext.Session.GetInt32("userID");
+            string oldpass = Request.Form["oldPass"];
+            string newpass = Request.Form["newPass"];
+
+
+
+            if ( !_PersonService.changeUserPassword(id, oldpass, newpass))
+            
+                ViewBag.erreurChanging = "no changes have vbeen made ";
+            
+            
+            return RedirectToAction("settings", "Home");
+        }
     }
 }
 

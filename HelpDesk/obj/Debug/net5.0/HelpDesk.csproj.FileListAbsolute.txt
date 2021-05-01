@@ -49,7 +49,6 @@ C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Vie
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\bin\Debug\net5.0\ar\HelpDesk.resources.dll
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\HelpDesk.Resources.Views.Shared._Layout.ar.resources
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\ar\HelpDesk.resources.dll
-C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\HelpDesk.Resources.Views.Home.Index.ar.resources
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Shared\Components\NavBarWithLog\Default.cshtml.g.cs
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\bin\Debug\net5.0\Microsoft.Data.SqlClient.dll
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.dll
@@ -90,8 +89,6 @@ C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\bin\Debug\net5.0\Microsoft
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\bin\Debug\net5.0\AppFeatures.dll
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\bin\Debug\net5.0\AppFeatures.pdb
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\bin\Debug\net5.0\BCrypt.Net-Core.dll
-C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\HelpDesk.Resources.Views.Home.Index.en.resources
-C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\HelpDesk.Resources.Views.Home.Index.fr.resources
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Admin\DashBoardAdmin.cshtml.g.cs
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Shared\_AdminLayout.cshtml.g.cs
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Admin\ShowUsers.cshtml.g.cs
@@ -182,3 +179,9 @@ C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\HelpDesk.
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\HelpDesk.Resources.Views.Tickets.Index.resources
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Tickets\singleTicketInfo.cshtml.g.cs
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Shared\Erreur404.cshtml.g.cs
+C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Home\settings.cshtml.g.cs
+C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Shared\Components\UpdateUserInfo\Default.cshtml.g.cs
+C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\HelpDesk.Resources.Views.Home.HelpCenter.ar.resources
+C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\HelpDesk.Resources.Views.Home.HelpCenter.en.resources
+C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\HelpDesk.Resources.Views.Home.HelpCenter.fr.resources
+C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Home\HelpCenter.cshtml.g.cs

@@ -40,7 +40,7 @@ namespace HelpDesk.Controllers
             }
 
             ///need verif log_page
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return RedirectToAction("Erreur404");
 
 
         }
@@ -72,8 +72,7 @@ namespace HelpDesk.Controllers
             ViewBag.ClientPermission = a;
 
             ViewBag.Permissions = _AppFunctions.ShowAllPermissions();
-
-            Client c = (Client)_AppFunctions.GetUserById(id);
+            Person c = (Person)_AppFunctions.GetUserById(id);
 
             return View(c);
 
@@ -97,6 +96,37 @@ namespace HelpDesk.Controllers
         }
 
 
+        [HttpPost]
+        public IActionResult settings(Person _p)
+        {
+            try
+            {
+
+
+                Person p1 = new PersonService().updateInfo(_p);
+
+                if (p1 != null)
+                {
+
+                    return View(p1);
+                }
+                else
+                {
+                    System.Diagnostics.Debug.WriteLine("problem in the admin controller");
+                    return RedirectToAction("Error404");
+                }
+
+
+
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e);
+                return RedirectToAction("Error404");
+            }
+
+
+        }
 
     }
 }
