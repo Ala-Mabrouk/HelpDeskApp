@@ -1,5 +1,5 @@
 ﻿
-@model Entities.Entities.Person
+@model Entities.Entities.User
 
 
 
@@ -9,13 +9,14 @@
 <div class="dx-box-decorated">
     <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-            <a class="nav-item nav-link active" id="nav-permissions-tab" data-toggle="tab" href="#nav-permissions" role="tab" aria-controls="nav-permissions" aria-selected="true">Info Personel</a>
-            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Change Password</a>
+            <a class="nav-item nav-link active" id="nav-permissions-tab" data-toggle="tab" href="#nav-infoPersonel" role="tab" aria-controls="nav-infoPersonel" aria-selected="true">Info Personel</a>
+            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-passwordChange" role="tab" aria-controls="nav-passwordChange" aria-selected="false">Change Password</a>
         </div>
     </nav>
 
     <div class="tab-content dx-box-decorated" id="nav-tabContent">
-        <div class="tab-pane fade show active" id="nav-permissions" role="tabpanel" aria-labelledby="nav-permissions-tab">
+
+        <div class="tab-pane fade show active" id="nav-infoPersonel" role="tabpanel" aria-labelledby="nav-infoPersonel-tab">
 
             <div class="dx-box-decorated">
 
@@ -81,7 +82,10 @@
 
             </div>
         </div>
-        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+
+
+
+        <div class="tab-pane fade" id="nav-passwordChange" role="tabpanel" aria-labelledby="nav-passwordChange-tab">
             <div class="dx-box-decorated">
                 <form asp-action="changePassword" asp-controller="Home" method="post" class="dx-form">
                     <div class="dx-box-content">
@@ -90,13 +94,19 @@
                             <tr>
                                 <td><label class="mnt-7">old password</label></td>
                                 <td>
-                                    <input type="password" name="oldPass" class="form-control form-control-style-2" id="first-name">
+                                    <input type="password" name="oldPass" class="form-control form-control-style-2" id="old-pass">
                                 </td>
                             </tr>
                             <tr>
                                 <td><label asp-for="Password" class="mnt-7">new password</label></td>
                                 <td>
-                                    <input type="password" name="newPass" class="form-control form-control-style-2" id="first-name">
+                                    <input type="password" name="newPass" class="form-control form-control-style-2" id="new-pass">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><label asp-for="Password" class="mnt-7">confirm password</label></td>
+                                <td>
+                                    <input type="password" name="confirmPass" class="form-control form-control-style-2" id="confirm-pass">
                                 </td>
                             </tr>
                             <tr>
@@ -109,10 +119,11 @@
                             </tr>
                             <tr>
                                 <td>
+                                <td></td>
                                 <td>
                                     <button type="reset" class="dx-btn-dark dx-btn-xl dx-btn-block">Cancel</button>
                                 </td>
-                                <td></td>
+
                                 </td>
                             </tr>
 

@@ -11,10 +11,10 @@ namespace HelpDesk.ViewComponents
 {
     public class SideNavbarAdmin: ViewComponent
     {
-        public IViewComponentResult Invoke()
+        public IViewComponentResult Invoke(string mail)
         {
 
-            var res = new AppFunctions().GetUserById((int)HttpContext.Session.GetInt32("userID"));
+            User res = new AppFunctions().GetUserByEmail(mail).Result;
 
             List<String> listPer = new List<string>();
 

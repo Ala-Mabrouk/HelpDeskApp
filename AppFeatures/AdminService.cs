@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace AppFeatures
 {
@@ -16,33 +17,33 @@ namespace AppFeatures
 
 
 
-        public List<Person> ShowAgents()
+        public async Task<List<User>> ShowAgents()
         {
 
-            List<Person> res = _context.Persons
+            List<User> res = await _context.Users
               .Include(p => p.role)
               .Include(p => p.listUserPermissions).
-              ThenInclude(pp => pp.permision).ToList();
+              ThenInclude(pp => pp.permision).Where(p=>p.role.roleName.Equals("Agent")).ToListAsync();
 
             return res;
         }
 
-        public Boolean changePermissions(List<int> lp, int id)
+        public async Task<Boolean> changePermissions(List<int> lp, int id)
         {
             try
             {
                 //we will make like an overrride
                 //remove old userpermissions 
-                var a = _context.UserPermissions.Where(c => c.personId == id).ToList();
+                var a = await _context.UserPermissions.Where(c => c.userId == id).ToListAsync();
                 _context.UserPermissions.RemoveRange(a);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
 
 
                 //saving new permissions
                 foreach (var item in lp)
                 {
-                    _context.Add(new UserPermission { personId = id, permisionId = item });
-                    _context.SaveChanges();
+                    await _context.AddAsync(new UserPermission { userId = id, permisionId = item });
+                    await _context.SaveChangesAsync();
                 }
 
                 return true;

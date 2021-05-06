@@ -3,6 +3,7 @@
 
 
 @{
+    ViewData["Title"] = "My Tickets";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
@@ -31,7 +32,7 @@
             <a asp-action="singleTicketInfo" asp-route-ticketid="@item.ticketId" asp-controller="Tickets" class="dx-ticket-item dx-ticket-new dx-ticket-open dx-block-decorated">
                 <span class="dx-ticket-img">
 
-                    <img src=@item.c_person.ThumbUrl alt="user thumbUrl">
+                    <img src=@item.creator_user.ThumbUrl alt="user thumbUrl">
                 </span>
 
                 <span class="dx-ticket-cont">

@@ -185,3 +185,4 @@ C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\HelpDesk.
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\HelpDesk.Resources.Views.Home.HelpCenter.en.resources
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\HelpDesk.Resources.Views.Home.HelpCenter.fr.resources
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Home\HelpCenter.cshtml.g.cs
+C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\HelpDesk.Resources.Views.Shared.Components.UpdateUserInfo.Default.resources

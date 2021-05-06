@@ -15,14 +15,15 @@ namespace AppFeatures
         private static DataBaseContext _context = new DataBaseContext(DataBaseContext.ops.dbOptions);
 
 
-        public Person SignUp(Client cl)
+        public async Task<User> SignUp(Client cl)
         {
-            try { 
-            // ********cheking if email dont exist already********
+            try {
 
-            var t = _context.Clients.Where(c => c.Email.Equals(cl.Email)).FirstOrDefault();
+                // ********cheking if email dont exist already********
+               
+             Client e = await _context.Clients.Where(c => c.Email.Equals(cl.Email)).FirstOrDefaultAsync();
 
-                if (t == null)
+                if (e == null)
                 {
                     //we need to encrypte the password before saving it in the database 
                     // we are using " BCrypt.Net " package to do that
@@ -30,28 +31,28 @@ namespace AppFeatures
                     string newPass = BCrypt.Net.BCrypt.HashPassword(cl.Password);
 
                     cl.Password = newPass;
-                    _context.Add(cl);
-                    _context.SaveChanges();
+                    await _context.AddAsync(cl);
+                    await _context.SaveChangesAsync();
 
 
                     // ********adding default permissions********
 
                     //getting the default permission using the role so we can add it to the client
-                    List<Permission> listClientpermissions = _context.DefaultPermissions.Where(s => s.roleId == cl.roleId).Select(s => s.permission).ToList();
+                    List<Permission> listClientpermissions = await _context.DefaultPermissions.Where(s => s.roleId == cl.roleId).Select(s => s.permission).ToListAsync();
 
 
-                    Person c = _context.Clients.Where(s => s.Email == cl.Email).FirstOrDefault();
+                    User c = await _context.Clients.Include(r=>r.role).Where(s => s.Email == cl.Email).FirstOrDefaultAsync();
 
                     foreach (var item in listClientpermissions)
                     {
-                        _context.Add(new UserPermission { person = c, permision = item });
-                        _context.SaveChanges();
+                       await _context.AddAsync(new UserPermission { user = c, permision = item });
+                        await _context.SaveChangesAsync();
 
                     }
 
 
                     _context.Update(c);
-                    _context.SaveChanges();
+                   await _context.SaveChangesAsync();
                     return c;
                 }
                 
@@ -68,11 +69,11 @@ namespace AppFeatures
             return null;
         }
 
-        public Client GetUser(int id)
+        public async Task<Client> GetUser(int id)
         {
             try
             {
-                return _context.Clients.SingleOrDefault(u => u.Id == id);
+                return await _context.Clients.SingleOrDefaultAsync(u => u.Id == id);
             }catch(Exception e)
             {
                 System.Diagnostics.Debug.WriteLine(e);

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Entities.Entities
 {
-    public class Agent:Person
+    public class Agent:User
     {
 
         [Display(Name = "Status", ResourceType = typeof(Ressources.Ressource_Person.Resource))]

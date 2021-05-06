@@ -10,9 +10,9 @@ namespace HelpDesk.ViewComponents
 {
     public class UpdateUserInfo : ViewComponent
     {
-        public IViewComponentResult Invoke(Person pers,string controllerName)
+        public IViewComponentResult Invoke(User pers)
         {
-            ViewBag.controllerName = controllerName;
+            
             return View(pers);
         }
 

@@ -4,7 +4,7 @@
 
 
 
-@model Entities.Entities.Person
+@model Entities.Entities.User
 
 <div id="layoutSidenav_nav">
     <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
@@ -29,7 +29,7 @@
                     </a>
                     <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" asp-action="ShowUsers">@localizer["Agents"]</a>
+                            <a class="nav-link" asp-action="ShowUsers" asp-controller="Admin">@localizer["Agents"]</a>
                             @if (Model.role.roleName.Equals("SupperAdmin"))
                             {
                                 <a class="nav-link">

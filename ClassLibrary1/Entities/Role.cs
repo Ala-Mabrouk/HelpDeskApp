@@ -15,8 +15,8 @@ namespace Entities.Entities
         public string roleName { get; set; }
 
        
-        //list of person
-        public ICollection<Person> listPerson { get; set; }
+        //list of user
+        public ICollection<User> listUser { get; set; }
 
         //list of default permissions
         public ICollection<DefaultPermissions>  listDefaultPermissions { get; set; }

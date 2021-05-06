@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Entities.Migrations
 {
-    public partial class InitTablesActors : Migration
+    public partial class Init_Users_Role_Tickets : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -58,7 +59,7 @@ namespace Entities.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Persons",
+                name: "Users",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -72,13 +73,14 @@ namespace Entities.Migrations
                     ThumbUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     roleId = table.Column<int>(type: "int", nullable: false),
                     Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    status = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     priority = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Persons", x => x.Id);
+                    table.PrimaryKey("PK_Users", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Persons_Roles_roleId",
+                        name: "FK_Users_Roles_roleId",
                         column: x => x.roleId,
                         principalTable: "Roles",
                         principalColumn: "roleId",
@@ -86,15 +88,40 @@ namespace Entities.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Tickets",
+                columns: table => new
+                {
+                    ticketId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ticketTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ticketDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ticketStatut = table.Column<int>(type: "int", nullable: false),
+                    ticketType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ticketPriority = table.Column<int>(type: "int", nullable: false),
+                    ticketDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    userId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tickets", x => x.ticketId);
+                    table.ForeignKey(
+                        name: "FK_Tickets_Users_userId",
+                        column: x => x.userId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UserPermissions",
                 columns: table => new
                 {
-                    personId = table.Column<int>(type: "int", nullable: false),
+                    userId = table.Column<int>(type: "int", nullable: false),
                     permisionId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserPermissions", x => new { x.personId, x.permisionId });
+                    table.PrimaryKey("PK_UserPermissions", x => new { x.userId, x.permisionId });
                     table.ForeignKey(
                         name: "FK_UserPermissions_Permissions_permisionId",
                         column: x => x.permisionId,
@@ -102,9 +129,9 @@ namespace Entities.Migrations
                         principalColumn: "permissionId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UserPermissions_Persons_personId",
-                        column: x => x.personId,
-                        principalTable: "Persons",
+                        name: "FK_UserPermissions_Users_userId",
+                        column: x => x.userId,
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -115,14 +142,19 @@ namespace Entities.Migrations
                 column: "roleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Persons_roleId",
-                table: "Persons",
-                column: "roleId");
+                name: "IX_Tickets_userId",
+                table: "Tickets",
+                column: "userId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserPermissions_permisionId",
                 table: "UserPermissions",
                 column: "permisionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_roleId",
+                table: "Users",
+                column: "roleId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -131,13 +163,16 @@ namespace Entities.Migrations
                 name: "DefaultPermissions");
 
             migrationBuilder.DropTable(
+                name: "Tickets");
+
+            migrationBuilder.DropTable(
                 name: "UserPermissions");
 
             migrationBuilder.DropTable(
                 name: "Permissions");
 
             migrationBuilder.DropTable(
-                name: "Persons");
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Roles");

@@ -14,9 +14,9 @@ namespace Entities.Entities
     {
  
        
-        public Person person { get; set; }
+        public User user { get; set; }
         [Key, Column(Order = 0)]
-        public int personId { get; set; }
+        public int userId { get; set; }
 
         public Permission permision { get; set; }
         [Key, Column(Order = 1)]

@@ -52,7 +52,59 @@ namespace Entities.Migrations
                     b.ToTable("Permissions");
                 });
 
-            modelBuilder.Entity("Entities.Entities.Person", b =>
+            modelBuilder.Entity("Entities.Entities.Role", b =>
+                {
+                    b.Property<int>("roleId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("roleName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("roleId");
+
+                    b.ToTable("Roles");
+                });
+
+            modelBuilder.Entity("Entities.Entities.Ticket", b =>
+                {
+                    b.Property<int>("ticketId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("ticketDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ticketDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ticketPriority")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ticketStatut")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ticketTitle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ticketType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("userId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ticketId");
+
+                    b.HasIndex("userId");
+
+                    b.ToTable("Tickets");
+                });
+
+            modelBuilder.Entity("Entities.Entities.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -96,72 +148,20 @@ namespace Entities.Migrations
 
                     b.HasIndex("roleId");
 
-                    b.ToTable("Persons");
+                    b.ToTable("Users");
 
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Person");
-                });
-
-            modelBuilder.Entity("Entities.Entities.Role", b =>
-                {
-                    b.Property<int>("roleId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("roleName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("roleId");
-
-                    b.ToTable("Roles");
-                });
-
-            modelBuilder.Entity("Entities.Entities.Ticket", b =>
-                {
-                    b.Property<int>("ticketId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("personId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("ticketDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ticketDescription")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ticketPriority")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ticketStatut")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ticketTitle")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ticketType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ticketId");
-
-                    b.HasIndex("personId");
-
-                    b.ToTable("Tickets");
+                    b.HasDiscriminator<string>("Discriminator").HasValue("User");
                 });
 
             modelBuilder.Entity("Entities.Entities.UserPermission", b =>
                 {
-                    b.Property<int>("personId")
+                    b.Property<int>("userId")
                         .HasColumnType("int");
 
                     b.Property<int>("permisionId")
                         .HasColumnType("int");
 
-                    b.HasKey("personId", "permisionId");
+                    b.HasKey("userId", "permisionId");
 
                     b.HasIndex("permisionId");
 
@@ -170,7 +170,7 @@ namespace Entities.Migrations
 
             modelBuilder.Entity("Entities.Entities.Agent", b =>
                 {
-                    b.HasBaseType("Entities.Entities.Person");
+                    b.HasBaseType("Entities.Entities.User");
 
                     b.Property<string>("status")
                         .HasColumnType("nvarchar(max)");
@@ -180,7 +180,7 @@ namespace Entities.Migrations
 
             modelBuilder.Entity("Entities.Entities.Client", b =>
                 {
-                    b.HasBaseType("Entities.Entities.Person");
+                    b.HasBaseType("Entities.Entities.User");
 
                     b.Property<int>("priority")
                         .HasColumnType("int");
@@ -207,26 +207,26 @@ namespace Entities.Migrations
                     b.Navigation("role");
                 });
 
-            modelBuilder.Entity("Entities.Entities.Person", b =>
+            modelBuilder.Entity("Entities.Entities.Ticket", b =>
+                {
+                    b.HasOne("Entities.Entities.User", "creator_user")
+                        .WithMany("listTickets")
+                        .HasForeignKey("userId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("creator_user");
+                });
+
+            modelBuilder.Entity("Entities.Entities.User", b =>
                 {
                     b.HasOne("Entities.Entities.Role", "role")
-                        .WithMany("listPerson")
+                        .WithMany("listUser")
                         .HasForeignKey("roleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("role");
-                });
-
-            modelBuilder.Entity("Entities.Entities.Ticket", b =>
-                {
-                    b.HasOne("Entities.Entities.Person", "c_person")
-                        .WithMany("listTickets")
-                        .HasForeignKey("personId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("c_person");
                 });
 
             modelBuilder.Entity("Entities.Entities.UserPermission", b =>
@@ -237,15 +237,15 @@ namespace Entities.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Entities.Entities.Person", "person")
+                    b.HasOne("Entities.Entities.User", "user")
                         .WithMany("listUserPermissions")
-                        .HasForeignKey("personId")
+                        .HasForeignKey("userId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("permision");
 
-                    b.Navigation("person");
+                    b.Navigation("user");
                 });
 
             modelBuilder.Entity("Entities.Entities.Permission", b =>
@@ -255,18 +255,18 @@ namespace Entities.Migrations
                     b.Navigation("listUserPermissions");
                 });
 
-            modelBuilder.Entity("Entities.Entities.Person", b =>
-                {
-                    b.Navigation("listTickets");
-
-                    b.Navigation("listUserPermissions");
-                });
-
             modelBuilder.Entity("Entities.Entities.Role", b =>
                 {
                     b.Navigation("listDefaultPermissions");
 
-                    b.Navigation("listPerson");
+                    b.Navigation("listUser");
+                });
+
+            modelBuilder.Entity("Entities.Entities.User", b =>
+                {
+                    b.Navigation("listTickets");
+
+                    b.Navigation("listUserPermissions");
                 });
 #pragma warning restore 612, 618
         }

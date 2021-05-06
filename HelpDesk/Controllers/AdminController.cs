@@ -1,16 +1,20 @@
 ﻿ using AppFeatures;
 using Entities.Entities;
 using HelpDesk.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace HelpDesk.Controllers
 {
+    [Authorize]
     public class AdminController : Controller
     {
 
@@ -24,15 +28,24 @@ namespace HelpDesk.Controllers
 
         private readonly AdminService _AdminFunctions = new AdminService();
 
+        private  static string logedIn;
+        private  static string roleIn;
 
 
+
+        public AdminController()
+        {
+         
+        }
 
         public IActionResult DashBoardAdmin()
 
         {
-            int a = (int)HttpContext.Session.GetInt32("userID");
 
-            Person res = _AppFunctions.GetUserById(a);
+            logedIn = _AppFunctions.GetUserByEmail(User.FindFirstValue(ClaimTypes.Name)).Result.Email;
+            roleIn = _AppFunctions.GetUserByEmail(User.FindFirstValue(ClaimTypes.Name)).Result.role.roleName;
+
+            User res = _AppFunctions.GetUserByEmail(logedIn).Result;
             if (res != null)
             {
                 return View();
@@ -47,10 +60,12 @@ namespace HelpDesk.Controllers
 
         public ActionResult ShowUsers()
         {
-            List<Person> agentsList = _AdminFunctions.ShowAgents();
+            List<User> agentsList = _AdminFunctions.ShowAgents().Result ;
             if (agentsList == null)
             {
-                //rederect to erreur page for vase erreur
+                //rederect to erreur page for case erreur
+                return RedirectToAction("Erreur404", "Home");
+
             }
             ViewBag.agentsList = agentsList;
 
@@ -66,49 +81,66 @@ namespace HelpDesk.Controllers
 
 
 
-        public IActionResult EditAgentPermission(int id)
+        public IActionResult EditAgentPermission(string mail)
         {
-            List<Permission> a = _AppFunctions.getUserPermissions(id);
-            ViewBag.ClientPermission = a;
+            List<Permission> a = _AppFunctions.getUserPermissions(mail);
+            ViewBag.AgentPermission = a;
 
             ViewBag.Permissions = _AppFunctions.ShowAllPermissions();
-            Person c = (Person)_AppFunctions.GetUserById(id);
+
+            User c = (User)_AppFunctions.GetUserByEmail(mail).Result;
 
             return View(c);
 
         }
 
-        public IActionResult validatePermissions()
+        public async Task<IActionResult> validatePermissions()
         {
 
             string a = Request.Form["AreChecked"];
             var numbers = a.Split(',').Select(Int32.Parse).ToList();
 
             int b = Int16.Parse(Request.Form["agentID"]);
-            _AdminFunctions.changePermissions(numbers, b);
+            await _AdminFunctions.changePermissions(numbers, b);
 
-            //if (_AdminFunctions.changePermissions(numbers, b))
+            if (_AdminFunctions.changePermissions(numbers, b).Result)
 
-            return RedirectToAction("DashBoardAdmin", "Admin");
+            {
+
+
+                //need to figure this out 
+                //string mail = Request.Form["agentMail"];
+                // return RedirectToAction("EditAgentPermission", "Admin",p1.Email);
+
+                //temporary solution
+                return RedirectToAction("ShowUsers", "Admin");
+            }
 
             //need errer page for baseErreur
 
+            return RedirectToAction("DashBoardAdmin", "Admin");
         }
 
 
         [HttpPost]
-        public IActionResult settings(Person _p)
+        
+        public IActionResult settings(User _p)
         {
             try
             {
 
 
-                Person p1 = new PersonService().updateInfo(_p);
+                User p1 = new Userservice().updateInfo(_p).Result;
 
                 if (p1 != null)
                 {
 
-                    return View(p1);
+
+                    //need to figure this out 
+                    // return RedirectToAction("EditAgentPermission", "Admin",p1.Email);
+
+                    //temporary solution
+                    return RedirectToAction("ShowUsers", "Admin");
                 }
                 else
                 {

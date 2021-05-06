@@ -52,32 +52,94 @@
                 <img src="/Content/images/logo.svg" alt="" width="88px">
             </a>
 
-
+            <button class="dx-navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
             <div class="dx-navbar-content">
 
-                @await Component.InvokeAsync("NavBarWithLog");
+                <ul class="dx-nav dx-nav-align-right">
+                    @if (User.Identity.IsAuthenticated)
+                    {
 
+                        <li>
+
+                            <div class="dropdown dx-dropdown dx-dropdown-signin">
+
+                                <a id="dropdownSignin" class="dx-nav-signin" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                                    @await Component.InvokeAsync("NavBarWithLog", User.Identity.Name)
+
+                                </a>
+
+                                <ul class="dropdown-menu" aria-labelledby="dropdownSignin">
+
+
+                                    @*                                <li><a asp-action="Index" asp-controller="Tickets"><span class="icon pe-7s-user"></span>Account</a></li>
+                                    *@
+                                    <li><a asp-action="settings" asp-controller="Home"><span class="icon pe-7s-config"></span>Settings</a></li>
+                                    <li><a asp-action="log_out" asp-controller="Home"><span class="icon pe-7s-back"></span>Log out</a></li>
+
+
+
+                                </ul>
+
+                            </div>
+                        </li>
+                    }
+                    <li>@await Html.PartialAsync("_CulturePartial")</li>
+                </ul>
             </div>
         </div>
-    </nav>
+</nav>
     <div class="dx-navbar dx-navbar-fullscreen">
         <div class="container">
             <button class="dx-navbar-burger">
                 <span></span><span></span><span></span>
             </button>
             <div class="dx-navbar-content">
+                <ul class="dx-nav dx-nav-align-right">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+
+                        <li>
+
+                            <div class="dropdown dx-dropdown dx-dropdown-signin">
+
+                                <a id="dropdownSignin" class="dx-nav-signin" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                                    @await Component.InvokeAsync("NavBarWithLog", User.Identity.Name)
+
+                                </a>
+
+                                <ul class="dropdown-menu" aria-labelledby="dropdownSignin">
 
 
-                @await Component.InvokeAsync("NavBarWithLog");
+                                    @*                                <li><a asp-action="Index" asp-controller="Tickets"><span class="icon pe-7s-user"></span>Account</a></li>
+                                    *@
+                                    <li><a asp-action="settings" asp-controller="Home"><span class="icon pe-7s-config"></span>Settings</a></li>
+                                    <li><a asp-action="log_out" asp-controller="Home"><span class="icon pe-7s-back"></span>Log out</a></li>
+
+
+
+                                </ul>
+
+                            </div>
+                        </li>
+
+                    }
+                    <li>@await Html.PartialAsync("_CulturePartial")</li>
+                </ul>
+                </div>
 
             </div>
         </div>
-    </div>
 
 
 
     <div id="layoutSidenav">
-        @await Component.InvokeAsync("SideNavbarAdmin")
+        @await Component.InvokeAsync("SideNavbarAdmin",User.Identity.Name)
 
         <div id="layoutSidenav_content">
             <main role="main" class="pb-3">

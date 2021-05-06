@@ -22,7 +22,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- START: Styles -->
-
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,600,700%7cMaven+Pro:400,500,700" rel="stylesheet"><!-- %7c -->
     <!-- Bootstrap -->
@@ -57,7 +56,6 @@
     <link rel="stylesheet" href="/Content/css/custom.css">
 
     <!-- END: Styles -->
-
     <!-- jQuery -->
     <script src="/Content/lib/jquery/dist/jquery.min.js"></script>
 
@@ -112,26 +110,25 @@
                 </ul>
 
                 <ul class="dx-nav dx-nav-align-right">
-                    @if (@HttpContextAccessor.HttpContext.Session.GetInt32("userID") != null)
+                    @if (User.Identity.IsAuthenticated)
                     {
+
                         <li>
 
                             <div class="dropdown dx-dropdown dx-dropdown-signin">
 
                                 <a id="dropdownSignin" class="dx-nav-signin" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
-
-                                    @await Component.InvokeAsync("NavBarWithLog")
-
+                                    @await Component.InvokeAsync("NavBarWithLog", User.Identity.Name)
 
                                 </a>
 
                                 <ul class="dropdown-menu" aria-labelledby="dropdownSignin">
 
 
-                                    <li><a asp-action="Index" asp-controller="Tickets"><span class="icon pe-7s-user"></span>Account</a></li>
-                                    <li><a asp-action="settings" asp-controller="Home"><span class="icon pe-7s-config"></span>Settings</a></li>
-                                    <li><a asp-action="log_out" asp-controller="Home"><span class="icon pe-7s-back"></span>Log out</a></li>
+                                    <li><a asp-action="Index" asp-controller="Tickets"><span class="icon pe-7s-user"></span>@localizer["Account"]</a></li>
+                                    <li><a asp-action="settings" asp-controller="Home"><span class="icon pe-7s-config"></span>@localizer["Settings"]</a></li>
+                                    <li><a asp-action="log_out" asp-controller="Home"><span class="icon pe-7s-back"></span>@localizer["Log_out"]</a></li>
 
 
 
@@ -160,7 +157,7 @@
             </div>
         </div>
     </nav>
-        
+
     <div class="dx-navbar dx-navbar-fullscreen">
         <div class="container">
             <button class="dx-navbar-burger">
@@ -194,7 +191,7 @@
                 </ul>
 
                 <ul class="dx-nav dx-nav-align-right">
-                    @if (@HttpContextAccessor.HttpContext.Session.GetInt32("userID") != null)
+                    @if (User.Identity.IsAuthenticated)
                     {
                         <li>
 
@@ -203,18 +200,16 @@
                                 <a id="dropdownSignin" class="dx-nav-signin" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
 
-                                    @await Component.InvokeAsync("NavBarWithLog")
+                                    @await Component.InvokeAsync("NavBarWithLog", User.Identity.Name)
 
 
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownSignin">
 
-
-
-                                    <li><a asp-action="Index" asp-controller="Tickets"><span class="icon pe-7s-user"></span>Account</a></li>
-                                    <li><a asp-action="settings" asp-controller="Home"><span class="icon pe-7s-config"></span>Settings</a></li>
-                                    <li><a asp-action="log_out" asp-controller="Home"><span class="icon pe-7s-back"></span>Log out</a></li>
+                                    <li><a asp-action="Index" asp-controller="Tickets"><span class="icon pe-7s-user"></span>@localizer["Account"]</a></li>
+                                    <li><a asp-action="settings" asp-controller="Home" ><span class="icon pe-7s-config"></span>@localizer["Settings"]</a></li>
+                                    <li><a asp-action="log_out" asp-controller="Home"><span class="icon pe-7s-back"></span>@localizer["Log_out"]</a></li>
 
                                 </ul>
 
@@ -246,143 +241,143 @@
 
 
     @*BEGIN:MAIN*@
-<div class="dx-main">
-    <header class="dx-header dx-box-1">
-        <div class="container">
-            <div class="bg-image bg-image-parallax">
-                <img src="/Content/images/bg-header-4.png" class="jarallax-img" alt="">
-                <div style="background-color: rgba(27, 27, 27, .8);"></div>
-            </div>
+    <div class="dx-main">
+        <header class="dx-header dx-box-1">
+            <div class="container">
+                <div class="bg-image bg-image-parallax">
+                    <img src="/Content/images/bg-header-4.png" class="jarallax-img" alt="">
+                    <div style="background-color: rgba(27, 27, 27, .8);"></div>
+                </div>
 
-            <div class="row justify-content-center">
-                <div class="col-xl-7">
-                    <h1 class="h2 mb-30 text-white text-center">@localizer["Q1"]</h1>
-                    <form action="#" class="dx-form dx-form-group-inputs">
-                        <input type="text" name="" value="" class="form-control" placeholder="@localizer["search_place_hoder"]">
-                        <button class="dx-btn dx-btn-lg">@localizer["search_button"]</button>
-                    </form>
+                <div class="row justify-content-center">
+                    <div class="col-xl-7">
+                        <h1 class="h2 mb-30 text-white text-center">@localizer["Q1"]</h1>
+                        <form action="#" class="dx-form dx-form-group-inputs">
+                            <input type="text" name="" value="" class="form-control" placeholder="@localizer["search_place_hoder"]">
+                            <button class="dx-btn dx-btn-lg">@localizer["search_button"]</button>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
-    </header>
+        </header>
 
 
 
 
-    @*    <div class="dx-box bg-white">
-            <div class="container">
-                <ul class="dx-links text-center">
-                    <li><a href="help-center.html"> @localizer["Support"]</a></li>
-                    <li><a asp-action="Index" asp-controller="Tickets">@localizer["My tickets"]</a></li>
-                    <li><a asp-action="addTicket" asp-controller="Tickets">@localizer["Submit ticket"]</a></li>
-                    <li><a href="forums.html">@localizer["Knowledge Base"]</a></li>
+        @*    <div class="dx-box bg-white">
+                <div class="container">
+                    <ul class="dx-links text-center">
+                        <li><a href="help-center.html"> @localizer["Support"]</a></li>
+                        <li><a asp-action="Index" asp-controller="Tickets">@localizer["My tickets"]</a></li>
+                        <li><a asp-action="addTicket" asp-controller="Tickets">@localizer["Submit ticket"]</a></li>
+                        <li><a href="forums.html">@localizer["Knowledge Base"]</a></li>
 
-                </ul>
+                    </ul>
+                </div>
             </div>
-        </div>
-        <div class="dx-separator"></div>*@
+            <div class="dx-separator"></div>*@
 
 
 
 
-     
-            @RenderBody()
-       
+
+        @RenderBody()
 
 
-    @*< !-- START: Footer -->*@
-    <footer class="dx-footer">
-        <div class="dx-box-1">
-            <div class="container">
-                <div class="row vertical-gap lg-gap">
 
-                    <div class="col-sm-6 col-lg-3">
+        @*< !-- START: Footer -->*@
+        <footer class="dx-footer">
+            <div class="dx-box-1">
+                <div class="container">
+                    <div class="row vertical-gap lg-gap">
 
-                        <div class="dx-widget-footer">
-                            <div class="dx-widget-title">
-                                <a asp-action="Index" asp-controller="Home" class="dx-widget-logo">
-                                    <img src="/Content/images/logo.svg" alt="" width="88px">
-                                </a>
+                        <div class="col-sm-6 col-lg-3">
+
+                            <div class="dx-widget-footer">
+                                <div class="dx-widget-title">
+                                    <a asp-action="Index" asp-controller="Home" class="dx-widget-logo">
+                                        <img src="/Content/images/logo.svg" alt="" width="88px">
+                                    </a>
+                                </div>
+                                <div class="dx-widget-text">
+                                    <p class="mb-0">&copy; 2019 <span class="dib">@localizer["rights"]</span> </p>
+                                </div>
+                                <div class="dx-widget-text">
+                                    <ul class="dx-social-links mnt-3">
+                                        <li><a href="#"><span class="fab fa-behance-square"></span></a></li>
+                                        <li><a href="#"><span class="fab fa-instagram"></span></a></li>
+                                        <li><a href="#"><span class="fab fa-dribbble"></span></a></li>
+                                        <li><a href="#"><span class="fab fa-github"></span></a></li>
+                                    </ul>
+                                </div>
                             </div>
-                            <div class="dx-widget-text">
-                                <p class="mb-0">&copy; 2019 <span class="dib">@localizer["rights"]</span> </p>
-                            </div>
-                            <div class="dx-widget-text">
-                                <ul class="dx-social-links mnt-3">
-                                    <li><a href="#"><span class="fab fa-behance-square"></span></a></li>
-                                    <li><a href="#"><span class="fab fa-instagram"></span></a></li>
-                                    <li><a href="#"><span class="fab fa-dribbble"></span></a></li>
-                                    <li><a href="#"><span class="fab fa-github"></span></a></li>
+
+                        </div>
+                        <div class="col-sm-6 col-lg-3">
+
+                            <div class="dx-widget-footer">
+                                <div class="dx-widget-title">
+                                    @localizer["Useful_Links"]
+                                </div>
+
+                                <ul class="dx-widget-list">
+                                    <li><a asp-action="HelpCenter" asp-controller="Home">@localizer["Support"]</a></li>
+                                    <li>
+                                        <a data-fancybox data-touch="false" data-close-existing="true" data-src="#signup" href="javascript:;">@localizer["Sign_Up"]</a>
+                                    </li>
+                                    <li>
+                                        <a data-fancybox data-touch="false" data-close-existing="true" data-src="#login" href="javascript:;">@localizer["Log_In"]</a>
+                                    </li>
                                 </ul>
                             </div>
+
                         </div>
+                        <div class="col-sm-6 col-lg-3">
 
-                    </div>
-                    <div class="col-sm-6 col-lg-3">
-
-                        <div class="dx-widget-footer">
-                            <div class="dx-widget-title">
-                                @localizer["Useful_Links"]
+                            <div class="dx-widget-footer">
+                                <div class="dx-widget-title">
+                                    Latest Products
+                                </div>
+                                @* <div class="dx-widget-portfolio">
+                                    <a href="product.html">Quantial – Moving Upon Signs Moveth Lesser</a>
+                                    <a href="product.html">Sensific – Saying Beast Lesser for in Fruitful</a>
+                                    <a href="product.html">Minist – Subdue Above for Signs Dry is Have Great</a>
+                                    </div>*@
                             </div>
 
-                            <ul class="dx-widget-list">
-                                <li><a asp-action="HelpCenter" asp-controller="Home">@localizer["Support"]</a></li>
-                                <li>
-                                    <a data-fancybox data-touch="false" data-close-existing="true" data-src="#signup" href="javascript:;">@localizer["Sign_Up"]</a>
-                                </li>
-                                <li>
-                                    <a data-fancybox data-touch="false" data-close-existing="true" data-src="#login" href="javascript:;">@localizer["Log_In"]</a>
-                                </li>
-                            </ul>
                         </div>
+                        <div class="col-sm-6 col-lg-3">
 
-                    </div>
-                    <div class="col-sm-6 col-lg-3">
+                            <div class="dx-widget-footer">
+                                <div class="dx-widget-title">
+                                    Latest Posts
+                                </div>
+                                @* <a href="single-post.html" class="dx-widget-post">
 
-                        <div class="dx-widget-footer">
-                            <div class="dx-widget-title">
-                                Latest Products
-                            </div>
-                            @* <div class="dx-widget-portfolio">
-                                <a href="product.html">Quantial – Moving Upon Signs Moveth Lesser</a>
-                                <a href="product.html">Sensific – Saying Beast Lesser for in Fruitful</a>
-                                <a href="product.html">Minist – Subdue Above for Signs Dry is Have Great</a>
-                                </div>*@
-                        </div>
+                                    <span class="dx-widget-post-text">
+                                    <span class="dx-widget-post-title">The Big Thing in Design</span>
+                                    <span class="dx-widget-post-date">25 Sep 2018</span>
+                                    </span>
 
-                    </div>
-                    <div class="col-sm-6 col-lg-3">
+                                    </a>
+                                    <a href="single-post.html" class="dx-widget-post">
 
-                        <div class="dx-widget-footer">
-                            <div class="dx-widget-title">
-                                Latest Posts
-                            </div>
-                            @* <a href="single-post.html" class="dx-widget-post">
-
-                                <span class="dx-widget-post-text">
-                                <span class="dx-widget-post-title">The Big Thing in Design</span>
-                                <span class="dx-widget-post-date">25 Sep 2018</span>
-                                </span>
-
+                                    <span class="dx-widget-post-text">
+                                    <span class="dx-widget-post-title">Will Coding Ever Rule the World?</span>
+                                    <span class="dx-widget-post-date">24 Sep 2018</span>
+                                    </span>
+                                *@
                                 </a>
-                                <a href="single-post.html" class="dx-widget-post">
+                            </div>
 
-                                <span class="dx-widget-post-text">
-                                <span class="dx-widget-post-title">Will Coding Ever Rule the World?</span>
-                                <span class="dx-widget-post-date">24 Sep 2018</span>
-                                </span>
-                            *@
-                            </a>
                         </div>
-
                     </div>
                 </div>
             </div>
-        </div>
-    </footer>
-    <!-- END: Footer -->
+        </footer>
+        <!-- END: Footer -->
 
-</div>
+    </div>
     @*END:MAIN*@
 
 
@@ -456,7 +451,7 @@
                     <span asp-validation-for="Phone" class="text-danger"></span>
                 </div>
 
-                <input type="hidden" asp-for="roleId" value=3 />
+                <input type="hidden" asp-for="roleId" value=4 />
 
                 <div class="dx-form-group-md">
                     <input type="submit" class="dx-btn dx-btn-block dx-btn-popup" value="@localizer["Sign_Up"]" />
@@ -491,7 +486,6 @@
 
 
     <!-- START: Scripts -->
-
     <!-- Object Fit Images -->
     <script src="/Content/lib/object-fit-images/dist/ofi.min.js"></script>
 

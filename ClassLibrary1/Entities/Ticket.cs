@@ -52,9 +52,9 @@ namespace Entities.Entities
 
         
 
-        public int personId { get; set; }
+        public int userId { get; set; }
 
-        public Person c_person { get; set; }
+        public User creator_user { get; set; }
 
 
 

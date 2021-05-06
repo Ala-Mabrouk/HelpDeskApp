@@ -1,13 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "ZUbo/IFB/5IaORSW4rPe6ZLNxtAvveSSGgAltV4kEQCiyC5WmE4KgNATtJZWNq0BTfTujMBidn6IpCehg3RsBQ==",
+  "dgSpecHash": "WlvW337xEZf6Ch6FPTd1OOHH9AN+MFw8KZbyBEQk6V/nEBBNAtvBFZYvxU0n+QTj2qVNMpUMxHQV8av19pytlw==",
   "success": true,
   "projectFilePath": "C:\\Users\\worrior107\\source\\repos\\HelpDeskApp\\ClassLibrary1\\Entities.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\worrior107\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
-    "C:\\Users\\worrior107\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\5.0.5\\microsoft.aspnetcore.cryptography.internal.5.0.5.nupkg.sha512",
-    "C:\\Users\\worrior107\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\5.0.5\\microsoft.aspnetcore.cryptography.keyderivation.5.0.5.nupkg.sha512",
-    "C:\\Users\\worrior107\\.nuget\\packages\\microsoft.aspnetcore.identity.entityframeworkcore\\5.0.5\\microsoft.aspnetcore.identity.entityframeworkcore.5.0.5.nupkg.sha512",
     "C:\\Users\\worrior107\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\worrior107\\.nuget\\packages\\microsoft.data.sqlclient\\2.0.1\\microsoft.data.sqlclient.2.0.1.nupkg.sha512",
     "C:\\Users\\worrior107\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\2.0.1\\microsoft.data.sqlclient.sni.runtime.2.0.1.nupkg.sha512",
@@ -29,8 +26,6 @@
     "C:\\Users\\worrior107\\.nuget\\packages\\microsoft.extensions.fileproviders.abstractions\\5.0.0\\microsoft.extensions.fileproviders.abstractions.5.0.0.nupkg.sha512",
     "C:\\Users\\worrior107\\.nuget\\packages\\microsoft.extensions.fileproviders.physical\\5.0.0\\microsoft.extensions.fileproviders.physical.5.0.0.nupkg.sha512",
     "C:\\Users\\worrior107\\.nuget\\packages\\microsoft.extensions.filesystemglobbing\\5.0.0\\microsoft.extensions.filesystemglobbing.5.0.0.nupkg.sha512",
-    "C:\\Users\\worrior107\\.nuget\\packages\\microsoft.extensions.identity.core\\5.0.5\\microsoft.extensions.identity.core.5.0.5.nupkg.sha512",
-    "C:\\Users\\worrior107\\.nuget\\packages\\microsoft.extensions.identity.stores\\5.0.5\\microsoft.extensions.identity.stores.5.0.5.nupkg.sha512",
     "C:\\Users\\worrior107\\.nuget\\packages\\microsoft.extensions.logging\\5.0.0\\microsoft.extensions.logging.5.0.0.nupkg.sha512",
     "C:\\Users\\worrior107\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\5.0.0\\microsoft.extensions.logging.abstractions.5.0.0.nupkg.sha512",
     "C:\\Users\\worrior107\\.nuget\\packages\\microsoft.extensions.options\\5.0.0\\microsoft.extensions.options.5.0.0.nupkg.sha512",

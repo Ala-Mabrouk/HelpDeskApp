@@ -1,8 +1,8 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Identity;
+
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -12,7 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace HelpDesk
 {
@@ -29,6 +29,20 @@ namespace HelpDesk
         public void ConfigureServices(IServiceCollection services)
 
         {
+           
+            //for authentification
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
+                options =>
+                {
+               
+                    options.Cookie.Name = "MySessionCookie";
+                    options.LoginPath = "/Home";
+                    options.LogoutPath = "/Home";
+
+                    options.SlidingExpiration = true;
+
+                });
+            services.AddHttpContextAccessor();
 
             //this part of code is needed to change language 
 
@@ -51,18 +65,16 @@ namespace HelpDesk
             });
 
 
-            //for identity
-           /* services.AddIdentity<Person,IdentityRole>();*/
 
 
             //this part of code is needed for the sessions
-            services.AddSession(options =>
+     /*       services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromSeconds(10000);
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
 
-            });
+            });*/
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddControllersWithViews();
@@ -72,7 +84,7 @@ namespace HelpDesk
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
 
-           
+
 
 
             if (env.IsDevelopment())
@@ -92,16 +104,19 @@ namespace HelpDesk
 
             app.UseRequestLocalization(app.ApplicationServices.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseSession();
-
+            /*  app.UseSession();
+             *  
+  */
+        
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}",
-                    defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });
+                    defaults: new { controller = "Home", action = "Index" });
             });
         }
     }

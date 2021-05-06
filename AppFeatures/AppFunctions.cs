@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.Threading.Tasks;
 
 namespace AppFeatures
 {
@@ -15,26 +15,27 @@ namespace AppFeatures
 
 
 
-        public Person GetUserById(int id)
+        public async Task<User> GetUserByEmail(string email)
         {
 
-            var a = _context.Persons
+            User a = await _context.Users
                  .Include(p => p.role)
                  .Include(p => p.listUserPermissions)
                  .ThenInclude(c => c.permision)
-                 .FirstOrDefault(p => p.Id == id);
+                 .FirstOrDefaultAsync(p => p.Email == email);
 
 
             return a;
 
         }
 
-        public List<Permission> getUserPermissions(int id)
+        public List<Permission> getUserPermissions(string email)
         {
-            var a = _context.Persons
+            var  a = _context.Users
                 .Include(c => c.listUserPermissions)
                 .ThenInclude(ca => ca.permision)
-                .FirstOrDefault(c => c.Id == id);
+                .FirstOrDefault(c => c.Email == email);
+
             List<Permission> p = new List<Permission>();
 
             foreach (var item in a.listUserPermissions)
@@ -51,30 +52,39 @@ namespace AppFeatures
             return (_context.Permissions.ToList());
         }
 
-        public List<Ticket> showAllTickets(int id)
+        public async Task<List<Ticket>> showAllTickets(int id)
         {
-            return (_context.Tickets.Where(t=>t.personId==id).ToList());
+            var myList = await _context.Tickets.ToListAsync();
+            return (myList);
         }
-        public Ticket addTicket(Ticket ticket)
+        public async Task<Ticket> addTicket(Ticket ticket)
         {
-            _context.Add(ticket);
+            try
+            {
+                await _context.AddAsync(ticket);
+               await _context.SaveChangesAsync();
+            }
+            catch(Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e);
+                return null;
+            }
             return (ticket);
         }
 
-        public List<Ticket> getTicketsByUser(int id)
+        public async  Task<List<Ticket>> getTicketsByUser(int id)
         {
 
-          var res=  _context.Tickets
-                .Include(t => t.c_person).Where(t => t.personId == id).ToList();
+          var res= await _context.Tickets
+                .Include(t => t.creator_user).Where(t => t.userId == id).ToListAsync();
             return res;
 
         }
 
-        public Ticket ticketInfo(int ticketId)
+        public async Task<Ticket> ticketInfo(int ticketId)
         {
 
-            Ticket res = _context.Tickets.Include(t => t.c_person).SingleOrDefault(t=>t.ticketId == ticketId);
-            System.Diagnostics.Debug.WriteLine(res);
+            Ticket res = await _context.Tickets.Include(t => t.creator_user).SingleOrDefaultAsync(t=>t.ticketId == ticketId);
             return(res);
         }
 

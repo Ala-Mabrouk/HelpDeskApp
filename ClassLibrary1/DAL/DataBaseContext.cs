@@ -1,6 +1,5 @@
 ﻿
 using Entities.Entities;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -8,9 +7,16 @@ namespace Entity_DAL.DAL
 
 {
     //This class will allow us to interact with our database
-    public class DataBaseContext 
+    public class DataBaseContext :DbContext
 
     {
+
+
+        public DataBaseContext(DbContextOptions<DataBaseContext> options) : base(options)
+        {
+
+        }
+
         //this class to intiate database connection and it's entity
         public class OptionBuild
         {
@@ -38,24 +44,20 @@ namespace Entity_DAL.DAL
 
 
 
-        public DataBaseContext(DbContextOptions<DataBaseContext> options) : base(options)
-        {
-
-        }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<DefaultPermissions>().HasKey(df => new { df.permissionId, df.roleId });
 
-            modelBuilder.Entity<UserPermission>().HasKey(up => new { up.personId, up.permisionId });
+            modelBuilder.Entity<UserPermission>().HasKey(up => new { up.userId, up.permisionId });
 
         }
 
 
         //adding our classes so that they can become table in the base
 
-        public DbSet<Person> Persons { get; set; }
+        public DbSet<User> Users { get; set; }
         public DbSet<Client> Clients { get; set; }
 
         public DbSet<Agent> Agents { get; set; }
@@ -66,7 +68,8 @@ namespace Entity_DAL.DAL
         public DbSet<UserPermission> UserPermissions { get; set; }
 
         public DbSet<Ticket> Tickets { get; set; }
-        public DbSet<Reply> Replys { get; set; }
+   
+/*     public DbSet<Reply> Replys { get; set; }*/
 
 
     }

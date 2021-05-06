@@ -1,6 +1,9 @@
 ﻿using AppFeatures;
 using Entities.Entities;
 using HelpDesk.Models;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -8,6 +11,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
+using System.Threading;
 using System.Threading.Tasks;
 using static Entities.Entities.Ticket;
 
@@ -16,12 +21,15 @@ namespace HelpDesk.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IHttpContextAccessor httpContextAccessor;
 
         //creation of instance from AppFeatures
 
         private readonly ClientService _ClientCRUD = new ClientService();
-        private readonly PersonService _PersonService = new PersonService();
+        private readonly Userservice _UserService = new Userservice();
         private readonly AppFunctions _AppFunctions = new AppFunctions();
+
+        private static string logedIn = "";
 
 
 
@@ -29,14 +37,20 @@ namespace HelpDesk.Controllers
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-
-
-
         }
 
         public IActionResult Index()
         {
             @ViewData["Title"] = "HELPDESK APP";
+            if (User.Identity.IsAuthenticated)
+            {
+                logedIn = User.FindFirstValue(ClaimTypes.Name);
+                if (!User.FindFirstValue(ClaimTypes.Role).Equals("Client"))
+                {
+                    return RedirectToAction("DashBoardAdmin", "Admin");
+                }
+            
+            }
             return View();
 
 
@@ -57,7 +71,7 @@ namespace HelpDesk.Controllers
 
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public ActionResult Sign_Up(Client _cl)
         {
             try
@@ -65,18 +79,29 @@ namespace HelpDesk.Controllers
                 if (ModelState.IsValid)
                 {
 
-                    Client cl1 = (Client)_ClientCRUD.SignUp(_cl);
+                    Client cl1 = (Client)_ClientCRUD.SignUp(_cl).Result;
 
                     if (cl1 != null)
                     {
-                        HttpContext.Session.SetInt32("userID", cl1.Id);
+                        //Create the identity for the user 
+                        var identity = new ClaimsIdentity(new[] {
+                    new Claim(ClaimTypes.Name, cl1.Email),
+                    new Claim(ClaimTypes.Role,cl1.role.roleName)
+                }, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                        var principal = new ClaimsPrincipal(identity);
+
+                        var login =  HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+                        logedIn = User.FindFirstValue(ClaimTypes.Name);
+ 
                         return RedirectToAction("Index", "Home");
                     }
 
                 }
-        
 
-            }catch(Exception e)
+
+            }
+            catch (Exception e)
             {
                 System.Diagnostics.Debug.WriteLine(e);
             }
@@ -86,21 +111,35 @@ namespace HelpDesk.Controllers
 
         }
 
-
+        
         [HttpPost]
-        public IActionResult Log_in(Person pers)
+        [AllowAnonymous]
+        public async Task<IActionResult> Log_in(User pers)
 
         {
-            Person test = _PersonService.LogIn(pers.Email, pers.Password);
+            User test = _UserService.LogIn(pers.Email, pers.Password).Result;
+     
             if (test != null)
             {
-                HttpContext.Session.SetInt32("userID", test.Id);
-                HttpContext.Session.SetString("userRole", test.role.roleName);
+
+  
+                var identity = new ClaimsIdentity(new[] {
+                    new Claim(ClaimTypes.Name, test.Email),
+                    new Claim(ClaimTypes.Role,test.role.roleName)
+                }, CookieAuthenticationDefaults.AuthenticationScheme);
 
 
+                var principal = new ClaimsPrincipal(identity);
+              
+
+                await  HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme
+                    , principal
+                   );
+ 
 
                 if (test.role.roleName.Equals("Client"))
                 {
+                    
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -118,11 +157,10 @@ namespace HelpDesk.Controllers
 
         public IActionResult log_out()
         {
+            var login = HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+   
 
-            HttpContext.Session.Remove("userID");
-            HttpContext.Session.Remove("userRole");
-
-          return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Home");
 
         }
 
@@ -130,25 +168,32 @@ namespace HelpDesk.Controllers
         {
             return View();
         }
-
+        [HttpGet]
+        [Authorize]
         public IActionResult settings()
         {
-            int a = (int)HttpContext.Session.GetInt32("userID");
-           Person pers= _AppFunctions.GetUserById(a);
+            System.Diagnostics.Debug.WriteLine("***********"+logedIn);
+             User  pers =  _AppFunctions.GetUserByEmail(logedIn).Result;
+
+            if (pers == null)
+            {
+                return RedirectToAction("Erreur404", "Home");
+            }
             return View(pers);
         }
 
         [HttpPost]
-        public IActionResult settings(Person _p)
+        [Authorize]
+        public IActionResult settings(User _p)
         {
-                try
+            try
+            {
+                User p1 = new Userservice().updateInfo(_p).Result;
+
+                if (p1 != null)
                 {
-                        Person p1 = new PersonService().updateInfo(_p);
 
-                        if (p1 != null)
-                        {
-
-                        return View(p1);
+                    return View(p1);
                 }
                 else
                 {
@@ -159,13 +204,13 @@ namespace HelpDesk.Controllers
 
 
 
-                }
-                catch (Exception e)
-                {
-                    System.Diagnostics.Debug.WriteLine(e);
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e);
                 return RedirectToAction("Error404");
             }
-               
+
 
         }
 
@@ -175,20 +220,18 @@ namespace HelpDesk.Controllers
         }
 
 
+        [Authorize]
         public IActionResult changePassword()
         {
-
-            int id = (int)HttpContext.Session.GetInt32("userID");
-            string oldpass = Request.Form["oldPass"];
+             string oldpass = Request.Form["oldPass"];
             string newpass = Request.Form["newPass"];
+            string confirmPass = Request.Form["confirmPass"];
+
+            if (newpass!=confirmPass && !_UserService.changeUserPassword(logedIn, oldpass, newpass).Result)
+
+                ViewBag.erreurChanging = "no changes have been made ";
 
 
-
-            if ( !_PersonService.changeUserPassword(id, oldpass, newpass))
-            
-                ViewBag.erreurChanging = "no changes have vbeen made ";
-            
-            
             return RedirectToAction("settings", "Home");
         }
     }

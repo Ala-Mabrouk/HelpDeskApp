@@ -1,27 +1,33 @@
 ﻿using AppFeatures;
 using Entities.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
  
 using static Entities.Entities.Ticket;
 
 namespace HelpDesk.Controllers
 {
-    
+    [Authorize]
     public class TicketsController : Controller
     {
 
-        private readonly PersonService _PersonService = new PersonService();
+        private readonly Userservice _UserService = new Userservice();
         private readonly AppFunctions _AppFunctions = new AppFunctions();
+
+        private static int loged;
+
         public IActionResult Index()
         {
-            if(getUsertickets())
-
-            return View();
+            loged = verifLog();
+            if (loged > 0) {
+                getUsertickets();
+            return View(); }
 
            return RedirectToAction("Erreur404", "Home");
         }
@@ -34,9 +40,10 @@ namespace HelpDesk.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult addTicket(Ticket ticket)
+        public async Task<IActionResult> addTicket(Ticket ticket)
         {
-            if (verifLog()>0)
+            
+            if (loged>0)
             {
                 if (ModelState.IsValid)
                 {
@@ -44,48 +51,41 @@ namespace HelpDesk.Controllers
                     ticket.ticketPriority = TicketPriority.Medium;
                     ticket.ticketStatut = TicketStatus.Distributed;
                     ticket.ticketDate = DateTime.Now;
-                    ticket.personId = verifLog();
+                    ticket.userId = loged;
 
-                    
-                    _PersonService.createTicket(ticket);
+                    await _UserService.createTicket(ticket);
 
                 }
 
-                RedirectToAction("listTickets", "Tickets");
+               return RedirectToAction("Index", "Tickets");
 
             }
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Erreur404", "Home");
 
 
 
         }
 
 
-        public Boolean getUsertickets()
+        public void getUsertickets()
         {
-            if (HttpContext.Session.GetInt32("userID")==null)
-            {
 
-                return false;
-                
-            }
-            int userid = (int)HttpContext.Session.GetInt32("userID");
-            ViewBag.MyTickets = _AppFunctions.getTicketsByUser(userid);
-            return true;
+            
+            ViewBag.MyTickets = _AppFunctions.getTicketsByUser(loged).Result;
+        
 
         }
         public IActionResult listTickets()
-        {
-            int a= (int)HttpContext.Session.GetInt32("userId");
-            List<Ticket> list = _AppFunctions.showAllTickets(a);
+        { 
+            List<Ticket> list = _AppFunctions.showAllTickets(loged).Result;
             ViewBag.ListTickets = list;
             return View();
         }
 
         public IActionResult singleTicketInfo(int ticketid)
         {
-            Ticket ticket = _AppFunctions.ticketInfo(ticketid);
+            Ticket ticket = _AppFunctions.ticketInfo(ticketid).Result;
             ViewBag.Ticket = ticket;
 
             return View();
@@ -94,8 +94,8 @@ namespace HelpDesk.Controllers
 
         public int verifLog()
         {
-
-            return (int)HttpContext.Session.GetInt32("userId");
+            int id = _AppFunctions.GetUserByEmail(User.FindFirstValue(ClaimTypes.Name)).Result.Id;
+            return id;
 
         }
 

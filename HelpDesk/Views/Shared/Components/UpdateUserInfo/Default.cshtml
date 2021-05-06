@@ -1,9 +1,13 @@
 ﻿
-@model Entities.Entities.Person
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
+
+@model Entities.Entities.User
 
 <div class="dx-box-decorated">
 
-    <form asp-action="settings" asp-controller=ViewBag.controllerName method="post" class="dx-form">
+    <form asp-action="settings" asp-controller="Admin" method="post" class="dx-form">
         <div class="dx-box-content">
             <table cellpadding="3px">
 
@@ -44,7 +48,7 @@
                     <td>
                     <td></td>
                     <td>
-                        <button type="submit" class="dx-btn-dark dx-btn-xl dx-btn-block">Save Changes</button>
+                        <button type="submit" class="dx-btn-dark dx-btn-xl dx-btn-block">@localizer["Save_Changes"]</button>
                     </td>
                     </td>
                 </tr>

@@ -117,61 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Account" xml:space="preserve">
-    <value>Account</value>
-  </data>
-  <data name="CssClass" xml:space="preserve">
-    <value>txt_int</value>
-  </data>
-  <data name="direction" xml:space="preserve">
-    <value>LTR</value>
-  </data>
-  <data name="Help Center" xml:space="preserve">
-    <value>Help Center </value>
-  </data>
-  <data name="Knowledge_Base" xml:space="preserve">
-    <value>Knowledge Base</value>
-  </data>
-  <data name="Log_In" xml:space="preserve">
-    <value>Log in</value>
-  </data>
-  <data name="Log_out" xml:space="preserve">
-    <value>Log out</value>
-  </data>
-  <data name="My_tickets" xml:space="preserve">
-    <value>My tickets</value>
-  </data>
-  <data name="Q1" xml:space="preserve">
-    <value>How can we help you ?</value>
-  </data>
-  <data name="Reset_your_password" xml:space="preserve">
-    <value>Reset your password</value>
-  </data>
-  <data name="rights" xml:space="preserve">
-    <value>All rights reserved</value>
-  </data>
-  <data name="search_button" xml:space="preserve">
-    <value>Search</value>
-  </data>
-  <data name="search_place_hoder" xml:space="preserve">
-    <value>Keyword search...</value>
-  </data>
-  <data name="Settings" xml:space="preserve">
-    <value>Settings</value>
-  </data>
-  <data name="Sign_Up" xml:space="preserve">
-    <value>Sign Up</value>
-  </data>
-  <data name="String1" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Submit_ticket" xml:space="preserve">
-    <value>Submit ticket</value>
-  </data>
-  <data name="Support" xml:space="preserve">
-    <value>Support</value>
-  </data>
-  <data name="Useful_Links" xml:space="preserve">
-    <value>Useful Links</value>
+  <data name="Save_Changes" xml:space="preserve">
+    <value>Save Changes</value>
   </data>
 </root>

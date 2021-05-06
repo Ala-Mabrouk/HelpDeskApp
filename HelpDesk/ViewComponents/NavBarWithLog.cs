@@ -1,24 +1,25 @@
 ﻿
 using AppFeatures;
-using Microsoft.AspNetCore.Http;
+using Entities.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace ticketing.ViewComponents
 {
     public class NavBarWithLog:ViewComponent
     {
-        public IViewComponentResult Invoke()
+        public IViewComponentResult Invoke(string mail)
 
         {
 
-           var res= new ClientService().GetUser((int)HttpContext.Session.GetInt32("userID"));
-            ViewBag.userLoged = res.FirstName + " " + res.LastName;
-            ViewBag.avatar = res.ThumbUrl;
-
+            User res =  new AppFunctions().GetUserByEmail(mail).Result;
+ 
+                ViewBag.userLoged = res.FirstName + " " + res.LastName;
+                ViewBag.avatar = res.ThumbUrl;
+        
             return View();
         }
     }

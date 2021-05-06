@@ -4,6 +4,7 @@
 @inject IViewLocalizer localizer
 
 @model Entities.Entities.Agent
+
 @{
     ViewData["Title"] = "DashBoardAdmin";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -38,10 +39,11 @@
                 <thead>
                     <tr>
                         <th><label asp-for="Id"></label></th>
-                        <th><label asp-for="FirstName"> and </label><label asp-for="LastName"></label></th>
+                        <th><label asp-for="FirstName"></label> <label asp-for="LastName"></label></th>
                         <th><label asp-for="Email"></label></th>
                         <th><label asp-for="Phone"></label></th>
                         <th><label asp-for="role.roleName"></label></th>
+                        <th>@localizer["actions"]</th>
                     </tr>
                 </thead>
                 <tfoot>
@@ -64,7 +66,7 @@
                             <td> @agent.Email</td>
                             <td> @agent.Phone</td>
                             <td> @agent.role.roleName</td>
-                            <td><a asp-action="EditAgentPermission" asp-route-id="@agent.Id">update info</a></td>
+                            <td><a asp-action="EditAgentPermission" asp-route-mail="@agent.Email" asp-controller="Admin">update info</a></td>
 
 
 
