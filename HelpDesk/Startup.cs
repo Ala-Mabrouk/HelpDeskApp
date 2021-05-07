@@ -36,7 +36,7 @@ namespace HelpDesk
                 {
                
                     options.Cookie.Name = "MySessionCookie";
-                    options.LoginPath = "/Home";
+                    options.LoginPath = "/Home/Log_in";
                     options.LogoutPath = "/Home";
 
                     options.SlidingExpiration = true;
