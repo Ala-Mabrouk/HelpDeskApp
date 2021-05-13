@@ -10,7 +10,26 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
+<script>
 
+    $(function () {
+        var placeholder = $('#placeholder');
+        $('a[data-toggle="ticketInfo"]').click(function (event) {
+
+            var url = $(this).data('url');
+            $.get(url).done(function (data) {
+                placeholder.html(data);
+                placeholder.find('.modal').modal('show');
+            })
+
+
+        })
+
+    })
+
+
+</script>
+<div id="placeholder"></div>
 <div class="row">
     <div class="col-xl-3 col-md-6">
         <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
@@ -40,7 +59,6 @@
                     <tr>
                         <th><label asp-for="ticketId"></label></th>
                         <th><label asp-for="ticketTitle"></label></th>
-                        <th><label asp-for="ticketDescription"></label></th>
                         <th><label asp-for="ticketStatut"></label></th>
                         <th><label asp-for="ticketPriority"></label></th>
                         <th><label asp-for="ticketDate"></label></th>
@@ -49,16 +67,20 @@
                 <tbody>
                     @foreach (var ticket in ViewBag.ListTickets)
                     {
-                        <tr>
-                            <td> @ticket.ticketId</td>
-                            <td> @ticket.ticketTitle </td>
-                            <td> @ticket.ticketDescription</td>
-                            <td> @ticket.ticketStatut</td>
-                            <td> @ticket.ticketPriority</td>
-                            <td> @ticket.ticketDate</td>
+                    <tr>
+                        <td> @ticket.ticketId</td>
+                        <td> @ticket.ticketTitle </td>
+                        <td> @ticket.ticketStatut</td>
+                        <td> @ticket.ticketPriority</td>
+                        <td> @ticket.ticketDate</td>
 
 
-                        </tr>
+                        <td>
+                            <a href="#" data-toggle="ticketInfo" data-target="#ticketInfo" data-url="@Url.Action("ticketInfo",new { idTicket = ticket.ticketId })">Details</a> |
+                            <a asp-action="singleTicketInfo" asp-controller="Tickets" asp-route-ticketid="@ticket.ticketId">showInfo</a>
+                        </td>
+
+                    </tr>
                     }
 
                 </tbody>

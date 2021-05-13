@@ -120,6 +120,9 @@
   <data name="Account" xml:space="preserve">
     <value>Account</value>
   </data>
+  <data name="Articles&amp;FAQ" xml:space="preserve">
+    <value>Articles and FAQ</value>
+  </data>
   <data name="CssClass" xml:space="preserve">
     <value>txt_int</value>
   </data>
@@ -128,9 +131,6 @@
   </data>
   <data name="Help Center" xml:space="preserve">
     <value>Help Center </value>
-  </data>
-  <data name="Knowledge_Base" xml:space="preserve">
-    <value>Knowledge Base</value>
   </data>
   <data name="Log_In" xml:space="preserve">
     <value>Log in</value>

@@ -172,6 +172,21 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Models\Ressources\Ressource_Person\Resource.Designer.cs">
+      <DependentUpon>Resource.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Models\Ressources\Ressource_Product\Resource.Designer.cs">
+      <DependentUpon>Resource.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Models\Ressources\Ressource_Tickets\ResourceTicket.Designer.cs">
+      <DependentUpon>ResourceTicket.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Update="Resources\Views\Admin\ShowUsers.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -185,6 +200,26 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Models\Ressources\Ressource_Person\Resource.ar.resx">
+      <LastGenOutput>Resource.en.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Models\Ressources\Ressource_Person\Resource.fr.resx">
+      <LastGenOutput>Resource.en.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Models\Ressources\Ressource_Person\Resource.resx">
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Models\Ressources\Ressource_Product\Resource.resx">
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Models\Ressources\Ressource_Tickets\ResourceTicket.resx">
+      <LastGenOutput>ResourceTicket.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\Views\Admin\ShowUsers.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ShowUsers.Designer.cs</LastGenOutput>

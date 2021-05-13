@@ -1,0 +1,151 @@
+﻿
+
+
+
+@model Entities.Entities.Product
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<script>
+
+    //for Product details
+    $(function () {
+        var placeholder = $('#placeholder');
+        $('a[data-toggle="smt"]').click(function (event) {
+
+            var url = $(this).data('url');
+            $.get(url).done(function (data) {
+                placeholder.html(data);
+                placeholder.find('.modal').modal('show');
+            })
+
+
+        })
+
+    })
+    //for Adding product popup
+    $(function () {
+        var placeholder = $('#placeholder');
+        $('a[data-toggle="addProduct"]').click(function (event) {
+
+            var url = $(this).data('url');
+            $.get(url).done(function (data) {
+                placeholder.html(data);
+                placeholder.find('.modal').modal('show');
+            })
+
+
+        })
+
+    })
+
+        //for Edit product popup
+    $(function () {
+        var placeholder = $('#placeholder');
+        $('a[data-toggle="editProduct"]').click(function (event) {
+
+            var url = $(this).data('url');
+            $.get(url).done(function (data) {
+                placeholder.html(data);
+                placeholder.find('.modal').modal('show');
+            })
+
+
+        })
+
+    })
+    //for Delete product popup
+    $(function () {
+        var placeholder = $('#placeholder');
+        $('a[data-toggle="deleteProduct"]').click(function (event) {
+
+            var url = $(this).data('url');
+            $.get(url).done(function (data) {
+                placeholder.html(data);
+                placeholder.find('.modal').modal('show');
+            })
+
+
+        })
+
+    })
+
+
+</script>
+
+<p>
+    <a href="#" data-toggle="addProduct" data-target="#addProduct" data-url="@Url.Action("Create")">Add Product</a>
+   @* <a asp-action="Create">Create New</a>*@
+</p>
+<div id="placeholder"></div>
+<table class="table">
+    <thead>
+        <tr>
+            
+                <th>
+                    @Html.DisplayNameFor(model => model.imgUrl)
+                </th>
+        <th>
+            @Html.DisplayNameFor(model => model.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.factoryName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dateBuild)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dateValidate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.category)
+        </th>
+        <th></th>
+    </tr>
+</thead>
+<tbody>
+    @foreach (var item in ViewBag.listProducts)
+    {
+        <tr>
+            <td>
+                <a class="dx-ticket-item">
+                    <span class="dx-ticket-img"><img src="@Url.Content(item.imgUrl)" alt="itemimg" /></span>
+                </a>
+
+
+            </td>
+            <td>
+                @item.name
+            </td>
+            <td>
+                @item.description
+            </td>
+            <td>
+                @item.factoryName
+            <td>
+                @item.dateBuild
+            </td>
+            <td>
+                @item.dateValidate
+            </td>
+            <td>
+                @item.category
+            </td>
+            <td>
+                <a href="#" data-toggle="editProduct" data-target="#editProduct" data-url="@Url.Action("Edit",new { id = item.refId })">Edit</a> |
+
+                @*<a asp-action="Edit" asp-route-id="@item.refId">Edit</a>*@ |
+
+                <a href="#" data-toggle="smt" data-target="#smt" data-url="@Url.Action("Details",new { id = item.refId })">Details</a> |
+ 
+                <a href="#" data-toggle="deleteProduct" data-target="#deleteProduct" data-url="@Url.Action("Delete",new { id = item.refId })">Delete</a> |
+
+            </td>
+        </tr>
+    }
+</tbody>
+</table>

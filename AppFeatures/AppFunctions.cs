@@ -88,6 +88,73 @@ namespace AppFeatures
             return(res);
         }
 
+        public async Task<Ticket> getTicketDetails(int ticketId)
+        {
+            Ticket res = await _context.Tickets.FirstOrDefaultAsync();
+            return res;
+        }
+
+        public async Task<List<Product>> getListProducts()
+        {
+            List<Product> res = await _context.Products.ToListAsync();
+            return res;
+        }
+        public async Task<Product> getProductById(string id)
+        {
+           var res = await _context.Products.FirstOrDefaultAsync(p=>p.refId==id);
+            return res;
+        }
+        public async Task<Product> addProduct(Product p)
+        {
+            try
+            {
+               await _context.AddAsync(p);
+              await  _context.SaveChangesAsync();
+                return p;
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e);
+                return null;
+            }
+        }  
+        
+        public async Task<Product> updateProduct(Product p)
+        {
+            try
+            {
+                var res = await _context.Products.FirstAsync(p => p.refId == p.refId);
+                res.name = p.name;
+                res.description = p.description;
+                res.dateBuild = p.dateBuild;
+                res.dateValidate = p.dateValidate;
+                res.factoryName = p.factoryName;
+                res.category = p.category;
+
+                await   _context.SaveChangesAsync();
+                return res;
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e);
+                return null;
+            }
+        }
+        public async Task<Boolean> DeleteProduct(string idproduct)
+        {
+            try
+            {
+                var res = _context.Products.Where(P => P.refId == idproduct).First();
+                _context.Remove(res);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e);
+                return false;
+            }
+        }
 
     }
 }

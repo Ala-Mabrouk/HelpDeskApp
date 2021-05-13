@@ -1,0 +1,132 @@
+﻿ 
+
+
+
+@{ Layout = null;}
+
+
+<div class="modal fade" id="ticketInfo">
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">@ViewBag.Ticket.ticketTitle</h4>
+                <button type="button" class="close" data-dismiss="modal">x</button>
+
+            </div>
+
+            <div class="modal-body">
+                <div class="dx-box-5 pb-100 bg-grey-6">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-xl-7">
+                                <div class="dx-box dx-box-decorated">
+                                    <div class="dx-blog-post dx-ticket ">
+                                        <div class="dx-blog-post-box pt-30 pb-30">
+                                            <h2 class="h4 mnt-5 mb-9 dx-ticket-title">@ViewBag.Ticket.ticketTitle</h2>
+
+
+                                            <span class="dx-ticket-status">@ViewBag.Ticket.ticketStatut</span>
+                                        </div>
+                                        <div class="dx-separator"></div>
+
+                                        <div style="background-color: #fafafa;">
+
+                                            <ul class="dx-blog-post-info dx-blog-post-info-style-2 mb-0 mt-0">
+                                                <li><span><span class="dx-blog-post-info-title" asp-for="ticketId"></span># @ViewBag.Ticket.ticketId</span></li>
+                                                <li><span><span class="dx-blog-post-info-title" asp-for="ticketStatut"></span>@ViewBag.Ticket.ticketStatut</span></li>
+
+                                                <li><span><span class="dx-blog-post-info-title" asp-for="ticketPriority"></span>@ViewBag.Ticket.ticketPriority</span></li>
+                                            </ul>
+                                        </div>
+                                        <div class="dx-separator"></div>
+
+                                        <div class="dx-comment dx-ticket-comment">
+                                            <div>
+                                                <div class="dx-comment-img">
+                                                    <img src=@ViewBag.Ticket.creator_user.ThumbUrl alt="user ThumbUrl">
+                                                </div>
+                                                <div class="dx-comment-cont">
+                                                    <a href="#" class="dx-comment-name">@ViewBag.Ticket.creator_user.FirstName @ViewBag.Ticket.creator_user.LastName</a>
+                                                    <div class="dx-comment-date">@ViewBag.Ticket.ticketDate</div>
+                                                    <div class="dx-comment-text">
+                                                        <p class="mb-0">@ViewBag.Ticket.ticketDescription</p>
+                                                    </div>
+
+                                                    @*used for attached files*@
+                                                    @*   <a href="#" class="dx-comment-file dx-comment-file-jpg">
+                                            <span class="dx-comment-file-img"><img src="assets/images/icon-jpg.svg" alt="" width="36"></span>
+                                            <span class="dx-comment-file-name">example-file.jpg</span>
+                                            <span class="dx-comment-file-size">4.8 MB</span>
+                                            <span class="dx-comment-file-icon"><span class="icon pe-7s-download"></span></span>
+                                        </a>*@
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="dx-separator mnt-1"></div>
+
+                                        <div class="dx-blog-post-box">
+                                            <h3 class="h6 mb-25">Write a Reply</h3>
+
+                                            <form class="dx-form" action="#">
+                                                <div class="dx-form-group">
+                                                    <div class="dx-editor-quill">
+                                                        <div class="dx-editor" data-editor-height="150" data-editor-maxHeight="250"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="dx-form-group">
+                                                    <!-- STRART: Dropzone
+
+                                        Additional Attributes:
+                                        data-dropzone-action
+                                        data-dropzone-maxMB
+                                        data-dropzone-maxFiles
+                                    -->
+                                                    <div class="dx-dropzone" data-dropzone-action="#" data-dropzone-maxMB="5" data-dropzone-maxFiles="5">
+                                                        <div class="dz-message">
+                                                            <div class="dx-dropzone-icon">
+                                                                <span class="icon pe-7s-cloud-upload"></span>
+                                                            </div>
+                                                            <div class="h6 dx-dropzone-title">Drop files here or click to upload</div>
+                                                            <div class="dx-dropzone-text">
+                                                                <p class="mnb-5 mnt-1">You can upload up to 5 files (maximum 5 MB each) of the following types: .jpg, .jpeg, .png, .zip.</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row justify-content-between vertical-gap dx-dropzone-attachment">
+                                                        <div class="col-auto dx-dropzone-attachment-add">
+                                                            <label class="mb-0" class="mnt-7"><span class="icon fas fa-paperclip mr-10"></span><span>Add Attachment</span></label>
+                                                        </div>
+                                                        <div class="col-auto dx-dropzone-attachment-btn">
+                                                            <button class="dx-btn dx-btn-lg" type="button" name="button">Submit a ticket</button>
+                                                        </div>
+                                                    </div>
+                                                    <!-- END: Dropzone -->
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="close" data-dismiss="modal">close</button>
+                <button type="button" class="close" data-save="modal">accept</button>
+
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+ 
+

@@ -73,7 +73,8 @@
                 <img src="/Content/images/logo.svg" alt="" width="88px">
             </a>
 
-
+            <a asp-action="index" asp-controller="Products" >
+Products            </a>
             <button class="dx-navbar-burger">
                 <span></span>
                 <span></span>
@@ -141,7 +142,7 @@
                     else
                     {
                         <li>
-                            <span> <a  asp-action="Log_in">@localizer["Log_In"]</a></span>
+                            <span> <a asp-action="Log_in">@localizer["Log_In"]</a></span>
                         </li>
                         <li>
                             <span> <a class="dx-btn dx-btn-md dx-btn-transparent" asp-action="Sign_Up">@localizer["Sign_Up"]</a></span>
@@ -184,7 +185,7 @@
                     </li>
                     <li class="dx-drop-item">
                         <a href="articles.html">
-                            @localizer["Knowledge Base"]
+                            @localizer["Articles&FAQ"]
                         </a>
                     </li>
                 </ul>

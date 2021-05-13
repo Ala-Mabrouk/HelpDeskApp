@@ -24,10 +24,10 @@
                             <!-- START: Breadcrumbs -->
                             <ul class="dx-breadcrumbs text-left dx-breadcrumbs-dark mnb-6 fs-14">
 
-                                <li><a href="help-center.html">Support Home</a></li>
+                                <li><a asp-action="Index" asp-controller="Home">Support Home</a></li>
 
 
-                                <li><a href="ticket.html">Ticket System</a></li>
+                                <li><a asp-action="Index" asp-controller="Tickets">Ticket System</a></li>
 
                                 <li>@ViewBag.Ticket.ticketTitle</li>
 
@@ -45,7 +45,7 @@
                                 <li><span><span class="dx-blog-post-info-title" asp-for="ticketId"></span># @ViewBag.Ticket.ticketId</span></li>
                                 <li><span><span class="dx-blog-post-info-title" asp-for="ticketStatut"></span>@ViewBag.Ticket.ticketStatut</span></li>
                                 <li><span><span class="dx-blog-post-info-title" asp-for="ticketDate"></span>@ViewBag.Ticket.ticketDate</span></li>
-                                <li><span><span class="dx-blog-post-info-title" asp-for="ticketPriority"></span>@ViewBag.Ticket.ticketPriority</span></li>
+@**@                                <li><span><span class="dx-blog-post-info-title" asp-for="ticketPriority"></span>@ViewBag.Ticket.ticketPriority</span></li>
                             </ul>
                         </div>
                         <div class="dx-separator"></div>

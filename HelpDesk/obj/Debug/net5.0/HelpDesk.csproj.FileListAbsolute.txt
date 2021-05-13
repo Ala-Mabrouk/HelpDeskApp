@@ -188,3 +188,15 @@ C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Vie
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\HelpDesk.Resources.Views.Shared.Components.UpdateUserInfo.Default.resources
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Home\Log_in.cshtml.g.cs
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Home\Sign_Up.cshtml.g.cs
+C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Tickets\ticketInfo.cshtml.g.cs
+C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Products\Index.cshtml.g.cs
+C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Products\Details.cshtml.g.cs
+C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Products\Create.cshtml.g.cs
+C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Products\Edit.cshtml.g.cs
+C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Products\Delete.cshtml.g.cs
+C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\HelpDesk.Models.Ressources.Ressource_Person.Resource.resources
+C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\HelpDesk.Models.Ressources.Ressource_Product.Resource.resources
+C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\HelpDesk.Models.Ressources.Ressource_Tickets.ResourceTicket.resources
+C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\HelpDesk.Models.Ressources.Ressource_Person.Resource.ar.resources
+C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\HelpDesk.Models.Ressources.Ressource_Person.Resource.fr.resources
+C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Home\ResetPassword.cshtml.g.cs

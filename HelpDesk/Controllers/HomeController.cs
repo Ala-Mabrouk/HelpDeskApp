@@ -14,7 +14,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
- 
+
 namespace HelpDesk.Controllers
 {
     public class HomeController : Controller
@@ -77,7 +77,7 @@ namespace HelpDesk.Controllers
         }
 
         [HttpPost]
- 
+
         public ActionResult Sign_Up(Client _cl)
         {
             if (ModelState.IsValid)
@@ -95,30 +95,33 @@ namespace HelpDesk.Controllers
 
                     var principal = new ClaimsPrincipal(identity);
 
-                    var login = HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+                    HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+
                     logedIn = User.FindFirstValue(ClaimTypes.Name);
 
                     return RedirectToAction("Index", "Home");
                 }
+                ModelState.AddModelError("", "Unable to sign up for now!try later ");
 
             }
 
-            return View();
- 
+            return View(_cl);
+
         }
 
-            [HttpGet]
-            public IActionResult Log_in()
-            {
-                return View();
-            }
+        [HttpGet]
+        public IActionResult Log_in()
+        {
+            return View();
+        }
 
         [HttpPost]
-    
-        public async Task<IActionResult> Log_in(User pers, string ReturnUrl)
+
+        public async Task<IActionResult> Log_in(LogUser pers, string ReturnUrl)
 
         {
-            
+            if (ModelState.IsValid)
+            {
                 User test = _UserService.LogIn(pers.Email, pers.Password).Result;
 
                 if (test != null)
@@ -157,10 +160,20 @@ namespace HelpDesk.Controllers
                     }
 
                 }
-           
-            return View() ;
+
+                ModelState.AddModelError("", "User not Found");
+
+            }
+
+            return View(pers);
 
 
+        }
+       
+        [HttpGet]
+        public ActionResult ResetPassword()
+        {
+            return View();
         }
 
 
@@ -182,7 +195,7 @@ namespace HelpDesk.Controllers
         [Authorize]
         public IActionResult settings()
         {
-             User pers = _AppFunctions.GetUserByEmail(logedIn).Result;
+            User pers = _AppFunctions.GetUserByEmail(logedIn).Result;
 
             if (pers == null)
             {

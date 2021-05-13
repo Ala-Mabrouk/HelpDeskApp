@@ -71,6 +71,8 @@ namespace Entity_DAL.DAL
    
 /*     public DbSet<Reply> Replys { get; set; }*/
 
+        public DbSet<Product> Products { get; set; }
+
 
     }
 

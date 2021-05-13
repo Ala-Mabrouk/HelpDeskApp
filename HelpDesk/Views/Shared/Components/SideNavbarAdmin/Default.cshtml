@@ -11,7 +11,7 @@
         <div class="sb-sidenav-menu">
             <div class="nav">
 
-                <a class="nav-link" asp-action="DashBoardAdmin">
+                <a class="nav-link" asp-action="DashBoardAdmin" asp-controller="Admin">
 
                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                     @localizer["Dashboard"]
@@ -43,6 +43,13 @@
                 <a class="nav-link" asp-action="listTickets" asp-controller="Tickets">
                     <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                     @localizer["Manage_Tickets"]
+                </a>   <a class="nav-link" asp-action="ShowUsers" asp-controller="Admin">
+                    <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                    Customers
+                </a> 
+                <a class="nav-link" asp-action="Index" asp-controller="Products">
+                    <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                   Products
                 </a>
                 <a class="nav-link">
                     <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>

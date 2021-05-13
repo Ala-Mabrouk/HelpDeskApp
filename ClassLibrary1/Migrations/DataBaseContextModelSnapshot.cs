@@ -52,6 +52,40 @@ namespace Entities.Migrations
                     b.ToTable("Permissions");
                 });
 
+            modelBuilder.Entity("Entities.Entities.Product", b =>
+                {
+                    b.Property<string>("refId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("category")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("dateBuild")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("dateValidate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("factoryName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("imgUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("refId");
+
+                    b.ToTable("Products");
+                });
+
             modelBuilder.Entity("Entities.Entities.Role", b =>
                 {
                     b.Property<int>("roleId")

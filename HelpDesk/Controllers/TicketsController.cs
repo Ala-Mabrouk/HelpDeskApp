@@ -98,6 +98,15 @@ namespace HelpDesk.Controllers
             return id;
 
         }
+        public ActionResult ticketInfo(int idTicket)
+        {
+
+
+            var res = _AppFunctions.ticketInfo(idTicket).Result;
+
+            ViewBag.Ticket = res;
+            return View();
+        }
 
     }
 }

@@ -47,7 +47,7 @@ namespace Entities.Entities
         public string HomeAdresse { get; set; }
 
 
-        public string ThumbUrl { get; set; } = "C:\\Users\\worrior107\\Desktop\\payment-card.png";
+        public string ThumbUrl { get; set; } = "~/Content/images/Profile_placeholder .png";
 
 
 

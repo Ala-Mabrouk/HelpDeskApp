@@ -1,0 +1,93 @@
+﻿@*
+
+
+
+    @model Entities.Entities.Product
+    @{
+        ViewData["Title"] = "View";
+    }
+
+
+    <div>
+        <h4>Product</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.name)
+            </dt>
+            <dd class="col-sm-10">
+                @ViewBag.product.name
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.description)
+            </dt>
+            <dd class="col-sm-10">
+                @ViewBag.product.description
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.factoryName)
+            </dt>
+            <dd class="col-sm-10">
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.dateBuild)
+            </dt>
+            <dd class="col-sm-10">
+                @ViewBag.product.dateBuild
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.dateValidate)
+            </dt>
+            <dd class="col-sm-10">
+                @ViewBag.product.dateValidate
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.category)
+            </dt>
+            <dd class="col-sm-10">
+                @ViewBag.product.category
+            </dd>   <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.imgUrl)
+            </dt>
+            <dd class="col-sm-10">
+                @ViewBag.product.imgUrl
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <a asp-action="Edit" asp-route-id=" @ViewBag.refId">Edit</a> |
+        <a asp-action="Index">Back to List</a>
+
+
+        <button data-toggle="smt" data-target="#sfsf" data-url="@Url.Action("create","Products",Model)"></button>
+
+    </div>
+*@
+<div class="modal fade" id="smt">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">my new modal</h4>
+                <button type="button" class="close" data-dismiss="modal">x</button>
+
+            </div>
+
+            <div class="modal-body">
+                <div>
+                    @ViewBag.product.name
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="close" data-dismiss="modal">close</button>
+                <button type="button" class="close" data-save="modal">accept</button>
+
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
