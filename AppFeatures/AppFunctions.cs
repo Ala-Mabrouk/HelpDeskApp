@@ -31,7 +31,7 @@ namespace AppFeatures
 
         public List<Permission> getUserPermissions(string email)
         {
-            var  a = _context.Users
+            var a = _context.Users
                 .Include(c => c.listUserPermissions)
                 .ThenInclude(ca => ca.permision)
                 .FirstOrDefault(c => c.Email == email);
@@ -62,9 +62,9 @@ namespace AppFeatures
             try
             {
                 await _context.AddAsync(ticket);
-               await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 System.Diagnostics.Debug.WriteLine(e);
                 return null;
@@ -72,11 +72,11 @@ namespace AppFeatures
             return (ticket);
         }
 
-        public async  Task<List<Ticket>> getTicketsByUser(int id)
+        public async Task<List<Ticket>> getTicketsByUser(int id)
         {
 
-          var res= await _context.Tickets
-                .Include(t => t.creator_user).Where(t => t.userId == id).ToListAsync();
+            var res = await _context.Tickets
+                  .Include(t => t.creator_user).Where(t => t.userId == id).ToListAsync();
             return res;
 
         }
@@ -84,8 +84,8 @@ namespace AppFeatures
         public async Task<Ticket> ticketInfo(int ticketId)
         {
 
-            Ticket res = await _context.Tickets.Include(t => t.creator_user).SingleOrDefaultAsync(t=>t.ticketId == ticketId);
-            return(res);
+            Ticket res = await _context.Tickets.Include(t => t.creator_user).SingleOrDefaultAsync(t => t.ticketId == ticketId);
+            return (res);
         }
 
         public async Task<Ticket> getTicketDetails(int ticketId)
@@ -101,15 +101,15 @@ namespace AppFeatures
         }
         public async Task<Product> getProductById(string id)
         {
-           var res = await _context.Products.FirstOrDefaultAsync(p=>p.refId==id);
+            var res = await _context.Products.FirstOrDefaultAsync(p => p.refId == id);
             return res;
         }
         public async Task<Product> addProduct(Product p)
         {
             try
             {
-               await _context.AddAsync(p);
-              await  _context.SaveChangesAsync();
+                await _context.AddAsync(p);
+                await _context.SaveChangesAsync();
                 return p;
             }
             catch (Exception e)
@@ -117,8 +117,8 @@ namespace AppFeatures
                 System.Diagnostics.Debug.WriteLine(e);
                 return null;
             }
-        }  
-        
+        }
+
         public async Task<Product> updateProduct(Product p)
         {
             try
@@ -131,7 +131,7 @@ namespace AppFeatures
                 res.factoryName = p.factoryName;
                 res.category = p.category;
 
-                await   _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
                 return res;
             }
             catch (Exception e)
@@ -154,6 +154,120 @@ namespace AppFeatures
                 System.Diagnostics.Debug.WriteLine(e);
                 return false;
             }
+        }
+
+
+
+
+        public async Task<List<Product>> findProduct(string key)
+        {
+
+            List<Product> res = await _context.Products.Where(p => p.name.Contains(key)).ToListAsync();
+            return res;
+
+        }
+
+
+        public Boolean resetPass(string mail)
+        {
+            //supossed to save reclmation to base then admin handel it 
+            return true;
+        }
+        public List<Product> getAllProducts()
+        {
+            return _context.Products.ToList();
+        }
+
+
+
+        public async Task<List<Product>> getLatestProducts()
+        {
+            return await _context.Products.OrderByDescending(p => p.addedDate).Take(3).ToListAsync();
+        }
+
+
+
+
+
+        public List<Role> getRolesForAgents()
+        {
+            var res = _context.Roles.ToList();
+            List<Role> res2 = new List<Role>();
+            foreach (var item in res)
+            {
+
+
+                if (item.roleName != "SupperAdmin" && item.roleName != "Admin" && item.roleName != "Client")
+
+                    res2.Add(item);
+            }
+
+            return res2;
+        }
+
+        public async Task<Boolean> addProductClient(string prodRef, string email)
+        {
+
+
+            Client client = (Client)GetUserByEmail(email).Result;
+
+            var p = _context.Products.FirstOrDefault(pr => pr.refId == prodRef);
+
+
+            ProductClient pc = new ProductClient { client = client, product = p };
+
+            try
+            {
+
+                await _context.AddAsync(pc);
+
+                //adding the ProductClient to myListProducts
+
+
+                Product prod = _context.Products.FirstOrDefaultAsync(p => p.refId == prodRef).Result;
+
+                prod.ListProductClient.Add(pc);
+
+                //adding the ProductClient to ListProductClient
+
+                client.myListProducts.Add(pc);
+
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e);
+                return false;
+            }
+
+
+        }
+
+
+
+
+        public List<Product> getClientProducts(int clientId)
+        {
+            try
+            {
+                 List<Product> res = _context.ProductClients.Where(pc => pc.clientId == clientId).Select(pc=>pc.product).ToList();
+                System.Diagnostics.Debug.WriteLine(res.Count);
+
+                if (res == null)
+                {
+                     return null;
+                }
+ 
+                return res;
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e);
+                return null;
+            }
+
+
         }
 
     }

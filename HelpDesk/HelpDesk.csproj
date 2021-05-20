@@ -36,7 +36,7 @@
     <None Include="wwwroot\Content\images\blog-5.png" />
     <None Include="wwwroot\Content\images\blog-sm.png" />
     <None Include="wwwroot\Content\images\blog.png" />
-    <None Include="wwwroot\Content\images\decorated-pattern-dark.svg" />
+    <None Include="wwwroot\Content\images\decorated_pattern_dark.svg" />
     <None Include="wwwroot\Content\images\decorated-pattern-light.svg" />
     <None Include="wwwroot\Content\images\favicon.png" />
     <None Include="wwwroot\Content\images\icon-bag.svg" />

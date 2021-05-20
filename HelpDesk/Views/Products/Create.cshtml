@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "Create";
-    
+
 
 }
 
@@ -25,11 +25,11 @@
                                 <input asp-for="refId" class="form-control" />
                                 <span asp-validation-for="refId" class="text-danger"></span>
                             </div>
-                            <div class="form-group">
-                                <label asp-for="name" class="control-label"></label>
-                                <input asp-for="name" class="form-control" />
-                                <span asp-validation-for="name" class="text-danger"></span>
-                            </div>
+                            <tr><td><span class="text-danger"></span></td></tr>
+                            <label asp-for="name" class="control-label"></label>
+                            <input asp-for="name" class="form-control" />
+                            <span asp-validation-for="name" class="text-danger"></span>
+
                             <div class="form-group">
                                 <label asp-for="description" class="control-label"></label>
                                 <input asp-for="description" class="form-control" />
@@ -55,31 +55,32 @@
                                 <input asp-for="category" class="form-control" />
                                 <span asp-validation-for="category" class="text-danger"></span>
                             </div>
-@*
-                            missing img input 
-                            toadd later *@
+                            @*
+                                missing img input
+                                toadd later *@
 
 
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary" data-save="">Save</button>
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">close</button>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary" data-save="">Save</button>
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">close</button>
 
-                        </div>
+                            </div>
                         </form>
                     </div>
                 </div>
             </div>
-            <div class="modal-footer">
-               
-               
+        </div>
+        <div class="modal-footer">
 
 
 
-            </div>
+
 
         </div>
 
     </div>
 
-
 </div>
+
+
+ 

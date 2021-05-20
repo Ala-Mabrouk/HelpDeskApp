@@ -20,6 +20,9 @@
             <div class="col-xl-7">
                 <div class="dx-box dx-box-decorated">
                     <div class="dx-box-content">
+
+
+               
                         <h2 class="h6 mb-6">@localizer["Submit_a_ticket"]</h2>
 
 
@@ -40,17 +43,25 @@
                     </div>
                     <div class="dx-separator"></div>
                     <form asp-action="addTicket" asp-controller="Tickets" class="dx-form">
-                        @*                        <div class="dx-box-content">
+                                                <div class="dx-box-content">
                                 <div class="dx-form-group">
                                     <label for="select-product" class="mnt-7">@localizer["Select_Type"]</label>
-                                    <select class="form-control dx-select-ticket" name="" id="select-product">
-                                        <option value="1" data-content='<img src="assets/images/product-1-xs.png" alt=""> Quantial'></option>
-                                        <option value="2" data-content='<img src="assets/images/product-2-xs.png" alt=""> Sensific'></option>
+                                    <select class="form-control dx-select-ticket" name="" asp-for="relatedProductRef"id="select-product">
 
+
+
+                                        @foreach (var item in ViewBag.ClientProducts)
+                                        {
+
+                                            <option value=@item.refId data-content='<img src=@Url.Content(item.imgUrl) alt=""> @item.name'></option>
+
+                                        }
+
+                                      
                                     </select>
                                 </div>
 
-                            </div>*@
+                            </div>
                         <div class="dx-separator"></div>
 
                         <div class="dx-box-content">

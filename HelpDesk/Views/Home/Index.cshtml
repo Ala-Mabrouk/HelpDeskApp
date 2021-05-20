@@ -10,7 +10,7 @@
             <div class="col-12 col-md-8 col-lg-6 col-xl-5">
                 <h1 class="display-3 text-white">Amdesk Template</h1>
                 <p class="lead text-1">A high quality Bootstrap 4 template for your digital products with help center</p>
-                <a href="store.html" class="dx-btn dx-btn-lg mt-10">View Products</a>
+                <a asp-action="ProductDisplay" asp-controller="Products" class="dx-btn dx-btn-lg mt-10">View Products</a>
             </div>
         </div>
     </div>
@@ -70,7 +70,7 @@
                         <div class="dx-feature-title">Easy Setup</div>
                         <div class="dx-feature-text">We make our products easy to setup and customize.</div>
                     </div>
-                    <span class="dx-decorated" style="background-image: url('/wwwroot/Content/images/decorated-pattern-dark.svg');"></span>
+                    <span class="dx-decorated" style="background-image: url('C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\wwwroot\Content\images\decorated-pattern-dark.svg')"></span>
                 </div>
 
             </div>
@@ -85,7 +85,7 @@
                         <div class="dx-feature-title">Lifetime Updates</div>
                         <div class="dx-feature-text">We improve our products after release and you will get it for free.</div>
                     </div>
-                    <span class="dx-decorated" style="background-image: url('/wwwroot/Content/images/decorated-pattern-dark.svg');"></span>
+                    <span class="dx-decorated" style="background-image: url('../../wwwroot/Content/images/decorated_pattern_dark.svg');"></span>
                 </div>
 
             </div>
@@ -101,7 +101,7 @@
                         <div class="dx-feature-title">Outstanding Support</div>
                         <div class="dx-feature-text">We provide fast and professional support through support system.</div>
                     </div>
-                    <span class="dx-decorated" style="background-image: url('/wwwroot/Content/images/decorated-pattern-dark.svg');"></span>
+                    <span class="dx-decorated" style="background-image: url('../../wwwroot/Content/images/decorated_pattern_dark.svg');"></span>
                 </div>
 
             </div>
@@ -110,14 +110,49 @@
 </div>
 
 
+<div class="dx-box-1 bg-grey-6">
+    <div class="container">
+        <h2 class="text-center mb-60">Latest Products</h2>
 
-<div class="dx-box-1">
-    <span class="dx-decorated" style="background-image: url('/wwwroot/Content/images/decorated-pattern-light.svg');"></span>
+        <div class="row vertical-gap">
+            @foreach (var item in ViewBag.latestProduct)
+            {
+
+
+            <div class="col-12 col-md-6 col-lg-4">
+
+                <div class="dx-portfolio-item dx-block-decorated">
+                    <div class="dx-portfolio-item-image">
+                        <div class="dx-portfolio-item-overlay" style="background-color: rgba(27, 27, 27, .8);">
+                            <a href="#" class="dx-btn dx-btn-md dx-btn-transparent-style-2 m-10">Live Demo</a>
+                            <a href="#" class="dx-btn dx-btn-md dx-btn-transparent-style-2 m-10">Buy Now</a>
+                        </div>
+                        <img src=@Url.Content(item.imgUrl) alt="Product Img">
+                    </div>
+                    <a asp-action="ProductDetail" asp-controller="Products" asp-route-refId=@item.refId  class="dx-portfolio-item-info">
+                        <span class="dx-portfolio-item-title">@item.name</span>
+
+                        <span class="dx-portfolio-item-price">$@item.price</span>
+
+                    </a>
+                </div>
+
+            </div>
+
+            }
+        </div>
+        <div class="text-center mt-70">
+            <a asp-action="ProductDisplay" asp-controller="Products" class="dx-btn dx-btn-lg">View Products</a>
+        </div>
+
+        <div class="dx-box-1">
+            <span class="dx-decorated" style="background-image: url('../../wwwroot/Content/images/decorated-pattern-light.svg');"></span>
+        </div>
+
+        <h2 class="text-center mb-40">Reviews</h2>
+
+    </div>
 </div>
-
-<h2 class="text-center mb-40">Reviews</h2>
-
-
 <div class="row no-gutters">
     <div class="col-lg-6 bg-dark-1">
         <div class="row justify-content-center">
@@ -139,7 +174,7 @@
                     <div class="dx-box-1">
                         <h2 class="text-white">Visit our Support Desk</h2>
                         <p class="text-white op-8">We have a Support Desk for our users and a well experienced team to quickly answer your questions.</p>
-                        <a href="help-center.html" class="dx-btn dx-btn-lg dx-btn-transparent">Get support</a>
+                        <a asp-action="HelpCenter" asp-controller="Home" class="dx-btn dx-btn-lg dx-btn-transparent">Get support</a>
                     </div>
                 </div>
             </div>

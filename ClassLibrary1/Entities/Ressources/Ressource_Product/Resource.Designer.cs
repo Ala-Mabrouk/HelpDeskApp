@@ -61,6 +61,15 @@ namespace Entities.Entities.Ressources.Ressource_Product {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Added on.
+        /// </summary>
+        public static string addedDate {
+            get {
+                return ResourceManager.GetString("addedDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Build date.
         /// </summary>
         public static string BuildDate {
@@ -111,6 +120,15 @@ namespace Entities.Entities.Ressources.Ressource_Product {
         public static string FactroyNameRequired {
             get {
                 return ResourceManager.GetString("FactroyNameRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Price.
+        /// </summary>
+        public static string price {
+            get {
+                return ResourceManager.GetString("price", resourceCulture);
             }
         }
         

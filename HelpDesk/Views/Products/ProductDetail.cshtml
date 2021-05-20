@@ -1,0 +1,199 @@
+﻿ 
+
+<div class="dx-box-5 pb-100 bg-grey-6">
+    <div class="container">
+        <div class="row vertical-gap md-gap">
+            <div class="col-lg-8">
+                <div class="dx-box dx-box-decorated">
+                    <div class="dx-gallery p-10">
+                        <a href=@Url.Content(ViewBag.Product.imgUrl) data-fancybox="images" class="dx-gallery-item">
+                            <span class="dx-gallery-item-overlay"><span class="icon pe-7s-exapnd2"></span></span>
+                            <img src=@Url.Content(ViewBag.Product.imgUrl) class="dx-img" alt="">
+                        </a>
+                        <!-- START: Slider Gallery
+
+                                                    Additional Classes:
+                            .dx-slider-arrows (clone arrows)
+
+                        Additional Attributes:
+                            data-swiper-speed                (numbers)
+                            data-swiper-space                (numbers)
+                            data-swiper-autoPlay             (numbers)
+                            data-swiper-slides               (numbers)
+                            data-swiper-slidesAuto           (true or false)
+                            data-swiper-arrows-clone         (true or false)
+                            data-swiper-grabCursor           (true or false)
+                            data-swiper-lazy                 (true or false)
+                            data-swiper-breakpoints          (true or false)
+                            data-swiper-arrows               (true or false)
+                            data-swiper-pagination           (true or false)
+                            data-swiper-pagination-dynamic   (true or false)
+                            data-swiper-pagination-scrollbar (true or false)
+                            data-swiper-autoHeight           (true or false)
+                            data-swiper-freeMode             (true or false)
+                            data-swiper-loop                 (true or false)
+
+                                            -->
+                        @*@<div class="swiper-container dx-slider dx-slider-gallery mt-10"
+                                              data-swiper-speed="800"
+                                 data-swiper-space="10"
+                                 data-swiper-slides="4"
+                                 data-swiper-pagination-scrollbar="true">
+
+                                <div class="swiper-wrapper">
+
+
+                                    <div class="swiper-slide">
+                                        <a href="assets/images/product-2-lg.png" data-fancybox="images" class="dx-gallery-item">
+                                            <span class="dx-gallery-item-overlay dx-gallery-item-overlay-sm"><span class="icon pe-7s-exapnd2"></span></span>
+                                            <img src="assets/images/product-2-md.png" alt="">
+                                        </a>
+                                    </div>
+
+                                    <div class="swiper-slide">
+                                        <a href="assets/images/product-3-lg.png" data-fancybox="images" class="dx-gallery-item">
+                                            <span class="dx-gallery-item-overlay dx-gallery-item-overlay-sm"><span class="icon pe-7s-exapnd2"></span></span>
+                                            <img src="assets/images/product-3-md.png" alt="">
+                                        </a>
+                                    </div>
+
+                                    <div class="swiper-slide">
+                                        <a href="assets/images/product-4-lg.png" data-fancybox="images" class="dx-gallery-item">
+                                            <span class="dx-gallery-item-overlay dx-gallery-item-overlay-sm"><span class="icon pe-7s-exapnd2"></span></span>
+                                            <img src="assets/images/product-4-md.png" alt="">
+                                        </a>
+                                    </div>
+
+                                    <div class="swiper-slide">
+                                        <a href="assets/images/product-5-lg.png" data-fancybox="images" class="dx-gallery-item">
+                                            <span class="dx-gallery-item-overlay dx-gallery-item-overlay-sm"><span class="icon pe-7s-exapnd2"></span></span>
+                                            <img src="assets/images/product-5-md.png" alt="">
+                                        </a>
+                                    </div>
+
+                                    <div class="swiper-slide">
+                                        <a href="assets/images/product-6-lg.png" data-fancybox="images" class="dx-gallery-item">
+                                            <span class="dx-gallery-item-overlay dx-gallery-item-overlay-sm"><span class="icon pe-7s-exapnd2"></span></span>
+                                            <img src="assets/images/product-6-md.png" alt="">
+                                        </a>
+                                    </div>
+
+                                </div>
+
+                                <div class="swiper-scrollbar"></div>
+                            </div>*@
+                    </div>
+    @*                <div class="dx-box-content pt-20 pb-0 d-md-block d-lg-none">
+                        <div class="row vertical-gap xs-gap justify-content-between">
+                            <div class="col col-sm-5 col-md-4">
+                                <a  class="dx-btn dx-btn-lg dx-btn-block">Buy Now $49</a>
+
+
+                            </div>
+                            <div class="col col-sm-5 col-md-4">
+                                <a href="#" class="dx-btn dx-btn-lg dx-btn-dark dx-btn-block">Live Preview</a>
+                            </div>
+                        </div>
+                    </div>*@
+                    <ul class="nav dx-tab mt-35" role="tablist">
+                        <li>
+                            <a class="active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Description</a>
+                        </li>
+                        
+                        <li>
+                            <a href="documentation.html">Documentation <span class="icon fas fa-external-link-alt"></span></a>
+                        </li>
+                        <li>
+                            <a href="articles.html">Knowledge Base <span class="icon fas fa-external-link-alt"></span></a>
+                        </li>
+                    </ul>
+
+                    <div class="dx-blog-post">
+                        <div class="dx-blog-post-box">
+                            <div class="tab-content dx-tab-content">
+                                <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+                                    <p class="mnt-5 mb-40">
+                                        @ViewBag.Product.description
+                                    </p>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="dx-separator"></div>
+                        <div class="dx-blog-post-box pt-30 pb-30">
+                            <ul class="dx-blog-post-info mnt-15 mnb-1">
+                             
+                                <li>Date: @ViewBag.Product.addedDate</li>
+                               
+                            </ul>
+                            <ul class="dx-social-links dx-social-links-style-2 mt-15">
+                                <li>
+                                    <a href="#" class="dx-social-twitter"><span class="icon fab fa-twitter"></span> Twitter</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="dx-social-facebook"><span class="icon fab fa-facebook"></span> Facebook</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="dx-social-google"><span class="icon fab fa-google"></span> Google</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="dx-social-pinterest"><span class="icon fab fa-pinterest"></span> Pinterest</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-lg-4">
+                <div class="dx-sticky dx-sidebar" data-sticky-offsetTop="120" data-sticky-offsetBot="40">
+                    <div class="d-none d-lg-block mb-40">
+                        <div class="row vertical-gap xs-gap justify-content-between">
+                            <div class="col"> 
+                                <a asp-action="buyProduct" asp-controller="Products" asp-route-prodRef=@ViewBag.Product.refId class="dx-btn dx-btn-lg dx-btn-block">Buy Now @ViewBag.Product.price</a>
+                            </div>
+                            <div class="col">
+                                <a href="#" class="dx-btn dx-btn-lg dx-btn-dark dx-btn-block">Live Preview</a>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="dx-widget dx-box dx-box-decorated">
+                        <div class="dx-widget-title">
+                            Detail Information
+                        </div>
+                        <div class="dx-widget-information">
+                            <div class="dx-widget-information-title">Reference</div>
+                         
+                            <span>@ViewBag.Product.refId</span>
+                        </div>
+                        <div class="dx-widget-information">
+                            <div class="dx-widget-information-title">Created</div>
+                         
+                            <span>@ViewBag.Product.addedDate</span>
+                        </div>
+                        <div class="dx-widget-information">
+                            <div class="dx-widget-information-title">Factory name</div>
+                            <span>@ViewBag.Product.factoryName</span> 
+                        </div>
+                        <div class="dx-widget-information">
+                            <div class="dx-widget-information-title">Build Date</div>
+                            <span>@ViewBag.Product.dateBuild</span> 
+                        </div>
+                        <div class="dx-widget-information">
+                            <div class="dx-widget-information-title">Validation date</div>
+                            <span>@ViewBag.Product.dateValidate</span> 
+                        </div>
+                         
+                         
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

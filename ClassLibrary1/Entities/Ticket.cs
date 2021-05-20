@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Entities.Entities
@@ -9,7 +10,12 @@ namespace Entities.Entities
         // Enumeration for ticket status
         public enum TicketStatus
         {
+            [Display(Name = "Open", ResourceType = typeof(Ressources.Ressource_Tickets.ResourceTicket))]
+
             Open = 1,
+
+            [Display(Name = "Distributed", ResourceType = typeof(Ressources.Ressource_Tickets.ResourceTicket))]
+
             Distributed = 2,
             Proccesing = 3,
             Checking = 4,
@@ -56,8 +62,9 @@ namespace Entities.Entities
 
         public User creator_user { get; set; }
 
+        public string relatedProductRef { get; set; }
+        public Product relatedProduct { get; set; }
 
-
-
+        public ICollection<A_T_Managment> listAT_Management { get; set; }
     }
 }

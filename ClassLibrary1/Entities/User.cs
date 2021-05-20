@@ -62,6 +62,11 @@ namespace Entities.Entities
         //List of created tickets 
 
         public ICollection<Ticket> listTickets { get; set; }
+
+
+       
+
+
     }
 
 

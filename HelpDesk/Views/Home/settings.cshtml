@@ -4,9 +4,12 @@
 
 
 
-<span class="dx-alert-danger">@ViewBag.erreurChanging</span>
-
 <div class="dx-box-decorated">
+ 
+
+        <span class="dx-alert-danger">@ViewBag.erreurChanging</span>
+    
+
     <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
             <a class="nav-item nav-link active" id="nav-permissions-tab" data-toggle="tab" href="#nav-infoPersonel" role="tab" aria-controls="nav-infoPersonel" aria-selected="true">Info Personel</a>
@@ -15,6 +18,8 @@
     </nav>
 
     <div class="tab-content dx-box-decorated" id="nav-tabContent">
+
+        @*        personal info changes*@
 
         <div class="tab-pane fade show active" id="nav-infoPersonel" role="tabpanel" aria-labelledby="nav-infoPersonel-tab">
 
@@ -83,6 +88,7 @@
             </div>
         </div>
 
+        @*        password changes*@
 
 
         <div class="tab-pane fade" id="nav-passwordChange" role="tabpanel" aria-labelledby="nav-passwordChange-tab">
@@ -135,4 +141,4 @@
             </div>
         </div>
     </div>
-    </div>
+</div>

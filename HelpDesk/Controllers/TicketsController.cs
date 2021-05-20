@@ -22,6 +22,9 @@ namespace HelpDesk.Controllers
 
         private static int loged;
 
+
+
+
         public IActionResult Index()
         {
             loged = verifLog();
@@ -35,6 +38,16 @@ namespace HelpDesk.Controllers
         [HttpGet]
         public IActionResult addTicket()
         {
+ 
+
+            List<Product> res = _AppFunctions.getClientProducts(loged);
+ 
+
+            if (res==null)
+            {
+                return RedirectToAction("Erreur404", "Home");
+            }
+            ViewBag.ClientProducts = res;
             return View();
         }
 
@@ -94,7 +107,7 @@ namespace HelpDesk.Controllers
 
         public int verifLog()
         {
-            int id = _AppFunctions.GetUserByEmail(User.FindFirstValue(ClaimTypes.Name)).Result.Id;
+            int id =  _AppFunctions.GetUserByEmail(User.FindFirstValue(ClaimTypes.Name)).Result.Id;
             return id;
 
         }

@@ -1,0 +1,138 @@
+﻿@{Layout = "~/Views/Shared/_normalLayout.cshtml";}
+<!--{Layout = null;}
+
+<!-- jQuery -->
+<!--<script src="/Content/lib/jquery/dist/jquery.min.js"></script>-->
+<!-- The Amdesk -->
+<!--<script src="/Content/js/amdesk.min.js"></script>
+<script src="/Content/js/amdesk-init.js"></script>-->
+    <!-- Isotope -->
+<!--<script src="/Content/lib/isotope-layout/dist/isotope.pkgd.min.js"></script>
+
+
+<script src="/Content/lib/popper.js/dist/umd/popper.min.js"></script>-->
+
+<!-- Bootstrap -->
+<!--<script src="/Content/lib/bootstrap/dist/js/bootstrap.min.js"></script>-->
+
+
+
+<!-- Sticky Kit -->
+<!--<script src="/Content/lib/sticky-kit/dist/sticky-kit.min.js"></script>-->
+
+<!-- Jarallax -->
+<!--<script src="/Content/lib/jarallax/dist/jarallax.min.js"></script>
+<script src="/Content/lib/jarallax/dist/jarallax-video.min.js"></script>-->
+
+<!-- Gist Embed -->
+<!--<script src="/Content/lib/gist-embed/gist-embed.min.js"></script>-->
+
+<!-- Bootstrap Select -->
+<!--<script src="/Content/lib/bootstrap-select/dist/js/bootstrap-select.min.js"></script>-->
+
+<!-- Quill -->
+<!--<script src="/Content/lib/quill/dist/quill.min.js"></script>-->
+
+<div class="modal fade" id="addProduct">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add Product</h4>
+                <button type="button" class="close" data-dismiss="modal">x</button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <div class="dx-isotope-container">
+                    <input type="text" />
+
+                    <div class="dx-box bg-white">
+                        <div class="container">
+                            <ul class="dx-links dx-isotope-filter text-center">
+                                <li class="active" data-filter="*">All Items</li>
+                                <li data-filter=".info">info</li>
+                                <li data-filter=".stylo">stylo</li>
+                                <li data-filter=".smart_phone">smart phone</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <span></span>
+
+
+                    <div class="dx-box-5 pb-100 bg-grey-6">
+                        <div class="container  ">
+
+                            <div class="row vertical-gap dx-isotope-grid">
+
+                                @foreach (var item in ViewBag.ListProducts)
+                                {
+
+
+                                    @*   <div class="col dx-isotope-grid-item @item.category">
+
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item">
+                                                                     Default checked
+                                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input" id="check1">
+                                                        <label class="custom-control-label" for="check1">@item.name</label>
+                                                    </div>
+                                                </li>
+                                            </ul>
+
+                                        </div><br />*@
+
+
+
+
+
+
+                                    @*                            <div class="col dx-isotope-grid-item @item.category">
+
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item">
+                                                                     Default checked
+                                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input" id="check1">
+                                                        <label class="custom-control-label" for="check1">@item.name</label>
+                                                    </div>
+                                                </li>
+                                            </ul>
+
+                                        </div><br />*@
+
+                                    <div class="col-12 col-md-6 col-lg-4 dx-isotope-grid-item @item.category">
+
+                                        <div class="dx-portfolio-item dx-block-decorated">
+                                            <div class="dx-portfolio-item-image">
+
+                                                <img src=@Url.Content(item.imgUrl) alt="Product img">
+                                            </div>
+                                            <a asp-action="afectTheProduct" asp-controller="Admin" asp-route-client=@ViewBag.ClientEmail asp-route-refProd=@item.refId class="dx-portfolio-item-info">
+                                                <span class="dx-portfolio-item-title">@item.name</span>
+
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                }
+
+
+
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+</div>

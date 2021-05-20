@@ -51,6 +51,7 @@ namespace HelpDesk.Controllers
                 }
 
             }
+            ViewBag.LatestProduct = _AppFunctions.getLatestProducts().Result;
             return View();
 
 
@@ -177,6 +178,18 @@ namespace HelpDesk.Controllers
         }
 
 
+        [HttpPost]
+        public ActionResult ResetPassword(string email)
+        {
+            //send reclamation to Admin to give back new pass
+            if (_AppFunctions.resetPass(email))
+            {
+                RedirectToAction("Index", "Home");
+            }
+            return View();
+        }
+
+
         public IActionResult log_out()
         {
             var login = HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
@@ -250,12 +263,19 @@ namespace HelpDesk.Controllers
             string confirmPass = Request.Form["confirmPass"];
 
             if (newpass != confirmPass && !_UserService.changeUserPassword(logedIn, oldpass, newpass).Result)
-
+            {
                 ViewBag.erreurChanging = "no changes have been made ";
+                return RedirectToAction("Erreur404", "Home");
+            }
+            else
+            {
+                return RedirectToAction("settings", "Home");
 
-
-            return RedirectToAction("settings", "Home");
+            }
+            
         }
+
+
     }
 }
 

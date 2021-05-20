@@ -58,6 +58,7 @@
     <!-- END: Styles -->
     <!-- jQuery -->
     <script src="/Content/lib/jquery/dist/jquery.min.js"></script>
+ 
 
 
 
@@ -89,7 +90,7 @@ Products            </a>
 
 
                     <li class="dx-drop-item">
-                        <a asp_action="HelpCenter" asp-controller="Home">
+                        <a asp-action="HelpCenter" asp-controller="Home">
                             @localizer["Support"]
                         </a>
                     </li>
@@ -142,10 +143,10 @@ Products            </a>
                     else
                     {
                         <li>
-                            <span> <a asp-action="Log_in">@localizer["Log_In"]</a></span>
+                          <a asp-action="Log_in" asp-controller="Home">@localizer["Log_In"]</a>
                         </li>
                         <li>
-                            <span> <a class="dx-btn dx-btn-md dx-btn-transparent" asp-action="Sign_Up">@localizer["Sign_Up"]</a></span>
+                            <span> <a class="dx-btn dx-btn-md dx-btn-transparent" asp-action="Sign_Up" asp-controller="Home">@localizer["Sign_Up"]</a></span>
                         </li>
                     }
                     <li>
@@ -169,7 +170,7 @@ Products            </a>
 
 
                     <li class="dx-drop-item">
-                        <a asp_action="HelpCenter" asp-controller="Home">
+                        <a asp-action="HelpCenter" asp-controller="Home">
                             @localizer["Support"]
                         </a>
                     </li>
@@ -222,10 +223,10 @@ Products            </a>
                     {
 
                         <li>
-                            <span> <a  asp-action="Log_in">@localizer["Log_In"]</a></span>
+                             <a  asp-action="Log_in" asp-controller="Home">@localizer["Log_In"]</a>
                         </li>
                         <li>
-                            <span> <a class="dx-btn dx-btn-md dx-btn-transparent" asp-action="Sign_Up">@localizer["Sign_Up"]</a></span>
+                            <span> <a class="dx-btn dx-btn-md dx-btn-transparent" asp-action="Sign_Up" asp-controller="Home">@localizer["Sign_Up"]</a></span>
                         </li>
 
                     }

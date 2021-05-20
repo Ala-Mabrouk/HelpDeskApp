@@ -1,5 +1,5 @@
 ﻿
-
+@model Entities.Entities.Ticket
 
 
 @{
@@ -36,16 +36,16 @@
                             <!-- END: Breadcrumbs -->
 
                             <span class="dx-ticket-status">@ViewBag.Ticket.ticketStatut</span>
-                        </div>
+                        </div> 
                         <div class="dx-separator"></div>
 
                         <div style="background-color: #fafafa;">
 
                             <ul class="dx-blog-post-info dx-blog-post-info-style-2 mb-0 mt-0">
-                                <li><span><span class="dx-blog-post-info-title" asp-for="ticketId"></span># @ViewBag.Ticket.ticketId</span></li>
-                                <li><span><span class="dx-blog-post-info-title" asp-for="ticketStatut"></span>@ViewBag.Ticket.ticketStatut</span></li>
-                                <li><span><span class="dx-blog-post-info-title" asp-for="ticketDate"></span>@ViewBag.Ticket.ticketDate</span></li>
-@**@                                <li><span><span class="dx-blog-post-info-title" asp-for="ticketPriority"></span>@ViewBag.Ticket.ticketPriority</span></li>
+                                <li><span><label class="dx-blog-post-info-title" asp-for="ticketId"></label># @ViewBag.Ticket.ticketId</span></li>
+                                <li><span><label class="dx-blog-post-info-title" asp-for="ticketStatut"></label>@ViewBag.Ticket.ticketStatut</span></li>
+                                <li><span><label class="dx-blog-post-info-title" asp-for="ticketDate"></label>@ViewBag.Ticket.ticketDate</span></li>
+@**@                                <li><span><label class="dx-blog-post-info-title" asp-for="ticketPriority"></label>@ViewBag.Ticket.ticketPriority</span></li>
                             </ul>
                         </div>
                         <div class="dx-separator"></div>

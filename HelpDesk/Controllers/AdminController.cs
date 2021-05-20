@@ -4,6 +4,7 @@ using HelpDesk.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -160,5 +161,52 @@ namespace HelpDesk.Controllers
 
         }
 
+
+        public ActionResult customersList()
+        {
+          List<Client> res = _AdminFunctions.getAllCustomers().Result;
+            return View(res);
+
+        }
+
+        [HttpGet]
+        public ActionResult addAgent()
+        {
+
+            //getting role List
+            ViewBag.RoleList = new SelectList(_AppFunctions.getRolesForAgents(),"roleId","roleName");
+            return View();
+
+        }
+
+        [HttpPost]
+        public ActionResult addAgent(Agent agent)
+        {
+
+            //getting role List
+            if (_AdminFunctions.addAgent(agent).Result !=null) return RedirectToAction("DashBoardAdmin", "Admin");
+            return View();
+
+        }
+
+
+        public ActionResult afectProduct(string clientMail)
+        {
+            ViewBag.ClientEmail = clientMail;
+            ViewBag.ListProducts = _AppFunctions.getAllProducts(); 
+            return PartialView("afectProduct");
+        }
+
+
+
+        public ActionResult afectTheProduct(string client,string refProd)
+        {
+            if (_AppFunctions.addProductClient(refProd, client).Result)
+            {
+                return RedirectToAction("customersList", "Admin");
+
+            }
+            return RedirectToAction("Erreur404", "Home");
+        }
     }
 }

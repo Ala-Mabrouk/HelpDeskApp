@@ -45,6 +45,7 @@ namespace AppFeatures
 
                     foreach (var item in listClientpermissions)
                     {
+
                        await _context.AddAsync(new UserPermission { user = c, permision = item });
                         await _context.SaveChangesAsync();
 

@@ -23,11 +23,18 @@ namespace AppFeatures
             List<User> res = await _context.Users
               .Include(p => p.role)
               .Include(p => p.listUserPermissions).
-              ThenInclude(pp => pp.permision).Where(p=>p.role.roleName.Equals("Agent")).ToListAsync();
+              ThenInclude(pp => pp.permision).Where(p=>p.role.roleId>=4).ToListAsync();
 
             return res;
         }
 
+        public async Task<List<Client>> getAllCustomers()
+        {
+            List<Client> res = await _context.Clients
+                .Include(p => p.role)
+             .Where(p => p.role.roleName.Equals("Client")).ToListAsync();
+            return res;
+        }
         public async Task<Boolean> changePermissions(List<int> lp, int id)
         {
             try
@@ -56,10 +63,68 @@ namespace AppFeatures
             }
         }
 
+
+        public async Task<Agent> addAgent(Agent a)
+        {
+            try
+            {
+
+                // ********cheking if email dont exist already********
+
+                Agent e = await _context.Agents.Where(a => a.Email.Equals(a.Email)).FirstOrDefaultAsync();
+
+                if (e == null)
+                {
+                    //we need to encrypte the password before saving it in the database 
+                    // we are using " BCrypt.Net " package to do that
+
+                    string newPass = BCrypt.Net.BCrypt.HashPassword(a.Password);
+
+                    a.Password = newPass;
+                    await _context.AddAsync(a);
+                    await _context.SaveChangesAsync();
+
+
+                    // ********adding default permissions********
+
+                    //getting the default permission using the role so we can add it to the client
+                    List<Permission> listClientpermissions = await _context.DefaultPermissions.Where(s => s.roleId == a.roleId).Select(s => s.permission).ToListAsync();
+
+
+                    Agent c = await _context.Agents.Include(r => r.role).Where(s => s.Email == a.Email).FirstOrDefaultAsync();
+
+                    foreach (var item in listClientpermissions)
+                    {
+                        await _context.AddAsync(new UserPermission { user = c, permision = item });
+                        await _context.SaveChangesAsync();
+
+                    }
+
+
+                    _context.Update(c);
+                    await _context.SaveChangesAsync();
+                    return c;
+                }
+
+
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e);
+                return null;
+
+            }
+
+
+            return null;
+        }
+
+
+
+
+
+
+
     }
-
-
-
-
 }
 

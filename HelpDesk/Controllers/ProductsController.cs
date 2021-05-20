@@ -1,10 +1,12 @@
 ﻿using AppFeatures;
 using Entities.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace HelpDesk.Controllers
@@ -15,6 +17,7 @@ namespace HelpDesk.Controllers
         private readonly AppFunctions _AppFunctions = new AppFunctions();
 
         // GET: ProductsController
+        [Authorize]
         public ActionResult Index()
         {
             List<Product> res = _AppFunctions.getListProducts().Result;
@@ -22,7 +25,9 @@ namespace HelpDesk.Controllers
             return View();
         }
 
-        // GET: ProductsController/Details/5
+
+         
+        [Authorize]
         public ActionResult Details(string id)
         {
                 Product p= _AppFunctions.getProductById(id).Result;
@@ -32,14 +37,14 @@ namespace HelpDesk.Controllers
             
             return PartialView("Details");
         }
-
-        // GET: ProductsController/Create
+        [Authorize]
+        [HttpGet]
         public ActionResult Create()
         {
             return PartialView("Create");
         }
 
-        // POST: ProductsController/Create
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Product p1)
@@ -62,8 +67,8 @@ namespace HelpDesk.Controllers
                 return RedirectToAction("Erreur404", "Home");
             }
         }
+        [Authorize]
 
-        // GET: ProductsController/Edit/5
         public ActionResult Edit(string id)
         {
           Product p=_AppFunctions.getProductById(id).Result;
@@ -71,7 +76,7 @@ namespace HelpDesk.Controllers
                return PartialView("Edit",p); 
         }
 
-        // POST: ProductsController/Edit/5
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Product p)
@@ -93,7 +98,7 @@ namespace HelpDesk.Controllers
             }
         }
 
-        // GET: ProductsController/Delete/5
+        [Authorize]
         public ActionResult Delete(string id)
         {
             Product p = _AppFunctions.getProductById(id).Result;
@@ -101,7 +106,7 @@ namespace HelpDesk.Controllers
             return PartialView("Delete", p);
         }
 
-        // POST: ProductsController/Delete/5
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(Product p)
@@ -121,5 +126,53 @@ namespace HelpDesk.Controllers
                 return View();
             }
         }
+
+        [HttpGet]
+        public ActionResult ProductDisplay()
+        {
+
+            List<Product> res = _AppFunctions.getAllProducts();
+            ViewBag.Products = res;
+            return View();
+        }
+        [HttpGet]
+        public ActionResult ProductDetail(string refId)
+        {
+            var res = _AppFunctions.getProductById(refId).Result;
+            ViewBag.Product = res;
+            return View();
+        }
+ 
+
+        [HttpGet]
+        public ActionResult resultRech(string key)
+        {
+
+
+           ViewBag.result = _AppFunctions.findProduct(key).Result;
+
+
+            return View();
+
+        }
+
+
+
+        public ActionResult buyProduct(string prodRef)
+        {
+            string res = User.FindFirstValue(ClaimTypes.Name).ToString();
+
+
+          if(_AppFunctions.addProductClient(prodRef, res).Result)
+
+            return RedirectToAction("ProductDispaly", "Product");
+
+
+
+            return RedirectToAction("Erreur404", "Home");
+
+        }
+
+
     }
 }

@@ -19,6 +19,24 @@ namespace Entities.Migrations
                 .HasAnnotation("ProductVersion", "5.0.5")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Entities.Entities.A_T_Managment", b =>
+                {
+                    b.Property<int>("agentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ticketId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("dateAssign")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("agentId", "ticketId");
+
+                    b.HasIndex("ticketId");
+
+                    b.ToTable("A_T_Managments");
+                });
+
             modelBuilder.Entity("Entities.Entities.DefaultPermissions", b =>
                 {
                     b.Property<int>("permissionId")
@@ -57,6 +75,9 @@ namespace Entities.Migrations
                     b.Property<string>("refId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<DateTime>("addedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("category")
                         .HasColumnType("nvarchar(max)");
 
@@ -81,9 +102,33 @@ namespace Entities.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<double>("price")
+                        .HasColumnType("float");
+
                     b.HasKey("refId");
 
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("Entities.Entities.ProductClient", b =>
+                {
+                    b.Property<int>("clientId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("refId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("clientId", "refId");
+
+                    b.HasIndex("refId");
+
+                    b.ToTable("ProductClients");
                 });
 
             modelBuilder.Entity("Entities.Entities.Role", b =>
@@ -107,6 +152,12 @@ namespace Entities.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("relatedProductRef")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("relatedProductrefId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("ticketDate")
                         .HasColumnType("datetime2");
@@ -132,6 +183,8 @@ namespace Entities.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("ticketId");
+
+                    b.HasIndex("relatedProductrefId");
 
                     b.HasIndex("userId");
 
@@ -222,6 +275,25 @@ namespace Entities.Migrations
                     b.HasDiscriminator().HasValue("Client");
                 });
 
+            modelBuilder.Entity("Entities.Entities.A_T_Managment", b =>
+                {
+                    b.HasOne("Entities.Entities.Agent", "agent")
+                        .WithMany("a_T_ManagmentsList")
+                        .HasForeignKey("agentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Entities.Ticket", "ticket")
+                        .WithMany("listAT_Management")
+                        .HasForeignKey("ticketId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("agent");
+
+                    b.Navigation("ticket");
+                });
+
             modelBuilder.Entity("Entities.Entities.DefaultPermissions", b =>
                 {
                     b.HasOne("Entities.Entities.Permission", "permission")
@@ -241,8 +313,31 @@ namespace Entities.Migrations
                     b.Navigation("role");
                 });
 
+            modelBuilder.Entity("Entities.Entities.ProductClient", b =>
+                {
+                    b.HasOne("Entities.Entities.Client", "client")
+                        .WithMany("myListProducts")
+                        .HasForeignKey("clientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Entities.Product", "product")
+                        .WithMany("ListProductClient")
+                        .HasForeignKey("refId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("client");
+
+                    b.Navigation("product");
+                });
+
             modelBuilder.Entity("Entities.Entities.Ticket", b =>
                 {
+                    b.HasOne("Entities.Entities.Product", "relatedProduct")
+                        .WithMany()
+                        .HasForeignKey("relatedProductrefId");
+
                     b.HasOne("Entities.Entities.User", "creator_user")
                         .WithMany("listTickets")
                         .HasForeignKey("userId")
@@ -250,6 +345,8 @@ namespace Entities.Migrations
                         .IsRequired();
 
                     b.Navigation("creator_user");
+
+                    b.Navigation("relatedProduct");
                 });
 
             modelBuilder.Entity("Entities.Entities.User", b =>
@@ -289,6 +386,11 @@ namespace Entities.Migrations
                     b.Navigation("listUserPermissions");
                 });
 
+            modelBuilder.Entity("Entities.Entities.Product", b =>
+                {
+                    b.Navigation("ListProductClient");
+                });
+
             modelBuilder.Entity("Entities.Entities.Role", b =>
                 {
                     b.Navigation("listDefaultPermissions");
@@ -296,11 +398,26 @@ namespace Entities.Migrations
                     b.Navigation("listUser");
                 });
 
+            modelBuilder.Entity("Entities.Entities.Ticket", b =>
+                {
+                    b.Navigation("listAT_Management");
+                });
+
             modelBuilder.Entity("Entities.Entities.User", b =>
                 {
                     b.Navigation("listTickets");
 
                     b.Navigation("listUserPermissions");
+                });
+
+            modelBuilder.Entity("Entities.Entities.Agent", b =>
+                {
+                    b.Navigation("a_T_ManagmentsList");
+                });
+
+            modelBuilder.Entity("Entities.Entities.Client", b =>
+                {
+                    b.Navigation("myListProducts");
                 });
 #pragma warning restore 612, 618
         }

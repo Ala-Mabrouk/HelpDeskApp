@@ -1,0 +1,91 @@
+﻿
+
+
+
+
+<header class="dx-header dx-box-1">
+    <div class="container">
+        <div class="bg-image bg-image-parallax">
+            <img src="~/Content/images/bg-header-2.png" class="jarallax-img" alt="">
+            <div style="background-color: rgba(27, 27, 27, .8);"></div>
+
+        <div class="row justify-content-center">
+            <div class="col-xl-7">
+                <h1 class="h2 mb-30 text-white text-center">Digital Products</h1>
+                <form asp-action="resultRech" asp-controller="Products" method="get" class="dx-form dx-form-group-inputs">
+                    <input type="text" name="key" value="" class="form-control" placeholder="Keyword search...">
+                    <button type="submit" class="dx-btn dx-btn-lg">Search</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+
+
+
+
+
+
+
+<div class="dx-isotope-container">
+
+
+    <div class="dx-box bg-white">
+        <div class="container">
+            <ul class="dx-links dx-isotope-filter text-center">
+                <li class="active" data-filter="*">All Items</li>
+                <li data-filter=".info">info</li>
+                <li data-filter=".stylo">stylo</li>
+                <li data-filter=".smart_phone">smart phone</li>
+            </ul>
+        </div>
+    </div>
+    <div class="dx-separator"></div>
+
+
+    <div class="dx-box-5 pb-100 bg-grey-6">
+        <div class="container">
+
+
+
+            <div class="row vertical-gap dx-isotope-grid">
+
+                @foreach (var item in ViewBag.Products)
+                {
+
+                    <div class="col-12 col-md-6 col-lg-4 dx-isotope-grid-item @item.category">
+
+                        <div class="dx-portfolio-item dx-block-decorated">
+                            <div class="dx-portfolio-item-image">
+                                <div class="dx-portfolio-item-overlay" style="background-color: rgba(27, 27, 27, .8);">
+                                    <a href="#" class="dx-btn dx-btn-md dx-btn-transparent-style-2 m-10">Live Demo</a>
+                                    <a href="#" class="dx-btn dx-btn-md dx-btn-transparent-style-2 m-10">Buy Now</a>
+                                </div>
+                                <img src=@Url.Content(item.imgUrl) alt="Product img">
+                            </div>
+                            <a asp-action="ProductDetail" asp-controller="Products" asp-route-refid="@item.refId" class="dx-portfolio-item-info">
+                                <span class="dx-portfolio-item-title">@item.name</span>
+
+                                <span class="dx-portfolio-item-price">$@item.price</span>
+
+                            </a>
+                        </div>
+
+                    </div>
+                }
+
+
+
+            </div>
+
+            <div class="text-center mt-70">
+                <a href="#" class="dx-btn dx-btn-grey dx-btn-lg dx-btn-load" data-btn-loaded="all products shown">Load More</a>
+            </div>
+
+        </div>
+    </div>
+</div>

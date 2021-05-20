@@ -10,5 +10,11 @@ namespace Entities.Entities
         [Display(Name = "Priority", ResourceType = typeof(Ressources.Ressource_Person.Resource))]
         public int priority { get; set; }
 
+
+
+
+        //List of Products
+        public ICollection<ProductClient> myListProducts { get; set; }
+
     }
 }

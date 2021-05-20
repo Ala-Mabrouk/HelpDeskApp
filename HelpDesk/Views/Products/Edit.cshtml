@@ -1,5 +1,7 @@
 ﻿@model Entities.Entities.Product
 
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
 @{
     ViewData["Title"] = "Edit";
 }
@@ -13,55 +15,132 @@
 
             </div>
 
-            <div class="modal-body">
-                <div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <form asp-action="Edit" asp-controller="Products">
-                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                <input type="hidden" asp-for="refId" />
-                                <div class="form-group">
-                                    <label asp-for="name" class="control-label"></label>
-                                    <input asp-for="name" class="form-control"  />
-                                    <span asp-validation-for="name" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="description" class="control-label"></label>
-                                    <input asp-for="description" class="form-control" />
-                                    <span asp-validation-for="description" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="factoryName" class="control-label"></label>
-                                    <input asp-for="factoryName" class="form-control" />
-                                    <span asp-validation-for="factoryName" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="dateBuild" class="control-label"></label>
-                                    <input type="date" asp-for="dateBuild" class="form-control" />
-                                    <span asp-validation-for="dateBuild" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="dateValidate" class="control-label"></label>
-                                    <input type="date" asp-for="dateValidate" class="form-control" />
-                                    <span asp-validation-for="dateValidate" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="category" class="control-label"></label>
-                                    <input asp-for="category" class="form-control" />
-                                    <span asp-validation-for="category" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-primary" data-save="">Save</button>
-                                    <button type="button" class="btn btn-primary" data-dismiss="modal">close</button>
 
-                                </div>
-                            </form>
+            <div class="modal-body">
+
+ 
+                <div class="dx-box-decorated">
+
+                    <form asp-action="Edit" asp-controller="Products" method="post" class="dx-form">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="dx-box-content">
+                            <table cellpadding="3px">
+
+                                <tr>
+                                    <td><label asp-for="name" class="mnt-7"></label></td>
+                                    <td>
+                                        <input type="text" asp-for="name" class="form-control form-control-style-2" id="first-name">
+                                    </td>
+                                </tr>
+                                <tr><td><span asp-validation-for="name" class="text-danger"></span></td></tr>
+                                <tr>
+                                    <td><label asp-for="description" class="mnt-7"></label></td>
+                                    <td>
+                                        <input type="text" asp-for="description" class="form-control form-control-style-2" id="last-name">
+                                    </td>
+                                </tr>
+                                <tr><td><span asp-validation-for="description" class="text-danger"></span></td></tr>
+                                <tr>
+                                    <td><label asp-for="factoryName" class="mnt-7"></label></td>
+                                    <td>
+                                        <input type="text" asp-for="factoryName" class="form-control form-control-style-2" id="email-address">
+                                    </td>
+                                </tr>
+                                <tr><td><span asp-validation-for="factoryName" class="text-danger"></span></td></tr>
+                                <tr>
+                                    <td> <label asp-for="dateBuild" class="mnt-7"></label></td>
+                                    <td>
+                                        <input type="date" asp-for="dateBuild" class="form-control form-control-style-2" id="zip">
+                                    </td>
+                                </tr>
+                                <tr><td><span asp-validation-for="dateBuild" class="text-danger"></span></td></tr>
+                                <tr>
+                                    <td><label asp-for="dateValidate" class="mnt-7"></label></td>
+                                    <td>
+                                        <input type="date" asp-for="dateValidate" class="form-control form-control-style-2" id="city">
+                                    </td>
+                                </tr>
+                                <tr><td><span asp-validation-for="dateValidate" class="text-danger"></span></td></tr>
+                                <tr>
+                                    <td> <label asp-for="category" class="mnt-7"></label></td>
+                                    <td>
+                                        <input type="text" asp-for="category" class="form-control form-control-style-2" id="city">
+                                        <input type="hidden" asp-for="refId" class="form-control form-control-style-2" id="city">
+
+                                    </td>
+                                </tr>
+                                <tr><td><span asp-validation-for="category" class="text-danger"></span></td></tr>
+
+                            </table>
+                            <button type="submit" class="dx-btn-dark dx-btn-xl dx-btn-block">@localizer["Save_Changes"]</button>
                         </div>
-                    </div>
+                    </form>
+
+
                 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                @*
+                    <div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <form asp-action="Edit" asp-controller="Products">
+
+                                    <input type="hidden" asp-for="refId" />
+                                    <div class="form-group">
+                                        <label asp-for="name" class="control-label"></label>
+                                        <input asp-for="name" class="form-control" />
+                                        <span asp-validation-for="name" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="description" class="control-label"></label>
+                                        <input asp-for="description" class="form-control" />
+                                        <span asp-validation-for="description" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="factoryName" class="control-label"></label>
+                                        <input asp-for="factoryName" class="form-control" />
+                                        <span asp-validation-for="factoryName" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="dateBuild" class="control-label"></label>
+                                        <input type="date" asp-for="dateBuild" class="form-control" />
+                                        <span asp-validation-for="dateBuild" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="dateValidate" class="control-label"></label>
+                                        <input type="date" asp-for="dateValidate" class="form-control" />
+                                        <span asp-validation-for="dateValidate" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="category" class="control-label"></label>
+                                        <input asp-for="category" class="form-control" />
+                                        <span asp-validation-for="category" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary" data-save="">Save</button>
+                                        <button type="button" class="btn btn-primary" data-dismiss="modal">close</button>
+
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>*@
             </div>
-            <div class="modal-footer">
-            </div>
+
 
         </div>
 

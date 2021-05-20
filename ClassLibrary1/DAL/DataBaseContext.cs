@@ -52,6 +52,10 @@ namespace Entity_DAL.DAL
 
             modelBuilder.Entity<UserPermission>().HasKey(up => new { up.userId, up.permisionId });
 
+            modelBuilder.Entity<ProductClient>().HasKey(up => new { up.clientId, up.refId });
+
+            modelBuilder.Entity<A_T_Managment>().HasKey(up => new { up.agentId, up.ticketId });
+
         }
 
 
@@ -72,6 +76,10 @@ namespace Entity_DAL.DAL
 /*     public DbSet<Reply> Replys { get; set; }*/
 
         public DbSet<Product> Products { get; set; }
+
+        public DbSet<ProductClient> ProductClients { get; set; }
+
+        public DbSet<A_T_Managment> A_T_Managments { get; set; }
 
 
     }
