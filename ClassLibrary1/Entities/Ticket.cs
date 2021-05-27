@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entities.Entities
 {
@@ -56,15 +58,23 @@ namespace Entities.Entities
         [Display(Name = "ticketDate", ResourceType = typeof(Ressources.Ressource_Tickets.ResourceTicket))]
         public DateTime ticketDate { get; set; }
 
-        
+        public string uploadedFile { get; set; } = null;
+
+        [NotMapped]
+        public IFormFile uploadedFileFile { get; set; }
 
         public int userId { get; set; }
 
         public User creator_user { get; set; }
 
-        public string relatedProductRef { get; set; }
+        public string relatedProductRefId { get; set; }
         public Product relatedProduct { get; set; }
 
         public ICollection<A_T_Managment> listAT_Management { get; set; }
+
+        //ticket replys
+        public ICollection<Reply> ListOfReplies { get; set; }
+
+
     }
 }

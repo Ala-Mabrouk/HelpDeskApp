@@ -6,6 +6,6 @@ namespace Entities.Entities
 {
    public  class Admin:Agent
     {
-
+        public DateTime affectingDate { get; set; } = DateTime.Now;
     }
 }

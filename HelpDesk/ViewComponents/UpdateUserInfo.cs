@@ -10,10 +10,10 @@ namespace HelpDesk.ViewComponents
 {
     public class UpdateUserInfo : ViewComponent
     {
-        public IViewComponentResult Invoke(User pers)
+        public IViewComponentResult Invoke(string pers)
         {
-            
-            return View(pers);
+            Agent res =(Agent) new AppFunctions().GetUserByEmail(pers).Result;
+            return View(res);
         }
 
     }

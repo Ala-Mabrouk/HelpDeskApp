@@ -1,5 +1,7 @@
 ﻿
 
+@{ Layout = "~/Views/Shared/_NoHeaderLayout.cshtml";}
+
 
 
 
@@ -9,6 +11,8 @@
             <img src="~/Content/images/bg-header-2.png" class="jarallax-img" alt="">
             <div style="background-color: rgba(27, 27, 27, .8);"></div>
 
+
+        </div>
         <div class="row justify-content-center">
             <div class="col-xl-7">
                 <h1 class="h2 mb-30 text-white text-center">Digital Products</h1>
@@ -20,11 +24,6 @@
         </div>
     </div>
 </header>
-
-
-
-
-
 
 
 
@@ -62,8 +61,8 @@
                         <div class="dx-portfolio-item dx-block-decorated">
                             <div class="dx-portfolio-item-image">
                                 <div class="dx-portfolio-item-overlay" style="background-color: rgba(27, 27, 27, .8);">
-                                    <a href="#" class="dx-btn dx-btn-md dx-btn-transparent-style-2 m-10">Live Demo</a>
-                                    <a href="#" class="dx-btn dx-btn-md dx-btn-transparent-style-2 m-10">Buy Now</a>
+                                    <a asp-action="ProductDetail" asp-controller="Products" asp-route-refid="@item.refId" class="dx-btn dx-btn-md dx-btn-transparent-style-2 m-10">Live Demo</a>
+                                    <a asp-action="buyProduct" asp-controller="Products" asp-route-prodRef=@item.refId class="dx-btn dx-btn-md dx-btn-transparent-style-2 m-10">Buy Now</a>
                                 </div>
                                 <img src=@Url.Content(item.imgUrl) alt="Product img">
                             </div>

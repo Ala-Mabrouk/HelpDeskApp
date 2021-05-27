@@ -37,6 +37,38 @@ namespace Entities.Migrations
                     b.ToTable("A_T_Managments");
                 });
 
+            modelBuilder.Entity("Entities.Entities.Article", b =>
+                {
+                    b.Property<int>("ArticleId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("category")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("content")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("creationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("creator_agentId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("lastModified")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("ArticleId");
+
+                    b.HasIndex("creator_agentId");
+
+                    b.ToTable("Articles");
+                });
+
             modelBuilder.Entity("Entities.Entities.DefaultPermissions", b =>
                 {
                     b.Property<int>("permissionId")
@@ -131,6 +163,37 @@ namespace Entities.Migrations
                     b.ToTable("ProductClients");
                 });
 
+            modelBuilder.Entity("Entities.Entities.Reply", b =>
+                {
+                    b.Property<int>("replyId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("TicketId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("content")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("r_uploadedFile")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("replyOwnerId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("reply_date")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("replyId");
+
+                    b.HasIndex("TicketId");
+
+                    b.HasIndex("replyOwnerId");
+
+                    b.ToTable("Replys");
+                });
+
             modelBuilder.Entity("Entities.Entities.Role", b =>
                 {
                     b.Property<int>("roleId")
@@ -153,10 +216,7 @@ namespace Entities.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("relatedProductRef")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("relatedProductrefId")
+                    b.Property<string>("relatedProductRefId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("ticketDate")
@@ -179,12 +239,15 @@ namespace Entities.Migrations
                     b.Property<string>("ticketType")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("uploadedFile")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("userId")
                         .HasColumnType("int");
 
                     b.HasKey("ticketId");
 
-                    b.HasIndex("relatedProductrefId");
+                    b.HasIndex("relatedProductRefId");
 
                     b.HasIndex("userId");
 
@@ -259,8 +322,8 @@ namespace Entities.Migrations
                 {
                     b.HasBaseType("Entities.Entities.User");
 
-                    b.Property<string>("status")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("status")
+                        .HasColumnType("bit");
 
                     b.HasDiscriminator().HasValue("Agent");
                 });
@@ -273,6 +336,26 @@ namespace Entities.Migrations
                         .HasColumnType("int");
 
                     b.HasDiscriminator().HasValue("Client");
+                });
+
+            modelBuilder.Entity("Entities.Entities.Admin", b =>
+                {
+                    b.HasBaseType("Entities.Entities.Agent");
+
+                    b.Property<DateTime>("affectingDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasDiscriminator().HasValue("Admin");
+                });
+
+            modelBuilder.Entity("Entities.Entities.SuperAdmin", b =>
+                {
+                    b.HasBaseType("Entities.Entities.Admin");
+
+                    b.Property<string>("SuperCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasDiscriminator().HasValue("SuperAdmin");
                 });
 
             modelBuilder.Entity("Entities.Entities.A_T_Managment", b =>
@@ -292,6 +375,17 @@ namespace Entities.Migrations
                     b.Navigation("agent");
 
                     b.Navigation("ticket");
+                });
+
+            modelBuilder.Entity("Entities.Entities.Article", b =>
+                {
+                    b.HasOne("Entities.Entities.Agent", "creator_agent")
+                        .WithMany()
+                        .HasForeignKey("creator_agentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("creator_agent");
                 });
 
             modelBuilder.Entity("Entities.Entities.DefaultPermissions", b =>
@@ -332,11 +426,30 @@ namespace Entities.Migrations
                     b.Navigation("product");
                 });
 
+            modelBuilder.Entity("Entities.Entities.Reply", b =>
+                {
+                    b.HasOne("Entities.Entities.Ticket", "ticket")
+                        .WithMany("ListOfReplies")
+                        .HasForeignKey("TicketId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Entities.User", "replyOwner")
+                        .WithMany()
+                        .HasForeignKey("replyOwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("replyOwner");
+
+                    b.Navigation("ticket");
+                });
+
             modelBuilder.Entity("Entities.Entities.Ticket", b =>
                 {
                     b.HasOne("Entities.Entities.Product", "relatedProduct")
                         .WithMany()
-                        .HasForeignKey("relatedProductrefId");
+                        .HasForeignKey("relatedProductRefId");
 
                     b.HasOne("Entities.Entities.User", "creator_user")
                         .WithMany("listTickets")
@@ -401,6 +514,8 @@ namespace Entities.Migrations
             modelBuilder.Entity("Entities.Entities.Ticket", b =>
                 {
                     b.Navigation("listAT_Management");
+
+                    b.Navigation("ListOfReplies");
                 });
 
             modelBuilder.Entity("Entities.Entities.User", b =>

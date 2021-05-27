@@ -1,0 +1,103 @@
+﻿
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
+
+@model Entities.Entities.Admin
+
+@{
+    ViewData["Title"] = "DashBoardAdmin";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+<script>
+
+
+    $(function () {
+        var placeholder = $('#placeholder');
+        $('a[data-toggle="addAdmin"]').click(function (event) {
+
+            var url = $(this).data('url');
+            $.get(url).done(function (data) {
+                placeholder.html(data);
+                placeholder.find('.modal').modal('show');
+            })
+
+
+        })
+
+    })
+
+
+
+
+</script>
+
+
+
+
+<div id="placeholder"></div>
+
+
+<div class="row" style="display: flex; justify-content: end;">
+
+    <div class="col-xl-3 col-md-6" style="justify-content: end; display: flex; margin-right: 25px; margin-bottom: 10px;">
+        <a href="#" data-toggle="addAdmin" data-target="#addAdmin" data-url="@Url.Action("addAdmin")" class="dx-btn dx-btn-lg mt-10">@localizer["Add_admin"]</a>
+    </div>
+</div>
+
+
+<div class="card mb-4">
+    <div class="card-header">
+        <i class="fas fa-table mr-1"></i>
+        @localizer["admins_Table"]
+    </div>
+    <div class="card-body">
+
+
+        <table class="table align-middle" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr class="table-info table-bordered ">
+                    <th><label asp-for="Id"></label></th>
+                    <th><label asp-for="FirstName"></label> <label asp-for="LastName"></label></th>
+                    <th><label asp-for="Email"></label></th>
+                    <th><label asp-for="Phone"></label></th>
+                    <th><label asp-for="status"></label></th>
+                    <th><label>@localizer["actions"]</label></th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr class="table-info table-bordered ">
+                    <th><label asp-for="Id"></label></th>
+                    <th><label asp-for="FirstName"></label> <label asp-for="LastName"></label></th>
+                    <th><label asp-for="Email"></label></th>
+                    <th><label asp-for="Phone"></label></th>
+                    <th><label asp-for="status"></label></th>
+                    <th>@localizer["actions"]</th>
+                </tr>
+            </tfoot>
+
+            <tbody>
+                @foreach (var admin in ViewBag.agentsList)
+                {
+                    <tr>
+                        <td> @admin.Id</td>
+                        <td> @admin.FirstName @admin.LastName</td>
+                        <td> @admin.Email</td>
+                        <td> @admin.Phone</td>
+                        <td> @admin.status</td>
+                        <td><a asp-action="updateAdmin" asp-route-mailAdmin="@admin.Email" asp-controller="SuperAdmin">update info</a></td>
+
+
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+
+
+    </div>
+</div>
+

@@ -1,0 +1,239 @@
+﻿
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="row justify-content-center">
+    <div class="container pl-0 pr-0">
+        <div class="dx-box dx-box-decorated">
+            <div class="dx-blog-post dx-ticket ">
+
+
+                <div class="dx-blog-post-box  p-20 pb-10">
+                    <div class="dx-comment ">
+                        <div class="dx-comment-cont">
+                            <div class="dx-comment-img">
+
+                                <img src="@Url.Content(ViewBag.clientDetails.ThumbUrl)" alt="imge client" />
+
+                            </div>
+                            <div style="width: 100%;margin: 10px 10px;">
+                                <h2 class="h4 mnt-5 mb-9 dx-ticket-title"> @ViewBag.clientDetails.FirstName @ViewBag.clientDetails.LastName</h2>
+
+
+                                <div style="display:flex;justify-content:flex-start;padding-left: 10px;">
+                                    <div class="dx-comment-date"> @ViewBag.clientDetails.Email</div>
+                                    <div class="dx-comment-date ml-20"> @ViewBag.clientDetails.Phone</div>
+                                    <div class="dx-comment-date ml-20"> @ViewBag.clientDetails.HomeAdresse</div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="dx-separator mb-10"></div>
+
+
+
+            <nav>
+                <div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active" id="nav-tickets-tab" data-toggle="tab" href="#nav-tickets" role="tab" aria-controls="nav-tickets" aria-selected="true">tickets</a>
+                    <a class="nav-item nav-link" id="nav-products-tab" data-toggle="tab" href="#nav-products" role="tab" aria-controls="nav-products" aria-selected="false">Products</a>
+                </div>
+            </nav>
+
+
+            <div class="tab-content dx-box-decorated" id="nav-tabContent">
+
+                @*tickets tab*@
+                <div class="tab-pane fade show active" id="nav-tickets" role="tabpanel" aria-labelledby="nav-tickets-tab">
+                    @foreach (var item in ViewBag.clientTickets)
+                    {
+
+                        <a href="single-ticket.html" class="dx-ticket-item dx-ticket-new dx-ticket-open dx-block-decorated">
+
+                            <span class="dx-ticket-cont">
+                                <span class="dx-ticket-name">
+                                    <i># @item.ticketId</i>  - @item.ticketTitle
+                                </span>
+                                <span class="dx-ticket-title h5">
+                                    @item.ticketDescription
+                                </span>
+                                <ul class="dx-ticket-info">
+
+                                    <li>@item.ticketDate</li>
+
+                                    <li>@item.relatedProduct.name</li>
+
+                                </ul>
+                            </span>
+                            <span class="dx-ticket-status">
+                                @item.ticketStatut
+                            </span>
+                        </a>
+
+
+                    }
+                    <div class="dx-separator mb-10"></div>
+
+                </div>
+
+
+                @*products tab*@
+                <div class="tab-pane fade" id="nav-products" role="tabpanel" aria-labelledby="nav-products-tab">
+
+                    @foreach (var item in ViewBag.clientProducts)
+                    {
+
+
+
+
+                        <div class="dx-comment dx-ticket-comment p-10" style="display: flex;justify-content: space-around;">
+
+                            <div class="mt-10">
+                                <div>
+                                    <h2 class="h4 mnt-5  dx-ticket-title"><u># @item.refId</u> &nbsp; @item.name</h2>
+                                    <div class="dx-comment-date">    <label>Factory name</label> @item.factoryName</div>
+
+                                    <div class="dx-comment-date">    <label>price</label> @item.price</div>
+                                    <div class="dx-comment-date">    <label>build date</label> @item.dateBuild</div>
+                                    <div class="dx-comment-text">
+                                        <p class="mb-0">
+                                            @item.description
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="div-img-product" style="max-width: 50%;">
+
+                                @*
+                                    <a href=@Url.Content(Model.relatedProduct.imgUrl) data-fancybox="images" class="dx-gallery-item">
+                                        <span class="dx-gallery-item-overlay"><span class="icon pe-7s-exapnd2"></span></span>
+                                        <img src=@Url.Content(Model.relatedProduct.imgUrl) class="dx-img" alt="">
+                                    </a>*@
+
+                                <img src="@Url.Content(item.imgUrl)" alt="some imges" />
+
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        @*       <div class="dx-portfolio-item dx-block-decorated">
+                                <div class="dx-portfolio-item-image">
+                                    <img src="@Url.Content(item.imgUrl)" alt="product img">
+                                </div>
+                                <a href="product.html" class="dx-portfolio-item-info">
+                                    <div>
+                                        <span class="dx-portfolio-item-title"></span>
+
+                                        <label>Factory name</label> @item.factoryName
+
+                                        <span class="dx-portfolio-item-price">@item.price</span>
+                                    </div>
+                                    <div>@item.description</div>
+
+
+
+                                </a>
+
+                            </div>*@
+
+
+
+
+
+                        @*
+                            <div class="dx-comment dx-ticket-comment p-10" style="display: flex;justify-content: space-around;">
+
+                                <div>
+                                    <div>
+                                        <h2 class="h4 mnt-5  dx-ticket-title"></h2>
+                                        <div class="dx-comment-date"><label>Factory name</label> @item.factoryName</div>
+
+                                    </div>
+                                </div>*@
+
+                        @*
+                            <!--<div id="div-img-product">-->
+                            <!--
+                            <a href=@Url.Content(Model.relatedProduct.imgUrl) data-fancybox="images" class="dx-gallery-item">
+                                <span class="dx-gallery-item-overlay"><span class="icon pe-7s-exapnd2"></span></span>
+                                <img src=@Url.Content(Model.relatedProduct.imgUrl) class="dx-img" alt="">
+                            </a>-->
+                            <!--<img src=@Url.Content(Model.relatedProduct.imgUrl) alt="some imges" />
+
+                            </div>-->
+                            <!--</div>
+
+                                -->
+
+
+                        *@
+
+
+
+
+
+                    }
+
+
+
+
+
+
+                </div>
+
+
+
+
+
+
+
+
+
+
+                @*
+
+
+
+                    <div class="dx-comment-cont">
+                        <label asp-for="@Model.ticketDescription    "></label>
+                        <div class="dx-comment-text">
+                            <p class="mb-0">
+                                @item.description
+                            </p>
+                        </div>
+
+
+                        @if (!string.IsNullOrEmpty(Model.uploadedFile))
+                        {
+
+                            @await Component.InvokeAsync("TicketAttatchment", Model.uploadedFile)
+
+                        }
+                    </div>*@
+
+
+
+            </div>
+        </div>
+
+    </div>
+
+</div>

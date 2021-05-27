@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading;
@@ -25,8 +26,8 @@ namespace HelpDesk.Controllers
 
         //creation of instance from AppFeatures
 
-        private readonly ClientService _ClientCRUD = new ClientService();
-        private readonly Userservice _UserService = new Userservice();
+        private readonly ClientServices _ClientCRUD = new ClientServices();
+        private readonly Userservices _UserService = new Userservices();
         private readonly AppFunctions _AppFunctions = new AppFunctions();
 
         private static string logedIn = "";
@@ -182,10 +183,10 @@ namespace HelpDesk.Controllers
         public ActionResult ResetPassword(string email)
         {
             //send reclamation to Admin to give back new pass
-            if (_AppFunctions.resetPass(email))
+         /*   if (_AppFunctions.resetPass(email))
             {
                 RedirectToAction("Index", "Home");
-            }
+            }*/
             return View();
         }
 
@@ -208,6 +209,7 @@ namespace HelpDesk.Controllers
         [Authorize]
         public IActionResult settings()
         {
+            logedIn = User.FindFirstValue(ClaimTypes.Name);
             User pers = _AppFunctions.GetUserByEmail(logedIn).Result;
 
             if (pers == null)
@@ -219,11 +221,43 @@ namespace HelpDesk.Controllers
 
         [HttpPost]
         [Authorize]
-        public IActionResult settings(User _p)
+        public IActionResult settings([FromForm]User _p)
         {
+
             try
             {
-                User p1 = new Userservice().updateInfo(_p).Result;
+                if (_p.userImageFile != null)
+                {
+                    var imgFile = _p.userImageFile;
+
+
+                    string FileName = Path.GetFileNameWithoutExtension(imgFile.FileName);
+
+                    //To Get File Extension  
+                    string FileExtension = Path.GetExtension(imgFile.FileName);
+
+                    //Add Current Date To Attached File Name  
+                    FileName = FileName.Trim() + FileExtension;
+
+                    //Get Upload path from Web.Config file AppSettings.  
+                    string UploadPath = "C:\\Users\\worrior107\\source\\repos\\HelpDeskApp\\HelpDesk\\wwwroot\\ProfileImges\\";
+
+                    string contentPath = "~/ProfileImges/";
+                    //Its Create complete path to store in server.
+
+                    string completPath = UploadPath + FileName;
+                    _p.ThumbUrl = contentPath + FileName;
+
+                    //save file in the uploadPath 
+
+                    using (var stream = new FileStream(completPath, FileMode.Create))
+                    {
+                        imgFile.CopyTo(stream);
+
+                    }
+                }
+
+                User p1 = new Userservices().updateInfo(_p).Result;
 
                 if (p1 != null)
                 {
@@ -243,7 +277,7 @@ namespace HelpDesk.Controllers
             catch (Exception e)
             {
                 System.Diagnostics.Debug.WriteLine(e);
-                return RedirectToAction("Error404");
+                return RedirectToAction("Erreur404");
             }
 
 
@@ -258,11 +292,13 @@ namespace HelpDesk.Controllers
         [Authorize]
         public IActionResult changePassword()
         {
+            logedIn = User.FindFirstValue(ClaimTypes.Name);
+
             string oldpass = Request.Form["oldPass"];
             string newpass = Request.Form["newPass"];
             string confirmPass = Request.Form["confirmPass"];
 
-            if (newpass != confirmPass && !_UserService.changeUserPassword(logedIn, oldpass, newpass).Result)
+            if (newpass != confirmPass || !_UserService.changeUserPassword(logedIn, oldpass, newpass).Result)
             {
                 ViewBag.erreurChanging = "no changes have been made ";
                 return RedirectToAction("Erreur404", "Home");

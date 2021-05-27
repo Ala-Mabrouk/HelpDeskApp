@@ -1,0 +1,97 @@
+﻿<div class="dx-separator"></div>
+<div class="dx-box-5 pb-100 bg-grey-6">
+    <div class="container">
+        <div class="row vertical-gap md-gap">
+            <div class="col-lg-8">
+                <div class="dx-box dx-box-decorated">
+                    <div class="dx-blog-post">
+                        <div class="dx-blog-post-box pt-30 pb-30">
+                            <h2 class="h4 mnt-5 mb-8">Quantial</h2>
+
+
+                            <!-- START: Breadcrumbs -->
+                            <ul class="dx-breadcrumbs text-left dx-breadcrumbs-dark mnb-8">
+
+                                <li><a asp-action="HelpCenter" asp-controller="Home">Support Home</a></li>
+
+
+                                <li><a asp-action="Index" asp-controller="KnowledgeBase">Articles</a></li>
+
+                                <li>Quantial</li>
+
+
+                            </ul>
+                            <!-- END: Breadcrumbs -->
+
+                        </div>
+                        <div class="dx-separator"></div>
+                        <div class="dx-blog-post-box">
+
+                            @foreach (var item in ViewBag.ListArticles)
+                            {
+
+
+                            <div class="dx-article dx-article-block">
+                                <h4 class="h6 dx-article-title"><a asp-action="singleArticleInfo" asp-controller="KnowledgeBase" asp-route-articleId="@item.ArticleId">@item.Title</a></h4>
+                                <div class="dx-article-text">
+                                    <p class="mb-0">@item.content</p>
+                                </div>
+                                <a asp-action="singleArticleInfo" asp-controller="KnowledgeBase" asp-route-articleId="@item.ArticleId" class="dx-btn dx-btn-link d-flex dx-article-link">Read More <span class="icon pe-7s-angle-right"></span></a>
+                            </div>
+
+                            }
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="dx-sticky dx-sidebar" data-sticky-offsetTop="120" data-sticky-offsetBot="40">
+
+
+                    <
+
+                    <div class="dx-widget dx-box dx-box-decorated">
+                        <form action="#" class="dx-form dx-form-group-inputs">
+                            <input type="text" name="" value="" class="form-control form-control-style-2" placeholder="Search...">
+                            <button class="dx-btn dx-btn-lg dx-btn-grey dx-btn-grey-style-2 dx-btn-icon"><span class="icon fas fa-search"></span></button>
+                        </form>
+                    </div>
+
+
+                    <div class="dx-widget dx-box dx-box-decorated">
+                        <div class="dx-widget-title">Articles Categories</div>
+                        @await Component.InvokeAsync("ArticlesCategories")
+                    </div>
+
+
+                    <div class="dx-widget dx-box dx-box-decorated">
+                        <div class="dx-widget-title">
+                            Latest Articles
+                        </div>
+                        <a href="single-article.html" class="dx-widget-link">
+                            <span class="dx-widget-link-text">How to manually import Demo data (if you faced with problems in one-click demo import)</span>
+                            <span class="dx-widget-link-date">6 Sep 2018</span>
+                        </a>
+                 
+                        
+                    </div>
+
+
+                    <div class="dx-widget dx-box dx-box-decorated">
+                        <div class="dx-widget-title">
+                            Latest Forum Topics
+                        </div>
+                        <a href="single-article.html" class="dx-widget-link">
+                            <span class="dx-widget-link-text">Need help with customization. Some options are not appearing...</span>
+                            <span class="dx-widget-link-date">6 Sep 2018</span>
+                        </a>
+                     
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

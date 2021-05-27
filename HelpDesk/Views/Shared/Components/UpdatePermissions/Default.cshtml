@@ -1,0 +1,37 @@
+﻿<div class="dx-box-decorated">
+
+    <form method="post" asp-action="validatePermissions" asp-controller="Admin" class="dx-form">
+        <div class="dx-box-content">
+
+
+
+
+            <table cellpadding="3px">
+
+
+                @foreach (var item in ViewBag.Permissions)
+                {
+                    Boolean test = false;
+                    if (ViewBag.AgentPermission.Contains(item))
+                    {
+                        test = true;
+                    }
+                    <tr>
+                        <td>
+                            <input class="form-check" name="AreChecked" type="checkbox" value="@item.permissionId" checked="@true" />
+                        </td>
+                        <td>
+                            <label class="mnt-7">@item.permissionName</label>
+
+                        </td>
+                    </tr>
+                }
+
+            </table>
+            <input type="hidden" name="agentId" value="@Model.Id" />
+            <input type="hidden" name="agentMail" value="@Model.Email" />
+            <button type="submit" class="dx-btn-dark ">Click</button>
+        </div>
+    </form>
+
+</div>

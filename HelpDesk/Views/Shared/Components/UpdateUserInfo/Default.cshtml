@@ -3,59 +3,69 @@
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer localizer
 
-@model Entities.Entities.User
+@model Entities.Entities.Agent
 
 <div class="dx-box-decorated">
 
-    <form asp-action="settings" asp-controller="Admin" method="post" class="dx-form">
+    <form asp-action="updateAgentPersInfo" asp-controller="Admin" method="post" class="dx-form">
         <div class="dx-box-content">
             <table cellpadding="3px">
 
                 <tr>
                     <td><label asp-for="FirstName" class="mnt-7"></label></td>
                     <td>
-                        <input type="text" asp-for="FirstName" class="form-control form-control-style-2" id="first-name" value=@Model.FirstName>
+                        <input type="text" asp-for="FirstName" class="form-control form-control-style-2" id="first-name">
                     </td>
                 </tr>
 
                 <tr>
                     <td><label asp-for="LastName" class="mnt-7"></label></td>
                     <td>
-                        <input type="text" asp-for="LastName" class="form-control form-control-style-2" id="last-name" value=@Model.LastName>
+                        <input type="text" asp-for="LastName" class="form-control form-control-style-2" id="last-name">
                     </td>
                 </tr>
 
                 <tr>
                     <td><label asp-for="Email" class="mnt-7"></label></td>
                     <td>
-                        <input type="email" aria-describedby="emailHelp" asp-for="Email" class="form-control form-control-style-2" id="email-address" value=@Model.Email>
+                        <input type="email" aria-describedby="emailHelp" asp-for="Email" class="form-control form-control-style-2" id="email-address">
                     </td>
                 </tr>
                 <tr>
                     <td><label asp-for="Phone" class="mnt-7"></label></td>
                     <td>
-                        <input type="text" asp-for="Phone" class="form-control form-control-style-2" id="zip" value=@Model.Phone>
+                        <input type="text" asp-for="Phone" class="form-control form-control-style-2" id="zip">
                     </td>
                 </tr>
                 <tr>
                     <td> <label asp-for="HomeAdresse" class="mnt-7"></label></td>
                     <td>
-                        <input type="text" asp-for="HomeAdresse" class="form-control form-control-style-2" id="city" value=@Model.HomeAdresse>
-                        <input type="hidden" asp-for="Id" class="form-control form-control-style-2" id="city" value=@Model.Id>
+                        <input type="text" asp-for="HomeAdresse" class="form-control form-control-style-2" id="city">
+                        <input type="hidden" asp-for="Id" class="form-control form-control-style-2" id="id">
                     </td>
                 </tr>
                 <tr>
                     <td>
-                    <td></td>
-                    <td>
-                        <button type="submit" class="dx-btn-dark dx-btn-xl dx-btn-block">@localizer["Save_Changes"]</button>
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" asp-for="status" class="custom-control-input" name="AgentStatus" id="customSwitch1">
+                            <label class="custom-control-label" for="customSwitch1"> </label>
+                        </div>
                     </td>
+                    <td>
+                        Active/Disable
                     </td>
                 </tr>
 
 
-
             </table>
+           
+
+                <div class="dx-box-content" style="display: flex; justify-content: space-between;">
+                    <a href="javascript: history.go(-1)"  class="btn btn-outline-danger btn-lg mr-10" >Cancel</a>
+                    <button type="submit" class="btn btn-primary btn-lg ml-30">Save Changes</button>
+
+                </div>
+             
 
         </div>
     </form>

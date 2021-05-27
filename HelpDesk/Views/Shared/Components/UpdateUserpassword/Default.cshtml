@@ -1,0 +1,47 @@
+﻿
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
+
+@model Entities.Entities.Agent
+
+<div class="dx-box-decorated">
+
+    <form asp-action="changeAgentPassword" asp-controller="Admin" method="post" class="dx-form">
+        <div class="dx-box-content">
+            <table cellpadding="3px">
+
+                <tr>
+                    <td><label  class="mnt-7">new Password</label></td>
+                    <td>
+                        <input type="password" name="newPass"  class="form-control form-control-style-2" id="newPass">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><label   class="mnt-7">Confirm new password</label></td>
+                    <td>
+
+                        <input type="password" name="confirmNewPass" class="form-control form-control-style-2" id="confirmPass">
+                        <input type="hidden" asp-for="Email" class="form-control form-control-style-2" id="id">
+
+                    </td>
+                </tr>
+
+                
+              
+            </table>
+
+
+            <div class="dx-box-content" style="display: flex; justify-content: space-between;">
+                <a href="javascript: history.go(-1)" class="btn btn-outline-danger btn-lg mr-10">Cancel</a>
+                <button type="submit" class="btn btn-primary btn-lg ml-30">Save Changes</button>
+
+            </div>
+
+
+        </div>
+    </form>
+
+
+</div>

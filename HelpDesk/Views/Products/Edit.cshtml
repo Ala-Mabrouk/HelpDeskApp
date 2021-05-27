@@ -18,7 +18,7 @@
 
             <div class="modal-body">
 
- 
+
                 <div class="dx-box-decorated">
 
                     <form asp-action="Edit" asp-controller="Products" method="post" class="dx-form">
@@ -70,6 +70,30 @@
                                     </td>
                                 </tr>
                                 <tr><td><span asp-validation-for="category" class="text-danger"></span></td></tr>
+
+
+
+
+                                <tr>
+                                    <td colspan="2">
+                                        <div class="dropdown">
+                                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                change Product Image
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <span>input here</span>
+                                                <div class="form-group">
+                                                    <input type="file" asp-for="imgUrl" class="custom-file-input" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+
+
+
+
 
                             </table>
                             <button type="submit" class="dx-btn-dark dx-btn-xl dx-btn-block">@localizer["Save_Changes"]</button>

@@ -26,11 +26,60 @@
 }
 
 
+.al-info-reply {
+    margin-top: 20px;
+    margin-left: 10px;
+}
+.al-comment-text {
+    width: 100%;
+    margin-left: 20px;
+    margin-top: 10px;
+}
 
- 
+/*.dx-comment .dx-comment-img img {
+    width: 80%;
+    height: 80%;
+    font-family: "object-fit: cover";
+    -o-object-fit: cover;
+    object-fit: cover;
+    border-radius: 50px;
+}*/
 
+#div-img-product {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: end;
+    width: -moz-fit-content;
+}
 
+    #div-img-product > img {
+        object-fit: cover;
+        font-family: "object-fit: cover";
+        max-width: 90%;
+        max-height: 100%;
+        display: block;
+        margin: 10px;
+    }
 
+    #al-img {
+    width: 80% !important;
+    height: 80% !important;
+   
+    -o-object-fit: cover;
+    object-fit: cover;
+    border-radius: 50px !important;
+}
+
+#Client {
+    background-color: #f0f5f5;
+}
+
+    }
 
 /*intit code*/
 :root {
@@ -10613,6 +10662,7 @@ a.text-dark:hover, a.text-dark:focus {
         border-color: #dee2e6;
     }
 }
+
 
 html,
 body {

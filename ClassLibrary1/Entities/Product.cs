@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entities.Entities
 {
@@ -39,9 +40,9 @@ namespace Entities.Entities
         public  double price { get; set; } = 0.0;
 
         [Display(Name = "addedDate", ResourceType = typeof(Ressources.Ressource_Product.Resource))]
-        public DateTime addedDate { get; set; }
-
-
+        public DateTime addedDate { get; set; } = DateTime.Now;
+        [NotMapped]
+        public IFormFile ImageFile { get; set; }
 
         //List Clients 
 

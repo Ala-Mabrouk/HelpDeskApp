@@ -1,0 +1,112 @@
+﻿
+
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
+
+@model Entities.Entities.Ticket
+@{
+    ViewData["Title"] = "DashBoardAdmin";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<script>
+
+    $(function () {
+        var placeholder = $('#placeholder');
+        $('a[data-toggle="ticketInfo"]').click(function (event) {
+
+            var url = $(this).data('url');
+            $.get(url).done(function (data) {
+                placeholder.html(data);
+                placeholder.find('.modal').modal('show');
+            })
+
+
+        })
+
+    })
+
+    $(function () {
+        var placeholder = $('#placeholder');
+        $('a[data-toggle="ticketDetailInfo"]').click(function (event) {
+
+            var url = $(this).data('url');
+            $.get(url).done(function (data) {
+                placeholder.html(data);
+                placeholder.find('.modal').modal('show');
+            })
+
+
+        })
+
+    })
+
+</script>
+
+
+
+
+
+<div id="placeholder"></div>
+<div class="card mb-4">
+    <div class="card-header">
+        <i class="fas fa-table mr-1"></i>
+        tickets Table
+    </div>
+    <div class="card-body">
+        
+        <table class="table align-middle" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr class="table-info table-bordered ">
+                    <th><label asp-for="ticketId"></label></th>
+                    <th><label asp-for="ticketTitle"></label></th>
+                    <th><label asp-for="ticketStatut"></label></th>
+                    <th><label asp-for="ticketPriority"></label></th>
+                    <th><label asp-for="ticketDate"></label></th>
+                    <th><label></label></th>
+
+                </tr>
+            </thead>
+            <tfoot>
+                <tr class="table-info table-bordered ">
+                    <th><label asp-for="ticketId"></label></th>
+                    <th><label asp-for="ticketTitle"></label></th>
+                    <th><label asp-for="ticketStatut"></label></th>
+                    <th><label asp-for="ticketPriority"></label></th>
+                    <th><label asp-for="ticketDate"></label></th>
+                    <th><label></label></th>
+
+                </tr>
+            </tfoot>
+            <tbody>
+                @foreach (var ticket in ViewBag.ListTickets)
+                {
+                    <tr>
+                        <td>
+                            <a href="#" data-toggle="ticketDetailInfo" data-target="#ticketDetailInfo" data-url="@Url.Action("ticketDetailInfo","Tickets",new { idTicket = ticket.ticketId })">
+                               # @ticket.ticketId
+                            </a>
+                           
+                        </td>
+                        <td> @ticket.ticketTitle </td>
+                        <td> @ticket.ticketStatut</td>
+                        <td> @ticket.ticketPriority</td>
+                        <td> @ticket.ticketDate</td>
+
+
+                        <td>
+                            <a href="#" data-toggle="ticketInfo" data-target="#ticketInfo" data-url="@Url.Action("ticketInfo","Tickets",new { idTicket = ticket.ticketId })">showinfo</a>
+                            |
+                            <a href="#" data-toggle="ticketDetailInfo" data-target="#ticketDetailInfo" data-url="@Url.Action("ticketDetailInfo","Tickets",new { idTicket = ticket.ticketId })">details</a>
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+        
+    </div>
+</div>
+

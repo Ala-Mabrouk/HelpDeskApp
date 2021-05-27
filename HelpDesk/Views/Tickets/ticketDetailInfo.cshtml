@@ -1,0 +1,122 @@
+﻿
+@model Entities.Entities.Ticket;
+
+
+@{ Layout = null;}
+ 
+<div class="modal fade " id="ticketInfo">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+
+
+                <div class="row justify-content-center">
+                    <div class="container pl-0 pr-0">
+                        <div class="dx-box dx-box-decorated">
+                            <div class="dx-blog-post dx-ticket ">
+
+                                <div style="background-color: #fafafa;">
+                                    <ul class="dx-blog-post-info dx-blog-post-info-style-2 mb-0 mt-0">
+                                        <li class="pt-10 pb-10"><span><span class="dx-blog-post-info-title">Ticket Id</span>#@Model.ticketId</span></li>
+                                        <li class="pt-10 pb-10"><span><span class="dx-blog-post-info-title">Status</span> @Model.ticketStatut</span></li>
+                                        <li class="pt-10 pb-10"><span><span class="dx-blog-post-info-title">Date</span> @Model.ticketDate</span></li>
+                                    </ul>
+                                </div>
+
+
+                                <div class="dx-blog-post-box  p-20 pb-10">
+                                    <div class="dx-comment ">
+                                        <div class="dx-comment-cont">
+                                            <div class="dx-comment-img">
+
+                                               @* <div class="dx-gallery">
+                                                    <a href=@Url.Content(Model.creator_user.ThumbUrl) data-fancybox="images" class="dx-gallery-item">
+                                                        <span class="dx-gallery-item-overlay"><span class="icon pe-7s-exapnd2"></span></span>
+                                                        <img src=@Url.Content(Model.creator_user.ThumbUrl) class="dx-img" alt="">
+                                                    </a>
+                                                </div>*@
+                                                                                                <img src=@Url.Content(Model.creator_user.ThumbUrl) alt="imge client" />
+                                                
+                                            </div>
+                                            <div style="width: 100%;margin: 10px 10px;">
+                                                <h2 class="h4 mnt-5 mb-9 dx-ticket-title"> @Model.creator_user.FirstName @Model.creator_user.LastName</h2>
+
+
+                                                <div style="display:flex;justify-content:flex-start;padding-left: 10px;">
+                                                    <div class="dx-comment-date"> @Model.creator_user.Email</div>
+                                                    <div class="dx-comment-date ml-20"> @Model.creator_user.Phone</div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="dx-separator mb-10"></div>
+
+
+                            <div class="dx-comment dx-ticket-comment p-10" style="display: flex;justify-content: space-around;">
+
+                                <div>
+                                    <div>
+                                        <h2 class="h4 mnt-5  dx-ticket-title"><u>#@Model.relatedProduct.refId</u>&nbsp; @Model.relatedProduct.name</h2>
+                                        <div class="dx-comment-date"><label asp-for="@Model.relatedProduct.factoryName"></label> @Model.relatedProduct.factoryName</div>
+                                        <div class="dx-comment-text">
+                                            <p class="mb-0">
+                                                Nullam ac dui et purus malesuada gravida id fermentum orci.
+
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="div-img-product">
+
+@*
+                                    <a href=@Url.Content(Model.relatedProduct.imgUrl) data-fancybox="images" class="dx-gallery-item">
+                                        <span class="dx-gallery-item-overlay"><span class="icon pe-7s-exapnd2"></span></span>
+                                        <img src=@Url.Content(Model.relatedProduct.imgUrl) class="dx-img" alt="">
+                                    </a>*@
+
+                                    <img src=@Url.Content(Model.relatedProduct.imgUrl) alt="some imges" />
+
+                                </div>
+                            </div>
+
+
+                            <div class="dx-separator mb-10"></div>
+
+
+                            <div class="dx-comment-cont">
+                                <label asp-for="@Model.ticketDescription    "></label>
+                                <div class="dx-comment-text">
+                                    <p class="mb-0">
+                                        @Model.relatedProduct.description
+                                    </p>
+                                </div>
+
+
+                                @if (!string.IsNullOrEmpty(Model.uploadedFile))
+                                {
+
+                                    @await Component.InvokeAsync("TicketAttatchment", Model.uploadedFile)
+
+                                }
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+</div>
+

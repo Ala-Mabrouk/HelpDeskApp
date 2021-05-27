@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer localizer
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <title>@ViewData["Title"] Amdesk-ADMIN_HOME</title>
@@ -41,18 +46,38 @@
         $(document).ready(function () {
             $('#dataTable').DataTable();
         });
+
+        $(function () {
+            $("#menu-toggle").click(function (e) {
+                e.preventDefault();
+                $("body").toggleClass("sb-sidenav-toggled");
+                $("#arrowSymbol").toggleClass("fas fa-arrow-circle-right");
+            });
+
+            $(window).resize(function (e) {
+                if ($(window).width() <= 768) {
+                    $("#wrapper").removeClass("toggled");
+                } else {
+                    $("#wrapper").addClass("toggled");
+                }
+            });
+        });
+
+
     </script>
 </head>
 
 
 <body>
-    <nav class="dx-navbar dx-navbar-top dx-navbar-collapse dx-navbar-sticky dx-navbar-expand-lg dx-navbar-dropdown-triangle dx-navbar-autohide">
+    <nav class="dx-navbar dx-navbar-top dx-navbar-collapse dx-navbar-sticky dx-navbar-expand-lg dx-navbar-dropdown-triangle dx-navbar-autohide " style="z-index: 1039;">
         <div class="container">
 
-            <a href="index.html" class="dx-nav-logo">
-                <img src="/Content/images/logo.svg" alt="" width="88px">
-            </a>
+            <button class="btn btn-link btn-sm order-1 order-lg-0 mr-10" id="menu-toggle" href="#"><i id="arrowSymbol" class="fas fa-arrow-circle-left"></i></button>
 
+            <a asp-action="DashBoardAdmin" asp-controller="Admin" class="dx-nav-logo">
+                <img src="/Content/images/logo.svg" alt="" width="88px">
+
+            </a>
             <button class="dx-navbar-burger">
                 <span></span>
                 <span></span>
@@ -79,7 +104,7 @@
 
                                     @*                                <li><a asp-action="Index" asp-controller="Tickets"><span class="icon pe-7s-user"></span>Account</a></li>
                                     *@
-                                    <li><a asp-action="settings" asp-controller="Home"><span class="icon pe-7s-config"></span>Settings</a></li>
+                                    <li><a asp-action="AgentSettings" asp-controller="Agent"><span class="icon pe-7s-config"></span>Settings</a></li>
                                     <li><a asp-action="log_out" asp-controller="Home"><span class="icon pe-7s-back"></span>Log out</a></li>
 
 
@@ -101,38 +126,68 @@
                 <span></span><span></span><span></span>
             </button>
             <div class="dx-navbar-content">
+
+
+                <ul class="dx-nav dx-nav-align-left">
+
+                    <li class="dx-drop-item">
+                        <a href="articles.html">
+                            account
+                        </a>
+                        <ul class="dx-navbar-dropdown " style="">
+
+                            <li>
+                                <a asp-action="AgentSettings" asp-controller="Agent">
+                                    Settings
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-action="log_out" asp-controller="Home">@localizer["Log_out"]</a>
+                            </li>
+
+                        </ul>
+                    </li>
+
+
+                </ul>
+
                 <ul class="dx-nav dx-nav-align-right">
                     @if (User.Identity.IsAuthenticated)
                     {
-
                         <li>
 
                             <div class="dropdown dx-dropdown dx-dropdown-signin">
 
                                 <a id="dropdownSignin" class="dx-nav-signin" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
+
                                     @await Component.InvokeAsync("NavBarWithLog", User.Identity.Name)
+
 
                                 </a>
 
-                                <ul class="dropdown-menu" aria-labelledby="dropdownSignin">
-
-
-                                    @*                                <li><a asp-action="Index" asp-controller="Tickets"><span class="icon pe-7s-user"></span>Account</a></li>
-                                    *@
-                                    <li><a asp-action="settings" asp-controller="Home"><span class="icon pe-7s-config"></span>Settings</a></li>
-                                    <li><a asp-action="log_out" asp-controller="Home"><span class="icon pe-7s-back"></span>Log out</a></li>
-
-
-
-                                </ul>
 
                             </div>
+
                         </li>
 
                     }
-                    <li>@await Html.PartialAsync("_CulturePartial")</li>
+                    else
+                    {
+
+                        <li>
+                            <a asp-action="Log_in" asp-controller="Home">@localizer["Log_In"]</a>
+                        </li>
+                        <li>
+                            <span> <a class="dx-btn dx-btn-md dx-btn-transparent" asp-action="Sign_Up" asp-controller="Home">@localizer["Sign_Up"]</a></span>
+                        </li>
+
+                    }
+                    <li>
+                        @await Html.PartialAsync("_CulturePartial")
+                    </li>
                 </ul>
+
             </div>
 
         </div>
@@ -205,12 +260,16 @@
     <script src="/Content/js/amdesk-init.js"></script>
 
 
-   
     <!-- for table -->
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
     <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
 
     <!-- END: Scripts -->
+
+
+
+
+
 
 
 </body>

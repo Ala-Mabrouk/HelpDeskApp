@@ -1,0 +1,169 @@
+﻿
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
+
+@model Entities.Entities.Admin
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+
+<div class="dx-box-decorated" style="display: grid  ; justify-content: center;">
+    <nav>
+        <div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="true">Profile</a>
+             <a class="nav-item nav-link " id="nav-password-tab" data-toggle="tab" href="#nav-password" role="tab" aria-controls="nav-password" aria-selected="false">change password</a>
+
+        </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+
+
+        @*//for personal info update*@
+
+        <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+
+            <form asp-action="updateAdmin" asp-controller="SuperAdmin" method="post" class="dx-form">
+                <div class="dx-box-content">
+                    <table cellpadding="3px">
+
+                        <tr>
+                            <td><label asp-for="FirstName" class="mnt-7"></label></td>
+                            <td>
+                                <input type="text" asp-for="FirstName" class="form-control form-control-style-2" id="first-name">
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><label asp-for="LastName" class="mnt-7"></label></td>
+                            <td>
+                                <input type="text" asp-for="LastName" class="form-control form-control-style-2" id="last-name">
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><label asp-for="Email" class="mnt-7"></label></td>
+                            <td>
+                                <input type="email" aria-describedby="emailHelp" asp-for="Email" class="form-control form-control-style-2" id="email-address">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label asp-for="Phone" class="mnt-7"></label></td>
+                            <td>
+                                <input type="text" asp-for="Phone" class="form-control form-control-style-2" id="zip">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> <label asp-for="HomeAdresse" class="mnt-7"></label></td>
+                            <td>
+                                <input type="text" asp-for="HomeAdresse" class="form-control form-control-style-2" id="city">
+                                <input type="hidden" asp-for="Id" class="form-control form-control-style-2" id="id">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox" asp-for="status" class="custom-control-input" name="AgentStatus" id="customSwitch1">
+                                    <label class="custom-control-label" for="customSwitch1"> </label>
+                                </div>
+                            </td>
+                            <td>
+                                Active/Disable
+                            </td>
+                        </tr>
+
+
+
+                    </table>
+
+
+
+                    <div style="display: flex;justify-content: center;margin-top: 20px;">
+                        <button class="btn btn-outline-danger btn-lg mr-10">Cancel</button>
+                        <button type="submit" class="btn btn-primary btn-lg ml-30">Save Changes</button>
+                    </div>
+
+
+
+                </div>
+            </form>
+
+        </div>
+
+
+
+        @*//for password changes*@
+
+        <div class="tab-pane fade " id="nav-password" role="tabpanel" aria-labelledby="nav-password-tab">
+
+            <div class="dx-box-decorated">
+
+                <form asp-action="changeAdminPassword" asp-controller="SuperAdmin" method="post" class="dx-form">
+                    <div class="dx-box-content">
+                        <table cellpadding="3px">
+
+                            <tr>
+                                <td><label class="mnt-7">new Password</label></td>
+                                <td>
+                                    <input type="password" name="newPass" class="form-control form-control-style-2" id="newPass">
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td><label class="mnt-7">Confirm new password</label></td>
+                                <td>
+
+                                    <input type="password" name="confirmNewPass" class="form-control form-control-style-2" id="confirmPass">
+                                    <input type="hidden" asp-for="Email" class="form-control form-control-style-2" id="id">
+
+                                </td>
+                            </tr>
+
+
+
+                        </table>
+
+
+                        <div class="dx-box-content" style="display: flex; justify-content: space-between;">
+                            <a href="javascript: history.go(-1)" class="btn btn-outline-danger btn-lg mr-10">Cancel</a>
+                            <button type="submit" class="btn btn-primary btn-lg ml-30">Save Changes</button>
+
+                        </div>
+
+
+                    </div>
+                </form>
+
+
+            </div>
+
+        </div>
+
+
+
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="dx-box-decorated">
+
+  
+
+</div>

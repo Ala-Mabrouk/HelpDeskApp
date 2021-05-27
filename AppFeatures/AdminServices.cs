@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace AppFeatures
 {
-    public class AdminService
+    public class AdminServices : AgentServices
     {
         private static DataBaseContext _context = new DataBaseContext(DataBaseContext.ops.dbOptions);
 
@@ -23,10 +23,13 @@ namespace AppFeatures
             List<User> res = await _context.Users
               .Include(p => p.role)
               .Include(p => p.listUserPermissions).
-              ThenInclude(pp => pp.permision).Where(p=>p.role.roleId>=4).ToListAsync();
+              ThenInclude(pp => pp.permision).Where(p => p.role.roleId >= 4).ToListAsync();
 
             return res;
         }
+
+
+
 
         public async Task<List<Client>> getAllCustomers()
         {
@@ -41,6 +44,7 @@ namespace AppFeatures
             {
                 //we will make like an overrride
                 //remove old userpermissions 
+
                 var a = await _context.UserPermissions.Where(c => c.userId == id).ToListAsync();
                 _context.UserPermissions.RemoveRange(a);
                 await _context.SaveChangesAsync();
@@ -56,7 +60,7 @@ namespace AppFeatures
                 return true;
 
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 System.Diagnostics.Debug.WriteLine(e);
                 return false;
@@ -71,7 +75,7 @@ namespace AppFeatures
 
                 // ********cheking if email dont exist already********
 
-                Agent e = await _context.Agents.Where(a => a.Email.Equals(a.Email)).FirstOrDefaultAsync();
+                Agent e = await _context.Agents.Where(ag => ag.Email.Equals(a.Email)).FirstOrDefaultAsync();
 
                 if (e == null)
                 {
@@ -88,14 +92,15 @@ namespace AppFeatures
                     // ********adding default permissions********
 
                     //getting the default permission using the role so we can add it to the client
-                    List<Permission> listClientpermissions = await _context.DefaultPermissions.Where(s => s.roleId == a.roleId).Select(s => s.permission).ToListAsync();
+                    List<Permission> listPermissions = await _context.DefaultPermissions.Where(s => s.roleId == a.roleId).Select(s => s.permission).ToListAsync();
 
 
                     Agent c = await _context.Agents.Include(r => r.role).Where(s => s.Email == a.Email).FirstOrDefaultAsync();
 
-                    foreach (var item in listClientpermissions)
+                    foreach (var item in listPermissions)
                     {
                         await _context.AddAsync(new UserPermission { user = c, permision = item });
+
                         await _context.SaveChangesAsync();
 
                     }
@@ -115,13 +120,30 @@ namespace AppFeatures
 
             }
 
-
             return null;
+
         }
 
 
+        //used to change selected agent password
+        public async Task<Boolean> changeAgentPassword(string agentEmail,string newPassword)
+        {
+            try
+            {
+                User person = await _context.Users.Where(p => p.Email == agentEmail).FirstAsync();
 
+                string newPass = BCrypt.Net.BCrypt.HashPassword(newPassword);
+                person.Password = newPass;
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch(Exception e)
+            { 
+                return false;
 
+            }
+           
+        }
 
 
 

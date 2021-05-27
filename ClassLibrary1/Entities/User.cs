@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -47,10 +48,10 @@ namespace Entities.Entities
         public string HomeAdresse { get; set; }
 
 
-        public string ThumbUrl { get; set; } = "~/Content/images/Profile_placeholder .png";
+        public string ThumbUrl { get; set; } = "~/Content/images/p_placeholder.png";
 
-
-
+        [NotMapped]
+        public IFormFile userImageFile { get; set; }
 
         public int roleId { get; set; }
 

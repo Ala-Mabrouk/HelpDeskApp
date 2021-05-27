@@ -1,0 +1,17 @@
+﻿
+
+
+
+
+
+
+<ul class="dx-list">
+    @foreach (var item in ViewBag.listArticles)
+    {
+        <li><a asp-action="singleArticleInfo" asp-controller="KnowledgeBase" asp-route-articleId="@item.ArticleId" >@item.Title</a></li>
+
+    }
+
+  
+</ul>
+<a asp-action="singleArticleCategory" asp-controller="KnowledgeBase" asp-route-category="@ViewBag.category" class="dx-btn dx-btn-xs dx-btn-grey-1 dx-article-btn">@ViewBag.countForCategory  Articles</a>

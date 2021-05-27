@@ -8,7 +8,7 @@ namespace Entities.Entities
     public class Client :User
     {
         [Display(Name = "Priority", ResourceType = typeof(Ressources.Ressource_Person.Resource))]
-        public int priority { get; set; }
+        public int priority { get; set; } = 1;
 
 
 

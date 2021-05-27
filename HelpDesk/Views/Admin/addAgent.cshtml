@@ -3,71 +3,19 @@
 @model Entities.Entities.Agent
 
 @{ Layout = null;}
-
-<!--<!DOCTYPE html>
-<html lang="en" dir="@(System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft ? "rtl" : "ltr")">
-<head>
-
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-    <title>@ViewData["Title"]</title>
-
-    <link rel="icon" type="image/png" href="/Content/images/favicon.png">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">-->
-
-    <!-- START: Styles -->
-    <!-- Google Fonts -->
-    <!--<link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,600,700%7cMaven+Pro:400,500,700" rel="stylesheet">--><!-- %7c -->
-    <!-- Bootstrap -->
-    <!--<link rel="stylesheet" href="/Content/lib/bootstrap/dist/css/bootstrap.min.css">-->
-
-    <!-- Fancybox -->
-    <!--<link rel="stylesheet" href="/Content/lib/fancybox/dist/jquery.fancybox.min.css">-->
-
-    <!-- Pe icon 7 stroke -->
-    <!--<link rel="stylesheet" href="/Content/lib/pixeden-stroke-7-icon/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css">-->
-
-    <!-- Swiper -->
-    <!--<link rel="stylesheet" type="text/css" href="/Content/lib/swiper/dist/css/swiper.min.css">-->
-
-    <!-- Bootstrap Select -->
-    <!--<link rel="stylesheet" type="text/css" href="/Content/lib/bootstrap-select/dist/css/bootstrap-select.min.css">-->
-
-    <!-- Dropzone -->
-    <!--<link rel="stylesheet" type="text/css" href="/Content/lib/dropzone/dist/min/dropzone.min.css">-->
-
-    <!-- Quill -->
-    <!--<link rel="stylesheet" type="text/css" href="/Content/lib/quill/dist/quill.snow.css">-->
-
-    <!-- Font Awesome -->
-    <!--<script defer src="/Content/lib/fontawesome-free/js/all.js"></script>
-    <script defer src="/Content/lib/fontawesome-free/js/v4-shims.js"></script>-->
-
-    <!-- Amdesk -->
-    <!--<link rel="stylesheet" href="/Content/css/site.css">-->
-
-    <!-- Custom Styles -->
-    <!--<link rel="stylesheet" href="/Content/css/custom.css">-->
-
-    <!-- END: Styles -->
-    <!-- jQuery -->
-    <!--<script src="/Content/lib/jquery/dist/jquery.min.js"></script>
-
-
-
-
-
-</head>
-<body>-->
+ 
     <div class="modal fade" id="addAgent">
         <div class="modal-dialog modal-dialog-centered ">
+           
             <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Agent</h4>
+                    <button type="button" class="close" data-dismiss="modal">x</button>
+
+                </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="container">
                             <form asp-action="addAgent" asp-controller="Admin" method="post">
                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
@@ -102,38 +50,26 @@
                                     <span asp-validation-for="HomeAdresse" class="text-danger"></span>
                                 </div>
 
-                                <div class="form-group">
-                                    <div class="editor-field">
-                                        @Html.DropDownListFor(model => model.roleId, ViewBag.RoleList as SelectList)
-                                        @Html.ValidationMessageFor(model => model.roleId)
-                                    </div>
-                                </div>
-
-
-
-
-
-                                @*
-        missing img input
-        toadd later *@
-
 
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-primary" data-save="">Save</button>
-                                    <button type="button" class="btn btn-primary" data-dismiss="modal">close</button>
+                                    <label asp-for="roleId" class="control-label"></label>
+                                    @Html.DropDownListFor(model => model.roleId, ViewBag.RoleList as SelectList, new { @class = "form-control dx-select-ticket" })
+                                    @Html.ValidationMessageFor(model => model.roleId)
 
                                 </div>
+
+                                <button type="reset" class="btn btn-link btn-sm mt-10">reset input</button>
+                                <div class="dx-box-content" style="display: flex; justify-content: space-between;">
+                                    <button class="btn btn-outline-danger btn-lg mr-10" data-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-primary btn-lg ml-30">Save Changes</button>
+
+                                </div>
+
                             </form>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="close" data-dismiss="modal">close</button>
-                    <button type="button" class="close" data-save="modal">Done</button>
 
-
-
-                </div>
 
             </div>
 
@@ -141,57 +77,6 @@
 
 
     </div>
-
-    <!-- START: Scripts -->
-    <!-- Object Fit Images -->
-    <script src="/Content/lib/object-fit-images/dist/ofi.min.js"></script>
-
-    <!-- Popper -->
-    <script src="/Content/lib/popper.js/dist/umd/popper.min.js"></script>
-
-    <!-- Bootstrap -->
-    <script src="/Content/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-
-    <!-- Fancybox -->
-    <script src="/Content/lib/fancybox/dist/jquery.fancybox.min.js"></script>
-
-    <!-- Cleave -->
-    <script src="/Content/lib/cleave.js/dist/cleave.min.js"></script>
-
-    <!-- Validator -->
-    <script src="/Content/lib/validator/validator.min.js"></script>
-
-    <!-- Sticky Kit -->
-    <script src="/Content/lib/sticky-kit/dist/sticky-kit.min.js"></script>
-
-    <!-- Jarallax -->
-    <script src="/Content/lib/jarallax/dist/jarallax.min.js"></script>
-    <script src="/Content/lib/jarallax/dist/jarallax-video.min.js"></script>
-
-    <!-- Isotope -->
-    <script src="/Content/lib/isotope-layout/dist/isotope.pkgd.min.js"></script>
-
-    <!-- ImagesLoaded -->
-    <script src="/Content/lib/imagesloaded/imagesloaded.pkgd.min.js"></script>
-
-    <!-- Swiper -->
-    <script src="/Content/lib/swiper/dist/js/swiper.min.js"></script>
-
-    <!-- Gist Embed -->
-    <script src="/Content/lib/gist-embed/gist-embed.min.js"></script>
-
-    <!-- Bootstrap Select -->
-    <script src="/Content/lib/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
-
-    <!-- Dropzone -->
-    <script src="/Content/lib/dropzone/dist/min/dropzone.min.js"></script>
-
-    <!-- Quill -->
-    <script src="/Content/lib/quill/dist/quill.min.js"></script>
-
-    <!-- The Amdesk -->
-    <script src="/Content/js/amdesk.min.js"></script>
-    <script src="/Content/js/amdesk-init.js"></script>
 
 @*</body>
 </html>*@

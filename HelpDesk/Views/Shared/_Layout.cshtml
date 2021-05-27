@@ -58,7 +58,7 @@
     <!-- END: Styles -->
     <!-- jQuery -->
     <script src="/Content/lib/jquery/dist/jquery.min.js"></script>
- 
+
 
 
 
@@ -74,8 +74,6 @@
                 <img src="/Content/images/logo.svg" alt="" width="88px">
             </a>
 
-            <a asp-action="index" asp-controller="Products" >
-Products            </a>
             <button class="dx-navbar-burger">
                 <span></span>
                 <span></span>
@@ -87,7 +85,11 @@ Products            </a>
 
 
                 <ul class="dx-nav dx-nav-align-left">
-
+                    <li class="dx-drop-item">
+                        <a asp-action="ProductDisplay" asp-controller="Products">
+                            Store
+                        </a>
+                    </li>
 
                     <li class="dx-drop-item">
                         <a asp-action="HelpCenter" asp-controller="Home">
@@ -105,8 +107,8 @@ Products            </a>
                         </a>
                     </li>
                     <li class="dx-drop-item">
-                        <a href="articles.html">
-                            @localizer["Knowledge_Base"]
+                        <a asp-action="Index" asp-controller="KnowledgeBase">
+                            @localizer["Articles&FAQ"]
                         </a>
                     </li>
                 </ul>
@@ -143,7 +145,7 @@ Products            </a>
                     else
                     {
                         <li>
-                          <a asp-action="Log_in" asp-controller="Home">@localizer["Log_In"]</a>
+                            <a asp-action="Log_in" asp-controller="Home">@localizer["Log_In"]</a>
                         </li>
                         <li>
                             <span> <a class="dx-btn dx-btn-md dx-btn-transparent" asp-action="Sign_Up" asp-controller="Home">@localizer["Sign_Up"]</a></span>
@@ -169,12 +171,44 @@ Products            </a>
                 <ul class="dx-nav dx-nav-align-left">
 
 
+
+
+
                     <li class="dx-drop-item">
+                        <a href="articles.html">
+                            account
+                        </a>
+                        <ul class="dx-navbar-dropdown " style="">
+
+                            <li>
+                                <a asp-action="Index" asp-controller="Tickets">
+                                    Account
+                                </a>
+                            </li>
+
+                            <li>
+                                <a asp-action="settings" asp-controller="Home">
+                                    Settings
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-action="log_out" asp-controller="Home">@localizer["Log_out"]</a>
+                            </li>
+
+                        </ul>
+                    </li>
+                    <li>
+                        <a asp-action="ProductDisplay" asp-controller="Products">
+                            Store
+                        </a>
+                    </li>
+
+                    <li>
                         <a asp-action="HelpCenter" asp-controller="Home">
                             @localizer["Support"]
                         </a>
                     </li>
-                    <li class="dx-drop-item">
+                    <li>
                         <a asp-action="Index" asp-controller="Tickets">
                             @localizer["My tickets"]
                         </a>
@@ -184,11 +218,12 @@ Products            </a>
                             @localizer["Submit ticket"]
                         </a>
                     </li>
-                    <li class="dx-drop-item">
-                        <a href="articles.html">
+                    <li>
+                        <a asp-action="Index" asp-controller="KnowledgeBase">
                             @localizer["Articles&FAQ"]
                         </a>
                     </li>
+
                 </ul>
 
                 <ul class="dx-nav dx-nav-align-right">
@@ -206,13 +241,6 @@ Products            </a>
 
                                 </a>
 
-                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownSignin">
-
-                                    <li><a asp-action="Index" asp-controller="Tickets"><span class="icon pe-7s-user"></span>@localizer["Account"]</a></li>
-                                    <li><a asp-action="settings" asp-controller="Home"><span class="icon pe-7s-config"></span>@localizer["Settings"]</a></li>
-                                    <li><a asp-action="log_out" asp-controller="Home"><span class="icon pe-7s-back"></span>@localizer["Log_out"]</a></li>
-
-                                </ul>
 
                             </div>
 
@@ -223,7 +251,7 @@ Products            </a>
                     {
 
                         <li>
-                             <a  asp-action="Log_in" asp-controller="Home">@localizer["Log_In"]</a>
+                            <a asp-action="Log_in" asp-controller="Home">@localizer["Log_In"]</a>
                         </li>
                         <li>
                             <span> <a class="dx-btn dx-btn-md dx-btn-transparent" asp-action="Sign_Up" asp-controller="Home">@localizer["Sign_Up"]</a></span>
@@ -339,11 +367,7 @@ Products            </a>
                                 <div class="dx-widget-title">
                                     Latest Products
                                 </div>
-                                @* <div class="dx-widget-portfolio">
-                                    <a href="product.html">Quantial – Moving Upon Signs Moveth Lesser</a>
-                                    <a href="product.html">Sensific – Saying Beast Lesser for in Fruitful</a>
-                                    <a href="product.html">Minist – Subdue Above for Signs Dry is Have Great</a>
-                                    </div>*@
+                                @await Component.InvokeAsync("FooterProducts")
                             </div>
 
                         </div>

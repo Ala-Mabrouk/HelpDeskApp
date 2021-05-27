@@ -7,7 +7,7 @@ namespace Entity_DAL.DAL
 
 {
     //This class will allow us to interact with our database
-    public class DataBaseContext :DbContext
+    public class DataBaseContext : DbContext
 
     {
 
@@ -66,14 +66,18 @@ namespace Entity_DAL.DAL
 
         public DbSet<Agent> Agents { get; set; }
 
+        public DbSet<Admin> Admins { get; set; }
+
+        public DbSet<SuperAdmin> SuperAdmins { get; set; }
+
         public DbSet<Role> Roles { get; set; }
         public DbSet<Permission> Permissions { get; set; }
         public DbSet<DefaultPermissions> DefaultPermissions { get; set; }
         public DbSet<UserPermission> UserPermissions { get; set; }
 
         public DbSet<Ticket> Tickets { get; set; }
-   
-/*     public DbSet<Reply> Replys { get; set; }*/
+
+        public DbSet<Reply> Replys { get; set; }
 
         public DbSet<Product> Products { get; set; }
 
@@ -81,6 +85,7 @@ namespace Entity_DAL.DAL
 
         public DbSet<A_T_Managment> A_T_Managments { get; set; }
 
+        public DbSet<Article> Articles { get; set; }
 
     }
 

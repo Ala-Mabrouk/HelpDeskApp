@@ -9,7 +9,7 @@ namespace Entities.Entities
     {
 
         [Display(Name = "Status", ResourceType = typeof(Ressources.Ressource_Person.Resource))]
-        public string status { get; set; }
+        public Boolean status { get; set; } = true;
 
         public ICollection<A_T_Managment> a_T_ManagmentsList { get; set; }
 

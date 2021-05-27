@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AppFeatures
 {
-    class AgentServices
+    public class AgentServices : Userservices
     {
     }
 }

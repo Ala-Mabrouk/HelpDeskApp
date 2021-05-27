@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AppFeatures
 {
-    public class ClientService
+    public class ClientServices : Userservices
     {
 
         //making a globale DataBaseContext variable :
@@ -17,11 +17,12 @@ namespace AppFeatures
 
         public async Task<User> SignUp(Client cl)
         {
-            try {
+            try
+            {
 
                 // ********cheking if email dont exist already********
-               
-             Client e = await _context.Clients.Where(c => c.Email.Equals(cl.Email)).FirstOrDefaultAsync();
+
+                Client e = await _context.Clients.Where(c => c.Email.Equals(cl.Email)).FirstOrDefaultAsync();
 
                 if (e == null)
                 {
@@ -41,25 +42,25 @@ namespace AppFeatures
                     List<Permission> listClientpermissions = await _context.DefaultPermissions.Where(s => s.roleId == cl.roleId).Select(s => s.permission).ToListAsync();
 
 
-                    User c = await _context.Clients.Include(r=>r.role).Where(s => s.Email == cl.Email).FirstOrDefaultAsync();
+                    User c = await _context.Clients.Include(r => r.role).Where(s => s.Email == cl.Email).FirstOrDefaultAsync();
 
                     foreach (var item in listClientpermissions)
                     {
 
-                       await _context.AddAsync(new UserPermission { user = c, permision = item });
+                        await _context.AddAsync(new UserPermission { user = c, permision = item });
                         await _context.SaveChangesAsync();
 
                     }
 
 
                     _context.Update(c);
-                   await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync();
                     return c;
                 }
-                
-               
+
+
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 System.Diagnostics.Debug.WriteLine(e);
                 return null;
@@ -75,7 +76,8 @@ namespace AppFeatures
             try
             {
                 return await _context.Clients.SingleOrDefaultAsync(u => u.Id == id);
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
                 System.Diagnostics.Debug.WriteLine(e);
                 return null;

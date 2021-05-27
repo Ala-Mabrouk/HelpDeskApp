@@ -1,0 +1,11 @@
+﻿<div class="dx-widget-portfolio">
+
+
+
+
+    @foreach (var item in ViewBag.LatestProduct)
+    {
+        <a  asp-action="ProductDetail" asp-controller="Products" asp-route-refId=@item.refId >@item.name</a>
+    }
+
+</div>

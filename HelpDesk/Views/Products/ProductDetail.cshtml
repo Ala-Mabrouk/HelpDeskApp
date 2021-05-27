@@ -1,4 +1,40 @@
-﻿ 
+﻿
+
+
+
+@{ Layout = "~/Views/Shared/_NoHeaderLayout.cshtml";}
+
+
+
+
+<header class="dx-header dx-box-5">
+    <div class="bg-image bg-image-parallax">
+        <img src="@Url.Content(ViewBag.Product.imgUrl)" class="jarallax-img" alt="">
+        <div style="background-color: rgba(27, 27, 27, .8);"></div>
+    </div>
+
+    <div class="container mnb-8">
+        <h1 class="h4 mb-10 text-white text-center">@ViewBag.Product.name</h1>
+
+
+        <!-- START: Breadcrumbs -->
+        <ul class="dx-breadcrumbs text-center">
+
+            <li><a asp-action="index" asp-controller="Home">Home</a></li>
+
+
+            <li><a asp-action="ProductDisplay" asp-controller="Products">Store</a></li>
+
+            <li>@ViewBag.Product.name</li>
+
+
+        </ul>
+        <!-- END: Breadcrumbs -->
+
+    </div>
+</header>
+
+
 
 <div class="dx-box-5 pb-100 bg-grey-6">
     <div class="container">
@@ -83,23 +119,23 @@
                                 <div class="swiper-scrollbar"></div>
                             </div>*@
                     </div>
-    @*                <div class="dx-box-content pt-20 pb-0 d-md-block d-lg-none">
-                        <div class="row vertical-gap xs-gap justify-content-between">
-                            <div class="col col-sm-5 col-md-4">
-                                <a  class="dx-btn dx-btn-lg dx-btn-block">Buy Now $49</a>
+                    @*                <div class="dx-box-content pt-20 pb-0 d-md-block d-lg-none">
+                            <div class="row vertical-gap xs-gap justify-content-between">
+                                <div class="col col-sm-5 col-md-4">
+                                    <a  class="dx-btn dx-btn-lg dx-btn-block">Buy Now $49</a>
 
 
+                                </div>
+                                <div class="col col-sm-5 col-md-4">
+                                    <a href="#" class="dx-btn dx-btn-lg dx-btn-dark dx-btn-block">Live Preview</a>
+                                </div>
                             </div>
-                            <div class="col col-sm-5 col-md-4">
-                                <a href="#" class="dx-btn dx-btn-lg dx-btn-dark dx-btn-block">Live Preview</a>
-                            </div>
-                        </div>
-                    </div>*@
+                        </div>*@
                     <ul class="nav dx-tab mt-35" role="tablist">
                         <li>
                             <a class="active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Description</a>
                         </li>
-                        
+
                         <li>
                             <a href="documentation.html">Documentation <span class="icon fas fa-external-link-alt"></span></a>
                         </li>
@@ -123,9 +159,9 @@
                         <div class="dx-separator"></div>
                         <div class="dx-blog-post-box pt-30 pb-30">
                             <ul class="dx-blog-post-info mnt-15 mnb-1">
-                             
+
                                 <li>Date: @ViewBag.Product.addedDate</li>
-                               
+
                             </ul>
                             <ul class="dx-social-links dx-social-links-style-2 mt-15">
                                 <li>
@@ -151,7 +187,7 @@
                 <div class="dx-sticky dx-sidebar" data-sticky-offsetTop="120" data-sticky-offsetBot="40">
                     <div class="d-none d-lg-block mb-40">
                         <div class="row vertical-gap xs-gap justify-content-between">
-                            <div class="col"> 
+                            <div class="col">
                                 <a asp-action="buyProduct" asp-controller="Products" asp-route-prodRef=@ViewBag.Product.refId class="dx-btn dx-btn-lg dx-btn-block">Buy Now @ViewBag.Product.price</a>
                             </div>
                             <div class="col">
@@ -167,28 +203,28 @@
                         </div>
                         <div class="dx-widget-information">
                             <div class="dx-widget-information-title">Reference</div>
-                         
+
                             <span>@ViewBag.Product.refId</span>
                         </div>
                         <div class="dx-widget-information">
                             <div class="dx-widget-information-title">Created</div>
-                         
+
                             <span>@ViewBag.Product.addedDate</span>
                         </div>
                         <div class="dx-widget-information">
                             <div class="dx-widget-information-title">Factory name</div>
-                            <span>@ViewBag.Product.factoryName</span> 
+                            <span>@ViewBag.Product.factoryName</span>
                         </div>
                         <div class="dx-widget-information">
                             <div class="dx-widget-information-title">Build Date</div>
-                            <span>@ViewBag.Product.dateBuild</span> 
+                            <span>@ViewBag.Product.dateBuild</span>
                         </div>
                         <div class="dx-widget-information">
                             <div class="dx-widget-information-title">Validation date</div>
-                            <span>@ViewBag.Product.dateValidate</span> 
+                            <span>@ViewBag.Product.dateValidate</span>
                         </div>
-                         
-                         
+
+
                     </div>
 
                 </div>

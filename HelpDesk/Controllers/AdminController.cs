@@ -22,12 +22,14 @@ namespace HelpDesk.Controllers
 
         //creation of instance from AppFeatures
 
-        private readonly ClientService _ClientCRUD = new ClientService();
+       
+
         private readonly AppFunctions _AppFunctions = new AppFunctions();
+
 
         //for getUserPermissions from the tables
 
-        private readonly AdminService _AdminFunctions = new AdminService();
+        private readonly AdminServices _AdminFunctions = new AdminServices();
 
         private  static string logedIn;
         private  static string roleIn;
@@ -59,7 +61,7 @@ namespace HelpDesk.Controllers
 
         }
 
-        public ActionResult ShowUsers()
+        public ActionResult ShowAgents()
         {
             List<User> agentsList = _AdminFunctions.ShowAgents().Result ;
             if (agentsList == null)
@@ -81,40 +83,36 @@ namespace HelpDesk.Controllers
         }
 
 
-
+        [HttpGet]
         public IActionResult EditAgentPermission(string mail)
         {
-            List<Permission> a = _AppFunctions.getUserPermissions(mail);
-            ViewBag.AgentPermission = a;
+            Agent ag = (Agent) _AppFunctions.GetUserByEmail(mail).Result;
 
-            ViewBag.Permissions = _AppFunctions.ShowAllPermissions();
-
-            User c = (User)_AppFunctions.GetUserByEmail(mail).Result;
-
-            return View(c);
+            return View(ag);
 
         }
 
         public async Task<IActionResult> validatePermissions()
         {
 
+
+
+            //think about the opposit side (SALIM IDEA)
+
             string a = Request.Form["AreChecked"];
+
             var numbers = a.Split(',').Select(Int32.Parse).ToList();
 
             int b = Int16.Parse(Request.Form["agentID"]);
-            await _AdminFunctions.changePermissions(numbers, b);
 
-            if (_AdminFunctions.changePermissions(numbers, b).Result)
+          Boolean test= await _AdminFunctions.changePermissions(numbers, b);
+
+            if (test)
 
             {
-
-
-                //need to figure this out 
-                //string mail = Request.Form["agentMail"];
-                // return RedirectToAction("EditAgentPermission", "Admin",p1.Email);
-
-                //temporary solution
-                return RedirectToAction("ShowUsers", "Admin");
+                  string agmail = Request.Form["agentMail"];
+                 return RedirectToAction("EditAgentPermission", "Admin",new { mail = agmail });
+ 
             }
 
             //need errer page for baseErreur
@@ -125,23 +123,30 @@ namespace HelpDesk.Controllers
 
         [HttpPost]
         
-        public IActionResult settings(User _p)
+        public IActionResult updateAgentPersInfo(Agent _p)
         {
             try
             {
+                string test = Request.Form["AgentStatus"];
 
+                if (test == "true")
+                {
+                    _p.status = true;
+                }
+                else
+                {
+                    _p.status = false;
+                }
 
-                User p1 = new Userservice().updateInfo(_p).Result;
+                Agent ag1 = new Userservices().updateAgentInfo(_p).Result;
 
-                if (p1 != null)
+                if (ag1 != null)
                 {
 
 
-                    //need to figure this out 
-                    // return RedirectToAction("EditAgentPermission", "Admin",p1.Email);
+                     return RedirectToAction("EditAgentPermission", "Admin",new { mail = ag1.Email });
 
-                    //temporary solution
-                    return RedirectToAction("ShowUsers", "Admin");
+                   
                 }
                 else
                 {
@@ -179,13 +184,15 @@ namespace HelpDesk.Controllers
 
         }
 
+
         [HttpPost]
         public ActionResult addAgent(Agent agent)
         {
 
-            //getting role List
-            if (_AdminFunctions.addAgent(agent).Result !=null) return RedirectToAction("DashBoardAdmin", "Admin");
-            return View();
+           
+            if (_AdminFunctions.addAgent(agent).Result !=null) return RedirectToAction("ShowAgents", "Admin");
+
+            return RedirectToAction("Erreur404","Home");
 
         }
 
@@ -208,5 +215,58 @@ namespace HelpDesk.Controllers
             }
             return RedirectToAction("Erreur404", "Home");
         }
+
+
+
+        public ActionResult clientDetails(string mailClient)
+        {
+
+
+            var res = _AppFunctions.GetUserByEmail(mailClient).Result;
+            var res2 = _AppFunctions.getClientProducts(res.Id);
+            var res3 = _AppFunctions.getTicketsByUser(res.Id).Result;
+
+            ViewBag.clientDetails = res;
+            ViewBag.clientProducts = res2;
+            ViewBag.clientTickets = res3;
+
+            return View();
+
+
+        }
+
+        [HttpPost]
+        //used to change selected agent password
+        public IActionResult changeAgentPassword(Agent a)
+        {
+
+             
+/*            string oldpass = Request.Form["Id"];
+*/            string newpass = Request.Form["newPass"];
+            string confirmPass = Request.Form["confirmNewPass"];
+            if (newpass.Equals(confirmPass))
+            {
+
+                if (!_AdminFunctions.changeAgentPassword(a.Email, newpass).Result)
+                {
+                    ViewBag.erreurChanging = "no changes have been made ";
+                    return RedirectToAction("Erreur404", "Home");
+                }
+                else
+                {
+                    return RedirectToAction("EditAgentPermission", "Admin",new { mail = a.Email });
+
+                }
+            }
+            return RedirectToAction("Erreur404", "Home");
+
+        }
+
+
+
+
+
+
+
     }
 }

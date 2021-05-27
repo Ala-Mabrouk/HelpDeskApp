@@ -7,7 +7,7 @@
 @model Entities.Entities.User
 
 <div id="layoutSidenav_nav">
-    <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+    <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion" >
         <div class="sb-sidenav-menu">
             <div class="nav">
 
@@ -17,46 +17,49 @@
                     @localizer["Dashboard"]
                 </a>
 
+                <a class="nav-link" asp-action="myTickets" asp-controller="Agent">
 
+                    <div class="sb-nav-link-icon"><i class="fas fa-clipboard-list"></i></div>
+                    My Ticket
+                </a>
                 @if (Model.role.roleName.Equals("Admin") || Model.role.roleName.Equals("SupperAdmin"))
                 {
 
 
                     <a class="nav-link collapsed" href="#collapseLayouts" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                        <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                        <div class="sb-nav-link-icon"><i class="fas fa-users-cog"></i></div>
                         @localizer["users"]
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
                     <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" asp-action="ShowUsers" asp-controller="Admin">@localizer["Agents"]</a>
+                            <a class="nav-link" asp-action="ShowAgents" asp-controller="Admin">@localizer["Agents"]</a>
                             @if (Model.role.roleName.Equals("SupperAdmin"))
                             {
-                                <a class="nav-link">
-                                    @localizer["Admins"]
-                                </a>
+                                <a class="nav-link" asp-action="ShowAdmins" asp-controller="SuperAdmin">@localizer["Admins"]</a>
+
                             }
                         </nav>
                     </div>
                 }
 
                 <a class="nav-link" asp-action="listTickets" asp-controller="Tickets">
-                    <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                    <div class="sb-nav-link-icon"><i class="far fa-calendar-alt"></i></div>
                     @localizer["Manage_Tickets"]
                 </a>   <a class="nav-link" asp-action="customersList" asp-controller="Admin">
-                    <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                    <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
                     Customers
-                </a> 
+                </a>
                 <a class="nav-link" asp-action="Index" asp-controller="Products">
-                    <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                   Products
+                    <div class="sb-nav-link-icon"><i class="fab fa-product-hunt"></i></div>
+                    Products
                 </a>
                 <a class="nav-link">
-                    <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                    <div class="sb-nav-link-icon"><i class="fas fa-database"></i></div>
                     @localizer["Knowledge_Base"]
                 </a>
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
-                    <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                    <div class="sb-nav-link-icon"><i class="fas fa-cogs"></i></div>
                     Configs
                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>

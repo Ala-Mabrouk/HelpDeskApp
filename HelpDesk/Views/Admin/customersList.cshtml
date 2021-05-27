@@ -60,6 +60,28 @@
                 <th></th>
             </tr>
         </thead>
+        <tfoot>
+            <tr class="table-info table-bordered ">
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstName)
+                    <label> </label>
+                    @Html.DisplayNameFor(model => model.LastName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Phone)
+                </th>
+
+                <th></th>
+            </tr>
+        </tfoot>
         <tbody>
             @foreach (var item in Model)
             {
@@ -80,9 +102,8 @@
                     </td>
                     <td>
                         <a href="#" data-toggle="productsList" data-target="#productsList" data-url="@Url.Action("afectProduct",new { clientMail = item.Email })">affectP</a> |
-                      @*  <a href="#" data-toggle="smt" data-target="#smt" data-url="@Url.Action("Details",new { id = item.refId })">Details</a> |
-                        <a href="#" data-toggle="deleteProduct" data-target="#deleteProduct" data-url="@Url.Action("Delete",new { id = item.refId })">Delete</a>
-                   *@ </td>
+                        <a asp-action="clientDetails" asp-controller="Admin" asp-route-mailClient="@item.Email" >Details</a> |
+                     </td>
                 </tr>
             }
         </tbody>

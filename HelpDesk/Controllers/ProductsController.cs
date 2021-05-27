@@ -5,9 +5,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using HelpDesk.Models;
 
 namespace HelpDesk.Controllers
 {
@@ -15,11 +17,15 @@ namespace HelpDesk.Controllers
     {
 
         private readonly AppFunctions _AppFunctions = new AppFunctions();
+        private static string loged = "";
+
+
 
         // GET: ProductsController
         [Authorize]
         public ActionResult Index()
         {
+            loged = User.FindFirstValue(ClaimTypes.Name).ToString();
             List<Product> res = _AppFunctions.getListProducts().Result;
             ViewBag.listProducts = res;
             return View();
@@ -35,7 +41,7 @@ namespace HelpDesk.Controllers
             /*     return View();*/
 
             
-            return PartialView("Details");
+            return PartialView("Details",p);
         }
         [Authorize]
         [HttpGet]
@@ -47,26 +53,52 @@ namespace HelpDesk.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Product p1)
+        public ActionResult Create([FromForm]Product p1)
         {
             try
             {
-               /* if (ModelState.IsValid)
-                {*/
-                   if(_AppFunctions.addProduct(p1).Result != null)
-                    {
-                        return RedirectToAction("Index","Products"); 
-                    }
+
+                var imgFile = p1.ImageFile;
+
+                  
+                string FileName = Path.GetFileNameWithoutExtension(imgFile.FileName);
+
+                //To Get File Extension  
+                string FileExtension = Path.GetExtension(imgFile.FileName);
+
+                //Add Current Date To Attached File Name  
+                FileName =FileName.Trim() + FileExtension;
+
+                //Get Upload path from Web.Config file AppSettings.  
+                string UploadPath = "C:\\Users\\worrior107\\source\\repos\\HelpDeskApp\\HelpDesk\\wwwroot\\ProfileImges\\";
+
+                //Its Create complete path to store in server.
+                
+                string completPath= UploadPath + FileName;
+                p1.imgUrl = completPath;
+
+                //save file in the uploadPath 
+
+                using (var stream = new FileStream(completPath, FileMode.Create))
+                {
+                     imgFile.CopyTo(stream);
+
+                }
+
+                if (_AppFunctions.addProduct(p1).Result != null)
+                {
+                    return RedirectToAction("Index", "Products");
+                }
                 return RedirectToAction("Erreur404", "Home");
-                /*
-                                }
-                                return RedirectToAction("Create","Product");*/
+               
             }
             catch
             {
                 return RedirectToAction("Erreur404", "Home");
             }
         }
+
+
         [Authorize]
 
         public ActionResult Edit(string id)
@@ -103,6 +135,8 @@ namespace HelpDesk.Controllers
         {
             Product p = _AppFunctions.getProductById(id).Result;
 
+            
+
             return PartialView("Delete", p);
         }
 
@@ -111,6 +145,8 @@ namespace HelpDesk.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(Product p)
         {
+
+            
             try
             {
                 if (_AppFunctions.DeleteProduct(p.refId).Result)
@@ -157,16 +193,15 @@ namespace HelpDesk.Controllers
         }
 
 
-
+        [Authorize]
         public ActionResult buyProduct(string prodRef)
         {
-            string res = User.FindFirstValue(ClaimTypes.Name).ToString();
+            /* string res = User.FindFirstValue(ClaimTypes.Name).ToString();*/
+            loged= User.FindFirstValue(ClaimTypes.Name).ToString();
+            System.Diagnostics.Debug.WriteLine("my loged value: " + loged);
+          if(_AppFunctions.addProductClient(prodRef, loged).Result)
 
-
-          if(_AppFunctions.addProductClient(prodRef, res).Result)
-
-            return RedirectToAction("ProductDispaly", "Product");
-
+            return RedirectToAction("ProductDisplay", "Products");
 
 
             return RedirectToAction("Erreur404", "Home");

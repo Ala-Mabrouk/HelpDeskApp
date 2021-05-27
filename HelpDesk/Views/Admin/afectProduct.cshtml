@@ -1,37 +1,9 @@
-﻿@{Layout = "~/Views/Shared/_normalLayout.cshtml";}
-<!--{Layout = null;}
+﻿@*@{Layout = "~/Views/Shared/_normalLayout.cshtml";}
+*@
 
-<!-- jQuery -->
-<!--<script src="/Content/lib/jquery/dist/jquery.min.js"></script>-->
-<!-- The Amdesk -->
-<!--<script src="/Content/js/amdesk.min.js"></script>
-<script src="/Content/js/amdesk-init.js"></script>-->
-    <!-- Isotope -->
-<!--<script src="/Content/lib/isotope-layout/dist/isotope.pkgd.min.js"></script>
+@{Layout = null;}
 
-
-<script src="/Content/lib/popper.js/dist/umd/popper.min.js"></script>-->
-
-<!-- Bootstrap -->
-<!--<script src="/Content/lib/bootstrap/dist/js/bootstrap.min.js"></script>-->
-
-
-
-<!-- Sticky Kit -->
-<!--<script src="/Content/lib/sticky-kit/dist/sticky-kit.min.js"></script>-->
-
-<!-- Jarallax -->
-<!--<script src="/Content/lib/jarallax/dist/jarallax.min.js"></script>
-<script src="/Content/lib/jarallax/dist/jarallax-video.min.js"></script>-->
-
-<!-- Gist Embed -->
-<!--<script src="/Content/lib/gist-embed/gist-embed.min.js"></script>-->
-
-<!-- Bootstrap Select -->
-<!--<script src="/Content/lib/bootstrap-select/dist/js/bootstrap-select.min.js"></script>-->
-
-<!-- Quill -->
-<!--<script src="/Content/lib/quill/dist/quill.min.js"></script>-->
+<script src="/Content/lib/isotope-layout/dist/isotope.pkgd.min.js"></script>
 
 <div class="modal fade" id="addProduct">
     <div class="modal-dialog modal-dialog-centered">
@@ -58,8 +30,7 @@
                         </div>
                     </div>
 
-                    <span></span>
-
+                    <div class="dx-separator"></div>
 
                     <div class="dx-box-5 pb-100 bg-grey-6">
                         <div class="container  ">
@@ -68,40 +39,6 @@
 
                                 @foreach (var item in ViewBag.ListProducts)
                                 {
-
-
-                                    @*   <div class="col dx-isotope-grid-item @item.category">
-
-                                            <ul class="list-group list-group-flush">
-                                                <li class="list-group-item">
-                                                                     Default checked
-                                                                    <div class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input" id="check1">
-                                                        <label class="custom-control-label" for="check1">@item.name</label>
-                                                    </div>
-                                                </li>
-                                            </ul>
-
-                                        </div><br />*@
-
-
-
-
-
-
-                                    @*                            <div class="col dx-isotope-grid-item @item.category">
-
-                                            <ul class="list-group list-group-flush">
-                                                <li class="list-group-item">
-                                                                     Default checked
-                                                                    <div class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input" id="check1">
-                                                        <label class="custom-control-label" for="check1">@item.name</label>
-                                                    </div>
-                                                </li>
-                                            </ul>
-
-                                        </div><br />*@
 
                                     <div class="col-12 col-md-6 col-lg-4 dx-isotope-grid-item @item.category">
 
