@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 
 namespace HelpDesk.Controllers
 {
+
+    [Authorize]
     public class AgentController : Controller
     {
 
@@ -31,9 +33,9 @@ namespace HelpDesk.Controllers
 
         public ActionResult getTicket(int IdTicket)
         {
+            var logedIn = User.FindFirstValue(ClaimTypes.Name);
 
-
-            if (_AppFunctions.workOnTicket("agent4@agent4.com", IdTicket))
+            if (_AppFunctions.workOnTicket(logedIn, IdTicket))
             {
                 return RedirectToAction("listTickets", "Tickets");
             }
@@ -42,12 +44,13 @@ namespace HelpDesk.Controllers
 
         public ActionResult myTickets()
         {
-            ViewBag.ListTickets = _AppFunctions.getAgentTickets("agent4@agent4.com");
+            var logedIn = User.FindFirstValue(ClaimTypes.Name);
+            ViewBag.ListTickets = _AppFunctions.getAgentTickets(logedIn);
             return View();
         }
 
 
-      
+
 
         [HttpGet]
         [Authorize]
@@ -63,7 +66,7 @@ namespace HelpDesk.Controllers
             return View(pers);
         }
 
-       
+
         [HttpPost]
         [Authorize]
         public IActionResult AgentSettings([FromForm] Agent _p)
@@ -126,12 +129,12 @@ namespace HelpDesk.Controllers
 
 
         }
-       
-      
+
+
         public ActionResult changeMyAgentPassword()
         {
 
-           var logedIn = User.FindFirstValue(ClaimTypes.Name);
+            var logedIn = User.FindFirstValue(ClaimTypes.Name);
 
             string oldpass = Request.Form["oldPass"];
             string newpass = Request.Form["newPass"];
@@ -154,5 +157,56 @@ namespace HelpDesk.Controllers
         }
 
 
+
+        [HttpGet]
+        public ActionResult assignTicket(int ticketId)
+        {
+            var logedIn = User.FindFirstValue(ClaimTypes.Name);
+
+            var res = _AppFunctions.getTicketDetails(ticketId).Result;
+
+            var me =(Agent) _AppFunctions.GetUserByEmail(logedIn).Result;
+            System.Diagnostics.Debug.WriteLine("the logged agent is :" + me.FirstName);
+            List<Agent> listAgents = new AdminServices().ShowAgents().Result;
+            List<Agent> listAgents2 = new List<Agent>();
+
+            foreach (var item in listAgents)
+            {
+                if (item.Email != me.Email)
+                {
+                    listAgents2.Add(item);
+                }
+
+            }
+/*
+            if (listAgents.Remove(me))
+            {*/
+                ViewBag.AgentList = listAgents2;
+
+                return View(res);
+           // }
+           // return RedirectToAction("Erreur404", "Home");
+          
+        }
+
+
+
+        [HttpPost]
+        public ActionResult assignTicket()
+        {
+            int ticketID = Int16.Parse(Request.Form["ticketId"]);
+            int AgentId = Int16.Parse(Request.Form["AgentId"]);
+
+           if(_AppFunctions.assignTicket(ticketID, AgentId))
+            {
+                return RedirectToAction("DashBoardAdmin", "Admin");
+            }
+
+
+
+
+
+               return RedirectToAction("Erreur404", "Home"); 
+        }
     }
 }

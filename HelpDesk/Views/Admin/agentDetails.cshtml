@@ -1,0 +1,98 @@
+﻿
+@model Entities.Entities.Agent;
+
+
+@{ Layout = null;}
+
+<div class="modal fade " id="agentDetails">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div >
+                    <a asp-action="EditAgent" asp-route-mail="@Model.Email" asp-controller="Admin" >update info</a>
+                </div>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="row justify-content-center">
+                    <div class="container pl-0 pr-0">
+                        <div class="dx-box dx-box-decorated">
+                            <div class="dx-blog-post dx-ticket ">
+
+                                <div class="dx-blog-post-box  p-20 pb-10">
+                                    <div class="dx-comment ">
+                                        <div class="dx-comment-cont" style=" justify-content: center; flex-direction: column;">
+                                            <div class="dx-comment-img" style="width:100%;height:100%;">
+
+                                               <img src=@Url.Content(Model.ThumbUrl) alt="imge client" style=" max-width: 30%; max-height: 100%; border-radius: 60px;" />
+
+                                            </div>
+                                            <div style="display: flex;justify-content: center;margin-top: 15px;">
+                                                <h2 class="h4 mnt-5 mb-9 dx-ticket-title"> @Model.FirstName @Model.LastName</h2>
+                                            </div>
+
+                                            <table cellpadding="3px">
+
+                                                <tr>
+                                                    <td><label asp-for="Email" class="mnt-7"></label></td>
+                                                    <td>
+                                                        <span class="dx-comment-date"> @Model.Email</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><label asp-for="Phone" class="mnt-7"></label></td>
+                                                    <td>
+                                                        <span class="dx-comment-date ml-20"> @Model.Phone</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td> <label asp-for="HomeAdresse" class="mnt-7"></label></td>
+                                                    <td>
+                                                        <span class="dx-comment-date ml-20"> @Model.HomeAdresse</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div class="custom-control custom-switch">
+                                                            <input type="checkbox" asp-for="status" class="custom-control-input" disabled id="customSwitch1">
+                                                            <label class="custom-control-label" for="customSwitch1"> </label>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        @if (Model.status == true)
+                                                        {
+                                                            <span class="dx-comment-date ml-20"> Active</span>
+
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="dx-comment-date ml-20"> Disabled</span>
+
+                                                        }
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <button class="btn-block btn-primary" data-dismiss="modal">Ok</button>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+</div>
+

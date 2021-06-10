@@ -14,7 +14,7 @@
                 <tr>
                     <td><label  class="mnt-7">new Password</label></td>
                     <td>
-                        <input type="password" name="newPass"  class="form-control form-control-style-2" id="newPass">
+                        <input pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,25}$" required type="password" name="newPass"  class="form-control form-control-style-2" id="newPass">
                     </td>
                 </tr>
 
@@ -22,7 +22,7 @@
                     <td><label   class="mnt-7">Confirm new password</label></td>
                     <td>
 
-                        <input type="password" name="confirmNewPass" class="form-control form-control-style-2" id="confirmPass">
+                        <input required  type="password" name="confirmNewPass" class="form-control form-control-style-2" id="confirmPass">
                         <input type="hidden" asp-for="Email" class="form-control form-control-style-2" id="id">
 
                     </td>

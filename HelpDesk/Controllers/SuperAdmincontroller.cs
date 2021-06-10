@@ -1,6 +1,7 @@
 ﻿using AppFeatures;
 using Entities.Entities;
 using Entity_DAL.DAL;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace HelpDesk.Controllers
 {
+    [Authorize(Roles="SuperAdmin")]
     public class SuperAdmincontroller : Controller
     {
 

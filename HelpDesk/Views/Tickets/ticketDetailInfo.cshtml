@@ -3,10 +3,45 @@
 
 
 @{ Layout = null;}
+
+
+
+
+<script>
+
+    $(function () {
+        var placeholder = $('#placeholder');
+        $('a[data-toggle="assignTicket"]').click(function (event) {
+
+            var url = $(this).data('url');
+            $.get(url).done(function (data) {
+                placeholder.html(data);
+                placeholder.find('.modal').modal('show');
+            })
+
+
+        })
+
+    })
+
+ 
+
+</script>
+
  
 <div class="modal fade " id="ticketInfo">
     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
         <div class="modal-content">
+            @if (Model.ticketStatut==Entities.Entities.Ticket.TicketStatus.Distributed) {
+            <div class="modal-header">
+
+                <a href="#" data-dismiss="modal" data-toggle="assignTicket" data-target="#assignTicket"
+                   data-url="@Url.Action("assignTicket", "Agent", new { ticketId = Model.ticketId })" >
+                assign Ticket</a>
+
+
+            </div>
+            }
             <div class="modal-body">
 
 

@@ -9,7 +9,7 @@ namespace HelpDesk.ViewComponents
 {
     public class FooterProducts : ViewComponent
     {
-        public IViewComponentResult Invoke(string mail)
+        public IViewComponentResult Invoke()
 
         {
 

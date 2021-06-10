@@ -12,12 +12,15 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace HelpDesk.Controllers
 {
+
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -79,8 +82,7 @@ namespace HelpDesk.Controllers
         }
 
         [HttpPost]
-
-        public ActionResult Sign_Up(Client _cl)
+        public IActionResult Sign_Up(Client _cl)
         {
             if (ModelState.IsValid)
             {
@@ -99,8 +101,8 @@ namespace HelpDesk.Controllers
 
                     HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
-                    logedIn = User.FindFirstValue(ClaimTypes.Name);
-
+                    /*                    logedIn = User.FindFirstValue(ClaimTypes.Name);
+                    */
                     return RedirectToAction("Index", "Home");
                 }
                 ModelState.AddModelError("", "Unable to sign up for now!try later ");
@@ -118,20 +120,19 @@ namespace HelpDesk.Controllers
         }
 
         [HttpPost]
-
         public async Task<IActionResult> Log_in(LogUser pers, string ReturnUrl)
 
         {
             if (ModelState.IsValid)
             {
-                User test = _UserService.LogIn(pers.Email, pers.Password).Result;
+                User myUser = _UserService.LogIn(pers.Email, pers.Password).Result;
 
-                if (test != null)
+                if (myUser != null)
                 {
                     var identity = new ClaimsIdentity(new[] {
 
-                    new Claim(ClaimTypes.Name, test.Email),
-                    new Claim(ClaimTypes.Role,test.role.roleName)
+                    new Claim(ClaimTypes.Name, myUser.Email),
+                    new Claim(ClaimTypes.Role,myUser.role.roleName)
 
                     }, CookieAuthenticationDefaults.AuthenticationScheme);
 
@@ -142,7 +143,7 @@ namespace HelpDesk.Controllers
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
 
-                    if (test.role.roleName.Equals("Client"))
+                    if (myUser.role.roleName.Equals("Client"))
                     {
                         if (string.IsNullOrEmpty(ReturnUrl))
                         {
@@ -157,13 +158,17 @@ namespace HelpDesk.Controllers
                     }
                     else
                     {
-                        return RedirectToAction("DashBoardAdmin", "Admin");
+                         
+                        Agent a = (Agent)myUser;
+                        if (a!=null && a.status)
+                         return RedirectToAction("DashBoardAdmin", "Admin"); 
+                      
 
                     }
 
                 }
 
-                ModelState.AddModelError("", "User not Found");
+                ModelState.AddModelError("", "user not found or not active !! ");
 
             }
 
@@ -171,22 +176,24 @@ namespace HelpDesk.Controllers
 
 
         }
-       
+
+        [Authorize(Roles = "Client")]
         [HttpGet]
         public ActionResult ResetPassword()
         {
             return View();
         }
 
+        [Authorize(Roles = "Client")]
 
         [HttpPost]
         public ActionResult ResetPassword(string email)
         {
             //send reclamation to Admin to give back new pass
-         /*   if (_AppFunctions.resetPass(email))
-            {
-                RedirectToAction("Index", "Home");
-            }*/
+            /*   if (_AppFunctions.resetPass(email))
+               {
+                   RedirectToAction("Index", "Home");
+               }*/
             return View();
         }
 
@@ -206,7 +213,7 @@ namespace HelpDesk.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Client")]
         public IActionResult settings()
         {
             logedIn = User.FindFirstValue(ClaimTypes.Name);
@@ -220,8 +227,8 @@ namespace HelpDesk.Controllers
         }
 
         [HttpPost]
-        [Authorize]
-        public IActionResult settings([FromForm]User _p)
+        [Authorize(Roles = "Client")]
+        public IActionResult settings([FromForm] User _p)
         {
 
             try
@@ -283,13 +290,14 @@ namespace HelpDesk.Controllers
 
         }
 
+
         public IActionResult HelpCenter()
         {
             return View();
         }
 
 
-        [Authorize]
+        [Authorize(Roles = "Client")]
         public IActionResult changePassword()
         {
             logedIn = User.FindFirstValue(ClaimTypes.Name);
@@ -308,10 +316,58 @@ namespace HelpDesk.Controllers
                 return RedirectToAction("settings", "Home");
 
             }
-            
+
+        }
+
+        [HttpPost]
+        public ActionResult resultRech()
+        {
+
+            string res = Request.Form["inputRech"];
+            ViewBag.resultProducts = _AppFunctions.findProduct(res).Result;
+            ViewBag.resultArticles = _AppFunctions.findArticles(res).Result;
+
+            return View();
+
+
+
         }
 
 
+
+        public ActionResult resetPasswordLink()
+        {
+            //sending mail with link( controler/action/userId);
+
+            string link = string.Empty;
+            
+       
+            if (true)
+            {
+                MailMessage mm = new MailMessage("nstGroup@gmail.com", "destination");
+                mm.Subject = "Password Recovery";
+                mm.Body = string.Format("Hi {0},<br /><br />fllow to this link to reset your password.<br /><br />Thank You.",link);
+                mm.IsBodyHtml = true;
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = "smtp.gmail.com";
+                smtp.EnableSsl = true;
+                NetworkCredential NetworkCred = new NetworkCredential();
+                NetworkCred.UserName = "nstGroup@gmail.com";
+                NetworkCred.Password = "thiere password";
+                smtp.UseDefaultCredentials = true;
+                smtp.Credentials = NetworkCred;
+                smtp.Port = 587;
+                smtp.Send(mm);
+
+                ViewBag.message = "an email is sent to your adresse";
+            }
+            else
+            {
+                ViewBag.message = "adresse not found";
+            }
+
+            return View();
+        }
     }
 }
 

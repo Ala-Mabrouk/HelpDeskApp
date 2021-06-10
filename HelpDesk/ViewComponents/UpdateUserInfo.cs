@@ -15,6 +15,6 @@ namespace HelpDesk.ViewComponents
             Agent res =(Agent) new AppFunctions().GetUserByEmail(pers).Result;
             return View(res);
         }
-
+ 
     }
 }

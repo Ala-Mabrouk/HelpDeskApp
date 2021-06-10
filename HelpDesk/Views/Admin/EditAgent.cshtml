@@ -1,0 +1,123 @@
+﻿
+@model Entities.Entities.Agent
+
+
+@{
+    ViewData["Title"] = "Update Agents info ";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+}
+
+<h1>Agent Permissions for @Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.FirstName)</h1>
+<div class="dx-box-decorated" style="display: grid  ; justify-content: center;">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <nav>
+        <div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="true">Profile</a>
+             <a class="nav-item nav-link " id="nav-password-tab" data-toggle="tab" href="#nav-password" role="tab" aria-controls="nav-password" aria-selected="false">change password</a>
+
+        </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+
+
+        @*//for personal info update*@
+
+        <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+
+            <form asp-action="updateAgentPersInfo" asp-controller="Admin" method="post" class="dx-form">
+                <div class="dx-box-content">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <table cellpadding="3px">
+
+                        <tr>
+                            <td><label asp-for="FirstName" class="mnt-7"></label></td>
+                            <td>
+                                <input required type="text" asp-for="FirstName" class="form-control form-control-style-2" id="first-name">
+                                <span asp-validation-for="FirstName" class="text-danger"></span>
+
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><label asp-for="LastName" class="mnt-7"></label></td>
+                            <td>
+                                <input required type="text" asp-for="LastName" class="form-control form-control-style-2" id="last-name">
+                                <span asp-validation-for="LastName" class="text-danger"></span>
+
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><label asp-for="Email" class="mnt-7"></label></td>
+                            <td>
+                                <input required type="email" aria-describedby="emailHelp" asp-for="Email" class="form-control form-control-style-2" id="email-address">
+                                <span asp-validation-for="Email" class="text-danger"></span>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label asp-for="Phone" class="mnt-7"></label></td>
+                            <td>
+                                <input required pattern="^([0-9]{8})" type="text" asp-for="Phone" class="form-control form-control-style-2" id="zip">
+                                <span asp-validation-for="Phone" class="text-danger"></span>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> <label asp-for="HomeAdresse" class="mnt-7"></label></td>
+                            <td>
+                                <input required type="text" asp-for="HomeAdresse" class="form-control form-control-style-2" id="city">
+                                <span asp-validation-for="HomeAdresse" class="text-danger"></span>
+
+                                <input type="hidden" asp-for="Id" id="id">
+                                <input type="hidden" asp-for="Password" id="password" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox" name="status"   class="custom-control-input"  id="AgentStatus" asp-for="status">
+                                    <span asp-validation-for="status" class="text-danger"></span>
+
+                                    <label class="custom-control-label" for="customSwitch1"> </label>
+                                </div>
+                            </td>
+                            <td>
+                                Active/Disable
+                            </td>
+                        </tr>
+
+
+                    </table>
+
+
+                    <div class="dx-box-content" style="display: flex; justify-content: space-between;">
+                        <a href="javascript: history.go(-1)" class="btn btn-outline-danger btn-lg mr-10">Cancel</a>
+                        <button type="submit" class="btn btn-primary btn-lg ml-30">Save Changes</button>
+
+                    </div>
+
+
+                </div>
+            </form>
+
+
+        </div>
+
+ 
+
+        @*//for password changes*@
+
+        <div class="tab-pane fade " id="nav-password" role="tabpanel" aria-labelledby="nav-password-tab">
+
+            @await Component.InvokeAsync("UpdateUserpassword", Model.Email)
+
+        </div>
+
+
+
+
+    </div>
+
+</div>

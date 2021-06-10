@@ -1,0 +1,73 @@
+﻿
+
+
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
+
+@model Entities.Entities.Ticket
+
+@{ Layout = null;}
+
+<div class="modal fade " id="addTicket_Backoffice">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="dx-box dx-box-decorated">
+
+                    <form asp-action="addTicket_Backoffice" asp-controller="Tickets" method="post" enctype="multipart/form-data" class="dx-form">
+
+
+
+                        <input type="hidden" name="UserMail" value="@ViewBag.userMail" />
+
+
+                        <div class="dx-form-group">
+                            <label asp-for="ticketTitle" class="mnt-7"></label>
+                            <input type="text" asp-for="ticketTitle" class="form-control form-control-style-2" placeholder=@localizer["Enter_Subject"]>
+                            <span asp-validation-for="ticketTitle" class="text-danger"></span>
+                        </div>
+
+                        <div class="dx-form-group">
+                            <label for="select-product" class="mnt-7">@localizer["Product-refrence"]</label>
+
+
+                            <input class="form-control form-control-style-2" asp-for="relatedProductRefId" type="text" />
+
+                        </div>
+
+                        <div class="dx-form-group">
+                            <label asp-for="ticketDescription" class="mnt-7"></label>
+                            <textarea asp-for="ticketDescription" class="form-control form-control-style-2" placeholder=@localizer["Description"]></textarea>
+                            <span asp-validation-for="ticketDescription" class="text-danger"></span>
+
+                        </div>
+
+
+                        <div class="dx-form-group">
+
+                            <div class="input-group mb-3">
+                                <input type="file" asp-for="uploadedFileFile" class="custom-file-input" />
+                                <label class="custom-file-label">Choose file</label>
+                            </div>
+
+                        </div>
+
+
+                        <div class="dx-box-content">
+                            <a data-dismiss="modal" class="btn btn-outline-danger btn-sm mr-10">Cancel</a>
+                            <button type="submit" class="btn btn-primary btn-sm ml-30">Save Changes</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+</div>
+

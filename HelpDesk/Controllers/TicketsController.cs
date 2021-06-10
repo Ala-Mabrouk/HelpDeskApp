@@ -41,6 +41,7 @@ namespace HelpDesk.Controllers
         [HttpGet]
         public IActionResult addTicket()
         {
+
             int log = verifLog();
             System.Diagnostics.Debug.WriteLine("th logged value" + log);
 
@@ -51,6 +52,8 @@ namespace HelpDesk.Controllers
             {
                 return RedirectToAction("Erreur404", "Home");
             }
+
+
             ViewBag.ClientProducts = res;
             return View();
         }
@@ -63,6 +66,91 @@ namespace HelpDesk.Controllers
             loged = verifLog();
             if (ModelState.IsValid)
             {
+                try
+                {
+                    if (ticket.uploadedFileFile != null)
+                    {
+                        var imgFile = ticket.uploadedFileFile;
+
+
+                        string FileName = Path.GetFileNameWithoutExtension(imgFile.FileName);
+
+                        //To Get File Extension  
+                        string FileExtension = Path.GetExtension(imgFile.FileName);
+
+                        //Add Current Date-ownerID-productId  To Attached File Name  
+                        FileName = DateTime.Now.ToString("yyyyMMdd") + "-" + loged + "-" + ticket.relatedProductRefId + "-" + FileName.Trim() + FileExtension;
+
+
+                        string UploadPath = "C:\\Users\\worrior107\\source\\repos\\HelpDeskApp\\HelpDesk\\wwwroot\\uploads\\";
+
+                        string contentPath = "wwwroot/uploads/";
+                        //Its Create complete path to store in server.
+
+                        string completUploadPath = UploadPath + FileName;
+
+                        ticket.uploadedFile = contentPath + FileName;
+
+                        //save file in the uploadPath 
+
+                        using (var stream = new FileStream(completUploadPath, FileMode.Create))
+                        {
+                            imgFile.CopyTo(stream);
+
+                        }
+
+                    }
+
+
+
+                    //traitement d ajout du ticket
+                    ticket.ticketPriority = TicketPriority.Medium;
+                    ticket.ticketStatut = TicketStatus.Distributed;
+                    ticket.ticketDate = DateTime.Now;
+                    ticket.userId = loged;
+
+                    await _UserService.createTicket(ticket);
+
+                    return RedirectToAction("Index", "Tickets");
+                }
+                catch (Exception e)
+                {
+                    ModelState.AddModelError("", "Unable to add Ticket for now");
+                }
+            }
+
+            /*    List<Product> res = _AppFunctions.getClientProducts(loged);
+                ViewBag.ClientProducts = res;
+                return View("addTicket",ticket);*/
+
+
+            return RedirectToAction("Erreur404", "Home");
+        }
+
+
+
+        [HttpGet]
+        public IActionResult addTicket_Backoffice(string ClientMail)
+        {
+
+            ViewBag.userMail = ClientMail;
+            return View();
+
+            System.Diagnostics.Debug.WriteLine("in the get methode mail is: " + ClientMail);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> addTicket_Backoffice(Ticket ticket)
+        {
+
+            /* if (ModelState.IsValid)
+             {*/
+
+
+            try
+            {
                 if (ticket.uploadedFileFile != null)
                 {
                     var imgFile = ticket.uploadedFileFile;
@@ -74,7 +162,7 @@ namespace HelpDesk.Controllers
                     string FileExtension = Path.GetExtension(imgFile.FileName);
 
                     //Add Current Date-ownerID-productId  To Attached File Name  
-                    FileName = DateTime.Now.ToString("yyyyMMdd") + "-" + loged + "-" + ticket.relatedProductRefId + "-" + FileName.Trim() + FileExtension;
+                    FileName = DateTime.Now.ToString("yyyyMMdd") + "-" + ticket.userId + "-" + ticket.relatedProductRefId + "-" + FileName.Trim() + FileExtension;
 
 
                     string UploadPath = "C:\\Users\\worrior107\\source\\repos\\HelpDeskApp\\HelpDesk\\wwwroot\\uploads\\";
@@ -99,22 +187,57 @@ namespace HelpDesk.Controllers
 
 
                 //traitement d ajout du ticket
+
+                //get Client Email
+                string mail = Request.Form["UserMail"];
+
+
+                int ClientId = _AppFunctions.GetUserByEmail(mail).Result.Id;
+
+
+              var res=  _AppFunctions.addProductClient(ticket.relatedProductRefId, mail).Result;
+
+                ticket.userId = ClientId;
                 ticket.ticketPriority = TicketPriority.Medium;
                 ticket.ticketStatut = TicketStatus.Distributed;
                 ticket.ticketDate = DateTime.Now;
-                ticket.userId = loged;
+
 
                 await _UserService.createTicket(ticket);
 
-                return RedirectToAction("Index", "Tickets");
+
+
+
+                return RedirectToAction("clientDetails", "Admin", new { mailClient = mail });
             }
+            catch (Exception e)
+            {
+                ModelState.AddModelError("", "Unable to add Ticket for now");
+            }
+            //   }
+
+            /*    List<Product> res = _AppFunctions.getClientProducts(loged);
+                ViewBag.ClientProducts = res;
+                return View("addTicket",ticket);*/
 
 
-             return RedirectToAction("Erreur404", "Home");
-
-
-
+            return RedirectToAction("Erreur404", "Home");
         }
+
+
+
+    public ActionResult closeTicket(int ticketId)
+        {
+           if( _AppFunctions.closeTicket(ticketId).Result){
+                return RedirectToAction("Index"); }
+            return RedirectToAction("Erreur404", "Home");
+        }
+
+
+
+
+
+
 
 
         public void getUsertickets()
@@ -145,7 +268,7 @@ namespace HelpDesk.Controllers
 
             return View();
         }
-       
+
 
         public int verifLog()
         {
@@ -161,8 +284,9 @@ namespace HelpDesk.Controllers
             var replies = _AppFunctions.getTicketReplies(idTicket).Result;
 
 
-/*            replies.First().replyOwner.role.roleName
-*/            ViewBag.Ticket = res;
+            /*            replies.First().replyOwner.role.roleName
+            */
+            ViewBag.Ticket = res;
             ViewBag.ticketReplies = replies;
 
             System.Diagnostics.Debug.WriteLine("i am in the ticket info action");
@@ -200,7 +324,7 @@ namespace HelpDesk.Controllers
             var res = _AppFunctions.addReply(reply).Result;
             if (res != null)
             {
-                var res2= _AppFunctions.changeTicketStatus(res.TicketId,TicketStatus.Proccesing);
+                var res2 = _AppFunctions.changeTicketStatus(res.TicketId, TicketStatus.Proccesing);
             }
 
             return RedirectToAction(D_action, D_controller);

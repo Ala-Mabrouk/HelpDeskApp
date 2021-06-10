@@ -1,54 +1,58 @@
 ﻿
-@model Entities.Entities.Agent
+@{ Layout = "~/Views/Shared/_AdminLayout.cshtml";}
 
 
-@{
-    ViewData["Title"] = "Update Agents info ";
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
-
-}
-
-<h1>Agent Permissions for @Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.FirstName)</h1>
-<div class="dx-box-decorated" style="display: grid  ; justify-content: center;">
-    <nav>
-        <div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
-            <a class="nav-item nav-link active" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="true">Profile</a>
-            <a class="nav-item nav-link " id="nav-permissions-tab" data-toggle="tab" href="#nav-permissions" role="tab" aria-controls="nav-permissions" aria-selected="false">Permissions</a>
-            <a class="nav-item nav-link " id="nav-password-tab" data-toggle="tab" href="#nav-password" role="tab" aria-controls="nav-password" aria-selected="false">change password</a>
-
-        </div>
-    </nav>
-    <div class="tab-content" id="nav-tabContent">
 
 
-        @*//for personal info update*@
+<div class="dx-box-5 bg-grey-6">
 
-        <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-
-            @await Component.InvokeAsync("UpdateUserInfo", Model.Email)
+    <div class="container">
+        <div class="row align-items-center justify-content-between vertical-gap mnt-30 sm-gap mb-50">
+            <div class="col-auto">
+                <h2 class="h2 mb-0 mt-0">@ViewBag.MailAgent.FirstName @ViewBag.MailAgent.LastName </h2>
+            </div>
+            <div class="col pl-30 pr-30 d-none d-sm-block">
+                <div class="dx-separator ml-10 mr-10"></div>
+            </div>
 
         </div>
 
-        @*//for permission mangement*@
+        <div style="display:flex;justify-content:space-around;">
+            <div class="dx-block-decorated p-30" style="width:100%;">
+                <table  class="table align-middle" width="100%" cellspacing="0">
+                    <caption style="caption-side:top;"><h4 style="color:blue;">Agent Permissions </h4></caption>
 
-        <div class="tab-pane fade " id="nav-permissions" role="tabpanel" aria-labelledby="nav-permissions-tab">
 
-            @await Component.InvokeAsync("UpdatePermissions", Model.Email)
+                    @foreach (var item in TempData["myAgentpermissions"] as IEnumerable<Entities.Entities.Permission>)
+                    {
+                <tr>
+                    <td>@item.permissionName</td>
+                   <td> <a style="color:red;" asp-controller="Admin" asp-action="deletPermissiontoAgent" asp-route-permissionId="@item.permissionId" asp-route-mail=@ViewBag.MailAgent.Email><i class="fas fa-trash-alt"></i></a></td>
+                    
+                </tr>
+                    }
+                     
+                </table>
+            </div>
+            <div style="border-left: 2px solid black;margin: 30px;"></div>
+            <div class="dx-block-decorated p-30" style="width:100%;">
+               
 
+                <table class="table align-middle" width="100%" cellspacing="0">
+                    <caption style="caption-side:top;"><h4 style="color:blue;">to Add permissions </h4></caption>
+
+
+                    @foreach (var item in ViewBag.Permissions)
+                    {
+                        <tr>
+                            <td>@item.permissionName</td>
+                            <td> <a style="color:green;" asp-controller="Admin" asp-action="addPermissiontoAgent" asp-route-permissionId="@item.permissionId" asp-route-mail=@ViewBag.MailAgent.Email><i class="fas fa-plus"></i></a></td>
+
+                        </tr>
+                    }
+
+                </table>
+            </div>
         </div>
-
-
-        @*//for password changes*@
-
-        <div class="tab-pane fade " id="nav-password" role="tabpanel" aria-labelledby="nav-password-tab">
-
-            @await Component.InvokeAsync("UpdateUserpassword", Model.Email)
-
-        </div>
-
-
-
-
     </div>
-
 </div>

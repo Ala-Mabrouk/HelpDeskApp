@@ -63,13 +63,44 @@ namespace AppFeatures
             {
 
 
-                if (item.roleName != "SupperAdmin" && item.roleName != "Admin" && item.roleName != "Client")
+                if (item.roleName != "SuperAdmin" && item.roleName != "Admin" && item.roleName != "Client")
 
                     res2.Add(item);
             }
 
             return res2;
         }
+
+        public Permission getPermissionById(int pID)
+        {
+            var res = _context.Permissions.FirstOrDefault(p => p.permissionId == pID);
+            return res;
+        }
+
+
+        public void addpermissionToAgent(Permission _permission, string agentMail)
+        {
+            User a = GetUserByEmail(agentMail).Result;
+            _context.UserPermissions.Add(new UserPermission { permision = _permission, user = a });
+            _context.SaveChanges();
+
+
+
+        }
+
+        public void deletepermissionToAgent(Permission _permission, string agentMail)
+        {
+            User a = GetUserByEmail(agentMail).Result;
+
+            UserPermission _userPermission = _context.UserPermissions.FirstOrDefault(up => up.permisionId == _permission.permissionId && up.userId == a.Id);
+            _context.UserPermissions.Remove(_userPermission);
+            _context.SaveChanges();
+        }
+
+
+
+
+
 
 
 
@@ -97,6 +128,21 @@ namespace AppFeatures
                 return null;
             }
             return (ticket);
+        }
+
+        public async Task<Boolean> closeTicket(int ticketid)
+        {
+            try
+            {
+                var res = await _context.Tickets.FindAsync(ticketid);
+                res.ticketStatut = Ticket.TicketStatus.Closed;
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
 
         public async Task<List<Ticket>> getTicketsByUser(int id)
@@ -214,6 +260,40 @@ namespace AppFeatures
         }
 
 
+        public Boolean assignTicket(int ticketid, int agentid)
+        {
+            try
+            {
+
+                var a = _context.A_T_Managments.FirstOrDefault(a => a.ticketId == ticketid);
+
+                var ticket = _context.Tickets.FirstOrDefault(t => t.ticketId == ticketid);
+                var agent = _context.Agents.FirstOrDefault(t => t.Id == agentid);
+
+                if (a != null)
+                {
+                    _context.A_T_Managments.Remove(a);
+                }
+                A_T_Managment at = new A_T_Managment { ticket = ticket, agent = agent, dateAssign = DateTime.Now };
+                _context.Add(at);
+                ticket.listAT_Management.Add(at);
+                ticket.ticketStatut = Ticket.TicketStatus.Open;
+                ticket.ticketPriority = Ticket.TicketPriority.High;
+                agent.a_T_ManagmentsList.Add(at);
+
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e);
+                return false;
+            }
+
+
+        }
+
+
 
 
 
@@ -306,14 +386,14 @@ namespace AppFeatures
 
         public async Task<Boolean> addProductClient(string prodRef, string email)
         {
+            System.Diagnostics.Debug.WriteLine("++++++" + prodRef);
 
 
             Client client = (Client)GetUserByEmail(email).Result;
 
             var p = _context.Products.FirstOrDefault(pr => pr.refId == prodRef);
 
-
-            ProductClient pc = new ProductClient { client = client, product = p };
+            ProductClient pc = new ProductClient { client = client, product = p, date = DateTime.Now };
 
             try
             {
@@ -411,6 +491,20 @@ namespace AppFeatures
             List<Article> res = await _context.Articles.Where(a => a.category == _category).ToListAsync();
             return res;
         }
+
+
+        public async Task<List<Article>> getLatestArticles()
+        {
+            return await _context.Articles.OrderByDescending(a => a.lastModified).Take(3).ToListAsync();
+        }
+
+
+        public async Task<List<Article>> findArticles(string key)
+        {
+            List<Article> res = await _context.Articles.Where(p => p.Title.Contains(key)).ToListAsync();
+            return res;
+        }
+
 
 
     }

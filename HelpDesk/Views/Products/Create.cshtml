@@ -22,42 +22,42 @@
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <div class="form-group">
                                 <label asp-for="refId" class="control-label"></label>
-                                <input asp-for="refId" class="form-control" />
+                                <input required asp-for="refId" class="form-control" />
                                 <span asp-validation-for="refId" class="text-danger"></span>
                             </div>
                             <tr><td><span class="text-danger"></span></td></tr>
                             <label asp-for="name" class="control-label"></label>
-                            <input asp-for="name" class="form-control" />
+                            <input required asp-for="name" class="form-control" />
                             <span asp-validation-for="name" class="text-danger"></span>
 
                             <div class="form-group">
                                 <label asp-for="description" class="control-label"></label>
-                                <input asp-for="description" class="form-control" />
+                                <input required asp-for="description" class="form-control" />
                                 <span asp-validation-for="description" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label asp-for="factoryName" class="control-label"></label>
-                                <input asp-for="factoryName" class="form-control" />
+                                <input required asp-for="factoryName" class="form-control" />
                                 <span asp-validation-for="factoryName" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label asp-for="dateBuild" class="control-label"></label>
-                                <input type="date" asp-for="dateBuild" class="form-control" />
+                                <input  type="date" asp-for="dateBuild" class="form-control" />
                                 <span asp-validation-for="dateBuild" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label asp-for="dateValidate" class="control-label"></label>
-                                <input type="date" asp-for="dateValidate" class="form-control" />
+                                <input min="1950-01-01" type="date" asp-for="dateValidate" class="form-control" />
                                 <span asp-validation-for="dateValidate" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label asp-for="price" class="control-label"></label>
-                                <input type="number" asp-for="price" class="form-control" />
+                                <input min="0" type="number" asp-for="price" class="form-control" />
                                 <span asp-validation-for="price" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label asp-for="category" class="control-label"></label>
-                                <input asp-for="category" class="form-control" />
+                                <input required asp-for="category" class="form-control" />
                                 <span asp-validation-for="category" class="text-danger"></span>
                             </div>
 

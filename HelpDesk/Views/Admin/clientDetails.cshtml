@@ -1,10 +1,63 @@
 ﻿
 
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor httpContextAccessor
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
+<script>
 
+    //for Product details
+    $(function () {
+        var placeholder = $('#placeholder');
+        $('a[data-toggle="productsList"]').click(function (event) {
+
+            var url = $(this).data('url');
+            $.get(url).done(function (data) {
+                placeholder.html(data);
+                placeholder.find('.modal').modal('show');
+            })
+
+
+        })
+
+    })
+
+    $(function () {
+        var placeholder = $('#placeholder');
+        $('a[data-toggle="ticketDetailInfo"]').click(function (event) {
+
+            var url = $(this).data('url');
+            $.get(url).done(function (data) {
+                placeholder.html(data);
+                placeholder.find('.modal').modal('show');
+            })
+
+
+        })
+
+    })
+    $(function () {
+        var placeholder = $('#placeholder');
+        $('a[data-toggle="addTicket_Backoffice"]').click(function (event) {
+
+            var url = $(this).data('url');
+            $.get(url).done(function (data) {
+                placeholder.html(data);
+                placeholder.find('.modal').modal('show');
+            })
+
+
+        })
+
+    })
+
+ 
+
+</script>
+
+<div id="placeholder"></div>
 <div class="row justify-content-center">
     <div class="container pl-0 pr-0">
         <div class="dx-box dx-box-decorated">
@@ -32,6 +85,22 @@
                             </div>
                         </div>
                     </div>
+
+                    <div>
+                        <a href="#" id="afectProduct" data-toggle="productsList" data-target="#productsList"
+                           data-url="@Url.Action("afectProduct",new { clientMail = @ViewBag.clientDetails.Email})">
+                            affectP
+                        </a>
+
+                        <a href="#"
+                           data-toggle="addTicket_Backoffice" data-target="#addTicket_Backoffice"
+                           data-url="@Url.Action("addTicket_Backoffice","Tickets",new { ClientMail = @ViewBag.clientDetails.Email})">
+                            Add ticket to Client
+                        </a>
+                    </div>
+
+
+
                 </div>
 
             </div>
@@ -55,13 +124,16 @@
                     @foreach (var item in ViewBag.clientTickets)
                     {
 
-                        <a href="single-ticket.html" class="dx-ticket-item dx-ticket-new dx-ticket-open dx-block-decorated">
+                        <a href="#"
+                           data-toggle="ticketDetailInfo" data-target="#ticketDetailInfo"
+                           data-url="@Url.Action("ticketDetailInfo","Tickets",new { idTicket = item.ticketId })"
+                           class="dx-ticket-item dx-ticket-new dx-ticket-open dx-block-decorated">
 
                             <span class="dx-ticket-cont">
-                                <span class="dx-ticket-name">
+                                <span class="dx-ticket-title h5">
                                     <i># @item.ticketId</i>  - @item.ticketTitle
                                 </span>
-                                <span class="dx-ticket-title h5">
+                                <span class="dx-ticket-comment">
                                     @item.ticketDescription
                                 </span>
                                 <ul class="dx-ticket-info">

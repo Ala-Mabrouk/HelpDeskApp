@@ -91,7 +91,6 @@ C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\bin\Debug\net5.0\AppFeatur
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\bin\Debug\net5.0\BCrypt.Net-Core.dll
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Admin\DashBoardAdmin.cshtml.g.cs
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Shared\_AdminLayout.cshtml.g.cs
-C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Admin\EditAgentPermission.cshtml.g.cs
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\bin\Debug\net5.0\Microsoft.AspNetCore.Razor.Language.dll
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\bin\Debug\net5.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\bin\Debug\net5.0\Microsoft.CodeAnalysis.dll
@@ -230,3 +229,13 @@ C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Vie
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\SuperAdmin\updateAdmin.cshtml.g.cs
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Shared\Components\UpdateUserpassword\Default.cshtml.g.cs
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Agent\AgentSettings.cshtml.g.cs
+C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Admin\agentDetails.cshtml.g.cs
+C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Admin\EditAgent.cshtml.g.cs
+C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Admin\addClient.cshtml.g.cs
+C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Admin\EditAgentPermission.cshtml.g.cs
+C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Tickets\addTicket_Backoffice.cshtml.g.cs
+C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Agent\assignTicket.cshtml.g.cs
+C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Shared\Components\FooterArticles\Default.cshtml.g.cs
+C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\DashBoard\Index.cshtml.g.cs
+C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\DashBoard\getPie.cshtml.g.cs
+C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Home\resultRech.cshtml.g.cs

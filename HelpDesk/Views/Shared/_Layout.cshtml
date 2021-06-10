@@ -281,8 +281,8 @@
                 <div class="row justify-content-center">
                     <div class="col-xl-7">
                         <h1 class="h2 mb-30 text-white text-center">@localizer["Q1"]</h1>
-                        <form action="#" class="dx-form dx-form-group-inputs">
-                            <input type="text" name="" value="" class="form-control" placeholder="@localizer["search_place_hoder"]">
+                        <form asp-action="resultRech" asp-controller="Home" class="dx-form dx-form-group-inputs">
+                            <input type="text" name="inputRech" value="" class="form-control" placeholder="@localizer["search_place_hoder"]">
                             <button class="dx-btn dx-btn-lg">@localizer["search_button"]</button>
                         </form>
                     </div>
@@ -377,21 +377,8 @@
                                 <div class="dx-widget-title">
                                     Latest Posts
                                 </div>
-                                @* <a href="single-post.html" class="dx-widget-post">
-
-                                    <span class="dx-widget-post-text">
-                                    <span class="dx-widget-post-title">The Big Thing in Design</span>
-                                    <span class="dx-widget-post-date">25 Sep 2018</span>
-                                    </span>
-
-                                    </a>
-                                    <a href="single-post.html" class="dx-widget-post">
-
-                                    <span class="dx-widget-post-text">
-                                    <span class="dx-widget-post-title">Will Coding Ever Rule the World?</span>
-                                    <span class="dx-widget-post-date">24 Sep 2018</span>
-                                    </span>
-                                *@
+                                @await Component.InvokeAsync("FooterArticles")
+                   
                                 </a>
                             </div>
 

@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -68,15 +68,16 @@ namespace HelpDesk
 
 
             //this part of code is needed for the sessions
-     /*       services.AddSession(options =>
+            services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromSeconds(10000);
-                options.Cookie.HttpOnly = true;
-                options.Cookie.IsEssential = true;
+          
 
-            });*/
+            });
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSingleton<ITempDataProvider, CookieTempDataProvider>();
 
+            //   services.AddControllersWithViews();
             services.AddControllersWithViews();
         }
 
@@ -107,11 +108,11 @@ namespace HelpDesk
             app.UseAuthentication();
             app.UseAuthorization();
 
-            /*  app.UseSession();
-             *  
-  */
-        
-            app.UseEndpoints(endpoints =>
+            app.UseSession();
+           
+
+
+           app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",

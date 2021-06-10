@@ -17,10 +17,10 @@ namespace AppFeatures
 
 
 
-        public async Task<List<User>> ShowAgents()
+        public async Task<List<Agent>> ShowAgents()
         {
 
-            List<User> res = await _context.Users
+            List<Agent> res = await _context.Agents
               .Include(p => p.role)
               .Include(p => p.listUserPermissions).
               ThenInclude(pp => pp.permision).Where(p => p.role.roleId >= 4).ToListAsync();

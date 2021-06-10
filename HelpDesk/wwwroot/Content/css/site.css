@@ -366,7 +366,7 @@ strong {
 }
 
 label {
-    margin-bottom: .8rem;
+   /* margin-bottom: .8rem;*/
     font-weight: 700;
     color: #232323;
 }

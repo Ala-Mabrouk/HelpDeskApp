@@ -14,18 +14,36 @@ namespace HelpDesk.ViewComponents
         public IViewComponentResult Invoke(string agentMail)
         {
 
-            List<Permission> a = new AppFunctions().getUserPermissions(agentMail);
-            ViewBag.AgentPermission = a;
+           /* List<Permission> a = new AppFunctions().getUserPermissions(agentMail);
+            ViewBag.AgentPermission = a;*/
 
+            ViewData["myAgentpermissions"] = new AppFunctions().getUserPermissions(agentMail);
             ViewBag.Permissions = new AppFunctions().ShowAllPermissions();
 
             Agent ag = (Agent)new AppFunctions().GetUserByEmail(agentMail).Result;
 
-            return View(ag);
+            return View();
 
 
         }
 
+        public IViewComponentResult addToAgent(Permission _permission)
+        {
+            List<Permission> a = (List<Permission>)ViewData["myAgentpermissions"];
+            a.Add(_permission);
+            ViewData["myAgentpermissions"] = a;
+            return View();
+        }
+
+        /*    public void mangepermissions()
+            {
+
+                //creating the session of permisssions
+                ViewData["myAgentpermissions"] = new AppFunctions().getUserPermissions(agentMail);
+                ViewBag.Permissions = new AppFunctions().ShowAllPermissions();
+
+
+            }*/
 
     }
 }

@@ -1,6 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer localizer
 
+@using Entities.Entities
 
 @{
     ViewData["Title"] = "My Tickets";
@@ -32,7 +33,7 @@
             <a asp-action="singleTicketInfo" asp-route-ticketid="@item.ticketId" asp-controller="Tickets" class="dx-ticket-item dx-ticket-new dx-ticket-open dx-block-decorated">
                 <span class="dx-ticket-img">
 
-                    <img src=@item.creator_user.ThumbUrl alt="user thumbUrl">
+                    <img src=@Url.Content(item.creator_user.ThumbUrl) alt="user thumbUrl">
                 </span>
 
                 <span class="dx-ticket-cont">
@@ -49,11 +50,23 @@
 
                     </ul>
                 </span>
+                
                 <span class="dx-ticket-status">
-                    @item.ticketStatut
-                </span>
 
+                    @item.ticketStatut 
+                    <span>
+                        &nbsp;&nbsp;
+                    </span>
+                    @if (item.ticketStatut != Ticket.TicketStatus.Closed)
+                    {
+                        <button class="btn btn-sm btn-outline-info" asp-action="closeTicket" asp-controller="Tickets" asp-route-ticketId="@item.ticketId">
+                            close Ticket
+                        </button>
+                    }
+                </span>
+      
             </a>
+
         }
 
 
