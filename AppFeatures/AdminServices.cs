@@ -13,10 +13,6 @@ namespace AppFeatures
     {
         private static DataBaseContext _context = new DataBaseContext(DataBaseContext.ops.dbOptions);
 
-
-
-
-
         public async Task<List<Agent>> ShowAgents()
         {
 
@@ -28,16 +24,6 @@ namespace AppFeatures
             return res;
         }
 
-
-
-
-        public async Task<List<Client>> getAllCustomers()
-        {
-            List<Client> res = await _context.Clients
-                .Include(p => p.role)
-             .Where(p => p.role.roleName.Equals("Client")).ToListAsync();
-            return res;
-        }
         public async Task<Boolean> changePermissions(List<int> lp, int id)
         {
             try

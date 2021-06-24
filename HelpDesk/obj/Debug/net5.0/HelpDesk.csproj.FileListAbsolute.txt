@@ -89,7 +89,6 @@ C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\bin\Debug\net5.0\Microsoft
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\bin\Debug\net5.0\AppFeatures.dll
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\bin\Debug\net5.0\AppFeatures.pdb
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\bin\Debug\net5.0\BCrypt.Net-Core.dll
-C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Admin\DashBoardAdmin.cshtml.g.cs
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Shared\_AdminLayout.cshtml.g.cs
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\bin\Debug\net5.0\Microsoft.AspNetCore.Razor.Language.dll
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\bin\Debug\net5.0\Microsoft.Bcl.AsyncInterfaces.dll
@@ -204,10 +203,8 @@ C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\HelpDesk.
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\HelpDesk.Resources.Views.Home.ResetPassword.resources
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Products\ProductDisplay.cshtml.g.cs
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Products\ProductDetail.cshtml.g.cs
-C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Admin\customersList.cshtml.g.cs
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Admin\addAgent.cshtml.g.cs
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Products\resultRech.cshtml.g.cs
-C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Admin\afectProduct.cshtml.g.cs
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Tickets\ticketDetailInfo.cshtml.g.cs
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Agent\myTickets.cshtml.g.cs
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\bin\Debug\net5.0\Microsoft.AspNetCore.Http.Features.dll
@@ -222,7 +219,6 @@ C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Vie
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\KnowledgeBase\singleArticleCategory.cshtml.g.cs
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Shared\Components\TicketAttatchment\Default.cshtml.g.cs
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Shared\Components\UpdatePermissions\Default.cshtml.g.cs
-C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Admin\clientDetails.cshtml.g.cs
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Admin\ShowAgents.cshtml.g.cs
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\SuperAdmin\ShowAdmins.cshtml.g.cs
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\SuperAdmin\addAdmin.cshtml.g.cs
@@ -231,7 +227,6 @@ C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Vie
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Agent\AgentSettings.cshtml.g.cs
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Admin\agentDetails.cshtml.g.cs
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Admin\EditAgent.cshtml.g.cs
-C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Admin\addClient.cshtml.g.cs
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Admin\EditAgentPermission.cshtml.g.cs
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Tickets\addTicket_Backoffice.cshtml.g.cs
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Agent\assignTicket.cshtml.g.cs
@@ -239,3 +234,18 @@ C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Vie
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\DashBoard\Index.cshtml.g.cs
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\DashBoard\getPie.cshtml.g.cs
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Home\resultRech.cshtml.g.cs
+C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Agent\addClient.cshtml.g.cs
+C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Agent\clientDetails.cshtml.g.cs
+C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Agent\customersList.cshtml.g.cs
+C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Agent\DashBoardAdmin.cshtml.g.cs
+C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Agent\afectProduct.cshtml.g.cs
+C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\bin\Debug\net5.0\MailKit.dll
+C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\bin\Debug\net5.0\MimeKit.dll
+C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\bin\Debug\net5.0\BouncyCastle.Crypto.dll
+C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Shared\Components\Notification\Default.cshtml.g.cs
+C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Tickets\closeTicket.cshtml.g.cs
+C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\KnowledgeBase\addArticle.cshtml.g.cs
+C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\KnowledgeBase\listArticles.cshtml.g.cs
+C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\KnowledgeBase\deleteArticle.cshtml.g.cs
+C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\KnowledgeBase\updateArticle.cshtml.g.cs
+C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\KnowledgeBase\infoArticle.cshtml.g.cs

@@ -18,15 +18,16 @@ namespace HelpDesk.Controllers
 
         private readonly AppFunctions _AppFunctions = new AppFunctions();
         private readonly SuperAdminServices _SuperAdminServices = new SuperAdminServices();
-        private static DataBaseContext _context = new DataBaseContext(DataBaseContext.ops.dbOptions);
+        private readonly AdminServices _AdminServices = new AdminServices();
+
+
+     //   private static DataBaseContext _context = new DataBaseContext(DataBaseContext.ops.dbOptions);
 
 
         public IActionResult Index()
         {
             return View();
         }
-
-
 
 
         public ActionResult ShowAdmins()
@@ -51,8 +52,6 @@ namespace HelpDesk.Controllers
             return View();
         }
 
-
-        [HttpPost]
         [HttpPost]
         public ActionResult addAdmin(Admin admin)
         {
@@ -67,6 +66,7 @@ namespace HelpDesk.Controllers
 
         }
 
+
         [HttpGet]
         public ActionResult updateAdmin(string mailAdmin)
         {
@@ -75,7 +75,6 @@ namespace HelpDesk.Controllers
             return PartialView("updateAdmin",ad);
 
         }
-
 
         [HttpPost]
         public ActionResult updateAdmin(Admin _admin)
@@ -94,7 +93,7 @@ namespace HelpDesk.Controllers
                 }
 
 
-                Admin ad = (Admin)new Userservices().updateAgentInfo(_admin).Result;
+                Admin ad = (Admin)new AgentServices().updateAgentInfo(_admin).Result;
 
                 if (ad != null)
                 {

@@ -84,6 +84,30 @@ namespace Entities.Migrations
                     b.ToTable("DefaultPermissions");
                 });
 
+            modelBuilder.Entity("Entities.Entities.Notification", b =>
+                {
+                    b.Property<int>("notificationID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("notificationContent")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("notificationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("reciverNotification")
+                        .HasColumnType("int");
+
+                    b.Property<int>("senderNotification")
+                        .HasColumnType("int");
+
+                    b.HasKey("notificationID");
+
+                    b.ToTable("Notifications");
+                });
+
             modelBuilder.Entity("Entities.Entities.Permission", b =>
                 {
                     b.Property<int>("permissionId")

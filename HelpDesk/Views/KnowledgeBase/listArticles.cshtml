@@ -1,0 +1,123 @@
+﻿
+@model Entities.Entities.Article
+
+@{ Layout = "~/Views/Shared/_AdminLayout.cshtml";}
+
+
+<script>
+
+    $(function () {
+        var placeholder = $('#placeholder');
+        $('a[data-toggle="deleteArticle"]').click(function (event) {
+
+            var url = $(this).data('url');
+            $.get(url).done(function (data) {
+                placeholder.html(data);
+                placeholder.find('.modal').modal('show');
+            })
+
+
+        })
+
+    })
+
+    $(function () {
+        var placeholder = $('#placeholder');
+        $('a[data-toggle="infoArticle"]').click(function (event) {
+
+            var url = $(this).data('url');
+            $.get(url).done(function (data) {
+                placeholder.html(data);
+                placeholder.find('.modal').modal('show');
+            })
+
+
+        })
+
+    })
+</script>
+
+<div id="placeholder"></div>
+
+<div class="card-header" style="display: flex;justify-content: space-between;">
+    <span>
+        <i class="fas fa-table mr-1"></i>
+        Articles
+    </span>
+    <a class="btn btn-primary" asp-action="addArticle" asp-controller="KnowledgeBase"
+       style="margin-right: 5%;"> <i class="fas fa-plus"></i>&nbsp; add new article</a>
+</div>
+<div class="card-body">
+    <div class="dx-isotope-container">
+
+
+        <div class="dx-box bg-white ">
+            <div class="container">
+                <ul class="dx-links dx-isotope-filter text-center p-10" style="background-color: gainsboro;margin:0px -24px;">
+                    <li class="active" data-filter="*">All Items</li>
+                    <li data-filter=".info">info</li>
+                    <li data-filter=".stylo">stylo</li>
+                    <li data-filter=".smart_phone">smart phone</li>
+                </ul>
+            </div>
+        </div>
+        <div class="dx-separator"></div>
+
+
+        <div class="dx-box-5 pb-100 bg-grey-6">
+            <div class="container">
+
+
+
+                <div class="row vertical-gap dx-isotope-grid">
+                    <div class="card-deck">
+                        @foreach (var item in ViewBag.Articles)
+                        {
+
+                            <div class="dx-isotope-grid-item @item.category">
+
+
+                                <div class="card border-dark mb-3" style="width:18rem;">
+
+                                    <a href="#" data-toggle="infoArticle" data-target="#infoArticle"
+                                       data-url="@Url.Action("infoArticle","KnowledgeBase",new { idArticle = item.ArticleId })"
+                                       class="nav-link">
+                                        <div class="card-header">
+
+                                            <h5 class="card-title  text-center">@item.Title </h5>
+                                            <h6 class="card-subtitle mb-2 text-muted"> @item.category</h6>
+                                        </div>
+                                        <div class="card-body">
+                                            <p style="color:black;" class="card-text">@item.content</p>
+                                            <p class="card-text"><small class="text-muted">Last updated 20/20/2021</small></p>
+
+                                        </div>
+                                    </a>
+
+                                    <div class="card-footer text-center">
+                                        <a asp-action="updateArticle" asp-controller="KnowledgeBase" asp-route-Id="@item.ArticleId" class="card-link"><i class="far fa-edit"></i>&nbsp;Edit</a>
+                                        <a style="color:red;"
+                                           href="#" data-toggle="deleteArticle" data-target="#deleteArticle"
+                                           data-url="@Url.Action("deleteArticle","KnowledgeBase",new { articleId = item.ArticleId })"
+                                           class="card-link">
+                                            <i class="fas fa-trash-alt"></i>
+                                            &nbsp;Delete
+                                        </a>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        }
+
+                    </div>
+
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>

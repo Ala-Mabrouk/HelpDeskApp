@@ -109,7 +109,7 @@ namespace HelpDesk.Controllers
                     ticket.ticketDate = DateTime.Now;
                     ticket.userId = loged;
 
-                    await _UserService.createTicket(ticket);
+                    await _AppFunctions.addTicket(ticket);
 
                     return RedirectToAction("Index", "Tickets");
                 }
@@ -195,7 +195,7 @@ namespace HelpDesk.Controllers
                 int ClientId = _AppFunctions.GetUserByEmail(mail).Result.Id;
 
 
-              var res=  _AppFunctions.addProductClient(ticket.relatedProductRefId, mail).Result;
+                var res = _AppFunctions.addProductClient(ticket.relatedProductRefId, mail).Result;
 
                 ticket.userId = ClientId;
                 ticket.ticketPriority = TicketPriority.Medium;
@@ -203,7 +203,7 @@ namespace HelpDesk.Controllers
                 ticket.ticketDate = DateTime.Now;
 
 
-                await _UserService.createTicket(ticket);
+                await _AppFunctions.addTicket(ticket);
 
 
 
@@ -225,14 +225,32 @@ namespace HelpDesk.Controllers
         }
 
 
-
-    public ActionResult closeTicket(int ticketId)
+        [HttpGet]
+        public ActionResult closeTicket(int ticketId)
+            
         {
-           if( _AppFunctions.closeTicket(ticketId).Result){
-                return RedirectToAction("Index"); }
+             System.Diagnostics.Debug.WriteLine(ticketId);
+            var res = _AppFunctions.getTicketDetails(ticketId).Result;
+     
+
+
+            return PartialView("closeTicket",res);
+        }
+        
+        
+        
+        public ActionResult close(Ticket t)
+
+        {
+            int id = Int16.Parse(Request.Form["ticketId"]);
+            if (_AppFunctions.closeTicket(id).Result)
+            {
+                return RedirectToAction("Index","Tickets");
+            }
             return RedirectToAction("Erreur404", "Home");
         }
 
+   
 
 
 
@@ -305,7 +323,7 @@ namespace HelpDesk.Controllers
         }
 
         [HttpPost]
-        public ActionResult addReply(Reply reply)
+        public async Task<ActionResult> addReply(Reply reply)
         {
 
 
@@ -327,7 +345,26 @@ namespace HelpDesk.Controllers
                 var res2 = _AppFunctions.changeTicketStatus(res.TicketId, TicketStatus.Proccesing);
             }
 
-            return RedirectToAction(D_action, D_controller);
+            // notification treatement 
+
+
+            //send notification from agent to client
+            if (D_action == "myTickets")
+            {
+
+                //send reply notification from agent to client
+
+                string to = Request.Form["destination"];
+
+                await _AppFunctions.sendClientNotification(to, res.ticket.ticketTitle, res.reply_date);
+                return RedirectToAction(D_action, D_controller);
+            }
+        
+                return RedirectToAction(D_action, D_controller,new { ticketid = res.TicketId });
+            
         }
+
+
+
     }
 }

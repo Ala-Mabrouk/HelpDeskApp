@@ -9,11 +9,71 @@ using System.Threading.Tasks;
 
 namespace AppFeatures
 {
+
+
+    // the commun function between actors is declared here
+
     public class Userservices
     {
 
         //making a globale DataBaseContext variable :
         private static DataBaseContext _context = new DataBaseContext(DataBaseContext.ops.dbOptions);
+
+        public async Task<User> SignUp(Client cl)
+        {
+            try
+            {
+
+                // ********cheking if email dont exist already********
+
+                Client e = await _context.Clients.Where(c => c.Email.Equals(cl.Email)).FirstOrDefaultAsync();
+
+                if (e == null)
+                {
+                    //we need to encrypte the password before saving it in the database 
+                    // we are using " BCrypt.Net " package to do that
+
+                    string newPass = BCrypt.Net.BCrypt.HashPassword(cl.Password);
+
+                    cl.Password = newPass;
+                    await _context.AddAsync(cl);
+                    await _context.SaveChangesAsync();
+
+
+                    // ********adding default permissions********
+
+                    //getting the default permission using the role so we can add it to the client
+                    List<Permission> listClientpermissions = await _context.DefaultPermissions.Where(s => s.roleId == cl.roleId).Select(s => s.permission).ToListAsync();
+
+
+                    User c = await _context.Clients.Include(r => r.role).Where(s => s.Email == cl.Email).FirstOrDefaultAsync();
+
+                    foreach (var item in listClientpermissions)
+                    {
+
+                        await _context.AddAsync(new UserPermission { user = c, permision = item });
+                        await _context.SaveChangesAsync();
+
+                    }
+
+
+                    _context.Update(c);
+                    await _context.SaveChangesAsync();
+                    return c;
+                }
+
+
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e);
+                return null;
+
+            }
+
+
+            return null;
+        }
 
         public async Task<User> LogIn(string mail, string pass)
         {
@@ -25,14 +85,6 @@ namespace AppFeatures
                 return res;
 
             else return null;
-
-        }
-
-
-        public async Task createTicket(Ticket ticket)
-        {
-            await _context.AddAsync(ticket);
-            await _context.SaveChangesAsync();
 
         }
         public async Task<User> updateInfo(User pers)
@@ -54,25 +106,7 @@ namespace AppFeatures
             return person;
 
         }
-        public async Task<Agent> updateAgentInfo(Agent _agent)
-        {
-
-
-            Agent updatedAgent = await _context.Agents.Where(p => p.Id == _agent.Id).FirstAsync();
-
-            updatedAgent.FirstName = _agent.FirstName;
-            updatedAgent.LastName = _agent.LastName;
-            updatedAgent.Email = _agent.Email;
-            updatedAgent.Phone = _agent.Phone;
-            updatedAgent.HomeAdresse = _agent.HomeAdresse;
-            updatedAgent.status = _agent.status;
-
-            await _context.SaveChangesAsync();
-
-            return updatedAgent;
-
-        }
-
+    
         public async Task<Boolean> changeUserPassword(string mail, string oldPassword, string newPassword)
         {
             User person = await _context.Users.Where(p => p.Email == mail).FirstAsync();
@@ -90,6 +124,4 @@ namespace AppFeatures
         }
 
     }
-
-
 }

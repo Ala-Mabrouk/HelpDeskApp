@@ -51,7 +51,7 @@
             $("#menu-toggle").click(function (e) {
                 e.preventDefault();
                 $("body").toggleClass("sb-sidenav-toggled");
-                $("#arrowSymbol").toggleClass("fas fa-arrow-circle-right");
+            
             });
 
             $(window).resize(function (e) {
@@ -72,10 +72,10 @@
     <nav class="dx-navbar dx-navbar-top dx-navbar-collapse dx-navbar-sticky dx-navbar-expand-lg dx-navbar-dropdown-triangle dx-navbar-autohide " style="z-index: 1039;">
         <div class="container">
 
-            <button class="btn btn-link btn-sm order-1 order-lg-0 mr-10" id="menu-toggle" href="#"><i id="arrowSymbol" class="fas fa-arrow-circle-left"></i></button>
+            <button class="btn btn-link btn-sm order-1 order-lg-0 mr-10" id="menu-toggle" href="#"><i class="fas fa-bars"></i></button>
 
             <a asp-action="DashBoardAdmin" asp-controller="Admin" class="dx-nav-logo">
-                <img src="/Content/images/logo.svg" alt="" width="88px">
+                <img src="/Content/images/index12.png" alt="" width="150px">
 
             </a>
             <button class="dx-navbar-burger">
@@ -111,6 +111,23 @@
 
                                 </ul>
 
+                            </div>
+                        </li>
+                        <li>
+                            <div class="dropdown dx-dropdown dx-dropdown-signin">
+                                <a id="dropdownNoti" class="dx-nav-signin" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                                    <i class="fas fa-bell"></i>
+
+                                </a>
+
+                                <ul class="dropdown-menu" aria-labelledby="dropdownNoti">
+                                    <li>
+
+
+                                        @await Component.InvokeAsync("Notification", User.Identity.Name)
+                                    </li>
+                                </ul>
                             </div>
                         </li>
                     }
@@ -169,6 +186,23 @@
 
                             </div>
 
+                        </li>
+                        <li>
+                            <div class="dropdown dx-dropdown dx-dropdown-signin">
+                                <a id="dropdownNoti" class="dx-nav-signin" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                                    <i class="fas fa-bell"></i>
+
+                                </a>
+
+                                <ul class="dropdown-menu" aria-labelledby="dropdownNoti">
+                                    <li>
+
+
+                                        @await Component.InvokeAsync("Notification", User.Identity.Name)
+                                    </li>
+                                </ul>
+                            </div>
                         </li>
 
                     }

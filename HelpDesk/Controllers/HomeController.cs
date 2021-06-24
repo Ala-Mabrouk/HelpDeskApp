@@ -1,20 +1,22 @@
 ﻿using AppFeatures;
 using Entities.Entities;
 using HelpDesk.Models;
+using MailKit.Net.Smtp;
+using MailKit.Security;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using MimeKit;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Net.Mail;
-using System.Security.Claims;
+ using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -51,7 +53,7 @@ namespace HelpDesk.Controllers
                 logedIn = User.FindFirstValue(ClaimTypes.Name);
                 if (!User.FindFirstValue(ClaimTypes.Role).Equals("Client"))
                 {
-                    return RedirectToAction("DashBoardAdmin", "Admin");
+                    return RedirectToAction("DashBoardAdmin", "Agent");
                 }
 
             }
@@ -87,7 +89,7 @@ namespace HelpDesk.Controllers
             if (ModelState.IsValid)
             {
 
-                Client cl1 = (Client)_ClientCRUD.SignUp(_cl).Result;
+                Client cl1 = (Client)_UserService.SignUp(_cl).Result;
 
                 if (cl1 != null)
                 {
@@ -161,8 +163,11 @@ namespace HelpDesk.Controllers
                          
                         Agent a = (Agent)myUser;
                         if (a!=null && a.status)
-                         return RedirectToAction("DashBoardAdmin", "Admin"); 
-                      
+                         return RedirectToAction("DashBoardAdmin", "Agent");
+
+                        //used to delete the cookies bc the agent is not activated 
+                        var login = HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
 
                     }
 
@@ -177,23 +182,25 @@ namespace HelpDesk.Controllers
 
         }
 
-        [Authorize(Roles = "Client")]
+     
         [HttpGet]
         public ActionResult ResetPassword()
         {
             return View();
         }
 
-        [Authorize(Roles = "Client")]
+ 
 
         [HttpPost]
-        public ActionResult ResetPassword(string email)
+        public ActionResult ResetPassword(string msg)
         {
-            //send reclamation to Admin to give back new pass
-            /*   if (_AppFunctions.resetPass(email))
-               {
-                   RedirectToAction("Index", "Home");
-               }*/
+            string phone = Request.Form["phoneNumber"];
+            string mail = Request.Form["emailAdress"];
+
+            if (_AppFunctions.resetPassword(mail,phone).Result)
+            {
+                return RedirectToAction("Log_in", "Home");
+            }
             return View();
         }
 
@@ -332,10 +339,9 @@ namespace HelpDesk.Controllers
 
 
         }
+ 
 
-
-
-        public ActionResult resetPasswordLink()
+        public async Task<ActionResult> resetPasswordLink()
         {
             //sending mail with link( controler/action/userId);
 
@@ -344,22 +350,11 @@ namespace HelpDesk.Controllers
        
             if (true)
             {
-                MailMessage mm = new MailMessage("nstGroup@gmail.com", "destination");
-                mm.Subject = "Password Recovery";
-                mm.Body = string.Format("Hi {0},<br /><br />fllow to this link to reset your password.<br /><br />Thank You.",link);
-                mm.IsBodyHtml = true;
-                SmtpClient smtp = new SmtpClient();
-                smtp.Host = "smtp.gmail.com";
-                smtp.EnableSsl = true;
-                NetworkCredential NetworkCred = new NetworkCredential();
-                NetworkCred.UserName = "nstGroup@gmail.com";
-                NetworkCred.Password = "thiere password";
-                smtp.UseDefaultCredentials = true;
-                smtp.Credentials = NetworkCred;
-                smtp.Port = 587;
-                smtp.Send(mm);
+
+//               await _AppFunctions.sendClientNotification("alamabrouk007@gmail.com", 20);
 
                 ViewBag.message = "an email is sent to your adresse";
+                return RedirectToAction("Erreur404", "Home");
             }
             else
             {

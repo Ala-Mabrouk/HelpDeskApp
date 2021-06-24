@@ -12,6 +12,8 @@ namespace AppFeatures
     public class SuperAdminServices : AdminServices
     {
         private static DataBaseContext _context = new DataBaseContext(DataBaseContext.ops.dbOptions);
+
+
         public async Task<List<Admin>> ShowAdmins()
         {
 

@@ -71,7 +71,7 @@
         <div class="container">
 
             <a asp-action="index" asp-controller="Home" class="dx-nav-logo">
-                <img src="/Content/images/logo.svg" alt="" width="88px">
+                <img src="/Content/images/index12.png" alt="" width="150px">
             </a>
 
             <button class="dx-navbar-burger">
@@ -80,7 +80,7 @@
                 <span></span>
             </button>
 
-            <div class="dx-navbar-content">
+            <div class="dx-navbar-content" style="justify-content: space-between;">
 
 
 
@@ -113,7 +113,7 @@
                     </li>
                 </ul>
 
-                <ul class="dx-nav dx-nav-align-right">
+                <ul class="dx-nav dx-nav-align-right" style="max-width: max-content;">
                     @if (User.Identity.IsAuthenticated)
                     {
 
@@ -138,6 +138,23 @@
 
                                 </ul>
 
+                            </div>
+                        </li>
+                        <li>
+                            <div class="dropdown dx-dropdown dx-dropdown-signin">
+                                <a id="dropdownNoti" class="dx-nav-signin" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                                    <i class="fas fa-bell"></i>
+
+                                </a>
+
+                                <ul class="dropdown-menu" aria-labelledby="dropdownNoti">
+                                    <li>
+
+
+                                        @await Component.InvokeAsync("Notification", User.Identity.Name)
+                                    </li>
+                                </ul>
                             </div>
                         </li>
 
@@ -166,7 +183,7 @@
             <button class="dx-navbar-burger">
                 <span></span><span></span><span></span>
             </button>
-            <div class="dx-navbar-content">
+            <div class="dx-navbar-content" style="justify-content: space-between;">
 
                 <ul class="dx-nav dx-nav-align-left">
 
@@ -216,7 +233,7 @@
                     </li>
                 </ul>
 
-                <ul class="dx-nav dx-nav-align-right">
+                <ul class="dx-nav dx-nav-align-right" style="max-width: max-content;">
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li>
@@ -316,7 +333,7 @@
                             <div class="dx-widget-footer">
                                 <div class="dx-widget-title">
                                     <a asp-action="Index" asp-controller="Home" class="dx-widget-logo">
-                                        <img src="/Content/images/logo.svg" alt="" width="88px">
+                                        <img src="/Content/images/index12.png" alt="" width="150px">
                                     </a>
                                 </div>
                                 <div class="dx-widget-text">

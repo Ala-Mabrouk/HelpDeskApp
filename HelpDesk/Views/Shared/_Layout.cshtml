@@ -71,7 +71,7 @@
         <div class="container">
 
             <a asp-action="index" asp-controller="Home" class="dx-nav-logo">
-                <img src="/Content/images/logo.svg" alt="" width="88px">
+                <img src="/Content/images/index12.png" alt="" width="150px">
             </a>
 
             <button class="dx-navbar-burger">
@@ -80,7 +80,7 @@
                 <span></span>
             </button>
 
-            <div class="dx-navbar-content">
+            <div class="dx-navbar-content" style="justify-content: space-between;">
 
 
 
@@ -113,7 +113,7 @@
                     </li>
                 </ul>
 
-                <ul class="dx-nav dx-nav-align-right">
+                <ul class="dx-nav dx-nav-align-right" style="max-width: max-content;">
                     @if (User.Identity.IsAuthenticated)
                     {
 
@@ -121,23 +121,45 @@
 
                             <div class="dropdown dx-dropdown dx-dropdown-signin">
 
-                                <a id="dropdownSignin" class="dx-nav-signin" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a id="dropdownSignIn" class="dx-nav-signin" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
                                     @await Component.InvokeAsync("NavBarWithLog", User.Identity.Name)
 
                                 </a>
 
-                                <ul class="dropdown-menu" aria-labelledby="dropdownSignin">
+
+                                <ul class="dropdown-menu" aria-labelledby="dropdownSignIn">
 
 
-                                    <li><a asp-action="Index" asp-controller="Tickets"><span class="icon pe-7s-user"></span>@localizer["Account"]</a></li>
-                                    <li><a asp-action="settings" asp-controller="Home"><span class="icon pe-7s-config"></span>@localizer["Settings"]</a></li>
-                                    <li><a asp-action="log_out" asp-controller="Home"><span class="icon pe-7s-back"></span>@localizer["Log_out"]</a></li>
+                                    <li>
+                                        <a asp-action="Index" asp-controller="Tickets"><span class="icon pe-7s-user"></span>@localizer["Account"]</a>
+                                        <a asp-action="settings" asp-controller="Home"><span class="icon pe-7s-config"></span>@localizer["Settings"]</a>
+                                        <a asp-action="log_out" asp-controller="Home"><span class="icon pe-7s-back"></span>@localizer["Log_out"]</a>
+                                    </li>
 
 
 
                                 </ul>
 
+                            </div>
+
+
+                        </li>
+                        <li>
+                            <div class="dropdown dx-dropdown dx-dropdown-signin">
+                                <a id="dropdownNoti" class="dx-nav-signin" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                                    <i class="fas fa-bell"></i>
+
+                                </a>
+
+                                <ul class="dropdown-menu" aria-labelledby="dropdownNoti">
+                                    <li>
+
+                                      
+                                        @await Component.InvokeAsync("Notification", User.Identity.Name)
+                                    </li>
+                                </ul>
                             </div>
                         </li>
 
@@ -274,7 +296,7 @@
         <header class="dx-header dx-box-1">
             <div class="container">
                 <div class="bg-image bg-image-parallax">
-                    <img src="/Content/images/bg-header-4.png" class="jarallax-img" alt="">
+                    <img src="/Content/images/header new.png" class="jarallax-img" alt="">
                     <div style="background-color: rgba(27, 27, 27, .8);"></div>
                 </div>
 
@@ -325,7 +347,7 @@
                             <div class="dx-widget-footer">
                                 <div class="dx-widget-title">
                                     <a asp-action="Index" asp-controller="Home" class="dx-widget-logo">
-                                        <img src="/Content/images/logo.svg" alt="" width="88px">
+                                        <img src="/Content/images/index12.png" alt="" width="150px">
                                     </a>
                                 </div>
                                 <div class="dx-widget-text">
@@ -378,7 +400,7 @@
                                     Latest Posts
                                 </div>
                                 @await Component.InvokeAsync("FooterArticles")
-                   
+
                                 </a>
                             </div>
 

@@ -17,10 +17,6 @@ namespace HelpDesk.Controllers
         private readonly IHttpContextAccessor httpContextAccessor;
 
 
-        //creation of instance from AppFeatures
-
-
-
         private readonly AppFunctions _AppFunctions = new AppFunctions();
 
 
@@ -28,35 +24,10 @@ namespace HelpDesk.Controllers
 
         private readonly AdminServices _AdminFunctions = new AdminServices();
 
-        private static string logedIn;
-        private static string roleIn;
+  
 
 
 
-        public AdminController()
-        {
-
-        }
-
-        public IActionResult DashBoardAdmin()
-
-        {
-
-            logedIn = _AppFunctions.GetUserByEmail(User.FindFirstValue(ClaimTypes.Name)).Result.Email;
-            roleIn = _AppFunctions.GetUserByEmail(User.FindFirstValue(ClaimTypes.Name)).Result.role.roleName;
-
-            User res = _AppFunctions.GetUserByEmail(logedIn).Result;
-            if (res != null)
-            {
-                return RedirectToAction("getPie", "DashBoard");
-
-            }
-
-            ///need verif log_page
-            return RedirectToAction("Erreur404");
-
-
-        }
 
         public ActionResult ShowAgents()
         {
@@ -73,8 +44,6 @@ namespace HelpDesk.Controllers
 
 
         }
-
-
 
         [HttpGet]
         public IActionResult EditAgent(string mail)
@@ -109,7 +78,6 @@ namespace HelpDesk.Controllers
 
         }
 
-
         public IActionResult addPermissiontoAgent(int permissionId, string mail)
 
         {
@@ -131,6 +99,7 @@ namespace HelpDesk.Controllers
             }
 
         }
+
         public IActionResult deletPermissiontoAgent(int permissionId, string mail)
 
         {
@@ -154,39 +123,6 @@ namespace HelpDesk.Controllers
         }
 
 
-
-
-
-/*
-        public async Task<IActionResult> validatePermissions()
-        {
-
-
-
-            //think about the opposit side (SALIM IDEA)
-
-            string a = Request.Form["AreChecked"];
-
-            var numbers = a.Split(',').Select(Int32.Parse).ToList();
-
-            int b = Int16.Parse(Request.Form["agentID"]);
-
-            Boolean test = await _AdminFunctions.changePermissions(numbers, b);
-
-            if (test)
-
-            {
-                string agmail = Request.Form["agentMail"];
-                return RedirectToAction("EditAgent", "Admin", new { mail = agmail });
-
-            }
-
-            //need errer page for baseErreur
-
-            return RedirectToAction("DashBoardAdmin", "Admin");
-        }
-*/
-
         [HttpPost]
         public IActionResult updateAgentPersInfo(Agent _p)
         {
@@ -205,7 +141,7 @@ namespace HelpDesk.Controllers
                         _p.status = false;
                     }
 
-                    Agent ag1 = new Userservices().updateAgentInfo(_p).Result;
+                    Agent ag1 = new AgentServices().updateAgentInfo(_p).Result;
 
                     if (ag1 != null)
                     {
@@ -230,9 +166,6 @@ namespace HelpDesk.Controllers
 
 
         }
-
-
-
 
         [HttpPost]
         //used to change selected agent password
@@ -263,12 +196,6 @@ namespace HelpDesk.Controllers
         }
 
 
-        public ActionResult customersList()
-        {
-            List<Client> res = _AdminFunctions.getAllCustomers().Result;
-            return View(res);
-
-        }
 
         [HttpGet]
         public ActionResult addAgent()
@@ -304,48 +231,8 @@ namespace HelpDesk.Controllers
         }
 
 
-        public ActionResult afectProduct(string clientMail)
-        {
-            ViewBag.ClientEmail = clientMail;
-            ViewBag.ListProducts = _AppFunctions.getAllProducts();
-            return PartialView("afectProduct");
-        }
 
-
-
-        public ActionResult afectTheProduct(string client, string refProd)
-        {
-            if (_AppFunctions.addProductClient(refProd, client).Result)
-            {
-                //  return Redirect(HttpContext.Request.Path.ToString());
-                return null;
-            }
-             
-            return RedirectToAction("Erreur404", "Home");
-        }
-
-
-
-        public ActionResult clientDetails(string mailClient)
-        {
-
-
-            var res = _AppFunctions.GetUserByEmail(mailClient).Result;
-            var res2 = _AppFunctions.getClientProducts(res.Id);
-            var res3 = _AppFunctions.getTicketsByUser(res.Id).Result;
-
-            ViewBag.clientDetails = res;
-            ViewBag.clientProducts = res2;
-            ViewBag.clientTickets = res3;
-
-            return View();
-
-
-        }
-
-
-
-
+       
 
         public ActionResult agentDetails(string agentMail)
         {
@@ -353,23 +240,6 @@ namespace HelpDesk.Controllers
             return PartialView(res);
         }
 
-        [HttpGet]
-        public IActionResult addClient()
-        {
-            return PartialView();
-        }
-
-        [HttpPost]
-        public IActionResult addClient(Client c)
-        {
-
-            var res = new ClientServices().SignUp(c).Result;
-            if (res != null)
-                return RedirectToAction("customersList");
-
-            return RedirectToAction("Erreur404", "Home");
-
-        }
 
     }
 }

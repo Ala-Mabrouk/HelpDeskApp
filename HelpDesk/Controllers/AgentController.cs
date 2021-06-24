@@ -17,6 +17,10 @@ namespace HelpDesk.Controllers
     {
 
 
+
+        private static string logedIn;
+        private static string roleIn;
+
         private readonly AppFunctions _AppFunctions = new AppFunctions();
         private readonly AgentServices _AgentServices = new AgentServices();
 
@@ -31,6 +35,143 @@ namespace HelpDesk.Controllers
 
 
 
+        public IActionResult DashBoardAdmin()
+
+        {
+
+            logedIn = _AppFunctions.GetUserByEmail(User.FindFirstValue(ClaimTypes.Name)).Result.Email;
+            roleIn = _AppFunctions.GetUserByEmail(User.FindFirstValue(ClaimTypes.Name)).Result.role.roleName;
+
+            User res = _AppFunctions.GetUserByEmail(logedIn).Result;
+            if (res != null)
+            {
+                return RedirectToAction("getPie", "DashBoard");
+
+            }
+
+            ///need verif log_page
+            return RedirectToAction("Erreur404");
+
+
+        }
+
+
+
+
+        //******* Manage Clients *******
+        public ActionResult clientDetails(string mailClient)
+        {
+
+
+            var res = _AppFunctions.GetUserByEmail(mailClient).Result;
+            var res2 = _AppFunctions.getClientProducts(res.Id);
+            var res3 = _AppFunctions.getTicketsByUser(res.Id).Result;
+
+            ViewBag.clientDetails = res;
+            ViewBag.clientProducts = res2;
+            ViewBag.clientTickets = res3;
+
+            return View();
+
+
+        }
+
+
+        [HttpGet]
+        public ActionResult addClient()
+        {
+            return PartialView();
+        }
+
+        [HttpPost]
+        public ActionResult addClient(Client c)
+        {
+
+            var res = new Userservices().SignUp(c).Result;
+            if (res != null)
+                return RedirectToAction("customersList");
+
+            return RedirectToAction("Erreur404", "Home");
+
+        }
+
+
+        public ActionResult customersList()
+        {
+            List<Client> res = _AgentServices.getAllCustomers().Result;
+            return View(res);
+
+        }
+
+
+
+        //********* tickets manipulation*******
+
+        [HttpGet]
+        public ActionResult assignTicket(int ticketId)
+        {
+            var logedIn = User.FindFirstValue(ClaimTypes.Name);
+
+            var res = _AppFunctions.getTicketDetails(ticketId).Result;
+
+            var me = (Agent)_AppFunctions.GetUserByEmail(logedIn).Result;
+
+             List<Agent> listAgents = new AdminServices().ShowAgents().Result;
+            List<Agent> listAgents2 = new List<Agent>();
+
+            foreach (var item in listAgents)
+            {
+                if (item.Email != me.Email && item.status ) //for only the active agents
+                {
+                    listAgents2.Add(item);
+                }
+
+            }
+            /*
+                        if (listAgents.Remove(me))
+                        {*/
+            ViewBag.AgentList = listAgents2;
+
+            return View(res);
+            // }
+            // return RedirectToAction("Erreur404", "Home");
+
+        }
+
+        [HttpPost]
+        public ActionResult assignTicket()
+        {
+            int ticketID = Int16.Parse(Request.Form["ticketId"]);
+            int AgentId = Int16.Parse(Request.Form["AgentId"]);
+            int idAgentAssigner = _AppFunctions.GetUserByEmail(User.FindFirstValue(ClaimTypes.Name)).Result.Id;
+
+            if (_AppFunctions.assignTicket(ticketID, AgentId))
+            {
+
+                Notification n = new Notification();
+                n.reciverNotification = AgentId;
+                n.senderNotification = idAgentAssigner;
+                n.notificationContent = "the ticket <a href='https://localhost:44330/Agent/customersList'>#" + ticketID + "</a> is assigned to you by " + User.FindFirstValue(ClaimTypes.Name) + "";
+                n.notificationDate = DateTime.Now;
+                _AppFunctions.createNotificationAssignTicket(n);
+                return RedirectToAction("listTickets", "Tickets");
+            }
+
+
+
+
+
+            return RedirectToAction("Erreur404", "Home");
+        }
+
+        public ActionResult myTickets()
+        {
+            var logedIn = User.FindFirstValue(ClaimTypes.Name);
+            ViewBag.ListTickets = _AppFunctions.getAgentTickets(logedIn);
+            return View();
+        }
+
+        //add a ticket to myTickets list from all ticketsList
         public ActionResult getTicket(int IdTicket)
         {
             var logedIn = User.FindFirstValue(ClaimTypes.Name);
@@ -42,18 +183,14 @@ namespace HelpDesk.Controllers
             else { return RedirectToAction("Erreur404", "Home"); }
         }
 
-        public ActionResult myTickets()
-        {
-            var logedIn = User.FindFirstValue(ClaimTypes.Name);
-            ViewBag.ListTickets = _AppFunctions.getAgentTickets(logedIn);
-            return View();
-        }
+        
 
 
 
 
-        [HttpGet]
-        [Authorize]
+
+            //******* agent profil management*********
+        [HttpGet]   
         public IActionResult AgentSettings()
         {
             var logedIn = User.FindFirstValue(ClaimTypes.Name);
@@ -66,9 +203,7 @@ namespace HelpDesk.Controllers
             return View(pers);
         }
 
-
         [HttpPost]
-        [Authorize]
         public IActionResult AgentSettings([FromForm] Agent _p)
         {
 
@@ -157,56 +292,25 @@ namespace HelpDesk.Controllers
         }
 
 
+        //********* products Manipulation
 
-        [HttpGet]
-        public ActionResult assignTicket(int ticketId)
+        public ActionResult afectProduct(string clientMail)
         {
-            var logedIn = User.FindFirstValue(ClaimTypes.Name);
-
-            var res = _AppFunctions.getTicketDetails(ticketId).Result;
-
-            var me =(Agent) _AppFunctions.GetUserByEmail(logedIn).Result;
-            System.Diagnostics.Debug.WriteLine("the logged agent is :" + me.FirstName);
-            List<Agent> listAgents = new AdminServices().ShowAgents().Result;
-            List<Agent> listAgents2 = new List<Agent>();
-
-            foreach (var item in listAgents)
-            {
-                if (item.Email != me.Email)
-                {
-                    listAgents2.Add(item);
-                }
-
-            }
-/*
-            if (listAgents.Remove(me))
-            {*/
-                ViewBag.AgentList = listAgents2;
-
-                return View(res);
-           // }
-           // return RedirectToAction("Erreur404", "Home");
-          
+            ViewBag.ClientEmail = clientMail;
+            ViewBag.ListProducts = _AppFunctions.getAllProducts();
+            return PartialView("afectProduct");
         }
 
-
-
-        [HttpPost]
-        public ActionResult assignTicket()
+        public ActionResult afectTheProduct(string client, string refProd)
         {
-            int ticketID = Int16.Parse(Request.Form["ticketId"]);
-            int AgentId = Int16.Parse(Request.Form["AgentId"]);
-
-           if(_AppFunctions.assignTicket(ticketID, AgentId))
+            if (_AppFunctions.addProductClient(refProd, client).Result)
             {
-                return RedirectToAction("DashBoardAdmin", "Admin");
+                //  return Redirect(HttpContext.Request.Path.ToString());
+                return null;
             }
 
-
-
-
-
-               return RedirectToAction("Erreur404", "Home"); 
+            return RedirectToAction("Erreur404", "Home");
         }
+
     }
 }

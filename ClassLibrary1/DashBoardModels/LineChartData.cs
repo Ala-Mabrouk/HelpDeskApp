@@ -7,7 +7,7 @@ namespace Entities.DashBoardModels
     public class LineChartData
     {
         //Monthes
-        public DateTime X { get; set; }
+        public string X { get; set; }
        //ticket Number
         public decimal Y { get; set; }
 
@@ -16,10 +16,10 @@ namespace Entities.DashBoardModels
 
         }
 
-        public LineChartData(DateTime x, int y)
+        public LineChartData(string x, decimal y)
         {
             this.X = x;
-            this.Y = y;
+           this.Y = y;
         }
 
     }

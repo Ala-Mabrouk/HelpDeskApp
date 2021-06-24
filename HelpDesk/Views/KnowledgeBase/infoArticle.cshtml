@@ -1,0 +1,56 @@
+﻿
+@model Entities.Entities.Article;
+
+
+@{ Layout = null;}
+
+<style>
+    b {
+        color: forestgreen;
+    }
+</style>
+
+<div class="modal fade " id="agentDetails">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+        <div class="modal-content p-1">
+            <div class="card-header text-center ">
+                <h4>
+                    @Model.Title
+                </h4>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="row justify-content-center">
+                    <div class="container pl-0 pr-0">
+
+                        <div><p class="text">@Model.content</p></div>
+
+                        <div style="display: flex;justify-content: space-between;">
+                            <div>
+                                <div><b>Category:</b> @Model.category</div>
+                                <div><b>Wrote By :</b> @Model.creator_agent.FirstName @Model.creator_agent.LastName</div>
+                            </div>
+                            <div style="border-left: 2px solid #a3a3a6;"></div>
+                            <div>
+                                <div><b>Cration date:</b> @Model.creationDate</div>
+                                <div><b>Last updated:</b> @Model.lastModified</div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                    <button class="btn-block btn-primary mt-20" data-dismiss="modal">Ok</button>
+                </div>
+              
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+</div>
+

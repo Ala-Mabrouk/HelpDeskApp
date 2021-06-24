@@ -87,6 +87,7 @@ namespace Entity_DAL.DAL
 
         public DbSet<Article> Articles { get; set; }
 
+        public DbSet<Notification> Notifications { get; set; }
     }
 
 }

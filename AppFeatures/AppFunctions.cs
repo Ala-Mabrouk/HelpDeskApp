@@ -1,9 +1,13 @@
 ﻿using Entities.Entities;
 using Entity_DAL.DAL;
+using MailKit.Net.Smtp;
+using MailKit.Security;
 using Microsoft.EntityFrameworkCore;
+using MimeKit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace AppFeatures
@@ -98,6 +102,43 @@ namespace AppFeatures
         }
 
 
+        public async Task<bool> resetPassword(string emailAdress, string phone)
+        {
+            User u = GetUserByEmail(emailAdress).Result;
+            if (u != null)
+            {
+                if (u.Phone == phone)
+                {
+                    //send new password
+                    string pass = generatePassword(8);
+                    Client e = _context.Clients.Where(c => c.Email.Equals(emailAdress)).FirstOrDefault();
+
+
+                    e.Password = BCrypt.Net.BCrypt.HashPassword(pass);
+                    _context.SaveChanges();
+
+                    await sendClientPasswordNotification(emailAdress, pass);
+
+                    return true;
+                }
+            }
+
+
+            return false;
+
+        }
+
+        public string generatePassword(int length)
+        {
+            const string valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+            StringBuilder res = new StringBuilder();
+            Random rnd = new Random();
+            while (0 < length--)
+            {
+                res.Append(valid[rnd.Next(valid.Length)]);
+            }
+            return res.ToString();
+        }
 
 
 
@@ -222,7 +263,8 @@ namespace AppFeatures
             var res = _context.A_T_Managments.Include(t => t.ticket).Where(a => ((string)a.agent.Email).Equals(agentMail)).ToList();
             foreach (var item in res)
             {
-                res2.Add(item.ticket);
+                if (item.ticket.ticketStatut != Ticket.TicketStatus.Closed)
+                    res2.Add(item.ticket);
 
             }
 
@@ -292,6 +334,7 @@ namespace AppFeatures
 
 
         }
+
 
 
 
@@ -458,7 +501,7 @@ namespace AppFeatures
 
         public async Task<Article> getArticleInfo(int idArticle)
         {
-            Article _article = await _context.Articles.FirstOrDefaultAsync(a => a.ArticleId == idArticle);
+            Article _article = await _context.Articles.Include(a=>a.creator_agent).FirstOrDefaultAsync(a => a.ArticleId == idArticle);
             return _article;
         }
 
@@ -492,12 +535,10 @@ namespace AppFeatures
             return res;
         }
 
-
         public async Task<List<Article>> getLatestArticles()
         {
             return await _context.Articles.OrderByDescending(a => a.lastModified).Take(3).ToListAsync();
         }
-
 
         public async Task<List<Article>> findArticles(string key)
         {
@@ -505,6 +546,142 @@ namespace AppFeatures
             return res;
         }
 
+        public async Task<List<Article>> getAllArticles()
+        {
+            var res = await _context.Articles.ToListAsync();
+            return res;
+        }
+
+        public async Task<Boolean> addArticle(Article ar)
+        {
+            try
+            {
+              
+
+                await _context.AddAsync(ar);
+                await _context.SaveChangesAsync();
+
+                return true;
+
+
+
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
+        }
+
+        public async Task<Boolean> removeArticle(int id)
+        {
+            try
+            {
+                Article a = await _context.Articles.FindAsync(id);
+                _context.Articles.Remove(a);
+               await _context.SaveChangesAsync();
+                return true;
+            }catch(Exception e)
+            {
+                return false;
+            }
+        }
+
+        public async Task<Article> updateArticle(Article ar)
+        {
+            var res = await _context.Articles.FirstAsync(a=>a.ArticleId == ar.ArticleId);
+            res.Title = ar.Title;
+            res.content = ar.content;
+            res.category = ar.category;
+            res.lastModified = ar.lastModified;
+            res.creator_agentId = ar.creator_agentId;
+
+            await _context.SaveChangesAsync();
+            return res;
+        }
+
+
+
+
+
+        //********** NOTIFICATION SYSTEM
+
+
+        public async Task sendClientNotification(string toAdress, string ticket, DateTime replydate)
+        {
+            MimeMessage message = new MimeMessage();
+
+            MailboxAddress from = new MailboxAddress("NSTgroup",
+            "ntsgrouptunisie@gmail.com");
+            message.From.Add(from);
+
+            MailboxAddress to = new MailboxAddress(toAdress);
+            message.To.Add(to);
+
+            message.Subject = "ticket notification";
+
+            BodyBuilder bodyBuilder = new BodyBuilder();
+            bodyBuilder.HtmlBody = "<h2>Hello " + toAdress + " your ticket :" + ticket + "has a new reply on :" + replydate + "</h2>";
+
+            bodyBuilder.TextBody = "Hello " + toAdress + "your ticket : " + ticket + "has a new reply";
+
+            message.Body = bodyBuilder.ToMessageBody();
+
+            using var smtp = new SmtpClient();
+            smtp.Connect("smtp.gmail.com", 587, SecureSocketOptions.StartTls);
+            smtp.Authenticate("ntsgrouptunisie@gmail.com", "26 288 297");
+            await smtp.SendAsync(message);
+            smtp.Disconnect(true);
+
+
+
+
+
+
+        }
+
+        public async Task sendClientPasswordNotification(string toAdress, string newPass)
+        {
+            MimeMessage message = new MimeMessage();
+
+            MailboxAddress from = new MailboxAddress("NSTgroup",
+            "ntsgrouptunisie@gmail.com");
+            message.From.Add(from);
+
+            MailboxAddress to = new MailboxAddress(toAdress);
+            message.To.Add(to);
+
+            message.Subject = "ticket notification";
+
+            BodyBuilder bodyBuilder = new BodyBuilder();
+            bodyBuilder.HtmlBody = "Hello " + toAdress + "your new password is: " + newPass + "";
+
+            bodyBuilder.TextBody = "Hello " + toAdress + "your new password is: " + newPass + "";
+
+            message.Body = bodyBuilder.ToMessageBody();
+
+            using var smtp = new SmtpClient();
+            smtp.Connect("smtp.gmail.com", 587, SecureSocketOptions.StartTls);
+            smtp.Authenticate("ntsgrouptunisie@gmail.com", "26 288 297");
+            await smtp.SendAsync(message);
+            smtp.Disconnect(true);
+        }
+
+
+
+        public void createNotificationAssignTicket(Notification noti)
+        {
+            _context.Add(noti);
+            _context.SaveChanges();
+
+        }
+
+        public List<Notification> getUserNotification(int idUser)
+        {
+            DateTime now = DateTime.Now;
+            var res = _context.Notifications.Where(n => n.notificationDate < now && n.reciverNotification == idUser).OrderByDescending(n => n.notificationDate).ToList();
+            return res;
+        }
 
 
     }

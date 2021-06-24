@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace HelpDesk.Controllers
@@ -40,5 +41,77 @@ namespace HelpDesk.Controllers
             ViewBag.ListArticles = res;
             return View();
         }
+
+        [HttpGet]
+        public IActionResult addArticle()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult addArticle(Article ar)
+        {
+            int id = _AppFunctions.GetUserByEmail(User.FindFirstValue(ClaimTypes.Name)).Result.Id;
+            ar.creator_agentId = id;
+            ar.creationDate = DateTime.Now;
+            ar.lastModified = DateTime.Now;
+            if (_AppFunctions.addArticle(ar).Result)
+            {
+
+                return RedirectToAction("listArticles");
+            }
+            return View();
+        }
+
+        public IActionResult listArticles()
+        {
+            ViewBag.Articles = _AppFunctions.getAllArticles().Result;
+            return View();
+        }
+
+        public IActionResult infoArticle(int idArticle)
+        {
+            var article = _AppFunctions.getArticleInfo(idArticle).Result;
+      
+            return PartialView("infoArticle", article);
+        }
+
+
+        public IActionResult deleteArticle(int articleId)
+        {
+
+            var res = _AppFunctions.getArticleInfo(articleId).Result;
+            return PartialView("deleteArticle",res);
+        }
+
+        public IActionResult delete()
+        {
+            int idArticle = Int16.Parse(Request.Form["ArticleId"]);
+            if (_AppFunctions.removeArticle(idArticle).Result)
+            {
+                return RedirectToAction("listArticles", "KnowledgeBase");
+            }
+            return RedirectToAction("listArticles", "KnowledgeBase");
+        }
+
+        [HttpGet]
+        public IActionResult updateArticle(int Id)
+        {
+            Article a = _AppFunctions.getArticleInfo(Id).Result;
+            
+            return PartialView("updateArticle",a);
+        }
+
+        [HttpPost]
+        public IActionResult updateArticle(Article a)
+        {
+            int id = _AppFunctions.GetUserByEmail(User.FindFirstValue(ClaimTypes.Name)).Result.Id;
+            a.creator_agentId = id;
+            a.lastModified = DateTime.Now;
+            _AppFunctions.updateArticle(a);
+                 return PartialView("updateArticle", a);
+        }
+
+
     }
 }

@@ -16,9 +16,11 @@ namespace ticketing.ViewComponents
         {
 
             User res =  new AppFunctions().GetUserByEmail(mail).Result;
- 
+
+            var res2 = new AppFunctions().getUserNotification(res.Id);
                 ViewBag.userLoged = res.FirstName + " " + res.LastName;
                 ViewBag.avatar = res.ThumbUrl;
+            ViewBag.notifications = res2;
         
             return View();
         }

@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace HelpDesk.Controllers
 {
-    public class DashBoardController:Controller
+    public class DashBoardController : Controller
     {
-        private readonly DashBoardServices _dashboardService=new DashBoardServices();
+        private readonly DashBoardServices _dashboardService = new DashBoardServices();
 
         public IActionResult Index()
         {
-          //  _dashboardService.affectResults();
+            //  _dashboardService.affectResults();
             return View();
         }
 
@@ -23,16 +23,26 @@ namespace HelpDesk.Controllers
         {
 
 
-
-         //   ViewBag.Data = "Value,Value1,Value2,Value3"; //list of strings that you need to show on the chart. as mentioned in the example from c-sharpcorner
-           // ViewBag.ObjectName = "Test,Test1,Test2,Test3";
-
+            //   ViewBag.Data = "Value,Value1,Value2,Value3"; //list of strings that you need to show on the chart. as mentioned in the example from c-sharpcorner
+            // ViewBag.ObjectName = "Test,Test1,Test2,Test3";
 
 
 
-           DashBoardModel res= _dashboardService.affectResults();
+
+
+            DashBoardModel res = _dashboardService.affectResults();
+            foreach (var item in res.evolutionOfTicketsNbByMonths)
+            {
+                System.Diagnostics.Debug.Write(item.X + " "+item.Y);
+                System.Diagnostics.Debug.WriteLine("");
+               
+
+
+
+
+            }
              return View(res);
-           // return Ok(this._dashboardService.affectResults());
+            // return Ok(this._dashboardService.affectResults());
         }
 
 

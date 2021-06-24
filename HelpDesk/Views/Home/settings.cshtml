@@ -9,7 +9,7 @@
 <header class="dx-header dx-box-1">
     <div class="container">
         <div class="bg-image bg-image-parallax">
-            <img src="/Content/images/bg-header-4.png" class="jarallax-img" alt="">
+            <img src="/Content/images/header new.png" class="jarallax-img" alt="">
             <div style="background-color: rgba(27, 27, 27, .8);"></div>
         </div>
 
@@ -21,7 +21,7 @@
 
 
 
-<div class="dx-box-decorated" style="display: grid  ; justify-content: center;">
+<div class="dx-box-decorated" style="display: flex;justify-content: center; flex-direction:column; margin:0% 15%;">
 
 
     <span class="dx-alert-danger">@ViewBag.erreurChanging</span>
@@ -93,9 +93,9 @@
                         </div>
 
 
-                        <div class="dx-box-content">
-                            <a  asp-action="Index" asp-controller="Home" class="btn btn-outline-danger btn-sm mr-10">Cancel</a>
-                            <button type="submit" class="btn btn-success btn-sm ml-30">Save Changes</button>
+                        <div class="dx-box-content" style="justify-content: space-between;display: flex;">
+                            <a asp-action="Index" asp-controller="Home" class="btn btn-outline-danger btn-sm mr-10"><i class="far fa-times-circle"></i>&nbsp;Cancel</a>
+                            <button type="submit" class="btn btn-success btn-sm ml-30"><i class="far fa-save"></i>&nbsp;Save Changes</button>
 
 
                         </div>
@@ -138,10 +138,10 @@
 
                         </div>
 
-                        <div class="dx-box-content">
+                        <div class="dx-box-content" style="justify-content: space-between;display: flex;">
 
-                            <button type="reset" class="btn btn-outline-danger btn-sm mr-10">Cancel</button>
-                            <button type="submit" class="btn btn-success btn-sm ml-30">Save Changes</button>
+                            <button type="reset" class="btn btn-outline-danger btn-sm mr-10"><i class="far fa-times-circle"></i>&nbsp;Cancel</button>
+                            <button type="submit" class="btn btn-success btn-sm ml-30"><i class="far fa-save"></i>&nbsp; Changes</button>
 
 
 

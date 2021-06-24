@@ -1,0 +1,83 @@
+﻿
+
+
+<style>
+    .someImg {
+        height: 22vmin;
+        margin-left: -30%;
+    }
+
+    .profile {
+        display: inline-block;
+        width: 22vmin;
+        height: 22vmin;
+        border-radius: 50%;
+        overflow: hidden;
+        position: absolute;
+        left: -16vmin;
+        top: -1vmin;
+        border: 1vmin solid #fff;
+    }
+
+    .message {
+        background: #ffe271;
+        padding: 2vmin 5vmin 2vmin 2vmin;
+        border-radius: 0px 50px 50px 0px;
+        font-size: 3vmin;
+        text-align: left;
+    }
+
+    .user {
+        text-align: left;
+        padding: 2px 30px 5px 10px;
+        border-radius: 0px 0px 20px;
+        font-size: 3.2vmin;
+        background: #fff;
+        color: #83aebd;
+        display: inline-block;
+        float: left;
+        font-weight: 600;
+        font-style: normal;
+    }
+
+
+
+
+
+</style>
+
+
+
+@if (ViewBag.notifications != null)
+{
+     @foreach (var item in ViewBag.notifications)
+        {
+<a class="dropdown-item waves-effect waves-light" href="#">
+
+
+
+    <div style="width:min-content;">
+        
+        <div class="message">
+            @item.notificationContent
+        </div>
+
+        <div class="user">
+
+            @item.notificationDate
+
+        </div>
+    </div>
+
+</a>
+
+        }
+  
+  
+}
+else
+{
+    <a class="dropdown-item waves-effect waves-light" href="#">No notifications</a>
+    <a class="dropdown-item waves-effect waves-light" href="#">No notifications</a>
+    <a class="dropdown-item waves-effect waves-light" href="#">No notifications</a>
+}

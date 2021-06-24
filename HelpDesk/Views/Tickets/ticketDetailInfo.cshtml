@@ -24,23 +24,25 @@
 
     })
 
- 
+
 
 </script>
 
- 
+
 <div class="modal fade " id="ticketInfo">
     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
         <div class="modal-content">
-            @if (Model.ticketStatut==Entities.Entities.Ticket.TicketStatus.Distributed) {
-            <div class="modal-header">
+            @if (Model.ticketStatut == Entities.Entities.Ticket.TicketStatus.Distributed)
+            {
+                <div class="modal-header">
 
-                <a href="#" data-dismiss="modal" data-toggle="assignTicket" data-target="#assignTicket"
-                   data-url="@Url.Action("assignTicket", "Agent", new { ticketId = Model.ticketId })" >
-                assign Ticket</a>
+                    <a href="#" data-dismiss="modal" data-toggle="assignTicket" data-target="#assignTicket"
+                       data-url="@Url.Action("assignTicket", "Agent", new { ticketId = Model.ticketId })">
+                        assign Ticket
+                    </a>
 
 
-            </div>
+                </div>
             }
             <div class="modal-body">
 
@@ -64,14 +66,14 @@
                                         <div class="dx-comment-cont">
                                             <div class="dx-comment-img">
 
-                                               @* <div class="dx-gallery">
-                                                    <a href=@Url.Content(Model.creator_user.ThumbUrl) data-fancybox="images" class="dx-gallery-item">
-                                                        <span class="dx-gallery-item-overlay"><span class="icon pe-7s-exapnd2"></span></span>
-                                                        <img src=@Url.Content(Model.creator_user.ThumbUrl) class="dx-img" alt="">
-                                                    </a>
-                                                </div>*@
-                                                                                                <img src=@Url.Content(Model.creator_user.ThumbUrl) alt="imge client" />
-                                                
+                                                @* <div class="dx-gallery">
+                                                        <a href=@Url.Content(Model.creator_user.ThumbUrl) data-fancybox="images" class="dx-gallery-item">
+                                                            <span class="dx-gallery-item-overlay"><span class="icon pe-7s-exapnd2"></span></span>
+                                                            <img src=@Url.Content(Model.creator_user.ThumbUrl) class="dx-img" alt="">
+                                                        </a>
+                                                    </div>*@
+                                                <img src=@Url.Content(Model.creator_user.ThumbUrl) alt="imge client" />
+
                                             </div>
                                             <div style="width: 100%;margin: 10px 10px;">
                                                 <h2 class="h4 mnt-5 mb-9 dx-ticket-title"> @Model.creator_user.FirstName @Model.creator_user.LastName</h2>
@@ -108,11 +110,11 @@
                                 </div>
                                 <div id="div-img-product">
 
-@*
-                                    <a href=@Url.Content(Model.relatedProduct.imgUrl) data-fancybox="images" class="dx-gallery-item">
-                                        <span class="dx-gallery-item-overlay"><span class="icon pe-7s-exapnd2"></span></span>
-                                        <img src=@Url.Content(Model.relatedProduct.imgUrl) class="dx-img" alt="">
-                                    </a>*@
+                                    @*
+                                        <a href=@Url.Content(Model.relatedProduct.imgUrl) data-fancybox="images" class="dx-gallery-item">
+                                            <span class="dx-gallery-item-overlay"><span class="icon pe-7s-exapnd2"></span></span>
+                                            <img src=@Url.Content(Model.relatedProduct.imgUrl) class="dx-img" alt="">
+                                        </a>*@
 
                                     <img src=@Url.Content(Model.relatedProduct.imgUrl) alt="some imges" />
 
