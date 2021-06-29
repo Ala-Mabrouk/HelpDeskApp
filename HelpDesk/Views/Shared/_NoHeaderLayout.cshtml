@@ -337,7 +337,7 @@
                                     </a>
                                 </div>
                                 <div class="dx-widget-text">
-                                    <p class="mb-0">&copy; 2019 <span class="dib">@localizer["rights"]</span> </p>
+                                    <p class="mb-0">&copy; 2021 <span class="dib">@localizer["rights"]</span> </p>
                                 </div>
                                 <div class="dx-widget-text">
                                     <ul class="dx-social-links mnt-3">
@@ -360,10 +360,16 @@
                                 <ul class="dx-widget-list">
                                     <li><a asp-action="HelpCenter" asp-controller="Home">@localizer["Support"]</a></li>
                                     <li>
-                                        <a asp-action="Log_in">@localizer["Log_In"]</a>
+                                        <a asp-action="Log_in">
+                                            Log in
+                                      @*  @localizer["Log_In"]*@
+                                        </a>
                                     </li>
                                     <li>
-                                        <a asp-action="Sign_Up">@localizer["Sign_Up"]</a>
+                                        <a asp-action="Sign_Up">
+                                            Sign up
+                                        @*@localizer["Sign_Up"]*@
+                                        </a>
                                     </li>
                                 </ul>
                             </div>

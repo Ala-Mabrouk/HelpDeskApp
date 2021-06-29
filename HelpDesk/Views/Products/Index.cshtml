@@ -83,14 +83,19 @@
 
 <div class="card mb-4">
     <div class="card-header">
-        
-    <div  style="justify-content: space-between; display: flex; margin-right: 25px; align-items:center; ">
-        <div>
-            <i class="fas fa-table mr-1"></i>
-            @localizer["Product_table"]
-        </div>
+ 
+
+        <div style="justify-content: space-between; display: flex; margin-right: 25px; align-items:center; ">
+            <div>
+                <span onclick="history.back(-1)" style="cursor:pointer;"><i class="fas fa-long-arrow-alt-left"></i>&nbsp;&nbsp;</span>
+
+                <i class="fas fa-table mr-1"></i>
+                @localizer["Product_table"]
+            </div>
             <a href="#" data-toggle="addProduct" data-target="#addProduct" data-url="@Url.Action("Create")"
-               class="btn btn-primary"><i class="fas fa-plus"></i>&nbsp; @localizer["Add_Product"]</a>
+               class="btn btn-primary">
+                <i class="fas fa-plus"></i>&nbsp; @localizer["Add_Product"]
+            </a>
         </div>
 
     </div>

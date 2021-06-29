@@ -115,7 +115,7 @@ namespace AppFeatures
 
 
                     e.Password = BCrypt.Net.BCrypt.HashPassword(pass);
-                    _context.SaveChanges();
+                    await _context.SaveChangesAsync();
 
                     await sendClientPasswordNotification(emailAdress, pass);
 
@@ -501,7 +501,7 @@ namespace AppFeatures
 
         public async Task<Article> getArticleInfo(int idArticle)
         {
-            Article _article = await _context.Articles.Include(a=>a.creator_agent).FirstOrDefaultAsync(a => a.ArticleId == idArticle);
+            Article _article = await _context.Articles.Include(a => a.creator_agent).FirstOrDefaultAsync(a => a.ArticleId == idArticle);
             return _article;
         }
 
@@ -556,7 +556,7 @@ namespace AppFeatures
         {
             try
             {
-              
+
 
                 await _context.AddAsync(ar);
                 await _context.SaveChangesAsync();
@@ -579,9 +579,10 @@ namespace AppFeatures
             {
                 Article a = await _context.Articles.FindAsync(id);
                 _context.Articles.Remove(a);
-               await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
                 return true;
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
                 return false;
             }
@@ -589,7 +590,7 @@ namespace AppFeatures
 
         public async Task<Article> updateArticle(Article ar)
         {
-            var res = await _context.Articles.FirstAsync(a=>a.ArticleId == ar.ArticleId);
+            var res = await _context.Articles.FirstAsync(a => a.ArticleId == ar.ArticleId);
             res.Title = ar.Title;
             res.content = ar.content;
             res.category = ar.category;
@@ -607,7 +608,7 @@ namespace AppFeatures
         //********** NOTIFICATION SYSTEM
 
 
-        public async Task sendClientNotification(string toAdress, string ticket, DateTime replydate)
+        public async Task sendClientNotification(string toAdress, string ticket, int ticketid, DateTime replydate)
         {
             MimeMessage message = new MimeMessage();
 
@@ -618,12 +619,15 @@ namespace AppFeatures
             MailboxAddress to = new MailboxAddress(toAdress);
             message.To.Add(to);
 
-            message.Subject = "ticket notification";
+            message.Subject = "ticket " + ticketid + " notification";
+
+            string prepareLink = "https://localhost:44330/Tickets/singleTicketInfo?ticketid= " + ticketid;
 
             BodyBuilder bodyBuilder = new BodyBuilder();
-            bodyBuilder.HtmlBody = "<h2>Hello " + toAdress + " your ticket :" + ticket + "has a new reply on :" + replydate + "</h2>";
+            bodyBuilder.HtmlBody = "<p>Hello " + toAdress + " your ticket: <b>" + ticket + "</b> has a new reply on :" + replydate
+                + "</p>" + "</br><a href='" + prepareLink + "' >Consult Ticket</a>";
 
-            bodyBuilder.TextBody = "Hello " + toAdress + "your ticket : " + ticket + "has a new reply";
+            bodyBuilder.TextBody = "Hello " + toAdress + "your ticket :<b> " + ticket + " has a new reply";
 
             message.Body = bodyBuilder.ToMessageBody();
 
@@ -633,6 +637,15 @@ namespace AppFeatures
             await smtp.SendAsync(message);
             smtp.Disconnect(true);
 
+            Notification a = new Notification();
+
+            //getting the reciver id
+
+            a.reciverNotification = GetUserByEmail(toAdress).Result.Id;
+            a.notificationContent = "ticket: " + ticket + " has new reply";
+            a.notificationDate = DateTime.Now;
+            _context.Add(a);
+            _context.SaveChanges();
 
 
 
@@ -651,12 +664,12 @@ namespace AppFeatures
             MailboxAddress to = new MailboxAddress(toAdress);
             message.To.Add(to);
 
-            message.Subject = "ticket notification";
+            message.Subject = "Reset Password";
 
             BodyBuilder bodyBuilder = new BodyBuilder();
-            bodyBuilder.HtmlBody = "Hello " + toAdress + "your new password is: " + newPass + "";
+            bodyBuilder.HtmlBody = "Hello " + toAdress + " your new password is: " + newPass;
 
-            bodyBuilder.TextBody = "Hello " + toAdress + "your new password is: " + newPass + "";
+            bodyBuilder.TextBody = "Hello " + toAdress + " your new password is: " + newPass;
 
             message.Body = bodyBuilder.ToMessageBody();
 
@@ -684,5 +697,63 @@ namespace AppFeatures
         }
 
 
+
+
+
+
+
+        //chat 
+
+        public Boolean saveCnxId(string cnxId, string userId)
+        {
+            try
+            {
+                var i = GetUserByEmail(userId).Result.Id;
+                cnxEntity a = new cnxEntity(i, cnxId);
+                var p = _context.cnxEntities.Where(a => a.idUser == i).FirstOrDefault();
+                if (p != null)
+                {
+                    _context.Remove(p);
+                    _context.SaveChanges();
+
+                }
+                _context.cnxEntities.Add(a);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
+
+        }
+
+        public async Task<string> getCnxId(int user)
+        {
+            var res = await _context.cnxEntities.Where(a => a.idUser == user).FirstOrDefaultAsync();
+            return res.cnxId;
+        }
+
+        public async Task<Boolean> saveMessage(int sender, int reciver, string message, DateTime msgDate)
+        {
+            try
+            {
+                Message m = new Message(sender, reciver, message, msgDate);
+                await _context.AddAsync(m);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+        public async Task<List<Message>> getCoversation(int pers1, int pers2)
+        {
+            var res = await _context.messages.Where(m => (m.reciverId == pers1 || m.reciverId == pers2) && (m.senderId == pers1 || m.senderId == pers2)).ToListAsync();
+            return res;
+        }
     }
 }

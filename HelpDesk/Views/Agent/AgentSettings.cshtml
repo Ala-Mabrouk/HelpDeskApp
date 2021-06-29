@@ -75,9 +75,9 @@
                             </div>
 
 
-                            <div class="dx-box-content">
-                                <a asp-action="Index" asp-controller="Home" class="btn btn-outline-danger btn-sm mr-10">Cancel</a>
-                                <button type="submit" class="btn btn-success btn-sm ml-30">Save Changes</button>
+                            <div class="dx-box-content" style="justify-content: space-between;display: flex;">
+                                <a asp-action="Index" asp-controller="Home" class="btn btn-outline-danger btn-sm mr-10"><i class="far fa-times-circle"></i>&nbsp;Cancel</a>
+                                <button type="submit" class="btn btn-success btn-sm ml-30"><i class="far fa-save"></i>&nbsp;Save Changes</button>
 
 
                             </div>
@@ -102,28 +102,28 @@
 
 
                             <div class="dx-form-group">
-                                <label class="mnt-7">old password</label>
+                                <label class="mnt-7">Old password</label>
 
                                 <input type="password" name="oldPass" class="form-control form-control-style-2" id="old-pass">
                             </div>
 
                             <div class="dx-form-group">
-                                <label asp-for="Password" class="mnt-7">new password</label>
+                                <label asp-for="Password" class="mnt-7">New password</label>
 
                                 <input type="password" name="newPass" class="form-control form-control-style-2" id="new-pass">
                             </div>
 
                             <div class="dx-form-group">
-                                <label asp-for="Password" class="mnt-7">confirm password</label>
+                                <label asp-for="Password" class="mnt-7">Confirm password</label>
 
                                 <input type="password" name="confirmPass" class="form-control form-control-style-2" id="confirm-pass">
 
                             </div>
 
-                            <div class="dx-box-content">
+                            <div class="dx-box-content" style="justify-content: space-between;display: flex;">
 
-                                <button type="reset" class="btn btn-outline-danger btn-sm mr-10">Cancel</button>
-                                <button type="submit" class="btn btn-success btn-sm ml-30">Save Changes</button>
+                                <button type="reset" class="btn btn-outline-danger btn-sm mr-10"><i class="far fa-times-circle"></i>&nbsp;Cancel</button>
+                                <button type="submit" class="btn btn-success btn-sm ml-30"><i class="far fa-save"></i>&nbsp;Save Changes</button>
 
 
 

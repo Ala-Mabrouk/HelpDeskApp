@@ -249,3 +249,8 @@ C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Vie
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\KnowledgeBase\deleteArticle.cshtml.g.cs
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\KnowledgeBase\updateArticle.cshtml.g.cs
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\KnowledgeBase\infoArticle.cshtml.g.cs
+C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\bin\Debug\net5.0\libman.json
+C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\bin\Debug\net5.0\Microsoft.AspNet.SignalR.Client.dll
+C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\bin\Debug\net5.0\System.Net.WebSockets.WebSocketProtocol.dll
+C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\chat\Index.cshtml.g.cs
+C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Products\buyProduct.cshtml.g.cs

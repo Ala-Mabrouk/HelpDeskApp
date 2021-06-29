@@ -26,6 +26,16 @@
                             <!-- END: Breadcrumbs -->
 
                         </div>
+
+
+
+
+
+
+
+
+
+                        <!--***************************************************************************-->
                         <div class="dx-separator"></div>
                         <div class="dx-blog-post-box">
                             <div class="row vertical-gap lg-gap">
@@ -33,14 +43,14 @@
                                 {
 
 
-                                <div class="col-sm-6">
+                                    <div class="col-sm-6">
 
-                                    <div class="dx-article dx-article-list">
-                                        <h3 class="h6 dx-article-title">@item</h3>
-                                       @await Component.InvokeAsync("ExampleArticles", item)
+                                        <div class="dx-article dx-article-list">
+                                            <h3 class="h6 dx-article-title">@item</h3>
+                                            @await Component.InvokeAsync("ExampleArticles", item)
+                                        </div>
+
                                     </div>
-
-                                </div>
                                 }
                             </div>
                         </div>
@@ -63,26 +73,19 @@
 
                     <div class="dx-widget dx-box dx-box-decorated">
                         <div class="dx-widget-title">Articles Categories</div>
-                       @await Component.InvokeAsync("ArticlesCategories")
+                        @await Component.InvokeAsync("ArticlesCategories")
                     </div>
 
 
-                    <div class="dx-widget dx-box dx-box-decorated">
-                        <div class="dx-widget-title">
-                            Latest Articles
-                        </div>
-                        <a href="single-article.html" class="dx-widget-link">
-                            <span class="dx-widget-link-text">How to manually import Demo data (if you faced with problems in one-click demo import)</span>
-                            <span class="dx-widget-link-date">6 Sep 2018</span>
-                        </a>
-                  
-                    </div>
 
 
-                   
+
+
 
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+ 

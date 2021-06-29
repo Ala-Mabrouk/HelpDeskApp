@@ -52,10 +52,13 @@
 
 <div class="card mb-4">
     <div class="card-header">
-        <i class="fas fa-table mr-1"></i>
-        Tickets table
+ 
+     
+            <span onclick="history.back(-1)" style="cursor:pointer;"><i class="fas fa-arrow-left"></i>&nbsp;&nbsp;</span>
 
-        <a></a>
+            <i class="fas fa-table mr-1"></i>
+            Tickets table
+   
 
     </div>
     <div class="card-body">
@@ -87,7 +90,7 @@
                     <tr>
                         <td>
                             <a href="#" data-toggle="ticketDetailInfo" data-target="#ticketDetailInfo" data-url="@Url.Action("ticketDetailInfo","Tickets",new { idTicket = ticket.ticketId })">
-                               # @ticket.ticketId
+                                # @ticket.ticketId
                             </a>
                         </td>
                         <td> @ticket.ticketTitle </td>
@@ -98,13 +101,13 @@
 
                         <td>
                             @* <a href="#" data-toggle="ticketInfo" data-target="#ticketInfo" data-url="@Url.Action("ticketInfo","Tickets",new { idTicket = ticket.ticketId })">showinfo</a> |
-                            *@                       
+                            *@
                             <a href="#" data-toggle="ticketDetailInfo" data-target="#ticketDetailInfo" data-url="@Url.Action("ticketDetailInfo","Tickets",new { idTicket = ticket.ticketId })">Details</a>
-                          
-                            
-                            @if(ticket.ticketStatut.ToString().Equals("Distributed"))
+
+
+                            @if (ticket.ticketStatut.ToString().Equals("Distributed"))
                             {
-                               <span>|</span> <a asp-action="getTicket" asp-controller="Agent" asp-route-IdTicket=@ticket.ticketId>Get ticket</a>
+                                <span>|</span> <a asp-action="getTicket" asp-controller="Agent" asp-route-IdTicket=@ticket.ticketId>Get ticket</a>
                             }
 
                         </td>

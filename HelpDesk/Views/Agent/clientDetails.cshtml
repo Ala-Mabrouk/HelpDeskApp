@@ -61,7 +61,7 @@
 <div class="row justify-content-center">
     <div class="container pl-0 pr-0">
         <div class="dx-box dx-box-decorated">
-            <div class="dx-blog-post dx-ticket ">
+            <div class="dx-blog-post dx-ticket " style=" display: flex;  justify-content: space-around;">
 
 
                 <div class="dx-blog-post-box  p-20 pb-10">
@@ -86,15 +86,17 @@
                         </div>
                     </div>
 
-                    <div>
+                    <div style="display: flex; justify-content: space-around; margin-top: 15px;">
                         <a href="#" id="afectProduct" data-toggle="productsList" data-target="#productsList"
-                           data-url="@Url.Action("afectProduct",new { clientMail = @ViewBag.clientDetails.Email})">
-                            affectProduct
+                           data-url="@Url.Action("afectProduct",new { clientMail = @ViewBag.clientDetails.Email})"
+                           class="btn btn-outline-info">
+                            Affect product
                         </a>
 
                         <a href="#"
                            data-toggle="addTicket_Backoffice" data-target="#addTicket_Backoffice"
-                           data-url="@Url.Action("addTicket_Backoffice","Tickets",new { ClientMail = @ViewBag.clientDetails.Email})">
+                           data-url="@Url.Action("addTicket_Backoffice","Tickets",new { ClientMail = @ViewBag.clientDetails.Email})"
+                           class="btn btn-outline-info">
                             Add ticket to Client
                         </a>
                     </div>
@@ -102,6 +104,7 @@
 
 
                 </div>
+                <div></div>
 
             </div>
 

@@ -9,7 +9,9 @@
         <div class="row">
             <div class="col-12 col-md-8 col-lg-6 col-xl-5">
                 <h1 class="display-3 text-white">NST-Desk</h1>
-                <p class="lead text-1">nst groupe is a tecsfjkhgksjkhsjkhgs</p>
+                <p class="lead text-1">
+                    NST-desk is a web application that enables our clients to obtain their preferred products while receiving an after-sales services.
+                    Because the client is our main priority at NST-desk, we offer an after-sales service in which a team of qualified agents is available to address your concerns.
                 <a asp-action="ProductDisplay" asp-controller="Products" class="dx-btn dx-btn-lg mt-10">View Products</a>
             </div>
         </div>
@@ -30,7 +32,7 @@
                         <span class="icon pe-7s-diamond"></span>
                     </div>
                     <div class="dx-feature-cont">
-                        <div class="dx-feature-title">7700 +</div>
+                        <div class="dx-feature-title">770 +</div>
                         <div class="dx-feature-text">Happy Customers</div>
                     </div>
                 </div>
@@ -50,10 +52,11 @@
             </div>
             <div class="col-lg-6">
                 <h2>Who we are</h2>
-                <p class="mb-0">Nous aimons notre travail et cela se voit.
-                Une équipe jeune motivée formée principalement par des ingénieurs informatique ,
-                nous connaissons ce milieu comme notre poche.
-                Nous sommes prêts à relever tous les défis et nous nous impliquons à 100 % dans tous les projets que nous entreprenons.</p>
+                <p class="mb-0">
+                    We love our work and it shows. A motivated young team formed mainly by computer engineers,
+                    we know this environment like the back of our hand.
+                    We are ready to take on any challenge and we are 100% involved in all the projects we undertake.
+                </p>
             </div>
         </div>
     </div>
@@ -122,25 +125,25 @@
             {
 
 
-            <div class="col-12 col-md-6 col-lg-4">
+                <div class="col-12 col-md-6 col-lg-4">
 
-                <div class="dx-portfolio-item dx-block-decorated">
-                    <div class="dx-portfolio-item-image">
-                        <div class="dx-portfolio-item-overlay" style="background-color: rgba(27, 27, 27, .8);">
-                            <a href="#" class="dx-btn dx-btn-md dx-btn-transparent-style-2 m-10">Live Demo</a>
-                            <a href="#" class="dx-btn dx-btn-md dx-btn-transparent-style-2 m-10">Buy Now</a>
+                    <div class="dx-portfolio-item dx-block-decorated">
+                        <div class="dx-portfolio-item-image">
+                            <div class="dx-portfolio-item-overlay" style="background-color: rgba(27, 27, 27, .8);">
+                                <a href="#" class="dx-btn dx-btn-md dx-btn-transparent-style-2 m-10">Live Demo</a>
+                                <a href="#" class="dx-btn dx-btn-md dx-btn-transparent-style-2 m-10">Buy Now</a>
+                            </div>
+                            <img src=@Url.Content(item.imgUrl) alt="Product Img">
                         </div>
-                        <img src=@Url.Content(item.imgUrl) alt="Product Img">
+                        <a asp-action="ProductDetail" asp-controller="Products" asp-route-refId=@item.refId class="dx-portfolio-item-info">
+                            <span class="dx-portfolio-item-title">@item.name</span>
+
+                            <span class="dx-portfolio-item-price">$@item.price</span>
+
+                        </a>
                     </div>
-                    <a asp-action="ProductDetail" asp-controller="Products" asp-route-refId=@item.refId  class="dx-portfolio-item-info">
-                        <span class="dx-portfolio-item-title">@item.name</span>
 
-                        <span class="dx-portfolio-item-price">$@item.price</span>
-
-                    </a>
                 </div>
-
-            </div>
 
             }
         </div>
@@ -157,19 +160,19 @@
     </div>
 </div>
 <div class="row no-gutters">
-   @* <div class="col-lg-6 bg-dark-1">
-        <div class="row justify-content-center">
-            <div class="col-12 col-lg-10">
-                <div class="container">
-                    <div class="dx-box-1">
-                        <h2 class="text-white">Latest Products</h2>
-                        <p class="text-2">Join the newsletter to receive news, updates, new products and freebies in your inbox.</p>
-                        <a data-fancybox data-touch="false" data-src="#subscribe" href="javascript:;" class="dx-btn dx-btn-lg dx-btn-transparent">Subscribe</a>
+    @* <div class="col-lg-6 bg-dark-1">
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-10">
+                    <div class="container">
+                        <div class="dx-box-1">
+                            <h2 class="text-white">Latest Products</h2>
+                            <p class="text-2">Join the newsletter to receive news, updates, new products and freebies in your inbox.</p>
+                            <a data-fancybox data-touch="false" data-src="#subscribe" href="javascript:;" class="dx-btn dx-btn-lg dx-btn-transparent">Subscribe</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>*@
+        </div>*@
     <div class="col-lg-12 bg-main-1">
         <div class="row justify-content-center">
             <div class="col-12 col-lg-10">

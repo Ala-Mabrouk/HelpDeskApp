@@ -88,6 +88,11 @@ namespace Entity_DAL.DAL
         public DbSet<Article> Articles { get; set; }
 
         public DbSet<Notification> Notifications { get; set; }
+
+        public DbSet<cnxEntity> cnxEntities { get; set; }
+
+        public DbSet<Message> messages { get; set; }
+
     }
 
 }

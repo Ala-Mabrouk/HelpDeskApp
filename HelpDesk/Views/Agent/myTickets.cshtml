@@ -51,11 +51,17 @@
 <div id="placeholder"></div>
 <div class="card mb-4">
     <div class="card-header">
-        <i class="fas fa-table mr-1"></i>
-        tickets Table
+
+
+        <div>
+            <span onclick="history.back(-1)" style="cursor:pointer;"><i class="fas fa-long-arrow-alt-left"></i>&nbsp;&nbsp;</span>
+
+            <i class="fas fa-table mr-1"></i>
+            tickets Table
+        </div>
     </div>
     <div class="card-body">
-        
+
         <table class="table align-middle" id="dataTable" width="100%" cellspacing="0">
             <thead>
                 <tr class="table-info table-bordered ">
@@ -85,9 +91,9 @@
                     <tr>
                         <td>
                             <a href="#" data-toggle="ticketDetailInfo" data-target="#ticketDetailInfo" data-url="@Url.Action("ticketDetailInfo","Tickets",new { idTicket = ticket.ticketId })">
-                               # @ticket.ticketId
+                                # @ticket.ticketId
                             </a>
-                           
+
                         </td>
                         <td> @ticket.ticketTitle </td>
                         <td> @ticket.ticketStatut</td>
@@ -106,7 +112,7 @@
 
             </tbody>
         </table>
-        
+
     </div>
 </div>
 

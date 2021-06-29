@@ -192,14 +192,30 @@ namespace HelpDesk.Controllers
 
         }
 
+      [HttpGet]
+        public IActionResult buyProduct(string prodRef)
+        {
+            var res = _AppFunctions.getProductById(prodRef).Result;
+            ViewBag.product = res;
+
+            if (res == null)
+            {
+                return RedirectToAction("Erreur404", "Home");
+            }
+
+            return PartialView("buyProduct");
+        }
+
+
+
 
         [Authorize]
-        public ActionResult buyProduct(string prodRef)
+        public ActionResult buyTheProduct(string pRef)
         {
-            /* string res = User.FindFirstValue(ClaimTypes.Name).ToString();*/
+            
             loged= User.FindFirstValue(ClaimTypes.Name).ToString();
             System.Diagnostics.Debug.WriteLine("my loged value: " + loged);
-          if(_AppFunctions.addProductClient(prodRef, loged).Result)
+          if(_AppFunctions.addProductClient(pRef, loged).Result)
 
             return RedirectToAction("ProductDisplay", "Products");
 

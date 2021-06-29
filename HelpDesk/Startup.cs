@@ -11,6 +11,7 @@ using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+
 using System.Linq;
 
 
@@ -79,6 +80,10 @@ namespace HelpDesk
 
             //   services.AddControllersWithViews();
             services.AddControllersWithViews();
+
+            //for signalR chat
+            services.AddSignalR();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -118,6 +123,7 @@ namespace HelpDesk
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}",
                     defaults: new { controller = "Home", action = "Index" });
+                endpoints.MapHub<ChatHub>("/chatHub");
             });
         }
     }

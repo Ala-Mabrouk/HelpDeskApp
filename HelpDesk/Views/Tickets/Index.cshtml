@@ -57,12 +57,7 @@
                     <span>
                         &nbsp;&nbsp;
                     </span>
-                    @if (item.ticketStatut != Ticket.TicketStatus.Closed)
-                    {
-                        <a class="btn btn-sm btn-outline-info" asp-action="closeTicket" asp-controller="Tickets" asp-route-ticketId="@item.ticketId">
-                            close Ticket
-                        </a>
-                    }
+                
                 </span>
       
             </a>

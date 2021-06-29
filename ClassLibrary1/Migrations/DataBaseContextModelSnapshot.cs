@@ -84,6 +84,30 @@ namespace Entities.Migrations
                     b.ToTable("DefaultPermissions");
                 });
 
+            modelBuilder.Entity("Entities.Entities.Message", b =>
+                {
+                    b.Property<int>("msgID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("msgContent")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("msgDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("reciverId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("senderId")
+                        .HasColumnType("int");
+
+                    b.HasKey("msgID");
+
+                    b.ToTable("messages");
+                });
+
             modelBuilder.Entity("Entities.Entities.Notification", b =>
                 {
                     b.Property<int>("notificationID")
@@ -340,6 +364,24 @@ namespace Entities.Migrations
                     b.HasIndex("permisionId");
 
                     b.ToTable("UserPermissions");
+                });
+
+            modelBuilder.Entity("Entities.Entities.cnxEntity", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("cnxId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("idUser")
+                        .HasColumnType("int");
+
+                    b.HasKey("id");
+
+                    b.ToTable("cnxEntities");
                 });
 
             modelBuilder.Entity("Entities.Entities.Agent", b =>

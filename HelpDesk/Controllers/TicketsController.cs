@@ -356,7 +356,7 @@ namespace HelpDesk.Controllers
 
                 string to = Request.Form["destination"];
 
-                await _AppFunctions.sendClientNotification(to, res.ticket.ticketTitle, res.reply_date);
+                await _AppFunctions.sendClientNotification(to, res.ticket.ticketTitle,res.TicketId, res.reply_date);
                 return RedirectToAction(D_action, D_controller);
             }
         
