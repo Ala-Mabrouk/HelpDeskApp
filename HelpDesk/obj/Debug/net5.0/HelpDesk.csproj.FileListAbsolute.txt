@@ -254,3 +254,4 @@ C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\bin\Debug\net5.0\Microsoft
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\bin\Debug\net5.0\System.Net.WebSockets.WebSocketProtocol.dll
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\chat\Index.cshtml.g.cs
 C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\Razor\Views\Products\buyProduct.cshtml.g.cs
+C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\obj\Debug\net5.0\HelpDesk.Models.Ressources.Ressource_Card.Resource.resources

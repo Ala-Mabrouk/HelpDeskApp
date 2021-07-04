@@ -33,7 +33,7 @@ namespace Entities.Entities
         public DateTime dateValidate { get; set; } 
 
         [Display(Name = "Category", ResourceType = typeof(Ressources.Ressource_Product.Resource))]
-        public string category { get; set; }
+ //       public string category { get; set; }
         public string imgUrl { get; set; } = "~/Content/images/placeholder_0.png";
 
         [Display(Name = "price", ResourceType = typeof(Ressources.Ressource_Product.Resource))]
@@ -43,6 +43,10 @@ namespace Entities.Entities
         public DateTime addedDate { get; set; } = DateTime.Now;
         [NotMapped]
         public IFormFile ImageFile { get; set; }
+
+        public int categoryID { get; set; }
+
+        public Category productCategory { get; set; }
 
         //List Clients 
 

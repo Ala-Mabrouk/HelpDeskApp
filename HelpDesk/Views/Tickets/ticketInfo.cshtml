@@ -49,7 +49,7 @@
                                 </div>
 
                                 <div class="dx-separator mnt-1"></div>
-                                @if (@ViewBag.ticketReplies != null)
+                                @if (ViewBag.ticketReplies != null)
                                 {
                                     @foreach (var item in ViewBag.ticketReplies)
                                     {
@@ -72,6 +72,12 @@
                                                     <div class="al-comment-text">
                                                         <p>@item.content</p>
                                                     </div>
+                                                    @if (!string.IsNullOrEmpty(item.r_uploadedFile))
+                                                    {
+
+                                                        @await Component.InvokeAsync("TicketAttatchment", item.r_uploadedFile)
+                                                    }
+
                                                 </div>
                                             </div>
                                         </div>
@@ -100,17 +106,12 @@
                                             <input type="hidden" name="asp-controller" value="Agent" />
                                             <input type="hidden" name="destination" value="@ViewBag.Ticket.creator_user.Email" />
 
- 
-
-
-
                                         </div>
 
+                                        <div class="dx-form-group">
 
-                                        <div class="dx-form-group mt-10">
-
-                                            <div class="input-group mb-3">
-                                                <input type="file" asp-for="r_uploadedFile" class="custom-file-input" />
+                                            <div class="input-group mb-3 mt-3">
+                                                <input type="file" accept=".png,.jpg,.jpeg" asp-for="r_uploadedFileFile" class="custom-file-input" />
                                                 <label class="custom-file-label">Choose file</label>
                                             </div>
 

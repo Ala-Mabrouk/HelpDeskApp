@@ -1,4 +1,5 @@
 ﻿
+@model HelpDesk.Models.PaymentCard
 
 @{ Layout = "~/Views/Shared/_NoHeaderLayout.cshtml";}
 
@@ -33,6 +34,10 @@
         </div>
     </div>
 </header>
+
+
+
+
 <div class="dx-box-5 pb-100 bg-grey-6">
     <div class="container">
         <div class="row vertical-gap md-gap">
@@ -92,17 +97,33 @@
                             </li>
                         </ul>
                     </div>
+
                     <div class="tab-pane fade show active dx-tab-pane" id="card" role="tabpanel" aria-labelledby="card-tab">
                         <div class="dx-separator"></div>
-                        <form action="#" class="dx-form">
+                        <form asp-action="buyProduct" asp-controller="Products" method="post" class="dx-form">
+
+
+
+                            <input type="hidden"  value="@ViewBag.product.refId" name="productRefId" />
+
+
                             <div class="dx-box-content">
+
                                 <div class="dx-form-group">
-                                    <label for="name-card" class="mnt-7">Name on Card</label>
-                                    <input type="text" class="form-control form-control-style-2" id="name-card" placeholder="Enter Full Name">
+                                    <label asp-for="nameOnCard" class="mnt-7"></label>
+                                    <input type="text" asp-for="nameOnCard" class="form-control form-control-style-2" placeholder="Enter Full Name">
+                                    <span asp-validation-for="nameOnCard" class="text-danger"></span>
+
                                 </div>
+
                                 <div class="dx-form-group">
-                                    <label for="card-number" class="mnt-7">Card Number</label>
-                                    <input type="text" class="form-control form-control-style-2 dx-card-number" name="card-number" id="card-number" placeholder="1234 5678 9012 3456">
+                                    <label asp-for="cardNumber" class="mnt-7"></label>
+                                    <input type="text" asp-for="cardNumber" class="form-control form-control-style-2 dx-card-number " placeholder="1234 5678 9012 3456">
+                                    <span asp-validation-for="cvvNumber" class="text-danger"></span>
+
+                                    <div class="text-danger" asp-validation-summary="ModelOnly">
+
+                                    </div>
                                 </div>
                                 <div class="dx-form-group">
                                     <div class="row vertical-gap">
@@ -124,18 +145,20 @@
                                                     <option value="12">December</option>
                                                 </select>
                                                 <select class="custom-select form-control form-control-style-2 w-auto">
-                                                    <option value="1">2024</option>
-                                                    <option value="2">2023</option>
-                                                    <option value="3">2022</option>
-                                                    <option value="4">2020</option>
-                                                    <option value="5">2019</option>
-                                                    <option value="6" selected>2018</option>
+                                                    <option value="1">2026</option>
+                                                    <option value="2">2025</option>
+                                                    <option value="3">2024</option>
+                                                    <option value="4">2023</option>
+                                                    <option value="5">2022</option>
+                                                    <option value="6" selected>2021</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-sm-4">
-                                            <label for="password" class="mnt-7">CVV Number</label>
-                                            <input type="password" class="form-control form-control-style-2 dx-form-quantity-input" min="1" max="999" id="password" placeholder="XXX">
+                                            <label asp-for="cvvNumber" class="mnt-7">CVV Number</label>
+                                            <input type="text" asp-for="cvvNumber" class="form-control form-control-style-2 dx-form-quantity-input"  placeholder="XXX">
+                                            <span asp-validation-for="cvvNumber" class="text-danger"></span>
+
                                         </div>
                                     </div>
                                 </div>
@@ -143,32 +166,45 @@
                             <div class="dx-separator"></div>
                             <div class="dx-box-content">
                                 <div class="dx-form-group">
-                                    <label for="email" class="mnt-7">Email</label>
-                                    <input type="email" aria-describedby="emailHelp" class="form-control form-control-style-2" id="email" placeholder="Enter your Email">
+                                    <label asp-for="email" class="mnt-7"></label>
+                                    <input type="email" asp-for="email" aria-describedby="emailHelp" class="form-control form-control-style-2" id="email" placeholder="Enter your Email">
+                                    <span asp-validation-for="email" class="text-danger"></span>
                                 </div>
                                 <div class="dx-form-group">
-                                    <label for="first-name" class="mnt-7">First Name</label>
-                                    <input type="text" class="form-control form-control-style-2" id="first-name" placeholder="Enter your First Name">
+                                    <label asp-for="firstName" class="mnt-7"></label>
+                                    <input type="text" asp-for="firstName" class="form-control form-control-style-2" id="first-name" placeholder="Enter your First Name">
+                                    <span asp-validation-for="firstName" class="text-danger"></span>
                                 </div>
                                 <div class="dx-form-group">
-                                    <label for="last-name" class="mnt-7">Last Name</label>
-                                    <input type="text" class="form-control form-control-style-2" id="last-name" placeholder="Enter your Last Name">
+                                    <label asp-for="lastName" class="mnt-7"></label>
+                                    <input type="text" asp-for="lastName" class="form-control form-control-style-2" id="last-name" placeholder="Enter your Last Name">
+                                    <span asp-validation-for="lastName" class="text-danger"></span>
+
                                 </div>
                             </div>
                             <div class="dx-separator"></div>
                             <div class="dx-box-content">
-                                <a  class="dx-btn dx-btn-xl dx-btn-block" asp-action="buyTheProduct" asp-controller="Products" asp-route-pRef="@ViewBag.product.refId">
+                                <button type="submit" class="dx-btn dx-btn-xl dx-btn-block">
 
                                     Purchase $@ViewBag.product.price
-                                </a>
+                                </button>
                             </div>
+
                         </form>
                     </div>
                     <div class="tab-pane fade dx-tab-pane" id="paypal" role="tabpanel" aria-labelledby="paypal-tab">
                         <div class="dx-separator"></div>
                         <div class="dx-box-content">
-                            <a  class="dx-btn dx-btn-xl dx-btn-block"
-                                    asp-action="buyTheProduct" asp-controller="Products" asp-route-pRef="@ViewBag.product.refId" >
+
+ 
+
+
+
+
+
+                            <a class="dx-btn dx-btn-xl dx-btn-block"
+                         asp-action="buyTheProduct" asp-controller="Products" asp-route-pRef=@ViewBag.product.refId
+>
                                 Purchase $@ViewBag.product.price
                             </a>
                         </div>

@@ -11,7 +11,9 @@ namespace Entities.Entities
         public int ArticleId { get; set; }
         public string Title { get; set; }
         public string content { get; set; }
-        public string category { get; set; }
+        //  public string category { get; set; }
+        public int categoryId { get; set; }
+        public Category articleCategory { get; set; }
         public int creator_agentId { get; set; }
         public Agent creator_agent { get; set; }
 

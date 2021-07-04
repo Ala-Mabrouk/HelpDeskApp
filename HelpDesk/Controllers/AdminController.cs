@@ -128,8 +128,7 @@ namespace HelpDesk.Controllers
         {
             try
             {
-                //Response.BodyWriter.Writ("Some text");
-
+ 
                 string test = Request.Form["status"];
                 System.Diagnostics.Debug.WriteLine("+++++"+test);
                     if (test.Equals("true"))
@@ -147,8 +146,7 @@ namespace HelpDesk.Controllers
                     {
 
 
-                      //  return RedirectToAction("EditAgent", "Admin", new { mail = ag1.Email });
-                        return RedirectToAction("EditAgent", "Admin", new { mail = ag1.Email });
+                         return RedirectToAction("EditAgent", "Admin", new { mail = ag1.Email });
 
 
                     }

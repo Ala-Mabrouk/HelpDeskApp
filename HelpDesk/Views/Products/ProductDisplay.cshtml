@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<Entities.Entities.Product> 
 
 @{ Layout = "~/Views/Shared/_NoHeaderLayout.cshtml";}
 
@@ -53,10 +53,10 @@
 
             <div class="row vertical-gap dx-isotope-grid">
 
-                @foreach (var item in ViewBag.Products)
+                @foreach (var item in Model)
                 {
 
-                    <div class="col-12 col-md-6 col-lg-4 dx-isotope-grid-item @item.category">
+                    <div class="col-12 col-md-6 col-lg-4 dx-isotope-grid-item @item.productCategory.categoryName">
 
                         <div class="dx-portfolio-item dx-block-decorated">
                             <div class="dx-portfolio-item-image">

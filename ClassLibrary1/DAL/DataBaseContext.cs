@@ -81,6 +81,8 @@ namespace Entity_DAL.DAL
 
         public DbSet<Product> Products { get; set; }
 
+        public DbSet<Category> categories { get; set; }
+
         public DbSet<ProductClient> ProductClients { get; set; }
 
         public DbSet<A_T_Managment> A_T_Managments { get; set; }
@@ -92,6 +94,8 @@ namespace Entity_DAL.DAL
         public DbSet<cnxEntity> cnxEntities { get; set; }
 
         public DbSet<Message> messages { get; set; }
+
+
 
     }
 

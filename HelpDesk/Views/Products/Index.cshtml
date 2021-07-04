@@ -5,6 +5,7 @@
 
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer localizer
+
 @model Entities.Entities.Product
 
 @{
@@ -116,7 +117,7 @@
                     </th>
 
                     <th>
-                        @Html.DisplayNameFor(model => model.category)
+                        @Html.DisplayNameFor(model => model.productCategory.categoryName)
                     </th>
                     <th></th>
                 </tr>
@@ -136,7 +137,7 @@
                     </th>
 
                     <th>
-                        @Html.DisplayNameFor(model => model.category)
+                        @Html.DisplayNameFor(model => model.productCategory.categoryName)
                     </th>
                     <th></th>
                 </tr>
@@ -160,12 +161,11 @@
                             @item.factoryName
 
                         <td class="pt-25 pl-15">
-                            @item.category
+                            @item.productCategory.categoryName
                         </td>
                         <td class="pt-25 pl-15">
                             <a href="#" data-toggle="editProduct" data-target="#editProduct" data-url="@Url.Action("Edit",new { id = item.refId })">Edit</a> |
-                            @*<a asp-action="Edit" asp-route-id="@item.refId">Edit</a>*@
-                            <a href="#" data-toggle="smt" data-target="#smt" data-url="@Url.Action("Details",new { id = item.refId })">Details</a> |
+                             <a href="#" data-toggle="smt" data-target="#smt" data-url="@Url.Action("Details",new { id = item.refId })">Details</a> |
                             <a href="#" data-toggle="deleteProduct" data-target="#deleteProduct" data-url="@Url.Action("Delete",new { id = item.refId })">Delete</a>
                         </td>
                     </tr>

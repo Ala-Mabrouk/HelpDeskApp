@@ -10,6 +10,8 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using HelpDesk.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Text.RegularExpressions;
 
 namespace HelpDesk.Controllers
 {
@@ -32,57 +34,57 @@ namespace HelpDesk.Controllers
         }
 
 
-         
+
         [Authorize]
         public ActionResult Details(string id)
         {
-                Product p= _AppFunctions.getProductById(id).Result;
-                 ViewBag.product = p;
-            /*     return View();*/
-
-            
-            return PartialView("Details",p);
+            Product p = _AppFunctions.getProductById(id).Result;
+            return PartialView("Details", p);
         }
         [Authorize]
         [HttpGet]
         public ActionResult Create()
         {
+
+            ViewBag.categories = new SelectList(_AppFunctions.getcategories().Result, "categoryId", "categoryName");
             return PartialView("Create");
         }
 
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([FromForm]Product p1)
+        public ActionResult Create([FromForm] Product p1)
         {
             try
             {
-
-                var imgFile = p1.ImageFile;
-
-                  
-                string FileName = Path.GetFileNameWithoutExtension(imgFile.FileName);
-
-                //To Get File Extension  
-                string FileExtension = Path.GetExtension(imgFile.FileName);
-
-                //Add Current Date To Attached File Name  
-                FileName =FileName.Trim() + FileExtension;
-
-                //Get Upload path from Web.Config file AppSettings.  
-                string UploadPath = "C:\\Users\\worrior107\\source\\repos\\HelpDeskApp\\HelpDesk\\wwwroot\\ProfileImges\\";
-
-                //Its Create complete path to store in server.
-                
-                string completPath= UploadPath + FileName;
-                p1.imgUrl = completPath;
-
-                //save file in the uploadPath 
-
-                using (var stream = new FileStream(completPath, FileMode.Create))
+                if (p1.ImageFile != null)
                 {
-                     imgFile.CopyTo(stream);
+                    var imgFile = p1.ImageFile;
 
+
+                    string FileName = Path.GetFileNameWithoutExtension(imgFile.FileName);
+
+                    //To Get File Extension  
+                    string FileExtension = Path.GetExtension(imgFile.FileName);
+
+                    //Add Current Date To Attached File Name  
+                    FileName = FileName.Trim() + FileExtension;
+
+                    //Get Upload path from Web.Config file AppSettings.  
+                    string UploadPath = "C:\\Users\\worrior107\\source\\repos\\HelpDeskApp\\HelpDesk\\wwwroot\\ProfileImges\\";
+
+                    //Its Create complete path to store in server.
+
+                    string completPath = UploadPath + FileName;
+                    p1.imgUrl = completPath;
+
+                    //save file in the uploadPath 
+
+                    using (var stream = new FileStream(completPath, FileMode.Create))
+                    {
+                        imgFile.CopyTo(stream);
+
+                    }
                 }
 
                 if (_AppFunctions.addProduct(p1).Result != null)
@@ -90,7 +92,7 @@ namespace HelpDesk.Controllers
                     return RedirectToAction("Index", "Products");
                 }
                 return RedirectToAction("Erreur404", "Home");
-               
+
             }
             catch
             {
@@ -103,9 +105,11 @@ namespace HelpDesk.Controllers
 
         public ActionResult Edit(string id)
         {
-          Product p=_AppFunctions.getProductById(id).Result;
+            Product p = _AppFunctions.getProductById(id).Result;
+            ViewBag.categories = new SelectList(_AppFunctions.getcategories().Result, "categoryId", "categoryName");
 
-               return PartialView("Edit",p); 
+
+            return PartialView("Edit", p);
         }
 
         [Authorize]
@@ -115,8 +119,38 @@ namespace HelpDesk.Controllers
         {
             try
             {
+                if (p.ImageFile != null)
+                {
+                    var imgFile = p.ImageFile;
 
-               if( _AppFunctions.updateProduct(p).Result!= null)
+
+                    string FileName = Path.GetFileNameWithoutExtension(imgFile.FileName);
+
+                    //To Get File Extension  
+                    string FileExtension = Path.GetExtension(imgFile.FileName);
+
+                    //Add Current Date To Attached File Name  
+                    FileName = FileName.Trim() + FileExtension;
+
+                    //Get Upload path from Web.Config file AppSettings.  
+                    string UploadPath = "C:\\Users\\worrior107\\source\\repos\\HelpDeskApp\\HelpDesk\\wwwroot\\ProfileImges\\";
+
+                    //Its Create complete path to store in server.
+
+                    string completPath = UploadPath + FileName;
+                    p.imgUrl = completPath;
+
+                    //save file in the uploadPath 
+
+                    using (var stream = new FileStream(completPath, FileMode.Create))
+                    {
+                        imgFile.CopyTo(stream);
+
+                    }
+                }
+
+
+                if (_AppFunctions.updateProduct(p).Result != null)
                 {
                     return RedirectToAction("Index", "Products");
 
@@ -135,7 +169,7 @@ namespace HelpDesk.Controllers
         {
             Product p = _AppFunctions.getProductById(id).Result;
 
-            
+
 
             return PartialView("Delete", p);
         }
@@ -146,7 +180,7 @@ namespace HelpDesk.Controllers
         public ActionResult Delete(Product p)
         {
 
-            
+
             try
             {
                 if (_AppFunctions.DeleteProduct(p.refId).Result)
@@ -168,31 +202,34 @@ namespace HelpDesk.Controllers
         {
 
             List<Product> res = _AppFunctions.getAllProducts();
-            ViewBag.Products = res;
-            return View();
+
+            return View(res);
         }
+
         [HttpGet]
         public ActionResult ProductDetail(string refId)
         {
             var res = _AppFunctions.getProductById(refId).Result;
-            ViewBag.Product = res;
-            return View();
+         
+            return View(res);
         }
- 
+
 
         [HttpGet]
         public ActionResult resultRech(string key)
         {
 
 
-           ViewBag.result = _AppFunctions.findProduct(key).Result;
+         var listProducts= _AppFunctions.findProduct(key).Result;
 
 
-            return View();
+            return View(listProducts);
 
         }
 
-      [HttpGet]
+
+        [Authorize]
+        [HttpGet]
         public IActionResult buyProduct(string prodRef)
         {
             var res = _AppFunctions.getProductById(prodRef).Result;
@@ -203,25 +240,67 @@ namespace HelpDesk.Controllers
                 return RedirectToAction("Erreur404", "Home");
             }
 
-            return PartialView("buyProduct");
+            return View();
         }
 
 
 
 
         [Authorize]
-        public ActionResult buyTheProduct(string pRef)
+        [HttpPost]
+        public ActionResult buyProduct(PaymentCard p)
         {
-            
-            loged= User.FindFirstValue(ClaimTypes.Name).ToString();
-            System.Diagnostics.Debug.WriteLine("my loged value: " + loged);
-          if(_AppFunctions.addProductClient(pRef, loged).Result)
 
-            return RedirectToAction("ProductDisplay", "Products");
+            loged = User.FindFirstValue(ClaimTypes.Name).ToString();
+
+            string pId = Request.Form["productRefId"];
+
+            var res = _AppFunctions.getProductById(pId).Result;
+            ViewBag.product = res;
 
 
-            return RedirectToAction("Erreur404", "Home");
+            if (ModelState.IsValid)
+            {
+                string cardnb = p.cardNumber.Replace(" ", "");
 
+
+
+                Regex expression = new Regex(@"^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$");
+
+
+
+
+                if (expression.IsMatch(cardnb))
+                {
+
+                    System.Diagnostics.Debug.WriteLine("pattern succedd");
+                    if (_AppFunctions.addProductClient(pId, loged).Result)
+
+                        return RedirectToAction("ProductDisplay", "Products");
+
+                }
+                ModelState.AddModelError("", "card number invalid");
+
+
+            }
+
+
+
+            return PartialView("buyProduct", p);
+
+        }
+
+
+        public IActionResult buyTheProduct(string pRef)
+        {
+            loged = User.FindFirstValue(ClaimTypes.Name).ToString();
+            if (_AppFunctions.addProductClient(pRef, loged).Result)
+
+                return RedirectToAction("ProductDisplay", "Products");
+
+            else
+
+                return RedirectToAction("Erreur404", "Home");
         }
 
 

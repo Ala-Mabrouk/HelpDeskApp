@@ -1,6 +1,7 @@
 ﻿using AppFeatures;
 using Entities.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace HelpDesk.Controllers
 {
- 
+
     public class KnowledgeBase : Controller
     {
 
@@ -45,6 +46,7 @@ namespace HelpDesk.Controllers
         [HttpGet]
         public IActionResult addArticle()
         {
+            ViewBag.ArticlesCategories = new SelectList(_AppFunctions.getcategories().Result, "categoryId", "categoryName");
             return View();
         }
 
@@ -72,7 +74,7 @@ namespace HelpDesk.Controllers
         public IActionResult infoArticle(int idArticle)
         {
             var article = _AppFunctions.getArticleInfo(idArticle).Result;
-      
+
             return PartialView("infoArticle", article);
         }
 
@@ -81,7 +83,7 @@ namespace HelpDesk.Controllers
         {
 
             var res = _AppFunctions.getArticleInfo(articleId).Result;
-            return PartialView("deleteArticle",res);
+            return PartialView("deleteArticle", res);
         }
 
         public IActionResult delete()
@@ -97,19 +99,31 @@ namespace HelpDesk.Controllers
         [HttpGet]
         public IActionResult updateArticle(int Id)
         {
+            ViewBag.ArticlesCategories = new SelectList(_AppFunctions.getcategories().Result, "categoryId", "categoryName");
+
             Article a = _AppFunctions.getArticleInfo(Id).Result;
-            
-            return PartialView("updateArticle",a);
+
+            return PartialView("updateArticle", a);
         }
 
         [HttpPost]
         public IActionResult updateArticle(Article a)
         {
-            int id = _AppFunctions.GetUserByEmail(User.FindFirstValue(ClaimTypes.Name)).Result.Id;
-            a.creator_agentId = id;
-            a.lastModified = DateTime.Now;
-            _AppFunctions.updateArticle(a);
-                 return PartialView("updateArticle", a);
+            try
+            {
+                int id = _AppFunctions.GetUserByEmail(User.FindFirstValue(ClaimTypes.Name)).Result.Id;
+                a.creator_agentId = id;
+                a.lastModified = DateTime.Now;
+                if (_AppFunctions.updateArticle(a).Result != null)
+                    return RedirectToAction("listArticles","KnowledgeBase");
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("**********" + e);
+                return RedirectToAction("Erreur404", "Home");
+            }
+            return RedirectToAction("Erreur404", "Home");
+
         }
 
 

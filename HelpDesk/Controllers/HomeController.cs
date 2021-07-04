@@ -341,28 +341,7 @@ namespace HelpDesk.Controllers
         }
  
 
-        public async Task<ActionResult> resetPasswordLink()
-        {
-            //sending mail with link( controler/action/userId);
-
-            string link = string.Empty;
-            
-       
-            if (true)
-            {
-
-//               await _AppFunctions.sendClientNotification("alamabrouk007@gmail.com", 20);
-
-                ViewBag.message = "an email is sent to your adresse";
-                return RedirectToAction("Erreur404", "Home");
-            }
-            else
-            {
-                ViewBag.message = "adresse not found";
-            }
-
-            return View();
-        }
+ 
     }
 }
 

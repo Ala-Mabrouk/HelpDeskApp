@@ -47,8 +47,8 @@ namespace Entities.Migrations
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("category")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("categoryId")
+                        .HasColumnType("int");
 
                     b.Property<string>("content")
                         .HasColumnType("nvarchar(max)");
@@ -64,9 +64,29 @@ namespace Entities.Migrations
 
                     b.HasKey("ArticleId");
 
+                    b.HasIndex("categoryId");
+
                     b.HasIndex("creator_agentId");
 
                     b.ToTable("Articles");
+                });
+
+            modelBuilder.Entity("Entities.Entities.Category", b =>
+                {
+                    b.Property<int>("categoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("categoryDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("categoryName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("categoryId");
+
+                    b.ToTable("categories");
                 });
 
             modelBuilder.Entity("Entities.Entities.DefaultPermissions", b =>
@@ -158,8 +178,8 @@ namespace Entities.Migrations
                     b.Property<DateTime>("addedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("category")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("categoryID")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("dateBuild")
                         .HasColumnType("datetime2");
@@ -186,6 +206,8 @@ namespace Entities.Migrations
                         .HasColumnType("float");
 
                     b.HasKey("refId");
+
+                    b.HasIndex("categoryID");
 
                     b.ToTable("Products");
                 });
@@ -445,11 +467,19 @@ namespace Entities.Migrations
 
             modelBuilder.Entity("Entities.Entities.Article", b =>
                 {
+                    b.HasOne("Entities.Entities.Category", "articleCategory")
+                        .WithMany("listArtiles")
+                        .HasForeignKey("categoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Entities.Entities.Agent", "creator_agent")
                         .WithMany()
                         .HasForeignKey("creator_agentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("articleCategory");
 
                     b.Navigation("creator_agent");
                 });
@@ -471,6 +501,17 @@ namespace Entities.Migrations
                     b.Navigation("permission");
 
                     b.Navigation("role");
+                });
+
+            modelBuilder.Entity("Entities.Entities.Product", b =>
+                {
+                    b.HasOne("Entities.Entities.Category", "productCategory")
+                        .WithMany("listProduct")
+                        .HasForeignKey("categoryID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("productCategory");
                 });
 
             modelBuilder.Entity("Entities.Entities.ProductClient", b =>
@@ -556,6 +597,13 @@ namespace Entities.Migrations
                     b.Navigation("permision");
 
                     b.Navigation("user");
+                });
+
+            modelBuilder.Entity("Entities.Entities.Category", b =>
+                {
+                    b.Navigation("listArtiles");
+
+                    b.Navigation("listProduct");
                 });
 
             modelBuilder.Entity("Entities.Entities.Permission", b =>

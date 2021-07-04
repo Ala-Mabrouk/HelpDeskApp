@@ -7,7 +7,7 @@
 }
 
 <div class="modal fade" id="addProduct">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Add Product</h4>
@@ -42,7 +42,7 @@
                             </div>
                             <div class="form-group">
                                 <label asp-for="dateBuild" class="control-label"></label>
-                                <input  type="date" asp-for="dateBuild" class="form-control" />
+                                <input type="date" asp-for="dateBuild" class="form-control" />
                                 <span asp-validation-for="dateBuild" class="text-danger"></span>
                             </div>
                             <div class="form-group">
@@ -55,11 +55,25 @@
                                 <input min="0" type="number" asp-for="price" class="form-control" />
                                 <span asp-validation-for="price" class="text-danger"></span>
                             </div>
+
+
+
+
+
+                            <div class="form-group">
+                                <label asp-for="productCategory" class="control-label"></label>
+                                @Html.DropDownListFor(model => model.categoryID, ViewBag.categories as SelectList, new { @class = "form-control dx-select-ticket" })
+                                @Html.ValidationMessageFor(model => model.categoryID)
+
+                            </div>
+
+
+@*
                             <div class="form-group">
                                 <label asp-for="category" class="control-label"></label>
                                 <input required asp-for="category" class="form-control" />
                                 <span asp-validation-for="category" class="text-danger"></span>
-                            </div>
+                            </div>*@
 
 
                             <div class="input-group mb-3">
@@ -72,7 +86,6 @@
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary" data-save="">Save</button>
                                 <button type="button" class="btn btn-primary" data-dismiss="modal">close</button>
-
                             </div>
                         </form>
                     </div>

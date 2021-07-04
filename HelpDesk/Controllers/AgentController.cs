@@ -127,14 +127,11 @@ namespace HelpDesk.Controllers
                 }
 
             }
-            /*
-                        if (listAgents.Remove(me))
-                        {*/
+ 
             ViewBag.AgentList = listAgents2;
 
             return View(res);
-            // }
-            // return RedirectToAction("Erreur404", "Home");
+ 
 
         }
 
@@ -156,9 +153,6 @@ namespace HelpDesk.Controllers
                 _AppFunctions.createNotificationAssignTicket(n);
                 return RedirectToAction("listTickets", "Tickets");
             }
-
-
-
 
 
             return RedirectToAction("Erreur404", "Home");

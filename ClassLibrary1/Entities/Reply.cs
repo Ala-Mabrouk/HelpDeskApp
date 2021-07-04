@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Entities.Entities
@@ -20,6 +22,9 @@ namespace Entities.Entities
         public DateTime reply_date { get; set; }
 
         public string r_uploadedFile { get; set; } = null;
+
+        [NotMapped]
+        public IFormFile r_uploadedFileFile { get; set; }
 
     }
 }

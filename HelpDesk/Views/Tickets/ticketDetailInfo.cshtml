@@ -97,12 +97,12 @@
                             <div class="dx-comment dx-ticket-comment p-10" style="display: flex;justify-content: space-around;">
 
                                 <div>
-                                    <div>
+                                    <div style=" max-width: 250px; padding: 7px; word-break: break-word;">
                                         <h2 class="h4 mnt-5  dx-ticket-title"><u>#@Model.relatedProduct.refId</u>&nbsp; @Model.relatedProduct.name</h2>
                                         <div class="dx-comment-date"><label asp-for="@Model.relatedProduct.factoryName"></label> @Model.relatedProduct.factoryName</div>
                                         <div class="dx-comment-text">
                                             <p class="mb-0">
-                                                Nullam ac dui et purus malesuada gravida id fermentum orci.
+                                                @Model.relatedProduct.description
 
                                             </p>
                                         </div>
@@ -126,10 +126,10 @@
 
 
                             <div class="dx-comment-cont">
-                                <label asp-for="@Model.ticketDescription    "></label>
+                                <label asp-for="@Model.ticketDescription"></label>
                                 <div class="dx-comment-text">
                                     <p class="mb-0">
-                                        @Model.relatedProduct.description
+                                        @Model.ticketDescription
                                     </p>
                                 </div>
 

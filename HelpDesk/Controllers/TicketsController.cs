@@ -136,8 +136,7 @@ namespace HelpDesk.Controllers
             ViewBag.userMail = ClientMail;
             return View();
 
-            System.Diagnostics.Debug.WriteLine("in the get methode mail is: " + ClientMail);
-        }
+         }
 
 
         [HttpPost]
@@ -300,10 +299,7 @@ namespace HelpDesk.Controllers
 
             var res = _AppFunctions.ticketInfo(idTicket).Result;
             var replies = _AppFunctions.getTicketReplies(idTicket).Result;
-
-
-            /*            replies.First().replyOwner.role.roleName
-            */
+ 
             ViewBag.Ticket = res;
             ViewBag.ticketReplies = replies;
 
@@ -338,6 +334,42 @@ namespace HelpDesk.Controllers
             reply.replyOwnerId = replierId;
 
             reply.reply_date = DateTime.Now;
+
+            // saving file if exist
+
+            if (reply.r_uploadedFileFile != null)
+            {
+                var imgFile = reply.r_uploadedFileFile;
+
+
+                string FileName = Path.GetFileNameWithoutExtension(imgFile.FileName);
+
+                //To Get File Extension  
+                string FileExtension = Path.GetExtension(imgFile.FileName);
+
+                //Add Current Date-ownerID-ticketID  To Attached File Name  
+                FileName = DateTime.Now.ToString("yyyyMMdd") + "-" + loged + "-" + reply.TicketId + "-" + FileName.Trim() + FileExtension;
+
+
+                string UploadPath = "C:\\Users\\worrior107\\source\\repos\\HelpDeskApp\\HelpDesk\\wwwroot\\uploads\\";
+
+                string contentPath = "wwwroot/uploads/";
+                //Its Create complete path to store in server.
+
+                string completUploadPath = UploadPath + FileName;
+
+                reply.r_uploadedFile = contentPath + FileName;
+
+                //save file in the uploadPath 
+
+                using (var stream = new FileStream(completUploadPath, FileMode.Create))
+                {
+                    imgFile.CopyTo(stream);
+
+                }
+
+            }
+    
 
             var res = _AppFunctions.addReply(reply).Result;
             if (res != null)

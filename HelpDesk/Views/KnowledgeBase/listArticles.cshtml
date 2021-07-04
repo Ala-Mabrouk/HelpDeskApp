@@ -81,7 +81,7 @@
                         @foreach (var item in ViewBag.Articles)
                         {
 
-                            <div class="dx-isotope-grid-item @item.category">
+                            <div class="dx-isotope-grid-item @item.articleCategory.categoryName">
 
 
                                 <div class="card border-dark mb-3" style="width:18rem;">
@@ -92,11 +92,11 @@
                                         <div class="card-header">
 
                                             <h5 class="card-title  text-center">@item.Title </h5>
-                                            <h6 class="card-subtitle mb-2 text-muted"> @item.category</h6>
+                                            <h6 class="card-subtitle mb-2 text-muted"> @item.articleCategory.categoryName</h6>
                                         </div>
                                         <div class="card-body">
                                             <p style="color:black;" class="card-text">@item.content</p>
-                                            <p class="card-text"><small class="text-muted">Last updated 20/20/2021</small></p>
+                                            <p class="card-text"><small class="text-muted">Last updated @item.lastModified</small></p>
 
                                         </div>
                                     </a>

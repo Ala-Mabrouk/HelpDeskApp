@@ -75,10 +75,9 @@
                         </tr>
                         <tr>
                             <td>
-                                <div class="custom-control custom-switch">
-                                    <input type="checkbox" name="status"   class="custom-control-input"  id="AgentStatus" asp-for="status">
-                                    <span asp-validation-for="status" class="text-danger"></span>
-
+                                <div class="custom-control custom-switch " style="display:flex; justify-content:center;">
+                                    <input type="checkbox" name="status" style="width:100%; cursor:pointer;"  class="custom-control-input"  id="AgentStatus" asp-for="status">
+ 
                                     <label class="custom-control-label" for="customSwitch1"> </label>
                                 </div>
                             </td>
@@ -92,8 +91,8 @@
 
 
                     <div class="dx-box-content" style="display: flex; justify-content: space-between;">
-                        <a href="javascript: history.go(-1)" class="btn btn-outline-danger btn-lg mr-10">Cancel</a>
-                        <button type="submit" class="btn btn-primary btn-lg ml-30">Save Changes</button>
+                        <a href="javascript: history.go(-1)" class="btn btn-outline-danger btn-lg mr-10"><i class="far fa-times-circle"></i>&nbsp;Cancel</a>
+                        <button type="submit" class="btn btn-primary btn-lg ml-30"><i class="far fa-save"></i>&nbsp;Save Changes</button>
 
                     </div>
 

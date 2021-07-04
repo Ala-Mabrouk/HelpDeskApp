@@ -199,12 +199,9 @@ namespace AppFeatures
         {
 
 
-            var res = await _context.Tickets.Include(t => t.creator_user).FirstOrDefaultAsync(t => t.ticketId == ticketId);
+            var res = await _context.Tickets.Include(t => t.creator_user).ThenInclude(u=>u.role).FirstOrDefaultAsync(t => t.ticketId == ticketId);
             System.Diagnostics.Debug.WriteLine(res.ticketTitle);
-
-            /*System.Diagnostics.Debug.WriteLine("les Produit "+res.relatedProduct.factoryName);
-            System.Diagnostics.Debug.WriteLine("the user "+res.creator_user.LastName);*/
-
+ 
             return (res);
         }
 
@@ -346,13 +343,19 @@ namespace AppFeatures
         //******* PRODUCTS MANAGMENT
         public async Task<List<Product>> getListProducts()
         {
-            List<Product> res = await _context.Products.ToListAsync();
+            List<Product> res = await _context.Products.Include(p=>p.productCategory).ToListAsync();
             return res;
         }
 
         public async Task<Product> getProductById(string id)
         {
-            var res = await _context.Products.FirstOrDefaultAsync(p => p.refId == id);
+            var res = await _context.Products.Include(p=>p.productCategory).FirstOrDefaultAsync(p => p.refId == id);
+            return res;
+        }
+
+        public async Task<List<Category>> getcategories()
+        {
+            var res = await _context.categories.ToListAsync();
             return res;
         }
 
@@ -381,7 +384,7 @@ namespace AppFeatures
                 res.dateBuild = p.dateBuild;
                 res.dateValidate = p.dateValidate;
                 res.factoryName = p.factoryName;
-                res.category = p.category;
+                res.categoryID = p.categoryID;
 
                 await _context.SaveChangesAsync();
                 return res;
@@ -419,7 +422,7 @@ namespace AppFeatures
 
         public List<Product> getAllProducts()
         {
-            return _context.Products.ToList();
+            return _context.Products.Include(p=>p.productCategory).ToList();
         }
 
         public async Task<List<Product>> getLatestProducts()
@@ -501,7 +504,7 @@ namespace AppFeatures
 
         public async Task<Article> getArticleInfo(int idArticle)
         {
-            Article _article = await _context.Articles.Include(a => a.creator_agent).FirstOrDefaultAsync(a => a.ArticleId == idArticle);
+            Article _article = await _context.Articles.Include(a => a.creator_agent).Include(a => a.articleCategory).FirstOrDefaultAsync(a => a.ArticleId == idArticle);
             return _article;
         }
 
@@ -509,7 +512,7 @@ namespace AppFeatures
         {
 
 
-            int res = _context.Articles.Where(a => a.category == _category).Count();
+            int res = _context.Articles.Include(a=>a.articleCategory).Where(a => a.articleCategory.categoryName == _category).Count();
 
             return res;
         }
@@ -517,21 +520,21 @@ namespace AppFeatures
         public async Task<List<string>> getListCategories()
         {
 
-            List<string> res = await _context.Articles.Select(a => a.category).Distinct().ToListAsync();
+            List<string> res = await _context.Articles.Include(a => a.articleCategory).Select(a => a.articleCategory.categoryName).Distinct().ToListAsync();
             return res;
         }
 
         public async Task<List<Article>> getListArticlesByCategory(string _category)
         {
 
-            List<Article> res = await _context.Articles.Where(a => a.category == _category).Take(3).ToListAsync();
+            List<Article> res = await _context.Articles.Include(a => a.articleCategory).Where(a => a.articleCategory.categoryName == _category).Take(3).ToListAsync();
             return res;
         }
 
         public async Task<List<Article>> getListAllArticlesByCategory(string _category)
         {
 
-            List<Article> res = await _context.Articles.Where(a => a.category == _category).ToListAsync();
+            List<Article> res = await _context.Articles.Include(a => a.articleCategory).Where(a => a.articleCategory.categoryName == _category).ToListAsync();
             return res;
         }
 
@@ -542,13 +545,13 @@ namespace AppFeatures
 
         public async Task<List<Article>> findArticles(string key)
         {
-            List<Article> res = await _context.Articles.Where(p => p.Title.Contains(key)).ToListAsync();
+            List<Article> res = await _context.Articles.Include(a => a.articleCategory).Where(p => p.Title.Contains(key)).ToListAsync();
             return res;
         }
 
         public async Task<List<Article>> getAllArticles()
         {
-            var res = await _context.Articles.ToListAsync();
+            var res = await _context.Articles.Include(a => a.articleCategory).ToListAsync();
             return res;
         }
 
@@ -590,10 +593,11 @@ namespace AppFeatures
 
         public async Task<Article> updateArticle(Article ar)
         {
-            var res = await _context.Articles.FirstAsync(a => a.ArticleId == ar.ArticleId);
+             var res = await _context.Articles.FirstOrDefaultAsync(a => a.ArticleId == ar.ArticleId);
+ 
             res.Title = ar.Title;
             res.content = ar.content;
-            res.category = ar.category;
+            res.categoryId = ar.categoryId;
             res.lastModified = ar.lastModified;
             res.creator_agentId = ar.creator_agentId;
 

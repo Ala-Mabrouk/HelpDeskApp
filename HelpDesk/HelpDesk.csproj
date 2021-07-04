@@ -176,6 +176,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Models\Ressources\Ressource_Card\Resource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
     <Compile Update="Models\Ressources\Ressource_Person\Resource.Designer.cs">
       <DependentUpon>Resource.resx</DependentUpon>
       <DesignTime>True</DesignTime>
@@ -204,6 +209,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Models\Ressources\Ressource_Card\Resource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Models\Ressources\Ressource_Person\Resource.ar.resx">
       <LastGenOutput>Resource.en.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>

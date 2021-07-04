@@ -21,7 +21,7 @@
 
                 <div class="dx-box-decorated">
 
-                    <form asp-action="Edit" asp-controller="Products" method="post" class="dx-form">
+                    <form  enctype="multipart/form-data" asp-action="Edit" asp-controller="Products" method="post" class="dx-form">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="dx-box-content">
                             <table cellpadding="3px">
@@ -62,31 +62,19 @@
                                 </tr>
                                 <tr><td><span asp-validation-for="dateValidate" class="text-danger"></span></td></tr>
                                 <tr>
-                                    <td> <label asp-for="category" class="mnt-7"></label></td>
+                                    <td> <label asp-for="productCategory" class="mnt-7"></label></td>
                                     <td>
-                                        <input type="text" asp-for="category" class="form-control form-control-style-2" id="city">
+                                        @Html.DropDownListFor(model => model.categoryID, ViewBag.categories as SelectList, new { @class = "form-control dx-select-ticket" })
+
                                         <input type="hidden" asp-for="refId" class="form-control form-control-style-2" id="city">
 
                                     </td>
                                 </tr>
-                                <tr><td><span asp-validation-for="category" class="text-danger"></span></td></tr>
-
-
-
+ 
 
                                 <tr>
                                     <td colspan="2">
-                                        <div class="dropdown">
-                                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                change Product Image
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <span>input here</span>
-                                                <div class="form-group">
-                                                    <input type="file" asp-for="imgUrl" class="custom-file-input" />
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <input type="file" asp-for="ImageFile" class="custom-file-input" />
                                     </td>
                                 </tr>
 
