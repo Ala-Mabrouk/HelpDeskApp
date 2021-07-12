@@ -128,9 +128,12 @@ namespace HelpDesk.Controllers
         {
             try
             {
- 
-                string test = Request.Form["status"];
-                System.Diagnostics.Debug.WriteLine("+++++"+test);
+
+                if (ModelState.IsValid)
+                {
+                    string test = Request.Form["statusValue"];
+
+                    System.Diagnostics.Debug.WriteLine("+++++" + test);
                     if (test.Equals("true"))
                     {
                         _p.status = true;
@@ -146,15 +149,15 @@ namespace HelpDesk.Controllers
                     {
 
 
-                         return RedirectToAction("EditAgent", "Admin", new { mail = ag1.Email });
+                        return RedirectToAction("EditAgent", "Admin", new { mail = ag1.Email });
 
 
                     }
 
+                }
+                //   ModelState.AddModelError("", "Unable to update info for now! try later ");
 
-                 //   ModelState.AddModelError("", "Unable to update info for now! try later ");
- 
-                return RedirectToAction("EditAgent", "Admin", new { mail = _p.Email });
+                return View("EditAgent", _p);
             }
             catch (Exception e)
             {

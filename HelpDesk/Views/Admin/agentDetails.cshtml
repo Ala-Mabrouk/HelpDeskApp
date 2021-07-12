@@ -1,4 +1,11 @@
 ﻿
+
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
+
+
+
 @model Entities.Entities.Agent;
 
 
@@ -8,8 +15,8 @@
     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <div >
-                    <a asp-action="EditAgent" asp-route-mail="@Model.Email" asp-controller="Admin" >update info</a>
+                <div>
+                    <a asp-action="EditAgent" asp-route-mail="@Model.Email" asp-controller="Admin">@localizer["updateInfo"]</a>
                 </div>
             </div>
 
@@ -25,7 +32,7 @@
                                         <div class="dx-comment-cont" style=" justify-content: center; flex-direction: column;">
                                             <div class="dx-comment-img" style="width:100%;height:100%;">
 
-                                               <img src=@Url.Content(Model.ThumbUrl) alt="imge client" style=" max-width: 30%; max-height: 100%; border-radius: 60px;" />
+                                                <img src=@Url.Content(Model.ThumbUrl) alt="imge client" style=" max-width: 30%; max-height: 100%; border-radius: 60px;" />
 
                                             </div>
                                             <div style="display: flex;justify-content: center;margin-top: 15px;">
@@ -62,12 +69,12 @@
                                                     <td>
                                                         @if (Model.status == true)
                                                         {
-                                                            <span class="dx-comment-date ml-20"> Active</span>
+                                                        <span class="dx-comment-date ml-20"> @localizer["active"]</span>
 
                                                         }
                                                         else
                                                         {
-                                                            <span class="dx-comment-date ml-20"> Disabled</span>
+                                                    <span class="dx-comment-date ml-20"> @localizer["nonActive"]</span>
 
                                                         }
                                                     </td>
@@ -80,7 +87,7 @@
                             </div>
 
 
-                            <button class="btn-block btn-primary" data-dismiss="modal">Ok</button>
+                            <button class="btn-block btn-primary" data-dismiss="modal">@localizer["ok"]</button>
 
                         </div>
                     </div>

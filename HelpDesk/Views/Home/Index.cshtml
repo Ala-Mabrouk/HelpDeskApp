@@ -1,4 +1,12 @@
 ﻿
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
+
+
+
+
+
+
 <header class="dx-header dx-box-4">
     <div class="bg-image bg-image-parallax">
         <img src="/wwwroot/Content/images/bg-header.png" class="jarallax-img" alt="">
@@ -8,11 +16,11 @@
     <div class="container">
         <div class="row">
             <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-                <h1 class="display-3 text-white">NST-Desk</h1>
+                <h1 class="display-3 text-white">@localizer["NST-Desk"]</h1>
                 <p class="lead text-1">
-                    NST-desk is a web application that enables our clients to obtain their preferred products while receiving an after-sales services.
-                    Because the client is our main priority at NST-desk, we offer an after-sales service in which a team of qualified agents is available to address your concerns.
-                <a asp-action="ProductDisplay" asp-controller="Products" class="dx-btn dx-btn-lg mt-10">View Products</a>
+                   @localizer["intro1"]
+                  </p>
+                    <a asp-action="ProductDisplay" asp-controller="Products" class="dx-btn dx-btn-lg mt-10">@localizer["ViewProducts"]</a>
             </div>
         </div>
     </div>
@@ -33,7 +41,7 @@
                     </div>
                     <div class="dx-feature-cont">
                         <div class="dx-feature-title">770 +</div>
-                        <div class="dx-feature-text">Happy Customers</div>
+                        <div class="dx-feature-text">@localizer["happycostomers"]</div>
                     </div>
                 </div>
 
@@ -45,7 +53,7 @@
                     </div>
                     <div class="dx-feature-cont">
                         <div class="dx-feature-title">4.9</div>
-                        <div class="dx-feature-text">Author Rating</div>
+                        <div class="dx-feature-text">@localizer["AuthorRating"]</div>
                     </div>
                 </div>
 
@@ -53,9 +61,7 @@
             <div class="col-lg-6">
                 <h2>Who we are</h2>
                 <p class="mb-0">
-                    We love our work and it shows. A motivated young team formed mainly by computer engineers,
-                    we know this environment like the back of our hand.
-                    We are ready to take on any challenge and we are 100% involved in all the projects we undertake.
+                    @localizer["intro2"]
                 </p>
             </div>
         </div>
@@ -73,8 +79,8 @@
                         <div class="dx-feature-icon">
                             <span class="icon pe-7s-edit"></span>
                         </div>
-                        <div class="dx-feature-title">Easy Setup</div>
-                        <div class="dx-feature-text">We make our products easy to setup and customize.</div>
+                        <div class="dx-feature-title">@localizer["EasySetup"]</div>
+                        <div class="dx-feature-text">@localizer["intro3"]</div>
                     </div>
                     <span class="dx-decorated" style="background-image: url('C:\Users\worrior107\source\repos\HelpDeskApp\HelpDesk\wwwroot\Content\images\decorated-pattern-dark.svg')"></span>
                 </div>
@@ -88,8 +94,8 @@
                         <div class="dx-feature-icon">
                             <span class="icon pe-7s-timer"></span>
                         </div>
-                        <div class="dx-feature-title">Lifetime Updates</div>
-                        <div class="dx-feature-text">We improve our products after release and you will get it for free.</div>
+                        <div class="dx-feature-title">@localizer["LifetimeUpdates"]</div>
+                        <div class="dx-feature-text">@localizer["intro4"]</div>
                     </div>
                     <span class="dx-decorated" style="background-image: url('../../wwwroot/Content/images/decorated_pattern_dark.svg');"></span>
                 </div>
@@ -104,8 +110,8 @@
                         <div class="dx-feature-icon">
                             <span class="icon pe-7s-headphones"></span>
                         </div>
-                        <div class="dx-feature-title">Outstanding Support</div>
-                        <div class="dx-feature-text">We provide fast and professional support through support system.</div>
+                        <div class="dx-feature-title">@localizer["OutstandingSupport"]</div>
+                        <div class="dx-feature-text">@localizer["intro5"]</div>
                     </div>
                     <span class="dx-decorated" style="background-image: url('../../wwwroot/Content/images/decorated_pattern_dark.svg');"></span>
                 </div>
@@ -118,7 +124,7 @@
 
 <div class="dx-box-1 bg-grey-6">
     <div class="container">
-        <h2 class="text-center mb-60">Latest Products</h2>
+        <h2 class="text-center mb-60">@localizer["LatestProducts"]</h2>
 
         <div class="row vertical-gap">
             @foreach (var item in ViewBag.latestProduct)
@@ -130,8 +136,8 @@
                     <div class="dx-portfolio-item dx-block-decorated">
                         <div class="dx-portfolio-item-image">
                             <div class="dx-portfolio-item-overlay" style="background-color: rgba(27, 27, 27, .8);">
-                                <a href="#" class="dx-btn dx-btn-md dx-btn-transparent-style-2 m-10">Live Demo</a>
-                                <a href="#" class="dx-btn dx-btn-md dx-btn-transparent-style-2 m-10">Buy Now</a>
+                                <a href="#" class="dx-btn dx-btn-md dx-btn-transparent-style-2 m-10">@localizer["LiveDemo"]</a>
+                                <a href="#" class="dx-btn dx-btn-md dx-btn-transparent-style-2 m-10">@localizer["BuyNow"]</a>
                             </div>
                             <img src=@Url.Content(item.imgUrl) alt="Product Img">
                         </div>
@@ -148,7 +154,7 @@
             }
         </div>
         <div class="text-center mt-70">
-            <a asp-action="ProductDisplay" asp-controller="Products" class="dx-btn dx-btn-lg">View Products</a>
+            <a asp-action="ProductDisplay" asp-controller="Products" class="dx-btn dx-btn-lg">@localizer["ViewProducts"]</a>
         </div>
 
         <div class="dx-box-1">
@@ -160,27 +166,15 @@
     </div>
 </div>
 <div class="row no-gutters">
-    @* <div class="col-lg-6 bg-dark-1">
-            <div class="row justify-content-center">
-                <div class="col-12 col-lg-10">
-                    <div class="container">
-                        <div class="dx-box-1">
-                            <h2 class="text-white">Latest Products</h2>
-                            <p class="text-2">Join the newsletter to receive news, updates, new products and freebies in your inbox.</p>
-                            <a data-fancybox data-touch="false" data-src="#subscribe" href="javascript:;" class="dx-btn dx-btn-lg dx-btn-transparent">Subscribe</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>*@
+ 
     <div class="col-lg-12 bg-main-1">
         <div class="row justify-content-center">
             <div class="col-12 col-lg-10">
                 <div class="container">
                     <div class="dx-box-1">
-                        <h2 class="text-white">Visit our Support Desk</h2>
-                        <p class="text-white op-8">We have a Support Desk for our users and a well experienced team to quickly answer your questions.</p>
-                        <a asp-action="HelpCenter" asp-controller="Home" class="dx-btn dx-btn-lg dx-btn-transparent">Get support</a>
+                        <h2 class="text-white">@localizer["VisitourSupportDesk"]</h2>
+                        <p class="text-white op-8">@localizer["into6"]</p>
+                        <a asp-action="HelpCenter" asp-controller="Home" class="dx-btn dx-btn-lg dx-btn-transparent">@localizer["Getsupport"]</a>
                     </div>
                 </div>
             </div>

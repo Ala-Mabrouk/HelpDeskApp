@@ -1,8 +1,10 @@
 ﻿
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer localizer
+@using Entities.Entities
 
-@model Entities.Entities.Reply;
+@model Entities.Entities.Reply
+
 
 @{ Layout = null;}
 
@@ -15,121 +17,131 @@
 
                 <div class="row justify-content-center">
                     <div class="container pl-0 pr-0">
-                        <div class="dx-box dx-box-decorated">
-                            <div class="dx-blog-post dx-ticket ">
-                                <div class="dx-blog-post-box p-10 pt-15" style="display: flex;justify-content: space-around;background: goldenrod;border-radius: 5px;">
-                                    <h2 class="h4 mnt-5 mb-9 dx-ticket-title">#@ViewBag.Ticket.ticketId @ViewBag.Ticket.ticketTitle</h2>
-                                    <span>@ViewBag.Ticket.ticketStatut</span>
-                                </div>
 
-                                <div class="dx-separator mb-10"></div>
 
-                                <div class="dx-comment dx-ticket-comment p-15" id="@ViewBag.Ticket.creator_user.role.roleName">
-                                    <div>
+                        @if (ViewBag.Ticket.ticketStatut != Ticket.TicketStatus.Closed && User.Identity.Name != "boss@boss.com")
+                        {
 
-                                        <div class="dx-comment-cont">
-                                            <div style="display:flex">
-                                                <div class="dx-comment-img">
-                                                    <img id="al-img" src="@Url.Content(ViewBag.Ticket.creator_user.ThumbUrl)" alt="replier img">
-                                                </div>
-                                                <div class="al-info-reply">
-                                                    <a href="#" class="dx-comment-name">
-                                                        @ViewBag.Ticket.creator_user.FirstName @ViewBag.Ticket.creator_user.LastName
-
-                                                    </a>
-                                                    <div class="dx-comment-date">@ViewBag.Ticket.ticketDate</div>
-                                                </div>
-                                            </div>
-                                            <div class="al-comment-text">
-                                                <p>@ViewBag.Ticket.ticketDescription</p>
-                                            </div>
-                                        </div>
+                            <a style="display:flex; justify-content: end;" target="_blank" asp-action="Index" asp-controller="chat" asp-route-reciver="@ViewBag.Ticket.creator_user.Email">Open chat</a>
+                        }
+                            <div class="dx-box dx-box-decorated">
+                                <div class="dx-blog-post dx-ticket ">
+                                    <div class="dx-blog-post-box p-10 pt-15" style="display: flex;justify-content: space-around;background: goldenrod;border-radius: 5px;">
+                                        <h2 class="h4 mnt-5 mb-9 dx-ticket-title">#@ViewBag.Ticket.ticketId @ViewBag.Ticket.ticketTitle</h2>
+                                        <span>@ViewBag.Ticket.ticketStatut</span>
                                     </div>
 
-                                </div>
+                                    <div class="dx-separator mb-10"></div>
 
-                                <div class="dx-separator mnt-1"></div>
-                                @if (ViewBag.ticketReplies != null)
-                                {
-                                    @foreach (var item in ViewBag.ticketReplies)
-                                    {
-                                        <div class="dx-comment dx-ticket-comment p-15" id="@item.replyOwner.role.roleName">
-                                            <div>
+                                    <div class="dx-comment dx-ticket-comment p-15" id="@ViewBag.Ticket.creator_user.role.roleName">
+                                        <div>
 
-                                                <div class="dx-comment-cont">
-                                                    <div style="display:flex">
-                                                        <div class="dx-comment-img">
-                                                            <img id="al-img" src="@Url.Content(item.replyOwner.ThumbUrl)" alt="replier img">
-                                                        </div>
-                                                        <div class="al-info-reply">
-                                                            <a href="#" class="dx-comment-name">
-                                                                @item.replyOwner.FirstName @item.replyOwner.LastName
-
-                                                            </a>
-                                                            <div class="dx-comment-date">@item.reply_date</div>
-                                                        </div>
+                                            <div class="dx-comment-cont">
+                                                <div style="display:flex">
+                                                    <div class="dx-comment-img">
+                                                        <img id="al-img" src="@Url.Content(ViewBag.Ticket.creator_user.ThumbUrl)" alt="replier img">
                                                     </div>
-                                                    <div class="al-comment-text">
-                                                        <p>@item.content</p>
+                                                    <div class="al-info-reply">
+                                                        <a href="#" class="dx-comment-name">
+                                                            @ViewBag.Ticket.creator_user.FirstName @ViewBag.Ticket.creator_user.LastName
+
+                                                        </a>
+                                                        <div class="dx-comment-date">@ViewBag.Ticket.ticketDate</div>
                                                     </div>
-                                                    @if (!string.IsNullOrEmpty(item.r_uploadedFile))
-                                                    {
-
-                                                        @await Component.InvokeAsync("TicketAttatchment", item.r_uploadedFile)
-                                                    }
-
+                                                </div>
+                                                <div class="al-comment-text">
+                                                    <p>@ViewBag.Ticket.ticketDescription</p>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="dx-separator mnt-1"></div>
 
-                                    }
-                                }
+                                    </div>
 
-                                <div class="dx-blog-post-box p-6">
+                                    <div class="dx-separator mnt-1"></div>
+                                    @if (ViewBag.ticketReplies != null)
+                                    {
+                                        @foreach (var item in ViewBag.ticketReplies)
+                                        {
+                                            <div class="dx-comment dx-ticket-comment p-15" id="@item.replyOwner.role.roleName">
+                                                <div>
 
+                                                    <div class="dx-comment-cont">
+                                                        <div style="display:flex">
+                                                            <div class="dx-comment-img">
+                                                                <img id="al-img" src="@Url.Content(item.replyOwner.ThumbUrl)" alt="replier img">
+                                                            </div>
+                                                            <div class="al-info-reply">
+                                                                <a href="#" class="dx-comment-name">
+                                                                    @item.replyOwner.FirstName @item.replyOwner.LastName
 
-                                    <form enctype="multipart/form-data" class="dx-form" asp-action="addReply" asp-controller="Tickets" method="post">
+                                                                </a>
+                                                                <div class="dx-comment-date">@item.reply_date</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="al-comment-text">
+                                                            <p>@item.content</p>
+                                                        </div>
+                                                        @if (!string.IsNullOrEmpty(item.r_uploadedFile))
+                                                        {
 
+                                                            @await Component.InvokeAsync("TicketAttatchment", item.r_uploadedFile)
+                                                        }
 
-
-                                        <div class="dx-form-group ">
-
-                                            <textarea asp-for="content" class="form-control form-control-style-2" placeholder=@localizer["Description"]></textarea>
-                                            <span asp-validation-for="content" class="text-danger"></span>
-
-                                            <input type="hidden" name="replierAdress" value="@User.Identity.Name" />
-
-                                            <input type="hidden" asp-for="TicketId" value="@ViewBag.Ticket.ticketId" />
-
-                                            <input type="hidden" name="asp-action" value="myTickets" />
-                                            <input type="hidden" name="asp-controller" value="Agent" />
-                                            <input type="hidden" name="destination" value="@ViewBag.Ticket.creator_user.Email" />
-
-                                        </div>
-
-                                        <div class="dx-form-group">
-
-                                            <div class="input-group mb-3 mt-3">
-                                                <input type="file" accept=".png,.jpg,.jpeg" asp-for="r_uploadedFileFile" class="custom-file-input" />
-                                                <label class="custom-file-label">Choose file</label>
+                                                    </div>
+                                                </div>
                                             </div>
+                                            <div class="dx-separator mnt-1"></div>
 
+                                        }
+                                    }
+
+                                    @if (ViewBag.Ticket.ticketStatut != Ticket.TicketStatus.Closed && User.Identity.Name != "boss@boss.com")
+                                    {
+                                        <div class="dx-blog-post-box p-6">
+
+
+                                            <form enctype="multipart/form-data" class="dx-form" asp-action="addReply" asp-controller="Tickets" method="post">
+
+
+
+                                                <div class="dx-form-group ">
+
+                                                    <textarea asp-for="content" class="form-control form-control-style-2" placeholder=@localizer["Description"]></textarea>
+                                                    <span asp-validation-for="content" class="text-danger"></span>
+
+                                                    <input type="hidden" name="replierAdress" value="@User.Identity.Name" />
+
+                                                    <input type="hidden" asp-for="TicketId" value="@ViewBag.Ticket.ticketId" />
+
+                                                    <input type="hidden" name="asp-action" value="myTickets" />
+                                                    <input type="hidden" name="asp-controller" value="Agent" />
+                                                    <input type="hidden" name="destination" value="@ViewBag.Ticket.creator_user.Email" />
+
+                                                </div>
+
+                                                <div class="dx-form-group">
+
+                                                    <div class="input-group mb-3 mt-3">
+                                                        <input type="file" accept=".png,.jpg,.jpeg" asp-for="r_uploadedFileFile" class="custom-file-input" />
+                                                        <label class="custom-file-label">@localizer["Choosefile"]</label>
+                                                    </div>
+
+                                                </div>
+
+
+                                                <div class="dx-box-content p-6 pb-15" style="width: 100%;display: flex;justify-content: space-around;padding-bottom: 20px;">
+                                                    <a data-dismiss="modal" class="btn btn-outline-dark btn-sm mr-10"><i class="fas fa-times-circle"></i>&nbsp;@localizer["Close"]</a>
+                                                    <button type="submit" class="btn btn-success btn-sm ml-30"><i class="fas fa-paper-plane"></i>&nbsp; @localizer["Reply"]</button>
+                                                </div>
+
+
+
+                                            </form>
                                         </div>
-
-
-                                        <div class="dx-box-content p-6 pb-15" style="width: 100%;display: flex;justify-content: space-around;padding-bottom: 20px;">
-                                            <a data-dismiss="modal" class="btn btn-outline-dark btn-sm mr-10"><i class="fas fa-times-circle"></i>&nbsp;Close</a>
-                                            <button type="submit" class="btn btn-success btn-sm ml-30"><i class="fas fa-paper-plane"></i>&nbsp; Reply</button>
-                                        </div>
-
-
-
-                                    </form>
+                                    }
                                 </div>
                             </div>
                         </div>
-                    </div>
 
                 </div>
 

@@ -44,6 +44,9 @@
                     <div class="dx-separator"></div>
                     <form asp-action="addTicket" asp-controller="Tickets" method="post" enctype="multipart/form-data" class="dx-form">
                         <div class="dx-box-content">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
                             <div class="dx-form-group">
                                 <label for="select-product" class="mnt-7">@localizer["Select_Type"]</label>
                                 <select class="form-control dx-select-ticket" asp-for="relatedProductRefId">
@@ -85,15 +88,15 @@
                                
                                 <div class="input-group mb-3">
                                     <input type="file" asp-for="uploadedFileFile" class="custom-file-input" />
-                                    <label class="custom-file-label">Choose file</label>
+                                    <label class="custom-file-label">@localizer["Choosefile"]</label>
                                 </div>
 
                             </div>
 
 
                             <div class="dx-box-content" style="justify-content: space-between;display: flex;">
-                                <a asp-action="Index" asp-controller="Home" class="btn btn-outline-danger btn-sm mr-10"><i class="far fa-times-circle"></i>&nbsp;Cancel</a>
-                                <button type="submit" class="btn btn-primary btn-sm ml-30"><i class="far fa-save"></i>&nbsp;Submit ticket</button>
+                                <a asp-action="Index" asp-controller="Home" class="btn btn-outline-danger btn-sm mr-10"><i class="far fa-times-circle"></i>&nbsp;@localizer["Cancel"]</a>
+                                <button type="submit" class="btn btn-primary btn-sm ml-30"><i class="far fa-save"></i>&nbsp;@localizer["SubmitTicket"]</button>
                             </div>
 
 

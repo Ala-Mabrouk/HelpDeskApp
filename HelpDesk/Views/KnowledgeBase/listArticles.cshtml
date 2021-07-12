@@ -1,4 +1,6 @@
 ﻿
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
 @model Entities.Entities.Article
 
 @{ Layout = "~/Views/Shared/_AdminLayout.cshtml";}
@@ -39,6 +41,39 @@
 
 <div id="placeholder"></div>
 
+
+@if (ViewBag.Message != null)
+{
+
+    <script type="text/javascript">
+        $("#success-alert").fadeTo(2000, 500).slideUp(500, function () {
+            $("#success-alert").slideUp(500);
+        });
+        $("#danger-alert").fadeTo(2000, 500).slideUp(500, function () {
+            $("#danger-alert").slideUp(500);
+        });
+
+    </script>
+
+    if (ViewBag.Message.statusOp == true)
+    {
+        <div class="alert alert-success" id="success-alert">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            <strong>@localizer["Success!"]</strong>
+            @ViewBag.Message.message
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger" id="danger-alert">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            <strong>@localizer["Danger!"]</strong>
+            @ViewBag.Message.message
+        </div>
+    }
+
+}
+
 <div class="card-header">
 
     <div style="display: flex;justify-content: space-between;align-items:center;">
@@ -46,11 +81,11 @@
             <span onclick="history.back(-1)" style="cursor:pointer;"><i class="fas fa-long-arrow-alt-left"></i>&nbsp;&nbsp;</span>
 
             <i class="fas fa-table mr-1"></i>
-            Articles
+            @localizer["Articles"]
         </div>
         <a class="btn btn-primary" asp-action="addArticle" asp-controller="KnowledgeBase"
            style="margin-right: 5%;">
-            <i class="fas fa-plus"></i>&nbsp; add new article
+            <i class="fas fa-plus"></i>&nbsp; @localizer["addnewarticle"];
         </a>
     </div>
 </div>
@@ -61,10 +96,14 @@
         <div class="dx-box bg-white ">
             <div class="container">
                 <ul class="dx-links dx-isotope-filter text-center p-10" style="background-color: gainsboro;margin:0px -24px;">
-                    <li class="active" data-filter="*">All Items</li>
-                    <li data-filter=".info">info</li>
-                    <li data-filter=".stylo">stylo</li>
-                    <li data-filter=".smart_phone">smart phone</li>
+                    <li class="active" data-filter="*">@localizer["AllItems"]</li>
+                    @foreach (var item in ViewBag.Categories)
+                    {
+                        <li data-filter=".@item.categoryName">@item.categoryName</li>
+                    }
+
+
+
                 </ul>
             </div>
         </div>
@@ -96,19 +135,19 @@
                                         </div>
                                         <div class="card-body">
                                             <p style="color:black;" class="card-text">@item.content</p>
-                                            <p class="card-text"><small class="text-muted">Last updated @item.lastModified</small></p>
+                                            <p class="card-text"><small class="text-muted">@localizer["Lastupdated"] @item.lastModified</small></p>
 
                                         </div>
                                     </a>
 
                                     <div class="card-footer text-center">
-                                        <a asp-action="updateArticle" asp-controller="KnowledgeBase" asp-route-Id="@item.ArticleId" class="card-link"><i class="far fa-edit"></i>&nbsp;Edit</a>
+                                        <a asp-action="updateArticle" asp-controller="KnowledgeBase" asp-route-Id="@item.ArticleId" class="card-link"><i class="far fa-edit"></i>&nbsp;@localizer["Edit"]</a>
                                         <a style="color:red;"
                                            href="#" data-toggle="deleteArticle" data-target="#deleteArticle"
                                            data-url="@Url.Action("deleteArticle","KnowledgeBase",new { articleId = item.ArticleId })"
                                            class="card-link">
                                             <i class="fas fa-trash-alt"></i>
-                                            &nbsp;Delete
+                                            &nbsp;@localizer["Delete"]
                                         </a>
                                     </div>
 

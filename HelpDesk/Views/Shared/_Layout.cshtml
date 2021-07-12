@@ -83,7 +83,7 @@
                 <ul class="dx-nav dx-nav-align-left">
                     <li class="dx-drop-item">
                         <a asp-action="ProductDisplay" asp-controller="Products">
-                            Store
+                            @localizer["Store"]
                         </a>
                     </li>
 
@@ -188,25 +188,21 @@
 
                 <ul class="dx-nav dx-nav-align-left">
 
-
-
-
-
                     <li class="dx-drop-item">
                         <a href="articles.html">
-                            account
+                            @localizer["Account"]
                         </a>
                         <ul class="dx-navbar-dropdown " style="">
 
                             <li>
                                 <a asp-action="Index" asp-controller="Tickets">
-                                    Account
+                                    @localizer["Account"]
                                 </a>
                             </li>
 
                             <li>
                                 <a asp-action="settings" asp-controller="Home">
-                                    Settings
+                                    @localizer["Settings"]
                                 </a>
                             </li>
                             <li>
@@ -217,7 +213,7 @@
                     </li>
                     <li>
                         <a asp-action="ProductDisplay" asp-controller="Products">
-                            Store
+                            @localizer["Store"]
                         </a>
                     </li>
 
@@ -311,23 +307,6 @@
 
 
 
-        @*    <div class="dx-box bg-white">
-                <div class="container">
-                    <ul class="dx-links text-center">
-                        <li><a href="help-center.html"> @localizer["Support"]</a></li>
-                        <li><a asp-action="Index" asp-controller="Tickets">@localizer["My tickets"]</a></li>
-                        <li><a asp-action="addTicket" asp-controller="Tickets">@localizer["Submit ticket"]</a></li>
-                        <li><a href="forums.html">@localizer["Knowledge Base"]</a></li>
-
-                    </ul>
-                </div>
-            </div>
-            <div class="dx-separator"></div>*@
-
-
-
-
-
         @RenderBody()
 
 
@@ -371,14 +350,14 @@
                                     <li><a asp-action="HelpCenter" asp-controller="Home">@localizer["Support"]</a></li>
                                     <li>
                                         <a asp-action="Log_in">
-                                            Log in
-                                        @*@localizer["Log_In"]*@
+                                        
+                                        @localizer["Log_In"]
                                         </a>
                                     </li>
                                     <li>
                                         <a asp-action="Sign_Up">
-                                            Sign up
-                                        @*@localizer["Sign_Up"]*@
+                                            
+                                        @localizer["Sign_Up"]
                                         </a>
                                     </li>
                                 </ul>
@@ -389,7 +368,7 @@
 
                             <div class="dx-widget-footer">
                                 <div class="dx-widget-title">
-                                    Latest Products
+                                    @localizer["LatestProducts"]
                                 </div>
                                 @await Component.InvokeAsync("FooterProducts")
                             </div>
@@ -399,7 +378,7 @@
 
                             <div class="dx-widget-footer">
                                 <div class="dx-widget-title">
-                                    Latest Posts
+                                    @localizer["LatestPosts"]
                                 </div>
                                 @await Component.InvokeAsync("FooterArticles")
 

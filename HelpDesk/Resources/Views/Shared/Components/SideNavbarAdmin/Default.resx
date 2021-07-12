@@ -123,14 +123,26 @@
   <data name="Agents" xml:space="preserve">
     <value>Agents</value>
   </data>
+  <data name="Customers" xml:space="preserve">
+    <value>Customers</value>
+  </data>
   <data name="Dashboard" xml:space="preserve">
     <value>DashBorad</value>
   </data>
   <data name="Knowledge_Base" xml:space="preserve">
     <value>Knowledge Base</value>
   </data>
+  <data name="Loggedinas" xml:space="preserve">
+    <value>Logged in as</value>
+  </data>
   <data name="Manage_Tickets" xml:space="preserve">
     <value>Manage Tickets</value>
+  </data>
+  <data name="MyTicket" xml:space="preserve">
+    <value>My Ticket</value>
+  </data>
+  <data name="Products" xml:space="preserve">
+    <value>Products</value>
   </data>
   <data name="users" xml:space="preserve">
     <value>Users</value>

@@ -1,4 +1,6 @@
-﻿
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
+
 
 
 @model Entities.Entities.Article
@@ -7,12 +9,12 @@
 <div class="container">
     <div class="card-header text-center">
 
-        <h3>Adding new Article</h3>
+        <h3>@localizer["AddnewArticle"]</h3>
     </div>
 
 
     <div class="card-body">
-        <form   asp-action="addArticle" asp-controller="KnowledgeBase">
+        <form asp-action="addArticle" asp-controller="KnowledgeBase">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
 
@@ -37,17 +39,10 @@
             </div>
 
 
-@*            <div class="form-group">
-                <label asp-for="category" class="control-label"></label>
-                <input required asp-for="category" class="form-control" />
-                <span asp-validation-for="category" class="text-danger"></span>
-            </div>*@
-
-
 
             <div class="form-group">
-                <button type="submit" class="btn btn-success"><i class="far fa-save"></i>&nbsp;Save</button>
-                <button type="button" class="btn btn-primary"><i class="far fa-times-circle"></i>&nbsp;close</button>
+                <button type="submit" class="btn btn-success"><i class="far fa-save"></i>&nbsp;@localizer["Save"]</button>
+                <button type="button" class="btn btn-primary" onclick="history.back(-1)"><i class="far fa-times-circle"></i>&nbsp;@localizer["close"]</button>
 
             </div>
         </form>

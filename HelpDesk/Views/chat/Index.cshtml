@@ -218,7 +218,7 @@
         .mesgs {
             float: left;
             padding: 30px 15px 0 25px;
-            width: 60%;
+          
         }
 
         .sent_msg p {
@@ -286,75 +286,71 @@
 
 
 
-    <div>
-        loged user
-        <input type="text" id="logedUser" value="@User.Identity.Name" />
+    
+   
+        <input type="hidden" id="logedUser" value="@User.Identity.Name" />
+        <input type="hidden" id="reciverUser" value="@ViewBag.reciver" />
 
 
-    </div>
-    <div>
-        reciver user
-        <input type="text" id="reciverUser" />
-
-
-    </div>
-
-    <div class="messaging pt-50" style="background: #000c;">
-        <div   style="display: flex;justify-content: center;margin-bottom: 10px;">
-
-            <div class="mesgs" style="background: white;border-radius: 6% 0%;">
-                <div class="msg_history">
-                    @if (ViewBag.conv != null)
-                    {
-                        @foreach (var item in ViewBag.conv)
+    <div class="messaging pt-20" style="background: #000c;">
+       
+        <div style="display: flex;justify-content: center;margin-bottom: 10px;">
+            <div >
+                <h1 style="color:azure;text-align:center;">NST-Desk chat</h1>
+                <div class="mesgs" style="background: white;border-radius: 6% 0%;">
+                    <div class="msg_history">
+                        @if (ViewBag.conv != null)
                         {
-                            if (item.senderId == ViewBag.logeduser)
+                            @foreach (var item in ViewBag.conv)
                             {
+                                if (item.senderId == ViewBag.logeduser)
+                                {
 
 
-                                <div class="outgoing_msg">
-                                    <div class="sent_msg">
-                                        <p>@item.msgContent</p>
+                                    <div class="outgoing_msg">
+                                        <div class="sent_msg">
+                                            <p>@item.msgContent</p>
 
-                                    </div>
-                                </div>
-
-                            }
-                            else
-                            {
-
-                                <div class="incoming_msg">
-
-                                    <div class="incoming_msg_img">
-                                        <img src="jhfsdj" alt="@item.senderId">
-                                    </div>
-                                    <div class="received_msg">
-                                        <div class="received_withd_msg">
-                                            <p>
-                                                @item.msgContent
-                                            </p>
                                         </div>
                                     </div>
-                                </div>
+
+                                }
+                                else
+                                {
+
+                                    <div class="incoming_msg">
+
+                                        <div class="incoming_msg_img">
+                                            <img src="jhfsdj" alt="@item.senderId">
+                                        </div>
+                                        <div class="received_msg">
+                                            <div class="received_withd_msg">
+                                                <p>
+                                                    @item.msgContent
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
                             }
                         }
-                    }
 
-                    <div id="messagesList">
+                        <div id="messagesList">
+
+
+
+
+                        </div>
 
 
 
 
                     </div>
-
-
-
-
-                </div>
-                <div class="type_msg m-10">
-                    <div class="input_msg_write">
-                        <input type="text" id="messageInput" class="write_msg" placeholder="Type a message" />
-                        <button id="sendToUser" class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+                    <div class="type_msg m-10">
+                        <div class="input_msg_write">
+                            <input type="text" id="messageInput" class="write_msg" placeholder="Type a message" />
+                            <button id="sendToUser" class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+                        </div>
                     </div>
                 </div>
             </div>

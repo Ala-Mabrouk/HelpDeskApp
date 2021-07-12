@@ -53,19 +53,21 @@
 
 <div id="placeholder"></div>
 
+
+
 <div class="card mb-4">
     <div class="card-header">
-        <div  style="display: flex;justify-content: space-between; align-items:center;">
+        <div style="display: flex;justify-content: space-between; align-items:center;">
             <div>
                 <span onclick="history.back(-1)" style="cursor:pointer;"><i class="fas fa-long-arrow-alt-left"></i>&nbsp;&nbsp;</span>
 
-                <i class="fas fa-table mr-1"></i>Agents table
+                <i class="fas fa-table mr-1"></i> 
 
-                @* @localizer["agents_Table"]*@
+                 @localizer["agents_Table"]
             </div>
 
 
-            <a data-toggle="addAgent" data-target="#addAgent" data-url="@Url.Action("addAgent")" class="btn btn-primary"><i class="fas fa-plus"></i>&nbsp;Add agent</a>
+            <a data-toggle="addAgent" data-target="#addAgent" data-url="@Url.Action("addAgent")" class="btn btn-primary"><i class="fas fa-plus"></i>&nbsp;@localizer["addAgent"]</a>
         </div>
     </div>
     <div class="card-body">
@@ -77,7 +79,7 @@
                     <th><label asp-for="Id"></label></th>
                     <th><label asp-for="FirstName"></label> <label asp-for="LastName"></label></th>
                     <th><label asp-for="Email"></label></th>
-                   
+
                     <th><label asp-for="role.roleName"></label></th>
                     <th><label asp-for="status"></label></th>
                     <th><label>@localizer["actions"]</label></th>
@@ -88,7 +90,7 @@
                     <th><label asp-for="Id"></label></th>
                     <th><label asp-for="FirstName"></label> <label asp-for="LastName"></label></th>
                     <th><label asp-for="Email"></label></th>
-                     
+
                     <th><label asp-for="role.roleName"></label></th>
                     <th><label asp-for="status"></label></th>
                     <th>@localizer["actions"]</th>
@@ -102,13 +104,13 @@
                         <td> @agent.Id</td>
                         <td> @agent.FirstName @agent.LastName</td>
                         <td> @agent.Email</td>
-                     
+
                         <td> @agent.role.roleName</td>
                         <td> @agent.status</td>
                         <td>
-                            <a asp-action="EditAgent" asp-route-mail="@agent.Email" asp-controller="Admin">update info</a>|
-                            <a asp-action="EditAgentPermission" asp-route-mail="@agent.Email" asp-controller="Admin">update Permission</a>|
-                            <a href="#" data-toggle="agentDetails" data-target="#agentDetails" data-url="@Url.Action("agentdetails","Admin",new { agentMail = agent.Email })">Detail</a>
+                            <a asp-action="EditAgent" asp-route-mail="@agent.Email" asp-controller="Admin">@localizer["updateIinfo"]</a>|
+                            <a asp-action="EditAgentPermission" asp-route-mail="@agent.Email" asp-controller="Admin">@localizer["updatePermission"]</a>|
+                            <a href="#" data-toggle="agentDetails" data-target="#agentDetails" data-url="@Url.Action("agentdetails","Admin",new { agentMail = agent.Email })">@localizer["Detail"]</a>
                         </td>
 
 
@@ -121,4 +123,3 @@
 
     </div>
 </div>
-

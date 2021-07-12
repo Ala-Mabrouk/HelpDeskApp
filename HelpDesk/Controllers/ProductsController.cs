@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using HelpDesk.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Text.RegularExpressions;
+using System.Runtime.InteropServices;
 
 namespace HelpDesk.Controllers
 {
@@ -24,15 +25,17 @@ namespace HelpDesk.Controllers
 
 
         // GET: ProductsController
+    
         [Authorize]
-        public ActionResult Index()
+   
+        public ActionResult Index(ResultOperation result )
         {
+        
             loged = User.FindFirstValue(ClaimTypes.Name).ToString();
             List<Product> res = _AppFunctions.getListProducts().Result;
             ViewBag.listProducts = res;
             return View();
         }
-
 
 
         [Authorize]
@@ -86,13 +89,29 @@ namespace HelpDesk.Controllers
 
                     }
                 }
+              
+
+                     ResultOperation result = new ResultOperation();
 
                 if (_AppFunctions.addProduct(p1).Result != null)
                 {
-                    return RedirectToAction("Index", "Products");
-                }
-                return RedirectToAction("Erreur404", "Home");
 
+                    result.statusOp = true;
+                    result.message = "product added !";
+
+
+                }
+                else
+                {
+                    result.statusOp = false;
+                    result.message = "can not add product for now !";
+                }
+
+                ViewBag.Message = result;
+                List<Product> res = _AppFunctions.getListProducts().Result;
+                ViewBag.listProducts = res;
+
+                return View("Index");
             }
             catch
             {
@@ -148,19 +167,31 @@ namespace HelpDesk.Controllers
 
                     }
                 }
-
+                ResultOperation result = new ResultOperation();
 
                 if (_AppFunctions.updateProduct(p).Result != null)
                 {
-                    return RedirectToAction("Index", "Products");
+
+                    result.statusOp = true;
+                    result.message = "product updated !";
+
 
                 }
+                else
+                {
+                    result.statusOp = false;
+                    result.message = "product not updated !";
+                }
 
-                return RedirectToAction("Erreur404", "Home");
+                ViewBag.Message = result;
+                List<Product> res = _AppFunctions.getListProducts().Result;
+                ViewBag.listProducts = res;
+
+                return View("Index");
             }
             catch
             {
-                return View();
+                return RedirectToAction("Erreur404", "Home");
             }
         }
 
@@ -183,17 +214,34 @@ namespace HelpDesk.Controllers
 
             try
             {
+                
+                ResultOperation result = new ResultOperation();
+
                 if (_AppFunctions.DeleteProduct(p.refId).Result)
                 {
-                    return RedirectToAction("Index", "Products");
+
+                    result.statusOp = true;
+                    result.message = "product deleted !";
+
 
                 }
-                return RedirectToAction("Erreur404", "Home");
+                else
+                {
+                    result.statusOp = false;
+                    result.message = "Can not delete product for now !";
+                }
+
+                ViewBag.Message = result;
+                List<Product> res = _AppFunctions.getListProducts().Result;
+                ViewBag.listProducts = res;
+
+                return View("Index");
+
 
             }
             catch
             {
-                return View();
+                return RedirectToAction("Erreur404", "Home");
             }
         }
 
@@ -202,6 +250,8 @@ namespace HelpDesk.Controllers
         {
 
             List<Product> res = _AppFunctions.getAllProducts();
+
+            ViewBag.Categories = _AppFunctions.getcategories().Result;
 
             return View(res);
         }

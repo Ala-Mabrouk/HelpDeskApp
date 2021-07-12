@@ -1,5 +1,6 @@
 ﻿using AppFeatures;
 using Entities.Entities;
+using HelpDesk.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
@@ -29,9 +30,9 @@ namespace HelpDesk.Controllers
         public IActionResult singleArticleInfo(int articleId)
         {
             Article a = _AppFunctions.getArticleInfo(articleId).Result;
-            ViewBag.theArticle = a;
+             
 
-            return View();
+            return View(a);
         }
 
 
@@ -40,6 +41,7 @@ namespace HelpDesk.Controllers
         {
             var res = _AppFunctions.getListAllArticlesByCategory(category).Result;
             ViewBag.ListArticles = res;
+            ViewBag.category = category;
             return View();
         }
 
@@ -57,17 +59,34 @@ namespace HelpDesk.Controllers
             ar.creator_agentId = id;
             ar.creationDate = DateTime.Now;
             ar.lastModified = DateTime.Now;
+
+            ResultOperation result = new ResultOperation();
+
             if (_AppFunctions.addArticle(ar).Result)
             {
 
-                return RedirectToAction("listArticles");
+                result.statusOp = true;
+                result.message = "article adeded !";
+
+
             }
-            return View();
+            else
+            {
+                result.statusOp = false;
+                result.message = "Can not add article for now !";
+            }
+
+            ViewBag.Message = result;
+            ViewBag.Articles = _AppFunctions.getAllArticles().Result;
+
+            return View("listArticles");
+ 
         }
 
         public IActionResult listArticles()
         {
             ViewBag.Articles = _AppFunctions.getAllArticles().Result;
+            ViewBag.Categories = _AppFunctions.getcategories().Result;
             return View();
         }
 
@@ -89,11 +108,28 @@ namespace HelpDesk.Controllers
         public IActionResult delete()
         {
             int idArticle = Int16.Parse(Request.Form["ArticleId"]);
+          
+            ResultOperation result = new ResultOperation();
+
             if (_AppFunctions.removeArticle(idArticle).Result)
             {
-                return RedirectToAction("listArticles", "KnowledgeBase");
+
+                result.statusOp = true;
+                result.message = "article is deleted!";
+
+
             }
-            return RedirectToAction("listArticles", "KnowledgeBase");
+            else
+            {
+                result.statusOp = false;
+                result.message = "Can not delete article for now !";
+            }
+
+            ViewBag.Message = result;
+            ViewBag.Articles = _AppFunctions.getAllArticles().Result;
+
+            return View("listArticles");
+ 
         }
 
         [HttpGet]
@@ -114,12 +150,38 @@ namespace HelpDesk.Controllers
                 int id = _AppFunctions.GetUserByEmail(User.FindFirstValue(ClaimTypes.Name)).Result.Id;
                 a.creator_agentId = id;
                 a.lastModified = DateTime.Now;
+
+                ResultOperation result = new ResultOperation();
+
                 if (_AppFunctions.updateArticle(a).Result != null)
-                    return RedirectToAction("listArticles","KnowledgeBase");
+                {
+
+                    result.statusOp = true;
+                    result.message = "article is updated!";
+
+
+                }
+                else
+                {
+                    result.statusOp = false;
+                    result.message = "Can not update article for now !";
+                }
+
+                ViewBag.Message = result;
+                ViewBag.Articles = _AppFunctions.getAllArticles().Result;
+
+                return View("listArticles");
+
+
+
+
+
+
+
             }
             catch (Exception e)
             {
-                System.Diagnostics.Debug.WriteLine("**********" + e);
+
                 return RedirectToAction("Erreur404", "Home");
             }
             return RedirectToAction("Erreur404", "Home");

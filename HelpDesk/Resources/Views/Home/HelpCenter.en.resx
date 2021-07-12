@@ -120,7 +120,19 @@
   <data name="direction" xml:space="preserve">
     <value>RTL</value>
   </data>
-  <data name="Popular Articles" xml:space="preserve">
+  <data name="KnowledgeBase" xml:space="preserve">
     <value>Popular Articles</value>
+  </data>
+  <data name="msgArticles" xml:space="preserve">
+    <value>fhdsjkfsdfkshdjfksdkhfjh</value>
+  </data>
+  <data name="msgTickets" xml:space="preserve">
+    <value>sjhdfjsdfksdfhjsdfhsdjh</value>
+  </data>
+  <data name="PopularArticles" xml:space="preserve">
+    <value>Popular articles</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>Read more</value>
   </data>
 </root>

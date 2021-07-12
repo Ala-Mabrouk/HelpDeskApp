@@ -20,9 +20,27 @@
                 <a class="nav-link" asp-action="myTickets" asp-controller="Agent">
 
                     <div class="sb-nav-link-icon"><i class="fas fa-clipboard-list"></i></div>
-                    My Ticket
+                    @localizer["MyTicket"]
                 </a>
-                @if (Model.role.roleName.Equals("Admin") || Model.role.roleName.Equals("SuperAdmin"))
+
+@*                IN CASE FO WEB MASTER WE NEED TO SHOW ALL THE TICKETS EVEN CLOSED ONES
+*@
+                @if (Model.role.roleName.Equals("SuperAdmin"))
+                {
+                    <a class="nav-link" asp-action="FULlistTickets" asp-controller="Tickets">
+                        <div class="sb-nav-link-icon"><i class="far fa-calendar-alt"></i></div>
+                        @localizer["Manage_Tickets"]
+                    </a>
+                }
+                else
+                {
+                    <a class="nav-link" asp-action="listTickets" asp-controller="Tickets">
+                        <div class="sb-nav-link-icon"><i class="far fa-calendar-alt"></i></div>
+                        @localizer["Manage_Tickets"]
+                    </a>
+                }
+
+                @if (ViewBag.listPermissions.Contains("Manage Admins") || ViewBag.listPermissions.Contains("Manage Agents"))
                 {
 
 
@@ -31,6 +49,7 @@
                         @localizer["users"]
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
+
                     <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
                             <a class="nav-link" asp-action="ShowAgents" asp-controller="Admin">@localizer["Agents"]</a>
@@ -43,59 +62,36 @@
                     </div>
                 }
 
-                <a class="nav-link" asp-action="listTickets" asp-controller="Tickets">
-                    <div class="sb-nav-link-icon"><i class="far fa-calendar-alt"></i></div>
-                    @localizer["Manage_Tickets"]
-                </a>   <a class="nav-link" asp-action="customersList" asp-controller="Agent">
-                    <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
-                    Customers
-                </a>
-                <a class="nav-link" asp-action="Index" asp-controller="Products">
-                    <div class="sb-nav-link-icon"><i class="fab fa-product-hunt"></i></div>
-                    Products
-                </a>
-                <a class="nav-link" asp-action="listArticles" asp-controller="KnowledgeBase">
-                    <div class="sb-nav-link-icon"><i class="fas fa-database"></i></div>
-                    @localizer["Knowledge_Base"]
-                </a>
-             @*   <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
-                    <div class="sb-nav-link-icon"><i class="fas fa-cogs"></i></div>
-                    Configs
-                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                </a>*@
-                @*                <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
-                    <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                            AppConfig
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                        </a>
-                        <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="login.html">----</a>
-                                <a class="nav-link" href="register.html">*****</a>
-                                <a class="nav-link" href="password.html">######</a>
-                            </nav>
-                        </div>
-                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-                            Error-Pages
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                        </a>
-                        <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="401.html">401 Page</a>
-                                <a class="nav-link" href="404.html">404 Page</a>
-                                <a class="nav-link" href="500.html">500 Page</a>
-                            </nav>
-                        </div>
-                    </nav>
-                </div>*@
+                @if (ViewBag.listPermissions.Contains("Manage Clients"))
+                {
+                    <a class="nav-link" asp-action="customersList" asp-controller="Agent">
+                        <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+                        @localizer["Customers"]
+                    </a>
+                }
+                @if (ViewBag.listPermissions.Contains("Manage Products"))
+                {
+                    <a class="nav-link" asp-action="Index" asp-controller="Products">
+                        <div class="sb-nav-link-icon"><i class="fab fa-product-hunt"></i></div>
+                        @localizer["Products"]
+                    </a>
+                }
+
+                @if (ViewBag.listPermissions.Contains("Manage knowledge base"))
+                {
+                    <a class="nav-link" asp-action="listArticles" asp-controller="KnowledgeBase">
+                        <div class="sb-nav-link-icon"><i class="fas fa-database"></i></div>
+                        @localizer["Knowledge_Base"]
+                    </a>
+                }
+
 
 
             </div>
         </div>
         <div class="sb-sidenav-footer">
 
-            <div class="small">Logged in as:</div>
+            <div class="small">@localizer["Loggedinas"]:</div>
             @Model.role.roleName
         </div>
     </nav>

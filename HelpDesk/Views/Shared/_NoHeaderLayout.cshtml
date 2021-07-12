@@ -86,7 +86,7 @@
                 <ul class="dx-nav dx-nav-align-left">
                     <li class="dx-drop-item">
                         <a asp-action="ProductDisplay" asp-controller="Products">
-                            Store
+                            @localizer["Store"]
                         </a>
                     </li>
 
@@ -186,7 +186,29 @@
 
                 <ul class="dx-nav dx-nav-align-left">
 
+                    <li class="dx-drop-item">
+                        <a href="articles.html">
+                            @localizer["Account"]
+                        </a>
+                        <ul class="dx-navbar-dropdown show collapse" style="">
 
+                            <li>
+                                <a asp-action="Index" asp-controller="Tickets">
+                                    @localizer["Account"]
+                                </a>
+                            </li>
+
+                            <li>
+                                <a asp-action="settings" asp-controller="Home">
+                                    @localizer["Settings"]
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-action="log_out" asp-controller="Home">@localizer["Log_out"]</a>
+                            </li>
+
+                        </ul>
+                    </li>
                     <li class="dx-drop-item">
                         <a asp-action="HelpCenter" asp-controller="Home">
                             @localizer["Support"]
@@ -207,29 +229,7 @@
                             @localizer["Articles&FAQ"]
                         </a>
                     </li>
-                    <li class="dx-drop-item">
-                        <a href="articles.html">
-                            account
-                        </a>
-                        <ul class="dx-navbar-dropdown show collapse" style="">
 
-                            <li>
-                                <a asp-action="Index" asp-controller="Tickets">
-                                    Account
-                                </a>
-                            </li>
-
-                            <li>
-                                <a asp-action="settings" asp-controller="Home">
-                                    Settings
-                                </a>
-                            </li>
-                            <li>
-                                <a asp-action="log_out" asp-controller="Home">@localizer["Log_out"]</a>
-                            </li>
-
-                        </ul>
-                    </li>
                 </ul>
 
                 <ul class="dx-nav dx-nav-align-right" style="max-width: max-content;">
@@ -278,40 +278,7 @@
 
     @*BEGIN:MAIN*@
     <div class="dx-main">
-        @*   <header class="dx-header dx-box-1">
-                <div class="container">
-                    <div class="bg-image bg-image-parallax">
-                        <img src="/Content/images/bg-header-4.png" class="jarallax-img" alt="">
-                        <div style="background-color: rgba(27, 27, 27, .8);"></div>
-                    </div>
-
-                    <div class="row justify-content-center">
-                        <div class="col-xl-7">
-                            <h1 class="h2 mb-30 text-white text-center">@localizer["Q1"]</h1>
-                            <form action="#" class="dx-form dx-form-group-inputs">
-                                <input type="text" name="" value="" class="form-control" placeholder="@localizer["search_place_hoder"]">
-                                <button class="dx-btn dx-btn-lg">@localizer["search_button"]</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </header>*@
-
-
-
-
-        @*    <div class="dx-box bg-white">
-                <div class="container">
-                    <ul class="dx-links text-center">
-                        <li><a href="help-center.html"> @localizer["Support"]</a></li>
-                        <li><a asp-action="Index" asp-controller="Tickets">@localizer["My tickets"]</a></li>
-                        <li><a asp-action="addTicket" asp-controller="Tickets">@localizer["Submit ticket"]</a></li>
-                        <li><a href="forums.html">@localizer["Knowledge Base"]</a></li>
-
-                    </ul>
-                </div>
-            </div>
-            <div class="dx-separator"></div>*@
+    
 
 
 
@@ -360,14 +327,14 @@
                                     <li><a asp-action="HelpCenter" asp-controller="Home">@localizer["Support"]</a></li>
                                     <li>
                                         <a asp-action="Log_in">
-                                            Log in
-                                      @*  @localizer["Log_In"]*@
+                                           
+                                        @localizer["Log_In"]
                                         </a>
                                     </li>
                                     <li>
                                         <a asp-action="Sign_Up">
-                                            Sign up
-                                        @*@localizer["Sign_Up"]*@
+                                           
+                                        @localizer["Sign_Up"]
                                         </a>
                                     </li>
                                 </ul>
@@ -378,7 +345,7 @@
 
                             <div class="dx-widget-footer">
                                 <div class="dx-widget-title">
-                                    Latest Products
+                                    @localizer["LatestProducts"] 
                                 </div>
                                 @await Component.InvokeAsync("FooterProducts")
 
@@ -389,12 +356,11 @@
 
                             <div class="dx-widget-footer">
                                 <div class="dx-widget-title">
-                                    Latest Posts
-                                </div>
-                                @await Component.InvokeAsync("FooterArticles")
+                                    @localizer["LatestPosts"]
+                                    @await Component.InvokeAsync("FooterArticles")
 
-                                </a>
-                            </div>
+                                    </a>
+                                </div>
 
                         </div>
                     </div>

@@ -1,4 +1,9 @@
-﻿@model IEnumerable<Entities.Entities.Product>
+﻿
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
+
+@model IEnumerable<Entities.Entities.Product>
 
 <div class="dx-box-5 pb-100 bg-grey-6">
     <div class="container">
@@ -18,8 +23,8 @@
                     <div class="dx-portfolio-item dx-block-decorated">
                         <div class="dx-portfolio-item-image">
                             <div class="dx-portfolio-item-overlay" style="background-color: rgba(27, 27, 27, .8);">
-                                <a href="#" class="dx-btn dx-btn-md dx-btn-transparent-style-2 m-10">Live Demo</a>
-                                <a href="#" class="dx-btn dx-btn-md dx-btn-transparent-style-2 m-10">Buy Now</a>
+                                <a href="#" class="dx-btn dx-btn-md dx-btn-transparent-style-2 m-10">@localizer["LiveDemo"]</a>
+                                <a href="#" class="dx-btn dx-btn-md dx-btn-transparent-style-2 m-10">@localizer["BuyNow"]</a>
                             </div>
                             <img src=@Url.Content(item.imgUrl) alt="Product img">
                         </div>
@@ -35,12 +40,12 @@
             }
 
 
-</div>
-
-
-            <div class="text-center mt-70">
-                <a href="#" class="dx-btn dx-btn-grey dx-btn-lg dx-btn-load" data-btn-loaded="all products shown">Load More</a>
-            </div>
-
         </div>
+
+
+        <div class="text-center mt-70">
+            <a href="#" class="dx-btn dx-btn-grey dx-btn-lg dx-btn-load" data-btn-loaded="all products shown">@localizer["LoadMore"]</a>
+        </div>
+
+    </div>
 </div>

@@ -6,11 +6,27 @@
     ViewData["Title"] = "Edit";
 }
 
+
+
+<script>
+    $("#EndDate").change(function () {
+        var startDate = document.getElementById("StartDate").value;
+        var endDate = document.getElementById("EndDate").value;
+
+        if ((Date.parse(endDate) <= Date.parse(startDate))) {
+            alert("Validation date should be greater than Start date");
+            document.getElementById("EndDate").value = "";
+        }
+    });
+
+
+</script>
+
 <div class="modal fade" id="smt">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Edit Product</h4>
+                <h4 class="modal-title">@localizer["EditProduct"]</h4>
                 <button type="button" class="close" data-dismiss="modal">x</button>
 
             </div>
@@ -50,14 +66,14 @@
                                 <tr>
                                     <td> <label asp-for="dateBuild" class="mnt-7"></label></td>
                                     <td>
-                                        <input type="date" asp-for="dateBuild" class="form-control form-control-style-2" id="zip">
+                                        <input type="date" asp-for="dateBuild" class="form-control form-control-style-2" id="StartDate">
                                     </td>
                                 </tr>
                                 <tr><td><span asp-validation-for="dateBuild" class="text-danger"></span></td></tr>
                                 <tr>
                                     <td><label asp-for="dateValidate" class="mnt-7"></label></td>
                                     <td>
-                                        <input type="date" asp-for="dateValidate" class="form-control form-control-style-2" id="city">
+                                        <input type="date"  asp-for="dateValidate" class="form-control form-control-style-2" id="EndDate">
                                     </td>
                                 </tr>
                                 <tr><td><span asp-validation-for="dateValidate" class="text-danger"></span></td></tr>
@@ -70,21 +86,13 @@
 
                                     </td>
                                 </tr>
- 
-
-                                <tr>
-                                    <td colspan="2">
-                                        <input type="file" asp-for="ImageFile" class="custom-file-input" />
-                                    </td>
-                                </tr>
 
 
+                            </table> 
+                            <button type="submit" class="btn dx-btn-black dx-btn-xl dx-btn-block mb-10">@localizer["Save_Changes"]</button>
+                            <a class="btn btn-outline-danger dx-btn-xl dx-btn-block mr-10" data-dismiss="modal"><i class="far fa-times-circle"></i>&nbsp;@localizer["cancel"]</a>
 
 
-
-
-                            </table>
-                            <button type="submit" class="dx-btn-dark dx-btn-xl dx-btn-block">@localizer["Save_Changes"]</button>
                         </div>
                     </form>
 
@@ -95,62 +103,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-                @*
-                    <div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <form asp-action="Edit" asp-controller="Products">
-
-                                    <input type="hidden" asp-for="refId" />
-                                    <div class="form-group">
-                                        <label asp-for="name" class="control-label"></label>
-                                        <input asp-for="name" class="form-control" />
-                                        <span asp-validation-for="name" class="text-danger"></span>
-                                    </div>
-                                    <div class="form-group">
-                                        <label asp-for="description" class="control-label"></label>
-                                        <input asp-for="description" class="form-control" />
-                                        <span asp-validation-for="description" class="text-danger"></span>
-                                    </div>
-                                    <div class="form-group">
-                                        <label asp-for="factoryName" class="control-label"></label>
-                                        <input asp-for="factoryName" class="form-control" />
-                                        <span asp-validation-for="factoryName" class="text-danger"></span>
-                                    </div>
-                                    <div class="form-group">
-                                        <label asp-for="dateBuild" class="control-label"></label>
-                                        <input type="date" asp-for="dateBuild" class="form-control" />
-                                        <span asp-validation-for="dateBuild" class="text-danger"></span>
-                                    </div>
-                                    <div class="form-group">
-                                        <label asp-for="dateValidate" class="control-label"></label>
-                                        <input type="date" asp-for="dateValidate" class="form-control" />
-                                        <span asp-validation-for="dateValidate" class="text-danger"></span>
-                                    </div>
-                                    <div class="form-group">
-                                        <label asp-for="category" class="control-label"></label>
-                                        <input asp-for="category" class="form-control" />
-                                        <span asp-validation-for="category" class="text-danger"></span>
-                                    </div>
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-primary" data-save="">Save</button>
-                                        <button type="button" class="btn btn-primary" data-dismiss="modal">close</button>
-
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>*@
             </div>
 
 

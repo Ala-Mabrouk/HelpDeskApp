@@ -11,14 +11,15 @@ namespace HelpDesk.Controllers
 {
     public class chatController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Index(string reciver)
         {
 
-
+            int idrecuver= new AppFunctions().GetUserByEmail(reciver).Result.Id;
             int logerId = new AppFunctions().GetUserByEmail(User.FindFirstValue(ClaimTypes.Name)).Result.Id;
 
-            ViewBag.conv = getConversation(33, 35);
-            ViewBag.logeduser = logerId; 
+            ViewBag.conv = getConversation(logerId, idrecuver);
+            ViewBag.logeduser = logerId;
+            ViewBag.reciver = reciver;
             return View();
         }
 

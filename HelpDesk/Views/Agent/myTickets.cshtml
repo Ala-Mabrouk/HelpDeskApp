@@ -57,7 +57,7 @@
             <span onclick="history.back(-1)" style="cursor:pointer;"><i class="fas fa-long-arrow-alt-left"></i>&nbsp;&nbsp;</span>
 
             <i class="fas fa-table mr-1"></i>
-            tickets Table
+            @localizer["ticketsTable"]
         </div>
     </div>
     <div class="card-body">
@@ -102,9 +102,9 @@
 
 
                         <td>
-                            <a href="#" data-toggle="ticketInfo" data-target="#ticketInfo" data-url="@Url.Action("ticketInfo","Tickets",new { idTicket = ticket.ticketId })">Show ticket info</a>
+                            <a href="#" data-toggle="ticketInfo" data-target="#ticketInfo" data-url="@Url.Action("ticketInfo","Tickets",new { idTicket = ticket.ticketId })">@localizer["Showticketinfo"]</a>
                             |
-                            <a href="#" data-toggle="ticketDetailInfo" data-target="#ticketDetailInfo" data-url="@Url.Action("ticketDetailInfo","Tickets",new { idTicket = ticket.ticketId })">Details</a>
+                            <a href="#" data-toggle="ticketDetailInfo" data-target="#ticketDetailInfo" data-url="@Url.Action("ticketDetailInfo","Tickets",new { idTicket = ticket.ticketId })">@localizer["Details"]</a>
                         </td>
 
                     </tr>

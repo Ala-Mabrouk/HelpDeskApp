@@ -4,8 +4,7 @@
     @foreach (var item in ViewBag.theData)
     {
         <li>
-            <a asp-controller="KnowledgeBase" asp-action="singleArticleCategory" asp-route-category="@item.categoryName
-               ">
+            <a asp-controller="KnowledgeBase" asp-action="singleArticleCategory" asp-route-category="@item.categoryName">
                 <span class="icon pe-7s-angle-right"></span>
                 <span class="dx-widget-categories-category">@item.categoryName</span>
                 <span class="dx-widget-categories-badge">(@item.categoryCount)</span>

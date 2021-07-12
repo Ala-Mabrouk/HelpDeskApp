@@ -1,5 +1,9 @@
 ﻿
-@model Entities.Entities.Product 
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
+
+@model Entities.Entities.Product
 
 
 @{ Layout = "~/Views/Shared/_NoHeaderLayout.cshtml";}
@@ -20,10 +24,10 @@
         <!-- START: Breadcrumbs -->
         <ul class="dx-breadcrumbs text-center">
 
-            <li><a asp-action="index" asp-controller="Home">Home</a></li>
-           
+            <li><a asp-action="index" asp-controller="Home">@localizer["Home"]</a></li>
 
-            <li><a asp-action="ProductDisplay" asp-controller="Products">Store</a></li>
+
+            <li><a asp-action="ProductDisplay" asp-controller="Products">@localizer["Store"]</a></li>
 
             <li>@Model.name</li>
 
@@ -46,19 +50,19 @@
                             <span class="dx-gallery-item-overlay"><span class="icon pe-7s-exapnd2"></span></span>
                             <img src=@Url.Content(Model.imgUrl) class="dx-img" alt="">
                         </a>
-              
+
                     </div>
- 
+
                     <ul class="nav dx-tab mt-35" role="tablist">
                         <li>
-                            <a class="active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Description</a>
+                            <a class="active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">@localizer["Description"]</a>
                         </li>
 
                         <li>
-                            <a href="documentation.html">Documentation <span class="icon fas fa-external-link-alt"></span></a>
+                            <a href="documentation.html">@localizer["Documentation"] <span class="icon fas fa-external-link-alt"></span></a>
                         </li>
                         <li>
-                            <a href="articles.html">Knowledge Base <span class="icon fas fa-external-link-alt"></span></a>
+                            <a href="articles.html">@localizer["KnowledgeBase"] <span class="icon fas fa-external-link-alt"></span></a>
                         </li>
                     </ul>
 
@@ -106,10 +110,10 @@
                     <div class="d-none d-lg-block mb-40">
                         <div class="row vertical-gap xs-gap justify-content-between">
                             <div class="col">
-                                <a asp-action="buyProduct" asp-controller="Products" asp-route-prodRef=@Model.refId class="dx-btn dx-btn-lg dx-btn-block">Buy Now @Model.price</a>
+                                <a asp-action="buyProduct" asp-controller="Products" asp-route-prodRef=@Model.refId class="dx-btn dx-btn-lg dx-btn-block">@localizer["BuyNow"] @Model.price</a>
                             </div>
                             <div class="col">
-                                <a href="#" class="dx-btn dx-btn-lg dx-btn-dark dx-btn-block">Live Preview</a>
+                                <a href="#" class="dx-btn dx-btn-lg dx-btn-dark dx-btn-block">@localizer["LivePreview"]</a>
                             </div>
                         </div>
                     </div>
@@ -117,28 +121,28 @@
 
                     <div class="dx-widget dx-box dx-box-decorated">
                         <div class="dx-widget-title">
-                            Detail Information
+                            @localizer["DetailInformation"]
                         </div>
                         <div class="dx-widget-information">
-                            <div class="dx-widget-information-title">Reference</div>
+                            <div class="dx-widget-information-title">@localizer["Reference"]</div>
 
                             <span>@Model.refId</span>
                         </div>
                         <div class="dx-widget-information">
-                            <div class="dx-widget-information-title">Created</div>
+                            <div class="dx-widget-information-title">@localizer["Created"]</div>
 
                             <span>@Model.addedDate</span>
                         </div>
                         <div class="dx-widget-information">
-                            <div class="dx-widget-information-title">Factory name</div>
+                            <div class="dx-widget-information-title">@localizer["Factoryname"]</div>
                             <span>@Model.factoryName</span>
                         </div>
                         <div class="dx-widget-information">
-                            <div class="dx-widget-information-title">Build Date</div>
+                            <div class="dx-widget-information-title">@localizer["BuildDate"]</div>
                             <span>@Model.dateBuild</span>
                         </div>
                         <div class="dx-widget-information">
-                            <div class="dx-widget-information-title">Validation date</div>
+                            <div class="dx-widget-information-title">@localizer["Validationdate"]</div>
                             <span>@Model.dateValidate</span>
                         </div>
 

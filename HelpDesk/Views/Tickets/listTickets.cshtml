@@ -42,6 +42,22 @@
 
     })
 
+
+    $(function () {
+        var placeholder = $('#placeholder');
+        $('a[data-toggle="ticketInfo"]').click(function (event) {
+
+            var url = $(this).data('url');
+            $.get(url).done(function (data) {
+                placeholder.html(data);
+                placeholder.find('.modal').modal('show');
+            })
+
+
+        })
+
+    })
+
 </script>
 
 
@@ -57,7 +73,7 @@
             <span onclick="history.back(-1)" style="cursor:pointer;"><i class="fas fa-arrow-left"></i>&nbsp;&nbsp;</span>
 
             <i class="fas fa-table mr-1"></i>
-            Tickets table
+            @localizer["Ticketstable"]
    
 
     </div>
@@ -100,14 +116,19 @@
 
 
                         <td>
-                            @* <a href="#" data-toggle="ticketInfo" data-target="#ticketInfo" data-url="@Url.Action("ticketInfo","Tickets",new { idTicket = ticket.ticketId })">showinfo</a> |
-                            *@
-                            <a href="#" data-toggle="ticketDetailInfo" data-target="#ticketDetailInfo" data-url="@Url.Action("ticketDetailInfo","Tickets",new { idTicket = ticket.ticketId })">Details</a>
+
+                            <a href="#" data-toggle="ticketDetailInfo" data-target="#ticketDetailInfo" data-url="@Url.Action("ticketDetailInfo","Tickets",new { idTicket = ticket.ticketId })">@localizer["Details"]</a>
 
 
                             @if (ticket.ticketStatut.ToString().Equals("Distributed"))
                             {
-                                <span>|</span> <a asp-action="getTicket" asp-controller="Agent" asp-route-IdTicket=@ticket.ticketId>Get ticket</a>
+                                <span>|</span> <a asp-action="getTicket" asp-controller="Agent" asp-route-IdTicket=@ticket.ticketId>@localizer["Getticket"]</a>
+                            }
+
+                            @if (ViewBag.loger == "SuperAdmin")
+                            {
+                                <span>|</span> <a href="#" data-toggle="ticketInfo" data-target="#ticketInfo" data-url="@Url.Action("ticketInfo","Tickets",new { idTicket = ticket.ticketId })">@localizer["Showticketinfo"]</a>
+
                             }
 
                         </td>

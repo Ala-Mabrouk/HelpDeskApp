@@ -24,6 +24,9 @@ namespace HelpDesk.ViewComponents
                 listPer.Add(item.permision.permissionName);
             }
 
+
+          
+
             ViewBag.listPermissions = listPer;
             return View(res);
 

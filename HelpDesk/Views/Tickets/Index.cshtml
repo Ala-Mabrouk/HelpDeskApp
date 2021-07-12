@@ -10,62 +10,93 @@
 }
 
 
-<div class="dx-box-5 bg-grey-6">
-    <div class="container">
 
-        <div class="row align-items-center justify-content-between vertical-gap mnt-30 sm-gap mb-50">
-            <div class="col-auto">
-                <h2 class="h4 mb-0 mt-0">@localizer["My_Tickets"]</h2>
-            </div>
-            <div class="col pl-30 pr-30 d-none d-sm-block">
-                <div class="dx-separator ml-10 mr-10"></div>
-            </div>
-            <div class="col-auto">
-                <a asp-action="addTicket" asp-controller="Tickets" class="dx-btn dx-btn-md">@localizer["Submit_a_ticket"]</a>
-            </div>
+
+
+
+
+
+
+@if (ViewBag.Message != null)
+{
+
+    <script type="text/javascript">
+        $("#success-alert").fadeTo(2000, 500).slideUp(500, function () {
+            $("#success-alert").slideUp(500);
+        });
+        $("#danger-alert").fadeTo(2000, 500).slideUp(500, function () {
+            $("#danger-alert").slideUp(500);
+        });
+
+    </script>
+
+    if (ViewBag.Message.statusOp == true)
+    {
+        <div class="alert alert-success" id="success-alert">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            <strong>@localizer["Success!"]</strong>
+            @ViewBag.Message.message
         </div>
+    }
+
+}
+
+    <div class="dx-box-5 bg-grey-6">
+        <div class="container">
+
+            <div class="row align-items-center justify-content-between vertical-gap mnt-30 sm-gap mb-50">
+                <div class="col-auto">
+                    <h2 class="h4 mb-0 mt-0">@localizer["My_Tickets"]</h2>
+                </div>
+                <div class="col pl-30 pr-30 d-none d-sm-block">
+                    <div class="dx-separator ml-10 mr-10"></div>
+                </div>
+                <div class="col-auto">
+                    <a asp-action="addTicket" asp-controller="Tickets" class="dx-btn dx-btn-md">@localizer["Submit_a_ticket"]</a>
+                </div>
+            </div>
 
 
-        @foreach (var item in ViewBag.MyTickets)
-        {
+            @foreach (var item in ViewBag.MyTickets)
+            {
 
 
-            <a asp-action="singleTicketInfo" asp-route-ticketid="@item.ticketId" asp-controller="Tickets" class="dx-ticket-item dx-ticket-new dx-ticket-open dx-block-decorated">
-                <span class="dx-ticket-img">
+                <a asp-action="singleTicketInfo" asp-route-ticketid="@item.ticketId" asp-controller="Tickets" class="dx-ticket-item dx-ticket-new dx-ticket-open dx-block-decorated">
+                    <span class="dx-ticket-img">
 
-                    <img src=@Url.Content(item.creator_user.ThumbUrl) alt="user thumbUrl">
-                </span>
-
-                <span class="dx-ticket-cont">
-
-                    <span class="dx-ticket-title h5">
-                        @item.ticketTitle
+                        <img src=@Url.Content(item.creator_user.ThumbUrl) alt="user thumbUrl">
                     </span>
 
-                    <ul class="dx-ticket-info">
+                    <span class="dx-ticket-cont">
 
-                        <li>Created: @item.ticketDate</li>
+                        <span class="dx-ticket-title h5">
+                            @item.ticketTitle
+                        </span>
 
-                        <li>Priority: @item.ticketPriority</li>
+                        <ul class="dx-ticket-info">
 
-                    </ul>
-                </span>
-                
-                <span class="dx-ticket-status">
+                            <li>Created: @item.ticketDate</li>
 
-                    @item.ticketStatut 
-                    <span>
-                        &nbsp;&nbsp;
+                            <li>Priority: @item.ticketPriority</li>
+
+                        </ul>
                     </span>
-                
-                </span>
-      
-            </a>
 
-        }
+                    <span class="dx-ticket-status">
+
+                        @item.ticketStatut
+                        <span>
+                            &nbsp;&nbsp;
+                        </span>
+
+                    </span>
+
+                </a>
+
+            }
 
 
+        </div>
     </div>
-</div>
-<div class="dx-separator"></div>
+    <div class="dx-separator"></div>
 

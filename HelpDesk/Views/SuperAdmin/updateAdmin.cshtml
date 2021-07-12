@@ -15,8 +15,8 @@
 <div class="dx-box-decorated" style="display: grid  ; justify-content: center;">
     <nav>
         <div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
-            <a class="nav-item nav-link active" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="true">Profile</a>
-             <a class="nav-item nav-link " id="nav-password-tab" data-toggle="tab" href="#nav-password" role="tab" aria-controls="nav-password" aria-selected="false">change password</a>
+            <a class="nav-item nav-link active" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="true">@localizer["profile"]</a>
+            <a class="nav-item nav-link " id="nav-password-tab" data-toggle="tab" href="#nav-password" role="tab" aria-controls="nav-password" aria-selected="false">@localizer["changePassword"]</a>
 
         </div>
     </nav>
@@ -72,7 +72,7 @@
                                 </div>
                             </td>
                             <td>
-                                Active/Disable
+                                @localizer["Active/Disable"]
                             </td>
                         </tr>
 
@@ -83,8 +83,8 @@
 
 
                     <div style="display: flex;justify-content: center;margin-top: 20px;">
-                        <button class="btn btn-outline-danger btn-lg mr-10">Cancel</button>
-                        <button type="submit" class="btn btn-primary btn-lg ml-30">Save Changes</button>
+                        <button class="btn btn-outline-danger btn-lg mr-10"><i class="far fa-times-circle"></i>&nbsp;@localizer["cancel"]</button>
+                        <button type="submit" class="btn btn-primary btn-lg ml-30"><i class="far fa-save"></i>&nbsp;@localizer["saveChanges"]</button>
                     </div>
 
 
@@ -107,14 +107,14 @@
                         <table cellpadding="3px">
 
                             <tr>
-                                <td><label class="mnt-7">new Password</label></td>
+                                <td><label class="mnt-7">@localizer["newPassword"]</label></td>
                                 <td>
                                     <input type="password" name="newPass" class="form-control form-control-style-2" id="newPass">
                                 </td>
                             </tr>
 
                             <tr>
-                                <td><label class="mnt-7">Confirm new password</label></td>
+                                <td><label class="mnt-7">@localizer["confirmPassword"]</label></td>
                                 <td>
 
                                     <input type="password" name="confirmNewPass" class="form-control form-control-style-2" id="confirmPass">
@@ -129,8 +129,8 @@
 
 
                         <div class="dx-box-content" style="display: flex; justify-content: space-between;">
-                            <a href="javascript: history.go(-1)" class="btn btn-outline-danger btn-lg mr-10">Cancel</a>
-                            <button type="submit" class="btn btn-primary btn-lg ml-30">Save Changes</button>
+                            <a href="javascript: history.go(-1)" class="btn btn-outline-danger btn-lg mr-10"><i class="far fa-times-circle"></i>&nbsp;@localizer["cancel"]</a>
+                            <button type="submit" class="btn btn-primary btn-lg ml-30"><i class="far fa-save"></i>&nbsp;@localizer["saveChanges"]</button>
 
                         </div>
 
@@ -150,20 +150,3 @@
 
 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="dx-box-decorated">
-
-  
-
-</div>

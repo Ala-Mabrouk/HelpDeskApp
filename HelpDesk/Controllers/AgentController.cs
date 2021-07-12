@@ -45,7 +45,7 @@ namespace HelpDesk.Controllers
             User res = _AppFunctions.GetUserByEmail(logedIn).Result;
             if (res != null)
             {
-                return RedirectToAction("getPie", "DashBoard");
+                return RedirectToAction("Index", "DashBoard");
 
             }
 
@@ -292,6 +292,8 @@ namespace HelpDesk.Controllers
         {
             ViewBag.ClientEmail = clientMail;
             ViewBag.ListProducts = _AppFunctions.getAllProducts();
+
+            ViewBag.Categories = _AppFunctions.getcategories().Result;
             return PartialView("afectProduct");
         }
 

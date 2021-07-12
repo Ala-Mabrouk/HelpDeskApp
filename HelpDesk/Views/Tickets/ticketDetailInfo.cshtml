@@ -1,5 +1,8 @@
 ﻿
-@model Entities.Entities.Ticket;
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
+
+@model Entities.Entities.Ticket
 
 
 @{ Layout = null;}
@@ -24,21 +27,19 @@
 
     })
 
-
-
 </script>
 
 
 <div class="modal fade " id="ticketInfo">
     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
         <div class="modal-content">
-            @if (Model.ticketStatut == Entities.Entities.Ticket.TicketStatus.Distributed)
+            @if (Model.ticketStatut == Entities.Entities.Ticket.TicketStatus.Distributed && ViewBag.Permission == true)
             {
                 <div class="modal-header">
 
                     <a href="#" data-dismiss="modal" data-toggle="assignTicket" data-target="#assignTicket"
                        data-url="@Url.Action("assignTicket", "Agent", new { ticketId = Model.ticketId })">
-                        assign Ticket
+                        @localizer["assignTicket"]
                     </a>
 
 
@@ -54,9 +55,17 @@
 
                                 <div style="background-color: #fafafa;">
                                     <ul class="dx-blog-post-info dx-blog-post-info-style-2 mb-0 mt-0">
-                                        <li class="pt-10 pb-10"><span><span class="dx-blog-post-info-title">Ticket Id</span>#@Model.ticketId</span></li>
-                                        <li class="pt-10 pb-10"><span><span class="dx-blog-post-info-title">Status</span> @Model.ticketStatut</span></li>
-                                        <li class="pt-10 pb-10"><span><span class="dx-blog-post-info-title">Date</span> @Model.ticketDate</span></li>
+                                        <li class="pt-10 pb-10"><span><span class="dx-blog-post-info-title">@localizer["TicketId"]</span>#@Model.ticketId</span></li>
+                                        <li class="pt-10 pb-10">
+                                            <span>
+                                                <span class="dx-blog-post-info-title">
+                                                    @localizer["Status"]
+                                                </span> @Model.ticketStatut
+                                            </span>
+                                        </li>
+                                        <li class="pt-10 pb-10">
+                                            <span><span class="dx-blog-post-info-title">@localizer["Date"]</span> @Model.ticketDate</span>
+                                        </li>
                                     </ul>
                                 </div>
 
@@ -66,12 +75,6 @@
                                         <div class="dx-comment-cont">
                                             <div class="dx-comment-img">
 
-                                                @* <div class="dx-gallery">
-                                                        <a href=@Url.Content(Model.creator_user.ThumbUrl) data-fancybox="images" class="dx-gallery-item">
-                                                            <span class="dx-gallery-item-overlay"><span class="icon pe-7s-exapnd2"></span></span>
-                                                            <img src=@Url.Content(Model.creator_user.ThumbUrl) class="dx-img" alt="">
-                                                        </a>
-                                                    </div>*@
                                                 <img src=@Url.Content(Model.creator_user.ThumbUrl) alt="imge client" />
 
                                             </div>
@@ -80,7 +83,9 @@
 
 
                                                 <div style="display:flex;justify-content:flex-start;padding-left: 10px;">
-                                                    <div class="dx-comment-date"> @Model.creator_user.Email</div>
+                                                    <div class="dx-comment-date">
+                                                        @Model.creator_user.Email
+                                                    </div>
                                                     <div class="dx-comment-date ml-20"> @Model.creator_user.Phone</div>
                                                 </div>
 
@@ -110,11 +115,6 @@
                                 </div>
                                 <div id="div-img-product">
 
-                                    @*
-                                        <a href=@Url.Content(Model.relatedProduct.imgUrl) data-fancybox="images" class="dx-gallery-item">
-                                            <span class="dx-gallery-item-overlay"><span class="icon pe-7s-exapnd2"></span></span>
-                                            <img src=@Url.Content(Model.relatedProduct.imgUrl) class="dx-img" alt="">
-                                        </a>*@
 
                                     <img src=@Url.Content(Model.relatedProduct.imgUrl) alt="some imges" />
 

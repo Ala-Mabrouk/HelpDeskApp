@@ -1,1 +1,200 @@
 ﻿
+
+
+@model Entities.DashBoardModels.DashBoardModel
+@{
+    ViewData["Title"] = "test dashBoard";
+    Layout = null;
+
+
+
+    var XLabels = Newtonsoft.Json.JsonConvert.SerializeObject(Model.nbTicketByStatus.Select(u => u.Label).ToList());
+    var YValues = Newtonsoft.Json.JsonConvert.SerializeObject(Model.nbTicketByStatus.Select(x => x.Value).ToList());
+
+    var XlabelsLine = Newtonsoft.Json.JsonConvert.SerializeObject(Model.evolutionOfTicketsNbByMonths.Select(x => x.X).ToList());
+    var YlabelsLine = Newtonsoft.Json.JsonConvert.SerializeObject(Model.evolutionOfTicketsNbByMonths.Select(x => x.Y).ToList());
+    ViewData["Title"] = "Bar Chart";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+<style>
+    .fullWidth {
+        width: 100%
+    }
+
+    .flex-d-column {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .flex-d-row {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .chart-container {
+        flex: 1;
+    }
+</style>
+<script src="~/Content/lib/jquery/dist/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.2/Chart.bundle.min.js"></script>
+@*<script src="~/js/chart.js"></script>*@
+
+<script>
+    $(document).ready(function () {
+
+        let pieChart1 = null;
+        let lineChart1 = null;
+
+        function drawChart(chartInstance, canvasId, chartSettings) {
+
+            if (chartInstance != null) {
+                //update chart with new configuration
+                chartInstance.options = { ...chartSettings.options };
+                chartInstance.data = { ...chartSettings.data };
+
+                chartInstance.update();
+                return chartInstance;
+            } else {
+                //create new chart.
+                var ctx = document.getElementById(canvasId).getContext('2d');
+                return new Chart(ctx, chartSettings);
+            }
+        }
+
+
+        function makeRandomColor() {
+            return "#" + Math.floor(Math.random() * 16777215).toString(16);
+        }
+
+     function drawLineChart(chartInstance, canvasId, labels1,data1, titleText) {
+
+            let settings = {
+                type: 'line',
+                data: {
+                    labels: labels1,
+                    datasets: [{
+                        data: data1,
+                        label: "tickets",
+                        borderColor: "#3e95cd",
+                        fill: false
+                    }
+                    ]
+                },
+                options: {
+                    title: {
+                        display: true,
+                        text: 'Evolution of tickets number by months'
+                    }
+                }
+            };
+
+            return drawChart(chartInstance, canvasId, settings);
+        }
+
+        function drawPieChart(chartInstance, canvasId, data, labels, titleText) {
+
+            //generate random color for each label.
+            let bgColors = [];
+
+            if (labels) {
+                bgColors = labels.map(() => {
+                    return makeRandomColor();
+                });
+            }
+
+            var settings = {
+                // The type of chart we want to create
+                type: 'pie',
+
+                // The data for our dataset
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        backgroundColor: bgColors,
+                        borderColor: bgColors,
+                        data: data
+                    }],
+                },
+
+                // Configuration options go here
+                options: {
+                    tooltips: {
+                        callbacks: {
+                            label: function (tooltipItem, data) {
+                                //create custom display.
+                                var label = data.labels[tooltipItem.index] || '';
+                                var currentData = data.datasets[0].data[tooltipItem.index];
+
+                                if (label) {
+                                    label = `${label} ${Number(currentData)} %`;
+                                }
+
+                                return label;
+                            }
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: titleText,
+                        fontSize: 16
+                    },
+                }
+            };
+
+            return drawChart(chartInstance, canvasId, settings);
+        }
+
+        function filterDashboardDataByYear(currentYear) {
+
+              let data1 = [];
+            let labels1 = [];
+
+                data1 =@Html.Raw(YValues);
+            labels1 = @Html.Raw(XLabels);
+
+
+
+            let data2 = [];
+            let labels2 = [];
+
+               data2 =@Html.Raw(YlabelsLine);
+                labels2 =@Html.Raw(XlabelsLine);
+
+
+            pieChart1 = drawPieChart(pieChart1, "mypieChart1", data1, labels1,
+                `Tickets number by status`);
+            lineChart1 = drawLineChart(lineChart1, "mylineChart1",  labels2,
+                data2,
+                `Number of subscribed users per month in `);
+        }
+
+        filterDashboardDataByYear();
+
+
+    });
+
+
+
+</script>
+
+<div class="text-center">
+
+    <div class="flex-d-column">
+
+        <div class="fullWidth">
+            <canvas id="mylineChart1"></canvas>
+        </div>
+        <div class="flex-d-row fullWidth">
+            <div class="chart-container">
+                <canvas id="mypieChart1"></canvas>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+ 

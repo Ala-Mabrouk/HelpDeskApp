@@ -101,11 +101,8 @@
 
                                 <ul class="dropdown-menu" aria-labelledby="dropdownSignin">
 
-
-                                    @*                                <li><a asp-action="Index" asp-controller="Tickets"><span class="icon pe-7s-user"></span>Account</a></li>
-                                    *@
-                                    <li><a asp-action="AgentSettings" asp-controller="Agent"><span class="icon pe-7s-config"></span>Settings</a></li>
-                                    <li><a asp-action="log_out" asp-controller="Home"><span class="icon pe-7s-back"></span>Log out</a></li>
+                                    <li><a asp-action="AgentSettings" asp-controller="Agent"><span class="icon pe-7s-config"></span>@localizer["Settings"]</a></li>
+                                    <li><a asp-action="log_out" asp-controller="Home"><span class="icon pe-7s-back"></span>@localizer["Log_out"]</a></li>
 
 
 
@@ -149,13 +146,13 @@
 
                     <li class="dx-drop-item">
                         <a href="articles.html">
-                            account
+                            @localizer["account"]
                         </a>
                         <ul class="dx-navbar-dropdown " style="">
 
                             <li>
                                 <a asp-action="AgentSettings" asp-controller="Agent">
-                                    Settings
+                                   @localizer["Settings"]
                                 </a>
                             </li>
                             <li>

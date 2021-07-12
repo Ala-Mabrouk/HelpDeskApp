@@ -120,6 +120,12 @@
   <data name="Add_Attachment" xml:space="preserve">
     <value>Add Attachment</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Choosefile" xml:space="preserve">
+    <value>Choose file</value>
+  </data>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
   </data>
@@ -131,6 +137,9 @@
   </data>
   <data name="Subject" xml:space="preserve">
     <value>Subject</value>
+  </data>
+  <data name="SubmitTicket" xml:space="preserve">
+    <value>Submit Ticket</value>
   </data>
   <data name="Submit_a_ticket" xml:space="preserve">
     <value>Submit a Ticket</value>

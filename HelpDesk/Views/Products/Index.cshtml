@@ -1,10 +1,7 @@
 ﻿
-
-
-
-
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer localizer
+
 
 @model Entities.Entities.Product
 
@@ -80,11 +77,41 @@
 
 <div id="placeholder"></div>
 
+@if (ViewBag.Message != null)
+{
 
+    <script type="text/javascript">
+        $("#success-alert").fadeTo(2000, 500).slideUp(500, function () {
+            $("#success-alert").slideUp(500);
+        });
+        $("#danger-alert").fadeTo(2000, 500).slideUp(500, function () {
+            $("#danger-alert").slideUp(500);
+        });
+
+    </script>
+
+    if (ViewBag.Message.statusOp == true)
+    {
+        <div class="alert alert-success" id="success-alert">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            <strong>Success!</strong>
+            @ViewBag.Message.message
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger" id="danger-alert">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            <strong>Danger !</strong>
+            @ViewBag.Message.message
+        </div>
+    }
+
+}
 
 <div class="card mb-4">
     <div class="card-header">
- 
+
 
         <div style="justify-content: space-between; display: flex; margin-right: 25px; align-items:center; ">
             <div>
@@ -164,9 +191,9 @@
                             @item.productCategory.categoryName
                         </td>
                         <td class="pt-25 pl-15">
-                            <a href="#" data-toggle="editProduct" data-target="#editProduct" data-url="@Url.Action("Edit",new { id = item.refId })">Edit</a> |
-                             <a href="#" data-toggle="smt" data-target="#smt" data-url="@Url.Action("Details",new { id = item.refId })">Details</a> |
-                            <a href="#" data-toggle="deleteProduct" data-target="#deleteProduct" data-url="@Url.Action("Delete",new { id = item.refId })">Delete</a>
+                            <a href="#" data-toggle="editProduct" data-target="#editProduct" data-url="@Url.Action("Edit",new { id = item.refId })">@localizer["Edit"]</a> |
+                            <a href="#" data-toggle="smt" data-target="#smt" data-url="@Url.Action("Details",new { id = item.refId })">@localizer["Details"]</a> |
+                            <a href="#" data-toggle="deleteProduct" data-target="#deleteProduct" data-url="@Url.Action("Delete",new { id = item.refId })">@localizer["Delete"]</a>
                         </td>
                     </tr>
                 }

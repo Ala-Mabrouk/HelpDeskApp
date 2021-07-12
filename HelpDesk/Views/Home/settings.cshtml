@@ -1,4 +1,10 @@
 ﻿
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
+
+
+
 @model Entities.Entities.User
 
 @{ Layout = "~/Views/Shared/_NoHeaderLayout.cshtml";}
@@ -29,8 +35,8 @@
 
     <nav>
         <div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
-            <a class="nav-item nav-link active" id="nav-permissions-tab" data-toggle="tab" href="#nav-infoPersonel" role="tab" aria-controls="nav-infoPersonel" aria-selected="true">Info Personel</a>
-            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-passwordChange" role="tab" aria-controls="nav-passwordChange" aria-selected="false">Change Password</a>
+            <a class="nav-item nav-link active" id="nav-permissions-tab" data-toggle="tab" href="#nav-infoPersonel" role="tab" aria-controls="nav-infoPersonel" aria-selected="true">@localizer["InfoPersonel"]</a>
+            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-passwordChange" role="tab" aria-controls="nav-passwordChange" aria-selected="false">@localizer["ChangePassword"]</a>
         </div>
     </nav>
 
@@ -64,12 +70,7 @@
 
                             <input type="email" aria-describedby="emailHelp" asp-for="Email" class="form-control form-control-style-2" id="email-address" value=@Model.Email>
                         </div>
-                        @*
-                            <label asp-for="Password" class="mnt-7"></label>
-
-                                <input type="password" aria-describedby="emailHelp" asp-for="Password" class="form-control form-control-style-2" id="email-address" placeholder="new password">
-
-                        *@
+            
                         <div class="dx-form-group">
                             <label asp-for="Phone" class="mnt-7"></label>
 
@@ -87,20 +88,20 @@
 
                             <div class="input-group mb-3">
                                 <input type="file" asp-for="userImageFile" class="custom-file-input" />
-                                <label class="custom-file-label">Choose file</label>
+                                <label class="custom-file-label">@localizer["Choosefile"]</label>
                             </div>
 
                         </div>
 
 
                         <div class="dx-box-content" style="justify-content: space-between;display: flex;">
-                            <a asp-action="Index" asp-controller="Home" class="btn btn-outline-danger btn-sm mr-10"><i class="far fa-times-circle"></i>&nbsp;Cancel</a>
-                            <button type="submit" class="btn btn-success btn-sm ml-30"><i class="far fa-save"></i>&nbsp;Save Changes</button>
+                            <a asp-action="Index" asp-controller="Home" class="btn btn-outline-danger btn-sm mr-10"><i class="far fa-times-circle"></i>&nbsp;@localizer["Cancel"]</a>
+                            <button type="submit" class="btn btn-success btn-sm ml-30"><i class="far fa-save"></i>&nbsp;@localizer["SaveChanges"]</button>
 
 
                         </div>
 
-                        
+
 
 
 
@@ -120,19 +121,19 @@
 
 
                         <div class="dx-form-group">
-                            <label class="mnt-7">Old password</label>
+                            <label class="mnt-7">@localizer["oldPassword"]</label>
 
                             <input type="password" name="oldPass" class="form-control form-control-style-2" id="old-pass">
                         </div>
 
                         <div class="dx-form-group">
-                            <label asp-for="Password" class="mnt-7">New password</label>
+                            <label asp-for="Password" class="mnt-7">@localizer["newPassword"]</label>
 
                             <input type="password" name="newPass" class="form-control form-control-style-2" id="new-pass">
                         </div>
 
                         <div class="dx-form-group">
-                            <label asp-for="Password" class="mnt-7">Confirm password</label>
+                            <label asp-for="Password" class="mnt-7">@localizer["confirmPassword"]</label>
 
                             <input type="password" name="confirmPass" class="form-control form-control-style-2" id="confirm-pass">
 
@@ -140,17 +141,13 @@
 
                         <div class="dx-box-content" style="justify-content: space-between;display: flex;">
 
-                            <button type="reset" asp-action="Index" asp-controller="Home" class="btn btn-outline-danger btn-sm mr-10"><i class="far fa-times-circle"></i>&nbsp;Cancel</button>
-                            <button type="submit" class="btn btn-success btn-sm ml-30"><i class="far fa-save"></i>&nbsp;Save changes</button>
-
-
-
-                            
+                            <button type="reset" asp-action="Index" asp-controller="Home" class="btn btn-outline-danger btn-sm mr-10"><i class="far fa-times-circle"></i>&nbsp;@localizer["Cancel"]</button>
+                            <button type="submit" class="btn btn-success btn-sm ml-30"><i class="far fa-save"></i>&nbsp;@localizer["SaveChanges"]</button>
 
                         </div>
 
-                        </div>
-</form>
+                    </div>
+                </form>
 
             </div>
         </div>

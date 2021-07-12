@@ -1,10 +1,15 @@
 ﻿
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
+
+
 @{ Layout = "~/Views/Shared/_AdminLayout.cshtml";}
 
 
 
+<a style="color:black;margin:10px;" asp-action="ShowAgents" asp-controller="Admin"><i class="fas fa-long-arrow-alt-left"></i>&nbsp;@localizer["Back_to_Agents_list"]</a>
 
-<div class="dx-box-5 bg-grey-6">
+<div class="dx-box-5 bg-grey-6 mt-10 pt-10">
 
     <div class="container">
         <div class="row align-items-center justify-content-between vertical-gap mnt-30 sm-gap mb-50">
@@ -19,27 +24,27 @@
 
         <div style="display:flex;justify-content:space-around;">
             <div class="dx-block-decorated p-30" style="width:100%;">
-                <table  class="table align-middle" width="100%" cellspacing="0">
-                    <caption style="caption-side:top;"><h4 style="color:blue;">Agent Permissions </h4></caption>
+                <table class="table align-middle" width="100%" cellspacing="0">
+                    <caption style="caption-side:top;"><h4 style="color:blue;">@localizer["agent_Permissions"] </h4></caption>
 
 
                     @foreach (var item in TempData["myAgentpermissions"] as IEnumerable<Entities.Entities.Permission>)
                     {
-                <tr>
-                    <td>@item.permissionName</td>
-                   <td> <a style="color:red;" asp-controller="Admin" asp-action="deletPermissiontoAgent" asp-route-permissionId="@item.permissionId" asp-route-mail=@ViewBag.MailAgent.Email><i class="fas fa-trash-alt"></i></a></td>
-                    
-                </tr>
+                        <tr>
+                            <td>@item.permissionName</td>
+                            <td> <a style="color:red;" asp-controller="Admin" asp-action="deletPermissiontoAgent" asp-route-permissionId="@item.permissionId" asp-route-mail=@ViewBag.MailAgent.Email><i class="fas fa-trash-alt"></i></a></td>
+
+                        </tr>
                     }
-                     
+
                 </table>
             </div>
             <div style="border-left: 2px solid black;margin: 30px;"></div>
             <div class="dx-block-decorated p-30" style="width:100%;">
-               
+
 
                 <table class="table align-middle" width="100%" cellspacing="0">
-                    <caption style="caption-side:top;"><h4 style="color:blue;">to Add permissions </h4></caption>
+                    <caption style="caption-side:top;"><h4 style="color:blue;">@localizer["to_Add_permissions"] </h4></caption>
 
 
                     @foreach (var item in ViewBag.Permissions)

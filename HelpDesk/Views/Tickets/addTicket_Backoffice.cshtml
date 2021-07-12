@@ -48,15 +48,15 @@
 
                             <div class="input-group mb-3">
                                 <input type="file" asp-for="uploadedFileFile" class="custom-file-input" />
-                                <label class="custom-file-label">Choose file</label>
+                                <label class="custom-file-label">@localizer["Choosefile"]</label>
                             </div>
 
                         </div>
 
 
                         <div class="dx-box-content">
-                            <a data-dismiss="modal" class="btn btn-outline-danger btn-sm mr-10">Cancel</a>
-                            <button type="submit" class="btn btn-primary btn-sm ml-30">Save Changes</button>
+                            <a data-dismiss="modal" class="btn btn-outline-danger btn-sm mr-10">@localizer["Cancel"]</a>
+                            <button type="submit" class="btn btn-primary btn-sm ml-30">@localizer["SaveChanges"]</button>
                         </div>
 
                     </form>

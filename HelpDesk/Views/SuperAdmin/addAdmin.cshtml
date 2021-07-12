@@ -1,4 +1,6 @@
 ﻿
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
 
 
 @model Entities.Entities.Admin
@@ -10,7 +12,7 @@
 
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Add new Admin</h4>
+                <h4 class="modal-title">@localizer["AddnewAdmin"]</h4>
                 <button type="button" class="close" data-dismiss="modal">x</button>
 
             </div>
@@ -57,10 +59,10 @@
 
 
 
-                            <button type="reset" class="btn btn-link btn-sm mt-10">reset input</button>
+                            <button type="reset" class="btn btn-link btn-sm mt-10">@localizer["resetInput"]</button>
                             <div class="dx-box-content" style="display: flex; justify-content: space-between;">
-                                <button class="btn btn-outline-danger btn-lg mr-10" data-dismiss="modal">Cancel</button>
-                                <button type="submit" class="btn btn-primary btn-lg ml-30">Save Changes</button>
+                                <button class="btn btn-outline-danger btn-lg mr-10" data-dismiss="modal">@localizer["Cancel"]</button>
+                                <button type="submit" class="btn btn-primary btn-lg ml-30">@localizer["SaveChanges"]</button>
 
                             </div>
 
@@ -76,4 +78,3 @@
 
 
 </div>
- 

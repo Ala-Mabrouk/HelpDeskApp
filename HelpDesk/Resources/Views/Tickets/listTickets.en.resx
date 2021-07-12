@@ -117,13 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Add_ticket" xml:space="preserve">
-    <value>Add ticket</value>
+  <data name="Details" xml:space="preserve">
+    <value>Details</value>
   </data>
-  <data name="Search" xml:space="preserve">
-    <value>Search</value>
+  <data name="Getticket" xml:space="preserve">
+    <value>Get ticket</value>
   </data>
-  <data name="Search_for..." xml:space="preserve">
-    <value>Search for ...</value>
+  <data name="Ticketstable" xml:space="preserve">
+    <value>Tickets table</value>
   </data>
 </root>

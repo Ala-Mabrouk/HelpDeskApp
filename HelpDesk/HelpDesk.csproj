@@ -196,10 +196,135 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Update="Resources\Views\Admin\ShowUsers.Designer.cs">
+    <Compile Update="Resources\Views\Admin\EditAgentPermission.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>ShowUsers.resx</DependentUpon>
+      <DependentUpon>EditAgentPermission.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Admin\ShowAgents.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ShowAgents.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Agent\addClient.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>addClient.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Agent\affectProduct.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>affectProduct.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Agent\AgentSettings.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AgentSettings.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Agent\assignTicket.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>assignTicket.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Agent\clientDetails.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>clientDetails.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Agent\customersList.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>customersList.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Agent\myTickets.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>myTickets.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Home\Index.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Index.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Home\ResetPassword.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ResetPassword.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Home\resultRech.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>resultRech.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Home\settings.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>settings.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\KnowledgeBase\addArticle.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>addArticle.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\KnowledgeBase\deleteArticle.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>deleteArticle.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\KnowledgeBase\Index.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Index.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\KnowledgeBase\listArticles.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>listArticles.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\KnowledgeBase\singleArticleCategory.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>singleArticleCategory.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\KnowledgeBase\singleArticleInfo.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>singleArticleInfo.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\KnowledgeBase\updateArticle.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>updateArticle.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Shared\_AdminLayout.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>_AdminLayout.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Shared\_NoHeaderLayout.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>_NoHeaderLayout.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\SuperAdmin\addAdmin.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>addAdmin.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\SuperAdmin\ShowAdmins.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ShowAdmins.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\SuperAdmin\updateAdmin.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>updateAdmin.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Tickets\addTicket_Backoffice.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>addTicket_Backoffice.resx</DependentUpon>
     </Compile>
     <Compile Update="Resources\Views\Tickets\Index.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -233,9 +358,131 @@
       <LastGenOutput>ResourceTicket.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Views\Admin\ShowUsers.resx">
+    <EmbeddedResource Update="Resources\Views\Admin\addAgent.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Admin\agentDetails.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Admin\EditAgent.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Admin\EditAgentPermission.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>ShowUsers.Designer.cs</LastGenOutput>
+      <LastGenOutput>EditAgentPermission.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Admin\ShowAgents.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ShowAgents.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Agent\addClient.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>addClient.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Agent\affectProduct.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>affectProduct.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Agent\AgentSettings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AgentSettings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Agent\assignTicket.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>assignTicket.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Agent\clientDetails.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>clientDetails.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Agent\customersList.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>customersList.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Agent\myTickets.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>myTickets.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Home\HelpCenter.en.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Home\Index.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Index.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Home\Log_in.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Home\ResetPassword.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ResetPassword.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Home\resultRech.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>resultRech.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Home\settings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>settings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Home\Sign_Up.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Sign_Up.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\KnowledgeBase\addArticle.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>addArticle.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\KnowledgeBase\deleteArticle.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>deleteArticle.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\KnowledgeBase\Index.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Index.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\KnowledgeBase\listArticles.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>listArticles.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\KnowledgeBase\singleArticleCategory.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>singleArticleCategory.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\KnowledgeBase\singleArticleInfo.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>singleArticleInfo.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\KnowledgeBase\updateArticle.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>updateArticle.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Shared\_AdminLayout.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>_AdminLayout.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Shared\_NoHeaderLayout.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>_NoHeaderLayout.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Shared\_Layout.en.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\SuperAdmin\addAdmin.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>addAdmin.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\SuperAdmin\ShowAdmins.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ShowAdmins.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\SuperAdmin\updateAdmin.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>updateAdmin.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Tickets\addTicket_Backoffice.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>addTicket_Backoffice.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Views\Tickets\addTicket.en.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

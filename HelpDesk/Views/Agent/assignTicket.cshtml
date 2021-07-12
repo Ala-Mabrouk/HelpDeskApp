@@ -1,8 +1,11 @@
 ﻿
 
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
 
 
-@model Entities.Entities.Ticket;
+
+@model Entities.Entities.Ticket
 
 
 @{ Layout = null;}
@@ -12,26 +15,26 @@
     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <span>assign ticket</span>
+                <span>@localizer["assignticket"]</span>
                 <a data-dismiss="modal" class="close">x</a>
 
             </div>
 
             <div class="modal-body">
 
-               <h3>assign ticket :</h3> <h1>#@Model.ticketId @Model.ticketTitle </h1>
-                <h3>To Agent:</h3>
+                <h3>@localizer["assignticket"] :</h3> <h1>#@Model.ticketId @Model.ticketTitle </h1>
+                <h3>@localizer["ToAgent"]:</h3>
                 <form asp-action="assignTicket" asp-controller="Agent" method="post">
-                   
 
-                    <div  class="dx-form-group">
+
+                    <div class="dx-form-group">
                         <input name="ticketId" type="hidden" value="@Model.ticketId" />
                         <select name="AgentId" class="form-control dx-select-ticket">
 
                             @foreach (var item in ViewBag.AgentList)
                             {
 
-                            <option value=@item.Id data-content='<img src=@Url.Content(item.ThumbUrl) alt="sdfkdj"> '>@item.FirstName @item.LastName</option>
+                                <option value=@item.Id data-content='<img src=@Url.Content(item.ThumbUrl) alt="sdfkdj"> '>@item.FirstName @item.LastName</option>
 
                             }
 
@@ -39,14 +42,14 @@
                         </select>
                     </div>
 
-                    
-                        <div class="dx-box-content" style="justify-content:space-between; display:flex;">
 
-                            <button data-dismiss="modal" class="btn btn-outline-danger btn-sm  ">Cancel</button>
-                            <button type="submit" class="btn btn-primary btn-sm  ">Save Changes</button>
+                    <div class="dx-box-content" style="justify-content:space-between; display:flex;">
 
-                        </div>
-                    
+                        <button data-dismiss="modal" class="btn btn-outline-danger btn-sm">@localizer["Cancel"]</button>
+                        <button type="submit" class="btn btn-primary btn-sm  ">@localizer["SaveChanges"]</button>
+
+                    </div>
+
 
 
                 </form>

@@ -1,4 +1,9 @@
-﻿@model Entities.Entities.Ticket
+﻿
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
+
+@model Entities.Entities.Ticket
 
 @{ Layout = null;}
 <div class="modal fade" id="closeTicket">
@@ -7,7 +12,7 @@
 
 
             <div class="modal-header">
-                <span ><b>Close Ticket #@Model.ticketId</b> </span>
+                <span><b>Close Ticket #@Model.ticketId</b> </span>
                 <button type="button" class="close" data-dismiss="modal">x</button>
             </div>
 
@@ -16,7 +21,7 @@
 
 
                 <div class="dx-box-content">
-                    <h3>Are you sure you want to close ticket: @Model.ticketTitle ?</h3>
+                    <h3>@localizer["question"]: @Model.ticketTitle ?</h3>
 
                 </div>
 
@@ -25,8 +30,8 @@
                 <div style="display:flex;justify-content:flex-end;">
                     <form asp-action="close" asp-controller="Tickets">
                         <input type="hidden" name="ticketId" asp-for="ticketId" />
-                        <button type="submit" class="btn btn-danger" data-save="modal"><i class="fas fa-lock"></i>&nbsp;Yes</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="far fa-times-circle"></i>&nbsp;Cancel</button>
+                        <button type="submit" class="btn btn-danger" data-save="modal"><i class="fas fa-lock"></i>&nbsp;@localizer["Yes"]</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="far fa-times-circle"></i>&nbsp;@localizer["Cancel"]</button>
                     </form>
                 </div>
 

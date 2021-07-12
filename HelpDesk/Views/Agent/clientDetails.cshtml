@@ -1,4 +1,6 @@
 ﻿
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
 
 @using Microsoft.AspNetCore.Http
 @inject IHttpContextAccessor httpContextAccessor
@@ -53,7 +55,7 @@
 
     })
 
- 
+
 
 </script>
 
@@ -90,14 +92,14 @@
                         <a href="#" id="afectProduct" data-toggle="productsList" data-target="#productsList"
                            data-url="@Url.Action("afectProduct",new { clientMail = @ViewBag.clientDetails.Email})"
                            class="btn btn-outline-info">
-                            Affect product
+                            @localizer["AffectProduct"]
                         </a>
 
                         <a href="#"
                            data-toggle="addTicket_Backoffice" data-target="#addTicket_Backoffice"
-                           data-url="@Url.Action("addTicket_Backoffice","Tickets",new { ClientMail = @ViewBag.clientDetails.Email})"
+                           data-url="@Url.Action("addTicket_Backoffice","Tickets",new { ClientMail = ViewBag.clientDetails.Email})"
                            class="btn btn-outline-info">
-                            Add ticket to Client
+                            @localizer["AddtickettoClient"]
                         </a>
                     </div>
 
@@ -114,8 +116,8 @@
 
             <nav>
                 <div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
-                    <a class="nav-item nav-link active" id="nav-tickets-tab" data-toggle="tab" href="#nav-tickets" role="tab" aria-controls="nav-tickets" aria-selected="true">tickets</a>
-                    <a class="nav-item nav-link" id="nav-products-tab" data-toggle="tab" href="#nav-products" role="tab" aria-controls="nav-products" aria-selected="false">Products</a>
+                    <a class="nav-item nav-link active" id="nav-tickets-tab" data-toggle="tab" href="#nav-tickets" role="tab" aria-controls="nav-tickets" aria-selected="true">@localizer["tickets"]</a>
+                    <a class="nav-item nav-link" id="nav-products-tab" data-toggle="tab" href="#nav-products" role="tab" aria-controls="nav-products" aria-selected="false">@localizer["Products"]</a>
                 </div>
             </nav>
 
@@ -173,10 +175,10 @@
                             <div class="mt-10">
                                 <div>
                                     <h2 class="h4 mnt-5  dx-ticket-title"><u># @item.refId</u> &nbsp; @item.name</h2>
-                                    <div class="dx-comment-date">    <label>Factory name</label> @item.factoryName</div>
+                                    <div class="dx-comment-date">    <label>@localizer["FactoryName"]</label> @item.factoryName</div>
 
-                                    <div class="dx-comment-date">    <label>price</label> @item.price</div>
-                                    <div class="dx-comment-date">    <label>build date</label> @item.dateBuild</div>
+                                    <div class="dx-comment-date">    <label>@localizer["price"]</label> @item.price</div>
+                                    <div class="dx-comment-date">    <label>@localizer["buildDate"]</label> @item.dateBuild</div>
                                     <div class="dx-comment-text">
                                         <p class="mb-0">
                                             @item.description
@@ -185,124 +187,18 @@
                                 </div>
                             </div>
                             <div id="div-img-product" style="max-width: 50%;">
-
-                                @*
-                                    <a href=@Url.Content(Model.relatedProduct.imgUrl) data-fancybox="images" class="dx-gallery-item">
-                                        <span class="dx-gallery-item-overlay"><span class="icon pe-7s-exapnd2"></span></span>
-                                        <img src=@Url.Content(Model.relatedProduct.imgUrl) class="dx-img" alt="">
-                                    </a>*@
-
+ 
                                 <img src="@Url.Content(item.imgUrl)" alt="some imges" />
 
                             </div>
                         </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-                        @*       <div class="dx-portfolio-item dx-block-decorated">
-                                <div class="dx-portfolio-item-image">
-                                    <img src="@Url.Content(item.imgUrl)" alt="product img">
-                                </div>
-                                <a href="product.html" class="dx-portfolio-item-info">
-                                    <div>
-                                        <span class="dx-portfolio-item-title"></span>
-
-                                        <label>Factory name</label> @item.factoryName
-
-                                        <span class="dx-portfolio-item-price">@item.price</span>
-                                    </div>
-                                    <div>@item.description</div>
-
-
-
-                                </a>
-
-                            </div>*@
-
-
-
-
-
-                        @*
-                            <div class="dx-comment dx-ticket-comment p-10" style="display: flex;justify-content: space-around;">
-
-                                <div>
-                                    <div>
-                                        <h2 class="h4 mnt-5  dx-ticket-title"></h2>
-                                        <div class="dx-comment-date"><label>Factory name</label> @item.factoryName</div>
-
-                                    </div>
-                                </div>*@
-
-                        @*
-                            <!--<div id="div-img-product">-->
-                            <!--
-                            <a href=@Url.Content(Model.relatedProduct.imgUrl) data-fancybox="images" class="dx-gallery-item">
-                                <span class="dx-gallery-item-overlay"><span class="icon pe-7s-exapnd2"></span></span>
-                                <img src=@Url.Content(Model.relatedProduct.imgUrl) class="dx-img" alt="">
-                            </a>-->
-                            <!--<img src=@Url.Content(Model.relatedProduct.imgUrl) alt="some imges" />
-
-                            </div>-->
-                            <!--</div>
-
-                                -->
-
-
-                        *@
-
-
-
-
-
+ 
                     }
 
-
-
-
-
+ 
 
                 </div>
-
-
-
-
-
-
-
-
-
-
-                @*
-
-
-
-                    <div class="dx-comment-cont">
-                        <label asp-for="@Model.ticketDescription    "></label>
-                        <div class="dx-comment-text">
-                            <p class="mb-0">
-                                @item.description
-                            </p>
-                        </div>
-
-
-                        @if (!string.IsNullOrEmpty(Model.uploadedFile))
-                        {
-
-                            @await Component.InvokeAsync("TicketAttatchment", Model.uploadedFile)
-
-                        }
-                    </div>*@
 
 
 

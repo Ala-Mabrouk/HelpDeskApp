@@ -1,4 +1,8 @@
 ﻿
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
+
+
 @{Layout = null;}
 
 <script>
@@ -18,7 +22,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Add Product</h4>
+                <h4 class="modal-title">@localizer["afectProduct"]</h4>
                 <button type="button" class="close" data-dismiss="modal">x</button>
 
             </div>
@@ -32,9 +36,10 @@
                         <div class="container">
                             <ul class="dx-links dx-isotope-filter text-center">
                                 <li class="active" data-filter="*">All Items</li>
-                                <li data-filter=".info">info</li>
-                                <li data-filter=".stylo">stylo</li>
-                                <li data-filter=".smart_phone">smart phone</li>
+                                @foreach (var item in ViewBag.Categories)
+                                {
+                                    <li data-filter=".@item.categoryName">@item.categoryName</li>
+                                }
                             </ul>
                         </div>
                     </div>
@@ -47,25 +52,25 @@
                             <div class="row vertical-gap dx-isotope-grid">
 
                                 @foreach (var item in ViewBag.ListProducts)
-                                {
+                                                                {
 
-                                    <div class="col-12 col-md-6 col-lg-4 dx-isotope-grid-item @item.category">
+                                <div class="col-12 col-md-6 col-lg-4 dx-isotope-grid-item @item.category">
 
-                                        <div class="dx-portfolio-item dx-block-decorated">
-                                            <div class="dx-portfolio-item-image">
+                                    <div class="dx-portfolio-item dx-block-decorated">
+                                        <div class="dx-portfolio-item-image">
 
-                                                <img src=@Url.Content(item.imgUrl) alt="Product img">
-                                            </div>
-                                            <a id="afectBtn" asp-action="afectTheProduct" asp-controller="Admin"
-                                               asp-route-client=@ViewBag.ClientEmail asp-route-refProd=@item.refId
-                                               class="dx-portfolio-item-info" data-toggle=modal>
-                                                <span class="dx-portfolio-item-title">@item.name</span>
-
-                                            </a>
+                                            <img src=@Url.Content(item.imgUrl) alt="Product img">
                                         </div>
+                                        <a id="afectBtn" asp-action="afectTheProduct" asp-controller="Admin"
+                                           asp-route-client=@ViewBag.ClientEmail asp-route-refProd=@item.refId
+                                           class="dx-portfolio-item-info" data-toggle=modal>
+                                            <span class="dx-portfolio-item-title">@item.name</span>
 
+                                        </a>
                                     </div>
-                                }
+
+                                </div>
+                            }
 
 
 

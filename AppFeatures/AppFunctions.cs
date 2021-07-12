@@ -155,20 +155,27 @@ namespace AppFeatures
             var myList = await _context.Tickets.Where(t => t.ticketStatut != Ticket.TicketStatus.Closed).ToListAsync();
             return (myList);
         }
+        public async Task<List<Ticket>> showAllSystemTickets()
+        {
+            var myList = await _context.Tickets.ToListAsync();
+            return (myList);
+        }
 
+
+      
         public async Task<Ticket> addTicket(Ticket ticket)
         {
             try
             {
                 await _context.AddAsync(ticket);
                 await _context.SaveChangesAsync();
+                return (ticket);
+
             }
             catch (Exception e)
             {
-                System.Diagnostics.Debug.WriteLine(e);
                 return null;
             }
-            return (ticket);
         }
 
         public async Task<Boolean> closeTicket(int ticketid)
@@ -178,6 +185,21 @@ namespace AppFeatures
                 var res = await _context.Tickets.FindAsync(ticketid);
                 res.ticketStatut = Ticket.TicketStatus.Closed;
                 await _context.SaveChangesAsync();
+
+               
+
+                //getting agent responsible on ticket 
+
+                var a = _context.A_T_Managments.Where(at => at.ticketId == ticketid).FirstOrDefault();
+ //send notification to the agent responsble on the ticket
+                if (a != null)
+                {
+                    await addAgentTicketNotification(ticketid, a.agentId);
+                }
+
+
+
+
                 return true;
             }
             catch (Exception e)
@@ -199,9 +221,9 @@ namespace AppFeatures
         {
 
 
-            var res = await _context.Tickets.Include(t => t.creator_user).ThenInclude(u=>u.role).FirstOrDefaultAsync(t => t.ticketId == ticketId);
+            var res = await _context.Tickets.Include(t => t.creator_user).ThenInclude(u => u.role).FirstOrDefaultAsync(t => t.ticketId == ticketId);
             System.Diagnostics.Debug.WriteLine(res.ticketTitle);
- 
+
             return (res);
         }
 
@@ -343,13 +365,13 @@ namespace AppFeatures
         //******* PRODUCTS MANAGMENT
         public async Task<List<Product>> getListProducts()
         {
-            List<Product> res = await _context.Products.Include(p=>p.productCategory).ToListAsync();
+            List<Product> res = await _context.Products.Include(p => p.productCategory).ToListAsync();
             return res;
         }
 
         public async Task<Product> getProductById(string id)
         {
-            var res = await _context.Products.Include(p=>p.productCategory).FirstOrDefaultAsync(p => p.refId == id);
+            var res = await _context.Products.Include(p => p.productCategory).FirstOrDefaultAsync(p => p.refId == id);
             return res;
         }
 
@@ -422,7 +444,7 @@ namespace AppFeatures
 
         public List<Product> getAllProducts()
         {
-            return _context.Products.Include(p=>p.productCategory).ToList();
+            return _context.Products.Include(p => p.productCategory).ToList();
         }
 
         public async Task<List<Product>> getLatestProducts()
@@ -474,8 +496,7 @@ namespace AppFeatures
             try
             {
                 List<Product> res = _context.ProductClients.Where(pc => pc.clientId == clientId).Select(pc => pc.product).ToList();
-                System.Diagnostics.Debug.WriteLine(res.Count);
-
+ 
                 if (res == null)
                 {
                     return null;
@@ -512,7 +533,7 @@ namespace AppFeatures
         {
 
 
-            int res = _context.Articles.Include(a=>a.articleCategory).Where(a => a.articleCategory.categoryName == _category).Count();
+            int res = _context.Articles.Include(a => a.articleCategory).Where(a => a.articleCategory.categoryName == _category).Count();
 
             return res;
         }
@@ -593,8 +614,8 @@ namespace AppFeatures
 
         public async Task<Article> updateArticle(Article ar)
         {
-             var res = await _context.Articles.FirstOrDefaultAsync(a => a.ArticleId == ar.ArticleId);
- 
+            var res = await _context.Articles.FirstOrDefaultAsync(a => a.ArticleId == ar.ArticleId);
+
             res.Title = ar.Title;
             res.content = ar.content;
             res.categoryId = ar.categoryId;
@@ -700,6 +721,18 @@ namespace AppFeatures
             return res;
         }
 
+        public async Task addAgentTicketNotification(int ticketId, int agentId)
+        {
+            Notification note = new Notification();
+            note.notificationContent = "Ticket #" + ticketId + " has been closed by the client";
+            note.reciverNotification = agentId;
+            note.notificationDate = DateTime.Now;
+            await _context.AddAsync(note);
+            await _context.SaveChangesAsync();
+
+
+
+        }
 
 
 

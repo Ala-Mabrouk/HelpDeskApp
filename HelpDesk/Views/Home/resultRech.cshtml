@@ -1,15 +1,19 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
+
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 
 
+
 <div class="dx-box-5 bg-grey-6">
-    <div class="container" >
+    <div class="container">
 
         @if (ViewBag.resultProducts != null)
         {
-            <h3>Products</h3>
+            <h3>@localizer["Products"]</h3>
             foreach (var item in ViewBag.resultProducts)
             {
 
@@ -41,8 +45,9 @@
             }
         }
 
-        @if (ViewBag.resultArticles!=null)
+        @if (ViewBag.resultArticles != null)
         {
+            <h3>@localizer["Articles"]</h3>
             foreach (var item in ViewBag.resultArticles)
             {
 

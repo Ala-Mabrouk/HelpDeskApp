@@ -1,4 +1,8 @@
-﻿@model IEnumerable<Entities.Entities.Product> 
+﻿
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
+
+@model IEnumerable<Entities.Entities.Product>
 
 @{ Layout = "~/Views/Shared/_NoHeaderLayout.cshtml";}
 
@@ -36,10 +40,13 @@
     <div class="dx-box bg-white">
         <div class="container">
             <ul class="dx-links dx-isotope-filter text-center">
-                <li class="active" data-filter="*">All Items</li>
-                <li data-filter=".info">info</li>
-                <li data-filter=".stylo">stylo</li>
-                <li data-filter=".smart_phone">smart phone</li>
+                <li class="active" data-filter="*">@localizer["AllItems"]</li>
+
+                @foreach (var item in ViewBag.Categories)
+                {
+                    <li data-filter=".@item.categoryName">@item.categoryName</li>
+                }
+
             </ul>
         </div>
     </div>
@@ -61,8 +68,8 @@
                         <div class="dx-portfolio-item dx-block-decorated">
                             <div class="dx-portfolio-item-image">
                                 <div class="dx-portfolio-item-overlay" style="background-color: rgba(27, 27, 27, .8);">
-                                    <a asp-action="ProductDetail" asp-controller="Products" asp-route-refid="@item.refId" class="dx-btn dx-btn-md dx-btn-transparent-style-2 m-10">Live Demo</a>
-                                    <a asp-action="buyProduct" asp-controller="Products" asp-route-prodRef=@item.refId class="dx-btn dx-btn-md dx-btn-transparent-style-2 m-10">Buy Now</a>
+                                    <a asp-action="ProductDetail" asp-controller="Products" asp-route-refid="@item.refId" class="dx-btn dx-btn-md dx-btn-transparent-style-2 m-10">@localizer["LiveDemo"]</a>
+                                    <a asp-action="buyProduct" asp-controller="Products" asp-route-prodRef=@item.refId class="dx-btn dx-btn-md dx-btn-transparent-style-2 m-10">@localizer["BuyNow"]</a>
                                 </div>
                                 <img src=@Url.Content(item.imgUrl) alt="Product img">
                             </div>
@@ -82,7 +89,7 @@
             </div>
 
             <div class="text-center mt-70">
-                <a href="#" class="dx-btn dx-btn-grey dx-btn-lg dx-btn-load" data-btn-loaded="all products shown">Load More</a>
+                <a href="#" class="dx-btn dx-btn-grey dx-btn-lg dx-btn-load" data-btn-loaded="all products shown">@localizer["LoadMore"]</a>
             </div>
 
         </div>

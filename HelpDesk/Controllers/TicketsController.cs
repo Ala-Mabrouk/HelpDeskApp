@@ -1,5 +1,6 @@
 ﻿using AppFeatures;
 using Entities.Entities;
+using HelpDesk.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -28,31 +29,22 @@ namespace HelpDesk.Controllers
 
         public IActionResult Index()
         {
-            loged = verifLog();
-            if (loged > 0)
-            {
-                getUsertickets();
-                return View();
-            }
+            int loged = _AppFunctions.GetUserByEmail(User.FindFirstValue(ClaimTypes.Name)).Result.Id;
+            ViewBag.MyTickets = _AppFunctions.getTicketsByUser(loged).Result.OrderByDescending(t=>t.ticketDate);
+            return View();
+            
 
-            return RedirectToAction("Erreur404", "Home");
+           
         }
 
         [HttpGet]
         public IActionResult addTicket()
         {
 
-            int log = verifLog();
-            System.Diagnostics.Debug.WriteLine("th logged value" + log);
+            int log = _AppFunctions.GetUserByEmail(User.FindFirstValue(ClaimTypes.Name)).Result.Id;
+
 
             List<Product> res = _AppFunctions.getClientProducts(log);
-
-
-            if (res == null)
-            {
-                return RedirectToAction("Erreur404", "Home");
-            }
-
 
             ViewBag.ClientProducts = res;
             return View();
@@ -63,7 +55,14 @@ namespace HelpDesk.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> addTicket(Ticket ticket)
         {
-            loged = verifLog();
+            loged = _AppFunctions.GetUserByEmail(User.FindFirstValue(ClaimTypes.Name)).Result.Id;
+
+            // in case if a modale is invalid 
+            List<Product> res = _AppFunctions.getClientProducts(loged);
+
+            ViewBag.ClientProducts = res;
+
+
             if (ModelState.IsValid)
             {
                 try
@@ -102,29 +101,46 @@ namespace HelpDesk.Controllers
                     }
 
 
-
                     //traitement d ajout du ticket
                     ticket.ticketPriority = TicketPriority.Medium;
                     ticket.ticketStatut = TicketStatus.Distributed;
                     ticket.ticketDate = DateTime.Now;
                     ticket.userId = loged;
 
-                    await _AppFunctions.addTicket(ticket);
 
-                    return RedirectToAction("Index", "Tickets");
+                    //case no product is selected 
+                    if (ticket.relatedProductRefId == null)
+                    {
+                        ModelState.AddModelError("", "Need to select a product");
+                        return View(ticket);
+                    }
+
+
+                    if (await _AppFunctions.addTicket(ticket) != null)
+                    {
+                        ResultOperation result = new ResultOperation();
+
+
+
+                        result.statusOp = true;
+                        result.message = "Done!";                    
+
+                        ViewBag.Message = result;
+
+                        ViewBag.MyTickets = _AppFunctions.getTicketsByUser(loged).Result.OrderByDescending(t => t.ticketDate);
+                        return View("Index");
+               
+                    }
+                    ModelState.AddModelError("", "Unable to submit ticket for now");
+
                 }
                 catch (Exception e)
                 {
-                    ModelState.AddModelError("", "Unable to add Ticket for now");
+                    return RedirectToAction("Erreur404", "Home");
                 }
             }
 
-            /*    List<Product> res = _AppFunctions.getClientProducts(loged);
-                ViewBag.ClientProducts = res;
-                return View("addTicket",ticket);*/
-
-
-            return RedirectToAction("Erreur404", "Home");
+            return View(ticket);
         }
 
 
@@ -136,7 +152,7 @@ namespace HelpDesk.Controllers
             ViewBag.userMail = ClientMail;
             return View();
 
-         }
+        }
 
 
         [HttpPost]
@@ -226,50 +242,43 @@ namespace HelpDesk.Controllers
 
         [HttpGet]
         public ActionResult closeTicket(int ticketId)
-            
+
         {
-             System.Diagnostics.Debug.WriteLine(ticketId);
+            System.Diagnostics.Debug.WriteLine(ticketId);
             var res = _AppFunctions.getTicketDetails(ticketId).Result;
-     
 
 
-            return PartialView("closeTicket",res);
+
+            return PartialView("closeTicket", res);
         }
-        
-        
-        
+
+
+
         public ActionResult close(Ticket t)
 
         {
             int id = Int16.Parse(Request.Form["ticketId"]);
             if (_AppFunctions.closeTicket(id).Result)
             {
-                return RedirectToAction("Index","Tickets");
+                return RedirectToAction("Index", "Tickets");
             }
             return RedirectToAction("Erreur404", "Home");
         }
 
-   
-
-
-
-
-
-
-
-        public void getUsertickets()
-        {
-
-
-            ViewBag.MyTickets = _AppFunctions.getTicketsByUser(loged).Result;
-
-
-        }
+ 
         public IActionResult listTickets()
         {
             List<Ticket> list = _AppFunctions.showAllTickets().Result;
             ViewBag.ListTickets = list;
+            ViewBag.loger = User.FindFirstValue(ClaimTypes.Role);
             return View();
+        }
+        public IActionResult FULlistTickets()
+        {
+            List<Ticket> list = _AppFunctions.showAllSystemTickets().Result;
+            ViewBag.ListTickets = list;
+            ViewBag.loger = User.FindFirstValue(ClaimTypes.Role);
+            return View("listTickets");
         }
 
         public IActionResult singleTicketInfo(int ticketid)
@@ -278,28 +287,31 @@ namespace HelpDesk.Controllers
 
             var replies = _AppFunctions.getTicketReplies(ticketid).Result;
 
-            ViewBag.ticketReplies = replies;
-
-
+            if (replies.Count > 0)
+            {
+                ViewBag.ticketReplies = replies;
+            }
+ 
             ViewBag.Ticket = ticket;
+            if (replies != null)
+            {
+                foreach (var item in replies)
+                {
+                    ViewBag.recivermail = item.replyOwner.Email;
+                    break;
+                }
+            }
 
             return View();
         }
 
-
-        public int verifLog()
-        {
-            int id = _AppFunctions.GetUserByEmail(User.FindFirstValue(ClaimTypes.Name)).Result.Id;
-            return id;
-
-        }
         public ActionResult ticketInfo(int idTicket)
         {
 
 
             var res = _AppFunctions.ticketInfo(idTicket).Result;
             var replies = _AppFunctions.getTicketReplies(idTicket).Result;
- 
+
             ViewBag.Ticket = res;
             ViewBag.ticketReplies = replies;
 
@@ -313,7 +325,19 @@ namespace HelpDesk.Controllers
 
             var res = _AppFunctions.getTicketDetails(idTicket).Result;
 
-            System.Diagnostics.Debug.WriteLine("i am in the ticket detail  info action");
+            var agent = _AppFunctions.GetUserByEmail(User.FindFirstValue(ClaimTypes.Name)).Result;
+
+            ViewBag.Permission = false;
+            //getting agent's permissions name
+            foreach (var item in agent.listUserPermissions)
+            {
+                if (item.permision.permissionName == "Assign tickets")
+                {
+                    ViewBag.Permission = true;
+                    break;
+                }
+
+            }
 
             return PartialView("ticketDetailInfo", res);
         }
@@ -369,7 +393,7 @@ namespace HelpDesk.Controllers
                 }
 
             }
-    
+
 
             var res = _AppFunctions.addReply(reply).Result;
             if (res != null)
@@ -388,12 +412,12 @@ namespace HelpDesk.Controllers
 
                 string to = Request.Form["destination"];
 
-                await _AppFunctions.sendClientNotification(to, res.ticket.ticketTitle,res.TicketId, res.reply_date);
+                await _AppFunctions.sendClientNotification(to, res.ticket.ticketTitle, res.TicketId, res.reply_date);
                 return RedirectToAction(D_action, D_controller);
             }
-        
-                return RedirectToAction(D_action, D_controller,new { ticketid = res.TicketId });
-            
+
+            return RedirectToAction(D_action, D_controller, new { ticketid = res.TicketId });
+
         }
 
 

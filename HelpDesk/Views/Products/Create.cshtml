@@ -1,4 +1,8 @@
-﻿@model Entities.Entities.Product;
+﻿
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
+
+@model Entities.Entities.Product
 
 @{
     ViewData["Title"] = "Create";
@@ -6,11 +10,26 @@
 
 }
 
+
+<script>
+    $("#EndDate").change(function () {
+        var startDate = document.getElementById("StartDate").value;
+        var endDate = document.getElementById("EndDate").value;
+
+        if ((Date.parse(endDate) <= Date.parse(startDate))) {
+            alert("Validation date should be greater than Start date");
+            document.getElementById("EndDate").value = "";
+        }
+    });
+
+
+</script>
+
 <div class="modal fade" id="addProduct">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Add Product</h4>
+                <h4 class="modal-title">@localizer["AddProduct"]</h4>
                 <button type="button" class="close" data-dismiss="modal">x</button>
 
             </div>
@@ -42,12 +61,12 @@
                             </div>
                             <div class="form-group">
                                 <label asp-for="dateBuild" class="control-label"></label>
-                                <input type="date" asp-for="dateBuild" class="form-control" />
+                                <input type="date" asp-for="dateBuild" class="form-control" id="StartDate" />
                                 <span asp-validation-for="dateBuild" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label asp-for="dateValidate" class="control-label"></label>
-                                <input min="1950-01-01" type="date" asp-for="dateValidate" class="form-control" />
+                                <input min="1950-01-01" type="date" asp-for="dateValidate" id="EndDate" class="form-control" />
                                 <span asp-validation-for="dateValidate" class="text-danger"></span>
                             </div>
                             <div class="form-group">
@@ -66,38 +85,23 @@
                                 @Html.ValidationMessageFor(model => model.categoryID)
 
                             </div>
-
-
-@*
-                            <div class="form-group">
-                                <label asp-for="category" class="control-label"></label>
-                                <input required asp-for="category" class="form-control" />
-                                <span asp-validation-for="category" class="text-danger"></span>
-                            </div>*@
-
+ 
 
                             <div class="input-group mb-3">
                                 <input type="file" asp-for="ImageFile" class="custom-file-input" />
-                                <label asp-for="imgUrl" class="custom-file-label">Choose file</label>
+                                <label asp-for="imgUrl" class="custom-file-label">@localizer["Choosefile"]</label>
 
                             </div>
 
 
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary" data-save="">Save</button>
-                                <button type="button" class="btn btn-primary" data-dismiss="modal">close</button>
+                                <button type="submit" class="btn btn-success"><i class="far fa-save"></i>&nbsp;@localizer["Save"]</button>
+                                <button type="button" class="btn btn-primary" onclick="history.back(-1)"><i class="far fa-times-circle"></i>&nbsp;@localizer["close"]</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="modal-footer">
-
-
-
-
-
         </div>
 
     </div>
@@ -105,4 +109,3 @@
 </div>
 
 
- 

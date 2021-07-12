@@ -1,4 +1,6 @@
 ﻿
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
 
 @model IEnumerable<Entities.Entities.Client>
 @{
@@ -48,17 +50,17 @@
 
 <div id="placeholder"></div>
 
-<div class="card-header" >
-     <div style="display: flex;justify-content: space-between; align-items:center;">
+<div class="card-header">
+    <div style="display: flex;justify-content: space-between; align-items:center;">
         <div>
             <span onclick="history.back(-1)" style="cursor:pointer;"><i class="fas fa-long-arrow-alt-left"></i>&nbsp;&nbsp;</span>
 
             <i class="fas fa-table mr-1"></i>
-            Customers table
+            @localizer["Customerstable"]
         </div>
         <a href="#" data-toggle="addClient" data-target="#addClient" data-url="@Url.Action("addClient")"
            class="btn btn-primary">
-            <i class="fas fa-plus"></i>&nbsp;Add costumer
+            <i class="fas fa-plus"></i>&nbsp;@localizer["Addcustomer"]
         </a>
     </div>
 </div>
@@ -114,7 +116,7 @@
             {
                 <tr class="align-middle">
                     <td>
-                      @item.Id
+                        @item.Id
 
                     </td>
                     <td>
@@ -128,9 +130,9 @@
                         @item.Phone
                     </td>
                     <td>
-                        <a href="#" data-toggle="productsList" data-target="#productsList" data-url="@Url.Action("afectProduct",new { clientMail = item.Email })">Affect Product</a> |
-                        <a asp-action="clientDetails" asp-controller="Agent" asp-route-mailClient="@item.Email" >Details</a> 
-                     </td>
+                        <a href="#" data-toggle="productsList" data-target="#productsList" data-url="@Url.Action("afectProduct",new { clientMail = item.Email })">@localizer["AffectProduct"]</a> |
+                        <a asp-action="clientDetails" asp-controller="Agent" asp-route-mailClient="@item.Email">@localizer["Details"]</a>
+                    </td>
                 </tr>
             }
         </tbody>

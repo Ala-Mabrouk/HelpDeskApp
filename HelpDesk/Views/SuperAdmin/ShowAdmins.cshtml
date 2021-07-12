@@ -49,13 +49,12 @@
             <span onclick="history.back(-1)" style="cursor:pointer;"><i class="fas fa-long-arrow-alt-left"></i>&nbsp;&nbsp;</span>
 
             <i class="fas fa-table mr-1"></i>
-            Admins table
-            @*     @localizer["admins_Table"]*@
+                  @localizer["admins_Table"]
         </div>
 
         <a href="#" data-toggle="addAdmin" data-target="#addAdmin" data-url="@Url.Action("addAdmin")" class="btn btn-primary">
-            @*  @localizer["Add_admin"]*@
-            <i class="fas fa-plus"></i>&nbsp;Add admin
+
+            <i class="fas fa-plus"></i>&nbsp;@localizer["Add_admin"]
         </a>
 
     </div>
@@ -93,7 +92,7 @@
                         <td> @admin.Email</td>
                         <td> @admin.Phone</td>
                         <td> @admin.status</td>
-                        <td><a asp-action="updateAdmin" asp-route-mailAdmin="@admin.Email" asp-controller="SuperAdmin">update info</a></td>
+                        <td><a asp-action="updateAdmin" asp-route-mailAdmin="@admin.Email" asp-controller="SuperAdmin">@localizer["updateinfo"]</a></td>
 
 
                     </tr>

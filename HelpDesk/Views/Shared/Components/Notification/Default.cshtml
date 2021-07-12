@@ -1,5 +1,6 @@
 ﻿
-
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
 
 <style>
     .someImg {
@@ -39,44 +40,39 @@
         font-weight: 600;
         font-style: normal;
     }
-
-
-
-
-
 </style>
 
 
 
 @if (ViewBag.notifications != null)
 {
-     @foreach (var item in ViewBag.notifications)
-        {
-<a class="dropdown-item waves-effect waves-light" href="#">
+    @foreach (var item in ViewBag.notifications)
+    {
+        <a class="dropdown-item waves-effect waves-light" href="#">
 
 
 
-    <div style="width:min-content;">
-        
-        <div class="message">
-            @item.notificationContent
-        </div>
+            <div style="width:min-content;">
 
-        <div class="user">
+                <div class="message">
+                    @item.notificationContent
+                </div>
 
-            @item.notificationDate
+                <div class="user">
 
-        </div>
-    </div>
+                    @item.notificationDate
 
-</a>
+                </div>
+            </div>
 
-        }
-  
-  
+        </a>
+
+    }
+
+
 }
 else
 {
-    <a class="dropdown-item waves-effect waves-light" href="#">No notifications</a>
-  
+    <a class="dropdown-item waves-effect waves-light" href="#">@localizer["NoNotifications"]</a>
+
 }

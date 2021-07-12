@@ -1,6 +1,8 @@
 ﻿
 
 
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
 
 
 
@@ -17,9 +19,9 @@
                             <!-- START: Breadcrumbs -->
                             <ul class="dx-breadcrumbs text-left dx-breadcrumbs-dark mnb-8">
 
-                                <li><a asp-action="HelpCenter" asp-controller="Home">Support Home</a></li>
+                                <li><a asp-action="HelpCenter" asp-controller="Home">@localizer["SupportHome"]</a></li>
 
-                                <li>Articles</li>
+                                <li>@localizer["Articles"]</li>
 
 
                             </ul>
@@ -81,4 +83,3 @@
     </div>
 </div>
 
- 

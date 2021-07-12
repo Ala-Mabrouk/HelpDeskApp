@@ -1,4 +1,6 @@
 ﻿
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
 @model Entities.Entities.Article;
 
 
@@ -20,7 +22,7 @@
             </div>
 
             <div class="modal-body">
-            
+
                 <div class="row justify-content-center">
                     <div class="container pl-0 pr-0">
 
@@ -43,7 +45,7 @@
                     </div>
                     <button class="btn-block btn-primary mt-20" data-dismiss="modal">Ok</button>
                 </div>
-              
+
             </div>
 
 

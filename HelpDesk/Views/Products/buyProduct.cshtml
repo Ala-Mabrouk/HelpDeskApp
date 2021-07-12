@@ -1,4 +1,7 @@
 ﻿
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
+
 @model HelpDesk.Models.PaymentCard
 
 @{ Layout = "~/Views/Shared/_NoHeaderLayout.cshtml";}
@@ -13,18 +16,18 @@
     <div class="container mnb-8">
         <div class="row justify-content-center">
             <div class="col-xl-7">
-                <h1 class="h4 mb-10 text-white text-center">Checkout</h1>
+                <h1 class="h4 mb-10 text-white text-center">@localizer["Checkout"]</h1>
 
 
                 <!-- START: Breadcrumbs -->
                 <ul class="dx-breadcrumbs text-center">
 
-                    <li><a asp-action="Index" asp-controller="Home">Home</a></li>
+                    <li><a asp-action="Index" asp-controller="Home">@localizer["Home"]</a></li>
 
 
-                    <li><a asp-action="ProductDispaly" asp-controller="Products">Store</a></li>
+                    <li><a asp-action="ProductDispaly" asp-controller="Products">@localizer["Store"]</a></li>
 
-                    <li>Checkout</li>
+                    <li>@localizer["Checkout"]</li>
 
 
                 </ul>
@@ -44,7 +47,7 @@
             <div class="col-lg-6">
                 <div class="dx-box dx-box-decorated">
                     <div class="dx-box-content">
-                        <h2 class="h6 mnt-5 mnb-5">Product Information</h2>
+                        <h2 class="h6 mnt-5 mnb-5">@localizer["ProductInformation"]</h2>
                     </div>
                     <div class="dx-separator"></div>
                     <div class="table-responsive">
@@ -71,23 +74,23 @@
                     <div class="dx-separator"></div>
 
                     <div class="dx-box-content text-right">
-                        <p class="text-dark-1 mnt-8 mnb-8">Total Payment: <strong class="fs-18">$@ViewBag.product.price</strong></p>
+                        <p class="text-dark-1 mnt-8 mnb-8">@localizer["TotalPayment"]: <strong class="fs-18">$@ViewBag.product.price</strong></p>
                     </div>
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="dx-box dx-box-decorated">
                     <div class="dx-box-content">
-                        <h2 class="h6 mnt-5 mnb-5">Payments Details</h2>
+                        <h2 class="h6 mnt-5 mnb-5">@localizer["PaymentsDetails"]</h2>
                     </div>
                     <div class="dx-separator"></div>
                     <div class="dx-box-content">
-                        <p class="mnt-6 mb-3 text-dark-1">Choose Payment Method</p>
+                        <p class="mnt-6 mb-3 text-dark-1">@localizer["ChoosePaymentMethod"]</p>
                         <ul class="nav dx-tab dx-tab-payment mnt-10 row vertical-gap sm-gap" role="tablist">
                             <li class="nav-item col-sm-6">
                                 <a class="nav-link active dx-tab-payment-method" id="card-tab" data-toggle="tab" href="#card" role="tab" aria-controls="card" aria-selected="true">
                                     <img src="~/Content/images/payment-card.png" alt="">
-                                    <span class="dx-tab-payment-method-text">Credit Card</span>
+                                    <span class="dx-tab-payment-method-text">@localizer["CreditCard"]</span>
                                 </a>
                             </li>
                             <li class="nav-item col-sm-6">
@@ -104,7 +107,7 @@
 
 
 
-                            <input type="hidden"  value="@ViewBag.product.refId" name="productRefId" />
+                            <input type="hidden" value="@ViewBag.product.refId" name="productRefId" />
 
 
                             <div class="dx-box-content">
@@ -131,18 +134,18 @@
                                             <label for="date" class="mnt-7">Expiration Date</label>
                                             <div class="dx-form-group-inputs">
                                                 <select class="custom-select form-control form-control-style-2" id="date">
-                                                    <option value="1">January</option>
-                                                    <option value="2">February</option>
-                                                    <option value="3">March</option>
-                                                    <option value="4">April</option>
-                                                    <option value="5">May</option>
-                                                    <option value="6">June</option>
-                                                    <option value="7">July</option>
-                                                    <option value="8">August</option>
-                                                    <option value="9">September</option>
-                                                    <option value="10">October</option>
-                                                    <option value="11" selected>November</option>
-                                                    <option value="12">December</option>
+                                                    <option value="1">@localizer["January"]</option>
+                                                    <option value="2">@localizer["February"]</option>
+                                                    <option value="3">@localizer["March"]</option>
+                                                    <option value="4">@localizer["April"]</option>
+                                                    <option value="5">@localizer["May"]</option>
+                                                    <option value="6">@localizer["June"]</option>
+                                                    <option value="7">@localizer["July"]</option>
+                                                    <option value="8">@localizer["August"]</option>
+                                                    <option value="9">@localizer["September"]</option>
+                                                    <option value="10">@localizer["October"]</option>
+                                                    <option value="11" selected>@localizer["November"]</option>
+                                                    <option value="12">@localizer["December"]</option>
                                                 </select>
                                                 <select class="custom-select form-control form-control-style-2 w-auto">
                                                     <option value="1">2026</option>
@@ -155,8 +158,8 @@
                                             </div>
                                         </div>
                                         <div class="col-sm-4">
-                                            <label asp-for="cvvNumber" class="mnt-7">CVV Number</label>
-                                            <input type="text" asp-for="cvvNumber" class="form-control form-control-style-2 dx-form-quantity-input"  placeholder="XXX">
+                                            <label asp-for="cvvNumber" class="mnt-7">@localizer["CVVNumber"]</label>
+                                            <input type="text" asp-for="cvvNumber" class="form-control form-control-style-2 dx-form-quantity-input" placeholder="XXX">
                                             <span asp-validation-for="cvvNumber" class="text-danger"></span>
 
                                         </div>
@@ -186,7 +189,7 @@
                             <div class="dx-box-content">
                                 <button type="submit" class="dx-btn dx-btn-xl dx-btn-block">
 
-                                    Purchase $@ViewBag.product.price
+                                    @localizer["Purchase"] $@ViewBag.product.price
                                 </button>
                             </div>
 
@@ -196,16 +199,15 @@
                         <div class="dx-separator"></div>
                         <div class="dx-box-content">
 
- 
+
 
 
 
 
 
                             <a class="dx-btn dx-btn-xl dx-btn-block"
-                         asp-action="buyTheProduct" asp-controller="Products" asp-route-pRef=@ViewBag.product.refId
->
-                                Purchase $@ViewBag.product.price
+                               asp-action="buyTheProduct" asp-controller="Products" asp-route-pRef=@ViewBag.product.refId>
+                                @localizer["Purchase"] $@ViewBag.product.price
                             </a>
                         </div>
                     </div>
