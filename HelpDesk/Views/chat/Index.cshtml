@@ -218,7 +218,9 @@
         .mesgs {
             float: left;
             padding: 30px 15px 0 25px;
-          
+            background: white;
+            border-radius: 6% 0%;
+            min-width:450px;
         }
 
         .sent_msg p {
@@ -274,7 +276,7 @@
         }
 
         .msg_history {
-            height: 516px;
+            height: 470px;
             overflow-y: auto;
         }
     </style>
@@ -283,10 +285,6 @@
 
 
 <body>
-
-
-
-    
    
         <input type="hidden" id="logedUser" value="@User.Identity.Name" />
         <input type="hidden" id="reciverUser" value="@ViewBag.reciver" />
@@ -297,8 +295,8 @@
         <div style="display: flex;justify-content: center;margin-bottom: 10px;">
             <div >
                 <h1 style="color:azure;text-align:center;">NST-Desk chat</h1>
-                <div class="mesgs" style="background: white;border-radius: 6% 0%;">
-                    <div class="msg_history">
+                <div class="mesgs" style="">
+                    <div class="msg_history modal-dialog-scrollable">
                         @if (ViewBag.conv != null)
                         {
                             @foreach (var item in ViewBag.conv)
@@ -321,11 +319,11 @@
                                     <div class="incoming_msg">
 
                                         <div class="incoming_msg_img">
-                                            <img src="jhfsdj" alt="@item.senderId">
+                                            <img src="~/Content/images/123-re.png" alt="@item.senderId">
                                         </div>
                                         <div class="received_msg">
-                                            <div class="received_withd_msg">
-                                                <p>
+                                            <div class="received_withd_msg"  style=" max-width: 200px; padding: 7px; word-break: break-word;">
+                                                <p >
                                                     @item.msgContent
                                                 </p>
                                             </div>

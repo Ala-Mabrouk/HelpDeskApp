@@ -30,7 +30,7 @@ connection.on("ReceiveMessage", function (mail, name, thumbUrl, message) {
     }
     else {
 
-        html = '<div class="incoming_msg_img" > <img src="jhfsdj" alt="' + name + '"></div><div class="received_msg"><div class="received_withd_msg"><p>' + msg + '</p></div></div>';
+        html = '<div class="incoming_msg_img" > <img src="C:/Users/worrior107/source/repos/HelpDeskApp/HelpDesk/wwwroot/Content/images/123-re.png" alt="' + name + '"></div><div class="received_msg"><div class="received_withd_msg"><p>' + msg + '</p></div></div>';
 
         div.className = "incoming_msg";
     }

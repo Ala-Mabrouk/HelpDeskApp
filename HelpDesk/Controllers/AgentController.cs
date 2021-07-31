@@ -105,7 +105,7 @@ namespace HelpDesk.Controllers
 
 
 
-        //********* tickets manipulation*******
+        //********* tickets manipulation *******
 
         [HttpGet]
         public ActionResult assignTicket(int ticketId)
@@ -183,7 +183,7 @@ namespace HelpDesk.Controllers
 
 
 
-            //******* agent profil management*********
+            //******* agent profil management *********
         [HttpGet]   
         public IActionResult AgentSettings()
         {
@@ -286,7 +286,7 @@ namespace HelpDesk.Controllers
         }
 
 
-        //********* products Manipulation
+        //********* products Manipulation *************
 
         public ActionResult afectProduct(string clientMail)
         {
@@ -297,12 +297,13 @@ namespace HelpDesk.Controllers
             return PartialView("afectProduct");
         }
 
-        public ActionResult afectTheProduct(string client, string refProd)
+        public IActionResult afectTheProduct(string client, string refProd)
         {
+            System.Diagnostics.Debug.WriteLine("le client est: " + client + "le product is: " + refProd);
+
             if (_AppFunctions.addProductClient(refProd, client).Result)
             {
-                //  return Redirect(HttpContext.Request.Path.ToString());
-                return null;
+                return RedirectToAction("customersList");
             }
 
             return RedirectToAction("Erreur404", "Home");

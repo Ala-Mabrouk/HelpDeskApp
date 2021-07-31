@@ -61,24 +61,6 @@ namespace Entities.Entities.Ressources.Ressource_Tickets {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Distributed ya bacha.
-        /// </summary>
-        public static string Distributed {
-            get {
-                return ResourceManager.GetString("Distributed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Recherche une chaîne localisée semblable à Ouvrrir ya bacha.
-        /// </summary>
-        public static string Open {
-            get {
-                return ResourceManager.GetString("Open", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Recherche une chaîne localisée semblable à Creation date.
         /// </summary>
         public static string ticketDate {
@@ -106,6 +88,15 @@ namespace Entities.Entities.Ressources.Ressource_Tickets {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à ticketID.
+        /// </summary>
+        public static string ticketID {
+            get {
+                return ResourceManager.GetString("ticketID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Priority.
         /// </summary>
         public static string ticketPriority {
@@ -115,7 +106,7 @@ namespace Entities.Entities.Ressources.Ressource_Tickets {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Statut.
+        ///   Recherche une chaîne localisée semblable à Status.
         /// </summary>
         public static string ticketStatut {
             get {

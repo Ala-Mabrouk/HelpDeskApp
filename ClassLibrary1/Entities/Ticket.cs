@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Entities.Entities; 
 
 namespace Entities.Entities
 {
@@ -12,12 +13,8 @@ namespace Entities.Entities
         // Enumeration for ticket status
         public enum TicketStatus
         {
-            [Display(Name = "Open", ResourceType = typeof(Ressources.Ressource_Tickets.ResourceTicket))]
-
+           
             Open = 1,
-
-            [Display(Name = "Distributed", ResourceType = typeof(Ressources.Ressource_Tickets.ResourceTicket))]
-
             Distributed = 2,
             Proccesing = 3,
             Checking = 4,
@@ -33,7 +30,7 @@ namespace Entities.Entities
         }
 
 
-
+        [Display(Name = "ticketID", ResourceType = typeof(Ressources.Ressource_Tickets.ResourceTicket))]
         public int ticketId { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Ressources.Ressource_Tickets.ResourceTicket), ErrorMessageResourceName = "ticketTitleRequired")]

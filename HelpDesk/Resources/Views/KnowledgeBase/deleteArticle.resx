@@ -121,7 +121,7 @@
     <value>Close</value>
   </data>
   <data name="question" xml:space="preserve">
-    <value>Are you sure you want to close this article?</value>
+    <value>Are you sure you want to delete this article?</value>
   </data>
   <data name="yes" xml:space="preserve">
     <value>Yes</value>

@@ -468,8 +468,7 @@ namespace AppFeatures
 
                 await _context.AddAsync(pc);
 
-                //adding the ProductClient to myListProducts
-
+ /*               //adding the ProductClient to myListProducts
 
                 Product prod = _context.Products.FirstOrDefaultAsync(p => p.refId == prodRef).Result;
 
@@ -477,9 +476,10 @@ namespace AppFeatures
 
                 //adding the ProductClient to ListProductClient
 
-                client.myListProducts.Add(pc);
+                client.myListProducts.Add(pc);*/
 
                 await _context.SaveChangesAsync();
+
                 return true;
             }
             catch (Exception e)
@@ -667,7 +667,7 @@ namespace AppFeatures
             //getting the reciver id
 
             a.reciverNotification = GetUserByEmail(toAdress).Result.Id;
-            a.notificationContent = "ticket: " + ticket + " has new reply";
+            a.notificationContent = "ticket: << " + ticket + " >> has new reply";
             a.notificationDate = DateTime.Now;
             _context.Add(a);
             _context.SaveChanges();

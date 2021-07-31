@@ -120,6 +120,12 @@
   <data name="Articles" xml:space="preserve">
     <value>Articles</value>
   </data>
+  <data name="Articles_Categories" xml:space="preserve">
+    <value>Articles Categories</value>
+  </data>
+  <data name="BrowseArticleCategories" xml:space="preserve">
+    <value>Browse Article Categories</value>
+  </data>
   <data name="SupportHome" xml:space="preserve">
     <value>Support Home</value>
   </data>

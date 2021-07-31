@@ -117,12 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Distributed" xml:space="preserve">
-    <value>Distributed ya bacha</value>
-  </data>
-  <data name="Open" xml:space="preserve">
-    <value>Ouvrrir ya bacha</value>
-  </data>
   <data name="ticketDate" xml:space="preserve">
     <value>Creation date</value>
   </data>
@@ -132,11 +126,14 @@
   <data name="ticketDescriptionRequired" xml:space="preserve">
     <value>Ticket Description is required</value>
   </data>
+  <data name="ticketID" xml:space="preserve">
+    <value>ticketID</value>
+  </data>
   <data name="ticketPriority" xml:space="preserve">
     <value>Priority</value>
   </data>
   <data name="ticketStatut" xml:space="preserve">
-    <value>Statut</value>
+    <value>Status</value>
   </data>
   <data name="ticketTitle" xml:space="preserve">
     <value>Title</value>

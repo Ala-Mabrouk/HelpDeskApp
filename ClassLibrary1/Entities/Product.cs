@@ -26,18 +26,24 @@ namespace Entities.Entities
         [Required(ErrorMessageResourceType = typeof(Ressources.Ressource_Product.Resource), ErrorMessageResourceName = "FactroyNameRequired")]
         public string factoryName { get; set; }
 
+
+       
         [Display(Name = "BuildDate", ResourceType = typeof(Ressources.Ressource_Product.Resource))]
+        [Required(ErrorMessageResourceType = typeof(Ressources.Ressource_Product.Resource), ErrorMessageResourceName = "BuildDateRequired")]
         public DateTime dateBuild { get; set; }
 
         [Display(Name = "ValidationDate", ResourceType = typeof(Ressources.Ressource_Product.Resource))]
         public DateTime dateValidate { get; set; } 
 
         [Display(Name = "Category", ResourceType = typeof(Ressources.Ressource_Product.Resource))]
- //       public string category { get; set; }
+ 
         public string imgUrl { get; set; } = "~/Content/images/placeholder_0.png";
 
+      
         [Display(Name = "price", ResourceType = typeof(Ressources.Ressource_Product.Resource))]
-        public  double price { get; set; } = 0.0;
+        [Required(ErrorMessageResourceType = typeof(Ressources.Ressource_Product.Resource), ErrorMessageResourceName = "PriceRequired")]
+
+        public double price { get; set; } = 0.0;
 
         [Display(Name = "addedDate", ResourceType = typeof(Ressources.Ressource_Product.Resource))]
         public DateTime addedDate { get; set; } = DateTime.Now;

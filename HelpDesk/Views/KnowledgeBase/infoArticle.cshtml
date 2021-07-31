@@ -30,20 +30,20 @@
 
                         <div style="display: flex;justify-content: space-between;">
                             <div>
-                                <div><b>Category:</b> @Model.articleCategory.categoryName</div>
-                                <div><b>Wrote By :</b> @Model.creator_agent.FirstName @Model.creator_agent.LastName</div>
+                                <div><b>@localizer["Category"]:</b> @Model.articleCategory.categoryName</div>
+                                <div><b>@localizer["Wrote_By"] :</b> @Model.creator_agent.FirstName @Model.creator_agent.LastName</div>
                             </div>
                             <div style="border-left: 2px solid #a3a3a6;"></div>
                             <div>
-                                <div><b>Cration date:</b> @Model.creationDate</div>
-                                <div><b>Last updated:</b> @Model.lastModified</div>
+                                <div><b>@localizer["Cration_date"]:</b> @Model.creationDate</div>
+                                <div><b>@localizer["Last_updated"]:</b> @Model.lastModified</div>
                             </div>
                         </div>
 
 
 
                     </div>
-                    <button class="btn-block btn-primary mt-20" data-dismiss="modal">Ok</button>
+                    <button class="btn-block btn-primary mt-20" data-dismiss="modal">@localizer["Ok"]</button>
                 </div>
 
             </div>

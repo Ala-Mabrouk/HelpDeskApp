@@ -88,6 +88,15 @@ namespace HelpDesk.Resources.Views.Agent {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Confirm password.
+        /// </summary>
+        public static string confirmPassword {
+            get {
+                return ResourceManager.GetString("confirmPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Personal info.
         /// </summary>
         public static string InfoPersonel {

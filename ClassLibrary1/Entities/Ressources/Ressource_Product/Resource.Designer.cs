@@ -79,6 +79,15 @@ namespace Entities.Entities.Ressources.Ressource_Product {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Build date is required.
+        /// </summary>
+        public static string BuildDateRequired {
+            get {
+                return ResourceManager.GetString("BuildDateRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Category.
         /// </summary>
         public static string Category {
@@ -115,7 +124,7 @@ namespace Entities.Entities.Ressources.Ressource_Product {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Factroy name is required.
+        ///   Recherche une chaîne localisée semblable à Factory name is required.
         /// </summary>
         public static string FactroyNameRequired {
             get {
@@ -129,6 +138,15 @@ namespace Entities.Entities.Ressources.Ressource_Product {
         public static string price {
             get {
                 return ResourceManager.GetString("price", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Price is required.
+        /// </summary>
+        public static string PriceRequired {
+            get {
+                return ResourceManager.GetString("PriceRequired", resourceCulture);
             }
         }
         
@@ -160,7 +178,7 @@ namespace Entities.Entities.Ressources.Ressource_Product {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Referene is required.
+        ///   Recherche une chaîne localisée semblable à Reference is required.
         /// </summary>
         public static string RefRequired {
             get {

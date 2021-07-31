@@ -160,10 +160,6 @@ namespace HelpDesk.Controllers
         public async Task<IActionResult> addTicket_Backoffice(Ticket ticket)
         {
 
-            /* if (ModelState.IsValid)
-             {*/
-
-
             try
             {
                 if (ticket.uploadedFileFile != null)
@@ -223,7 +219,7 @@ namespace HelpDesk.Controllers
 
 
 
-                return RedirectToAction("clientDetails", "Admin", new { mailClient = mail });
+                return RedirectToAction("clientDetails", "Agent", new { mailClient = mail });
             }
             catch (Exception e)
             {

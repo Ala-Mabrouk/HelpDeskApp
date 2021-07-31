@@ -70,6 +70,24 @@ namespace HelpDesk.Resources.Views.KnowledgeBase {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à Articles Categories.
+        /// </summary>
+        public static string Articles_Categories {
+            get {
+                return ResourceManager.GetString("Articles_Categories", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Browse Article Categories.
+        /// </summary>
+        public static string BrowseArticleCategories {
+            get {
+                return ResourceManager.GetString("BrowseArticleCategories", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à Support Home.
         /// </summary>
         public static string SupportHome {

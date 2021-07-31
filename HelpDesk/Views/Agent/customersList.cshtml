@@ -130,7 +130,7 @@
                         @item.Phone
                     </td>
                     <td>
-                        <a href="#" data-toggle="productsList" data-target="#productsList" data-url="@Url.Action("afectProduct",new { clientMail = item.Email })">@localizer["AffectProduct"]</a> |
+                        <a href="#" data-toggle="productsList" data-target="#productsList" data-url="@Url.Action("afectProduct","Agent",new { clientMail = item.Email })">@localizer["AffectProduct"]</a> |
                         <a asp-action="clientDetails" asp-controller="Agent" asp-route-mailClient="@item.Email">@localizer["Details"]</a>
                     </td>
                 </tr>

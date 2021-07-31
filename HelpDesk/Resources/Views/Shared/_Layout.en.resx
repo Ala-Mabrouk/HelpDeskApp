@@ -132,6 +132,9 @@
   <data name="Help Center" xml:space="preserve">
     <value>Help Center </value>
   </data>
+  <data name="Knowledge_Base" xml:space="preserve">
+    <value>Knowledge Base</value>
+  </data>
   <data name="LatestPosts" xml:space="preserve">
     <value>Latest Posts</value>
   </data>

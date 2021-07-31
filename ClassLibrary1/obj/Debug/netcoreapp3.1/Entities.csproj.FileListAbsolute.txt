@@ -20,3 +20,8 @@ C:\Users\worrior107\source\repos\HelpDeskApp\ClassLibrary1\obj\Debug\netcoreapp3
 C:\Users\worrior107\source\repos\HelpDeskApp\ClassLibrary1\obj\Debug\netcoreapp3.1\Entities.Entities.Ressources.Ressource_Person.Resource.fr.resources
 C:\Users\worrior107\source\repos\HelpDeskApp\ClassLibrary1\obj\Debug\netcoreapp3.1\Entities.Entities.Ressources.Ressource_Tickets.ResourceTicket.resources
 C:\Users\worrior107\source\repos\HelpDeskApp\ClassLibrary1\obj\Debug\netcoreapp3.1\Entities.Entities.Ressources.Ressource_Product.Resource.resources
+C:\Users\worrior107\source\repos\HelpDeskApp\ClassLibrary1\obj\Debug\netcoreapp3.1\Entities.Entities.Ressources.Ressource_Article.Resource.resources
+C:\Users\worrior107\source\repos\HelpDeskApp\ClassLibrary1\obj\Debug\netcoreapp3.1\Entities.Entities.Ressources.Ressource_Product.Resource.ar.resources
+C:\Users\worrior107\source\repos\HelpDeskApp\ClassLibrary1\obj\Debug\netcoreapp3.1\Entities.Entities.Ressources.Ressource_Product.Resource.fr.resources
+C:\Users\worrior107\source\repos\HelpDeskApp\ClassLibrary1\obj\Debug\netcoreapp3.1\Entities.Entities.Ressources.Ressource_Tickets.ResourceTicket.ar.resources
+C:\Users\worrior107\source\repos\HelpDeskApp\ClassLibrary1\obj\Debug\netcoreapp3.1\Entities.Entities.Ressources.Ressource_Tickets.ResourceTicket.fr.resources

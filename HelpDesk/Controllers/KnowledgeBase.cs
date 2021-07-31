@@ -55,32 +55,39 @@ namespace HelpDesk.Controllers
         [HttpPost]
         public IActionResult addArticle(Article ar)
         {
-            int id = _AppFunctions.GetUserByEmail(User.FindFirstValue(ClaimTypes.Name)).Result.Id;
-            ar.creator_agentId = id;
-            ar.creationDate = DateTime.Now;
-            ar.lastModified = DateTime.Now;
-
-            ResultOperation result = new ResultOperation();
-
-            if (_AppFunctions.addArticle(ar).Result)
+            if (ModelState.IsValid)
             {
+                int id = _AppFunctions.GetUserByEmail(User.FindFirstValue(ClaimTypes.Name)).Result.Id;
+                ar.creator_agentId = id;
+                ar.creationDate = DateTime.Now;
+                ar.lastModified = DateTime.Now;
 
-                result.statusOp = true;
-                result.message = "article adeded !";
+                ResultOperation result = new ResultOperation();
+
+                if (_AppFunctions.addArticle(ar).Result)
+                {
+
+                    result.statusOp = true;
+                    result.message = "article adeded !";
 
 
+                }
+                else
+                {
+                    result.statusOp = false;
+                    result.message = "Can not add article for now !";
+                }
+
+                ViewBag.Message = result;
+                ViewBag.Articles = _AppFunctions.getAllArticles().Result;
+                ViewBag.Categories = _AppFunctions.getcategories().Result;
+
+
+                return View("listArticles");
             }
-            else
-            {
-                result.statusOp = false;
-                result.message = "Can not add article for now !";
-            }
+            ViewBag.ArticlesCategories = new SelectList(_AppFunctions.getcategories().Result, "categoryId", "categoryName");
 
-            ViewBag.Message = result;
-            ViewBag.Articles = _AppFunctions.getAllArticles().Result;
-
-            return View("listArticles");
- 
+            return View(ar);
         }
 
         public IActionResult listArticles()
@@ -169,6 +176,8 @@ namespace HelpDesk.Controllers
 
                 ViewBag.Message = result;
                 ViewBag.Articles = _AppFunctions.getAllArticles().Result;
+                ViewBag.Categories = _AppFunctions.getcategories().Result;
+
 
                 return View("listArticles");
 
@@ -184,8 +193,7 @@ namespace HelpDesk.Controllers
 
                 return RedirectToAction("Erreur404", "Home");
             }
-            return RedirectToAction("Erreur404", "Home");
-
+ 
         }
 
 

@@ -126,6 +126,9 @@
   <data name="Choosefile" xml:space="preserve">
     <value>Choose a file</value>
   </data>
+  <data name="confirmPassword" xml:space="preserve">
+    <value>Confirm password</value>
+  </data>
   <data name="InfoPersonel" xml:space="preserve">
     <value>Personal info</value>
   </data>

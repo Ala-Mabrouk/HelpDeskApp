@@ -123,6 +123,9 @@
   <data name="BuildDate" xml:space="preserve">
     <value>Build date</value>
   </data>
+  <data name="BuildDateRequired" xml:space="preserve">
+    <value>Build date is required</value>
+  </data>
   <data name="Category" xml:space="preserve">
     <value>Category</value>
   </data>
@@ -136,10 +139,13 @@
     <value>Factory name</value>
   </data>
   <data name="FactroyNameRequired" xml:space="preserve">
-    <value>Factroy name is required</value>
+    <value>Factory name is required</value>
   </data>
   <data name="price" xml:space="preserve">
     <value>Price</value>
+  </data>
+  <data name="PriceRequired" xml:space="preserve">
+    <value>Price is required</value>
   </data>
   <data name="ProductName" xml:space="preserve">
     <value>Product name</value>
@@ -151,7 +157,7 @@
     <value>Reference</value>
   </data>
   <data name="RefRequired" xml:space="preserve">
-    <value>Referene is required</value>
+    <value>Reference is required</value>
   </data>
   <data name="ValidationDate" xml:space="preserve">
     <value>Validation date</value>
